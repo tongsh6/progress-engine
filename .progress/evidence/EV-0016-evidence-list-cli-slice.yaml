@@ -1,0 +1,51 @@
+evidence:
+  id: EV-0016
+  run_id: RUN-20260517-IV-0016
+  intervention_id: IV-0016
+  target_state_id: TS-0016
+  evidence_type: artifact_review
+  created_at: "2026-05-17T22:00:39+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress run list` 已实现并接受，但 Evidence 对象读取路径尚未定义。"
+      after: "第六条 CLI implementation slice 被定义为只读的 `progress evidence list`，包含用户路径、输入输出、状态影响、文件边界、acceptance criteria、evidence_required 和 out_of_scope。"
+      acceptance_mapping:
+        - criterion: "定义第六个 CLI slice 的用户路径、输入、输出和状态影响。"
+          status: pass
+          evidence_ref: "docs/05-delivery/28-evidence-list-cli-slice.md#2-用户路径"
+        - criterion: "定义该 slice 的测试和 Evidence 要求。"
+          status: pass
+          evidence_ref: "docs/05-delivery/28-evidence-list-cli-slice.md#6-acceptance-criteria"
+        - criterion: "确认不会越界实现 evidence add、Verification、Delta apply 或 agent 编排。"
+          status: pass
+          evidence_ref: "docs/05-delivery/28-evidence-list-cli-slice.md#8-out-of-scope"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只定义下一条切片，没有实现 `progress evidence list`。"
+      - "切片命令保持只读，不修改 .progress 状态账本。"
+      - "evidence add、Verification、Delta apply、模型 API 和 Web UI 均被排除。"
+  commands_run:
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 112 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 87 files."
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "20 passed in 0.07s"
+    - command: "PYTHONPATH=src python3 -m progress_engine target list"
+      result: pass
+      output_summary: "Printed TS-0016 as the next target in review_ready status."
+  files_changed:
+    - "docs/05-delivery/28-evidence-list-cli-slice.md"
+    - ".progress/gaps/SG-0014-evidence-list-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0016-evidence-list-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0016-define-evidence-list-cli-slice.yaml"
+    - ".progress/runs/RUN-20260517-IV-0016-define-evidence-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0016-evidence-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0016-evidence-list-cli-slice.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0014
+  supports_state_delta_proposal: SDP-0016

@@ -1,0 +1,66 @@
+evidence:
+  id: EV-0017
+  run_id: RUN-20260517-IV-0017
+  intervention_id: IV-0017
+  target_state_id: TS-0017
+  evidence_type: code_diff
+  created_at: "2026-05-17T22:18:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress evidence list` 已定义但尚未实现。"
+      after: "`progress evidence list` 已作为只读 Python CLI 切片实现，能读取 Evidence 对象目录并输出摘要。"
+      acceptance_mapping:
+        - criterion: "`progress evidence list` 能读取 `.progress/evidence/*.yaml` 并输出 Evidence 摘要。"
+          status: pass
+          evidence_ref: "tests/test_cli_evidence_list.py::test_evidence_list_prints_evidence_objects"
+        - criterion: "命令能读取 `evidence` 根 mapping 下的 Evidence 字段。"
+          status: pass
+          evidence_ref: "src/progress_engine/evidence/evidence_list.py"
+        - criterion: "evidence 目录缺失时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_evidence_list.py::test_evidence_list_returns_2_when_directory_is_missing"
+        - criterion: "Evidence YAML 解析失败、缺少根 mapping 或必要字段缺失时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_evidence_list.py"
+        - criterion: "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML 路径和缺字段路径。"
+          status: pass
+          evidence_ref: "python3 -m pytest tests/test_cli_evidence_list.py"
+        - criterion: "`python3 scripts/check_repo.py` 仍通过。"
+          status: pass
+          evidence_ref: "python3 scripts/check_repo.py"
+  scope_check:
+    result: pass
+    notes:
+      - "实现只增加 `progress evidence list` 只读路径。"
+      - "命令只读取 `.progress/evidence/*.yaml`，不修改 .progress 状态账本。"
+      - "未实现 evidence add、evidence show、Verification、Delta apply、模型 API、Web UI 或 agent 编排。"
+      - "本地 review 未发现与 docs/05-delivery/28-evidence-list-cli-slice.md 的偏差。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_cli_evidence_list.py"
+      result: pass
+      output_summary: "7 passed in 0.07s"
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "27 passed in 0.09s"
+    - command: "PYTHONPATH=src python3 -m progress_engine evidence list"
+      result: pass
+      output_summary: "Printed Evidence summaries for EV-0002 through EV-0017 from .progress/evidence."
+    - command: "python3 -m compileall -q src tests"
+      result: pass
+      output_summary: "Completed without output."
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 120 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 94 files."
+  files_changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/evidence/__init__.py"
+    - "src/progress_engine/evidence/evidence_list.py"
+    - "src/progress_engine/README.md"
+    - "tests/fixtures/minimal_progress_project/.progress/evidence/EV-1001-sample-evidence.yaml"
+    - "tests/test_cli_evidence_list.py"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0003
+  supports_state_delta_proposal: SDP-0017

@@ -44,7 +44,7 @@
 - [Target List CLI Slice](docs/05-delivery/25-target-list-cli-slice.md)
 - [Intervention List CLI Slice](docs/05-delivery/26-intervention-list-cli-slice.md)
 - [Run List CLI Slice](docs/05-delivery/27-run-list-cli-slice.md)
-- [Target List CLI 切片](docs/05-delivery/25-target-list-cli-slice.md)
+- [Evidence List CLI Slice](docs/05-delivery/28-evidence-list-cli-slice.md)
 
 ### Business & Reference
 

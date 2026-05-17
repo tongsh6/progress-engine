@@ -1,0 +1,23 @@
+id: IV-0017
+name: "Implement read-only evidence list CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0017
+status: completed
+goal: "只实现 `progress evidence list` 这一条只读 Python CLI 用户路径，验证 Evidence 对象目录读取路径。"
+in_scope:
+  - "扩展 argparse 命令 `progress evidence list`"
+  - "读取 `.progress/evidence/*.yaml`"
+  - "读取 `evidence` 根 mapping 下的 `id`、`run_id`、`intervention_id`、`evidence_type` 和 `reviewer.result`"
+  - "输出 Evidence 摘要"
+  - "为成功路径、空目录路径、缺目录路径、malformed YAML 路径、缺根 mapping 路径和缺字段路径添加 pytest"
+out_of_scope:
+  - "不实现 progress evidence add"
+  - "不实现 progress evidence show 或 progress evidence list --run"
+  - "不运行 verification"
+  - "不生成 State Delta Proposal 的 CLI 命令"
+  - "不实现 delta apply、模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过"
+  - "PYTHONPATH=src python3 -m progress_engine evidence list 输出 Evidence 摘要"
+automation_policy: human_gate_required

@@ -1,0 +1,67 @@
+state_delta_proposal:
+  id: SDP-0017
+  source_intervention: IV-0017
+  run_id: RUN-20260517-IV-0017
+  target_state_id: TS-0017
+  verification_id: EV-0017
+  status: applied
+  proposed_at: "2026-05-17T22:18:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "第六条 Python CLI implementation slice 已定义为只读的 `progress evidence list`，但尚未实现。"
+      current_problem:
+        - "Evidence 对象目录读取路径尚无可运行 CLI。"
+        - "后续 verify / delta 工作缺少 Evidence 可审查性基础。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "`progress state show`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list` 和 `progress evidence list` 作为只读 Python CLI 切片已经可运行、可测试。"
+      advancement_reason:
+        - "src/progress_engine/cli.py 增加 argparse 命令 `evidence list`。"
+        - "src/progress_engine/evidence/evidence_list.py 实现只读 Evidence 加载、最小结构校验和摘要渲染。"
+        - "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML、缺根 mapping、缺字段和缺 reviewer.result 路径。"
+        - "python3 scripts/check_repo.py 仍通过。"
+      caveat: "本切片只证明 Evidence 目录读取路径；evidence add、Verification 和 delta apply CLI 尚未实现。"
+  evidence_refs:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/evidence/evidence_list.py"
+    - "tests/test_cli_evidence_list.py"
+    - ".progress/targets/TS-0017-evidence-list-cli-working.yaml"
+    - ".progress/evidence/EV-0017-evidence-list-cli.yaml"
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0003
+      summary: ".progress 对象最小一致性检查仍可继续收敛。"
+      next_state_path: "Choose the next narrow CLI state path or quality slice after this accepted implementation slice."
+  recommended_next_interventions:
+    - id: IV-0018
+      name: "Define next verification CLI slice"
+      condition: "Run only after this evidence list implementation is accepted."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-17T22:18:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-17T22:18:00+08:00"
+    previous_state_version: PS-0015
+    next_state_version: PS-0016
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted and add TS-0017 / EV-0017 / SDP-0017 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, remove `progress evidence list` command wiring and evidence loader files."
+      - "Remove tests/test_cli_evidence_list.py and fixture Evidence file."

@@ -8,6 +8,11 @@ from pathlib import Path
 from typing import TextIO
 
 from progress_engine.gaps.gap_list import GapListError, load_open_gaps, render_gap_list
+from progress_engine.evidence.evidence_list import (
+    EvidenceListError,
+    load_evidence,
+    render_evidence_list,
+)
 from progress_engine.interventions.intervention_list import (
     InterventionListError,
     load_active_interventions,
@@ -48,6 +53,10 @@ def build_parser() -> argparse.ArgumentParser:
     run_parser = subcommands.add_parser("run", help="Read runs.")
     run_subcommands = run_parser.add_subparsers(dest="run_command", required=True)
     run_subcommands.add_parser("list", help="List open runs.")
+
+    evidence_parser = subcommands.add_parser("evidence", help="Read evidence.")
+    evidence_subcommands = evidence_parser.add_subparsers(dest="evidence_command", required=True)
+    evidence_subcommands.add_parser("list", help="List evidence objects.")
 
     return parser
 
@@ -114,6 +123,16 @@ def main(
             print(f"error: {exc}", file=err)
             return 2
         print(render_run_list(runs), file=out)
+        return 0
+
+    if args.command == "evidence" and args.evidence_command == "list":
+        root = cwd or Path.cwd()
+        try:
+            evidence = load_evidence(root)
+        except EvidenceListError as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_evidence_list(evidence), file=out)
         return 0
 
     parser.error("unsupported command")

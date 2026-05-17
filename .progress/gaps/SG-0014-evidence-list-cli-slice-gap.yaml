@@ -1,0 +1,23 @@
+id: SG-0014
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0016
+current_state: "`progress run list` 已实现并接受；Evidence 对象读取路径尚未定义。"
+desired_state: "下一条只读 CLI 切片被定义为 Evidence 对象读取路径，继续沿状态闭环扩展。"
+evidence_refs:
+  - ".progress/deltas/SDP-0015-run-list-cli.yaml"
+  - "src/progress_engine/runs/run_list.py"
+impact:
+  - "不阻断已实现的只读 state/gap/target/intervention/run 命令。"
+  - "阻断继续无边界扩展 evidence add、verify 或 delta 命令。"
+suggested_targets:
+  - "TS-0016-evidence-list-cli-slice-defined"
+suggested_interventions:
+  - "IV-0016: Define next evidence object CLI slice"
+notes:
+  - "下一条切片应保持只读，并优先覆盖 Evidence 对象读取路径。"
+resolution:
+  resolved_by: SDP-0017
+  resolved_at: "2026-05-17T22:18:00+08:00"
+  summary: "`progress evidence list` 已定义、实现、测试并通过 human gate 接受。"

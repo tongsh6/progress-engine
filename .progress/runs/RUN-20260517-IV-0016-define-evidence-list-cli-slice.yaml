@@ -1,0 +1,32 @@
+id: RUN-20260517-IV-0016
+intervention_id: IV-0016
+target_state_id: TS-0016
+started_at: "2026-05-17T22:00:39+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+completed_at: "2026-05-17T22:18:00+08:00"
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0015-run-list-cli.yaml"
+      - ".progress/deltas/SDP-0015-run-list-cli.yaml"
+    summary: "`progress run list` 已实现并接受；Evidence 对象读取路径尚未定义。"
+  why_iv_0016_is_next:
+    - "SDP-0015 已通过 human gate apply。"
+    - "Evidence 是状态闭环中 Run 之后的下一核心对象。"
+  out_of_scope_confirmed:
+    - "不实现 progress evidence add。"
+    - "不运行 verification 或生成 State Delta Proposal。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/28-evidence-list-cli-slice.md"
+    - ".progress/gaps/SG-0014-evidence-list-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0016-evidence-list-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0016-define-evidence-list-cli-slice.yaml"
+    - ".progress/runs/RUN-20260517-IV-0016-define-evidence-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0016-evidence-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0016-evidence-list-cli-slice.yaml"
+completion_claim: "Executor only claims evidence_submitted; acceptance of the evidence list slice definition is represented by SDP-0016."

@@ -1,0 +1,39 @@
+id: TS-0017
+name: "evidence list CLI slice working"
+primary_dimension: implementation
+source_gap: SG-0014
+status: accepted
+human_gate_required: true
+desired_state: "第六条 Python CLI 切片 `progress evidence list` 可以读取 Evidence 对象目录，并输出只读 Evidence 摘要。"
+from:
+  maturity: drafted
+  summary: "`progress evidence list` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress evidence list` 作为只读 Python CLI 切片可运行、可测试，证明 Evidence 对象目录读取路径成立。"
+required_evidence:
+  - "CLI 支持 `progress evidence list`。"
+  - "命令只读取 `.progress/evidence/*.yaml`。"
+  - "命令读取 `evidence` 根 mapping 下的最小 Evidence 字段。"
+  - "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML 路径、缺根 mapping 路径和缺字段路径。"
+  - "python3 scripts/check_repo.py 仍通过。"
+acceptance_criteria:
+  - id: AC-TS-0017-01
+    criterion: "`progress evidence list` 能读取 `.progress/evidence/*.yaml` 并输出 Evidence 摘要。"
+  - id: AC-TS-0017-02
+    criterion: "命令能读取 `evidence` 根 mapping 下的 Evidence 字段。"
+  - id: AC-TS-0017-03
+    criterion: "evidence 目录缺失时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0017-04
+    criterion: "Evidence YAML 解析失败、缺少根 mapping 或必要字段缺失时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0017-05
+    criterion: "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML 路径和缺字段路径。"
+  - id: AC-TS-0017-06
+    criterion: "`python3 scripts/check_repo.py` 仍通过。"
+non_goals:
+  - "不实现 `progress evidence add`。"
+  - "不实现 `progress evidence show` 或 `progress evidence list --run`。"
+  - "不运行 Verification 或生成 State Delta Proposal。"
+  - "不实现 Delta apply、模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0014

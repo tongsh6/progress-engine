@@ -36,7 +36,7 @@ state_dimensions:
       - .progress/deltas/SDP-0003-v0.1-tech-stack.yaml
   implementation:
     maturity: drafted
-    summary: "`progress state show`、`progress gaps list`、`progress target list` 和 `progress intervention list` 作为只读 Python CLI 切片已经可运行、可测试；下一条只读 CLI 路径已定义为 `progress run list`。"
+    summary: "`progress state show`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list` 和 `progress evidence list` 作为只读 Python CLI 切片已经可运行、可测试。"
     evidence:
       - docs/05-delivery/23-first-python-cli-implementation-slice.md
       - .progress/targets/TS-0006-first-python-cli-slice-defined.yaml
@@ -80,6 +80,20 @@ state_dimensions:
       - .progress/targets/TS-0014-run-list-cli-slice-defined.yaml
       - .progress/evidence/EV-0014-run-list-cli-slice.yaml
       - .progress/deltas/SDP-0014-run-list-cli-slice.yaml
+      - src/progress_engine/runs/run_list.py
+      - tests/test_cli_run_list.py
+      - .progress/targets/TS-0015-run-list-cli-working.yaml
+      - .progress/evidence/EV-0015-run-list-cli.yaml
+      - .progress/deltas/SDP-0015-run-list-cli.yaml
+      - docs/05-delivery/28-evidence-list-cli-slice.md
+      - .progress/targets/TS-0016-evidence-list-cli-slice-defined.yaml
+      - .progress/evidence/EV-0016-evidence-list-cli-slice.yaml
+      - .progress/deltas/SDP-0016-evidence-list-cli-slice.yaml
+      - src/progress_engine/evidence/evidence_list.py
+      - tests/test_cli_evidence_list.py
+      - .progress/targets/TS-0017-evidence-list-cli-working.yaml
+      - .progress/evidence/EV-0017-evidence-list-cli.yaml
+      - .progress/deltas/SDP-0017-evidence-list-cli.yaml
   quality:
     maturity: reviewed
     summary: "最小仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links 和 .progress 对象一致性。"
@@ -105,7 +119,7 @@ open_state_gaps:
   - SG-0001
   - SG-0002
   - SG-0003
-  - SG-0013
+  - SG-0015
 
 aim_of_next_state:
-  - TS-0015
+  - TS-0018

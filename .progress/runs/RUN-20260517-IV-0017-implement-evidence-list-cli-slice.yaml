@@ -1,0 +1,37 @@
+id: RUN-20260517-IV-0017
+intervention_id: IV-0017
+target_state_id: TS-0017
+started_at: "2026-05-17T22:18:00+08:00"
+completed_at: "2026-05-17T22:18:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0016-evidence-list-cli-slice.yaml"
+      - ".progress/deltas/SDP-0016-evidence-list-cli-slice.yaml"
+    summary: "第六条 CLI slice 已定义为 `progress evidence list`；实现尚未存在。"
+  why_iv_0017_is_next:
+    - "SDP-0016 已通过 human gate apply。"
+    - "docs/05-delivery/28-evidence-list-cli-slice.md 明确下一步为 IV-0017。"
+  out_of_scope_confirmed:
+    - "不实现 progress evidence add。"
+    - "不运行 verification 或实现 delta apply。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "src/progress_engine/evidence/__init__.py"
+    - "src/progress_engine/evidence/evidence_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/evidence/EV-1001-sample-evidence.yaml"
+    - "tests/test_cli_evidence_list.py"
+    - ".progress/targets/TS-0017-evidence-list-cli-working.yaml"
+    - ".progress/interventions/IV-0017-implement-evidence-list-cli-slice.yaml"
+    - ".progress/runs/RUN-20260517-IV-0017-implement-evidence-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0017-evidence-list-cli.yaml"
+    - ".progress/deltas/SDP-0017-evidence-list-cli.yaml"
+  modified:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/README.md"
+completion_claim: "Executor claims `progress evidence list` is implemented, tested, and ready for state delta review."

@@ -1,0 +1,19 @@
+id: SG-0015
+dimension: implementation
+severity: medium
+status: open
+source_intervention: IV-0017
+current_state: "`progress evidence list` 已实现并接受；Verification 相关的下一条只读 CLI 切片尚未定义。"
+desired_state: "下一条只读 CLI 切片被明确限定在 Verification 对象读取或审查路径上，继续沿状态闭环扩展。"
+evidence_refs:
+  - ".progress/deltas/SDP-0017-evidence-list-cli.yaml"
+  - "src/progress_engine/evidence/evidence_list.py"
+impact:
+  - "不阻断已实现的只读 state/gap/target/intervention/run/evidence 命令。"
+  - "阻断继续无边界扩展 verify、delta apply 或自动化命令。"
+suggested_targets:
+  - "TS-0018-next-verification-cli-slice-defined"
+suggested_interventions:
+  - "IV-0018: Define next verification CLI slice"
+notes:
+  - "下一条切片应保持只读，并优先定义 Verification 读取或审查路径，而不是直接进入 delta apply。"
