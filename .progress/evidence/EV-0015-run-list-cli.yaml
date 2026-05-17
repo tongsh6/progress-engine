@@ -15,7 +15,7 @@ evidence:
           evidence_ref: "PYTHONPATH=src python3 -m progress_engine run list"
         - criterion: "命令默认不输出 `completed` 或 `abandoned` Run。"
           status: pass
-          evidence_ref: "tests/test_cli_run_list.py::test_run_list_prints_open_runs"
+          evidence_ref: "tests/test_cli_run_list.py::test_run_list_prints_open_runs_and_omits_closed_runs"
         - criterion: "runs 目录缺失时返回 exit code `2` 并输出清晰错误。"
           status: pass
           evidence_ref: "tests/test_cli_run_list.py::test_run_list_returns_2_when_directory_is_missing"
@@ -34,10 +34,14 @@ evidence:
       - "实现范围限于 `progress run list`。"
       - "没有实现 progress run start、run lifecycle 写操作、Evidence 或 Delta 命令。"
       - "CLI 运行时只读 Run YAML，不写入 .progress 状态账本。"
+      - "Post-review coverage explicitly checks that completed and abandoned runs are omitted from list output."
   commands_run:
     - command: "python3 -m pytest"
       result: pass
       output_summary: "20 passed in 0.07s"
+    - command: "python3 -m pytest tests/test_cli_run_list.py"
+      result: pass
+      output_summary: "4 passed in 0.02s; closed Run filtering now covers both completed and abandoned statuses."
     - command: "PYTHONPATH=src python3 -m progress_engine run list"
       result: pass
       output_summary: "Printed non-completed runs from .progress/runs, including RUN-20260517-IV-0015."

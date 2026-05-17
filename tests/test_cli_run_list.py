@@ -10,9 +10,21 @@ from progress_engine.cli import main
 FIXTURE_ROOT = Path(__file__).parent / "fixtures" / "minimal_progress_project"
 
 
-def test_run_list_prints_open_runs(tmp_path: Path) -> None:
+def test_run_list_prints_open_runs_and_omits_closed_runs(tmp_path: Path) -> None:
     project_root = tmp_path / "project"
     shutil.copytree(FIXTURE_ROOT, project_root)
+    (project_root / ".progress" / "runs" / "RUN-20260517-IV-1003.yaml").write_text(
+        """
+id: RUN-20260517-IV-1003
+intervention_id: IV-1003
+target_state_id: TS-1001
+started_at: "2026-05-17T21:31:35+08:00"
+mode: "fixture"
+primary_dimension: implementation
+status: abandoned
+""".lstrip(),
+        encoding="utf-8",
+    )
     stdout = StringIO()
     stderr = StringIO()
 
@@ -24,6 +36,8 @@ def test_run_list_prints_open_runs(tmp_path: Path) -> None:
         "Runs:",
         "- RUN-20260517-IV-1001 [implementation] IV-1001 -> TS-1001 (active)",
     ]
+    assert "RUN-20260517-IV-1002" not in stdout.getvalue()
+    assert "RUN-20260517-IV-1003" not in stdout.getvalue()
 
 
 def test_run_list_returns_2_when_directory_is_missing(tmp_path: Path) -> None:

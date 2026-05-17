@@ -2,7 +2,7 @@ id: TS-0015
 name: "run list CLI slice working"
 primary_dimension: implementation
 source_gap: SG-0013
-status: review_ready
+status: accepted
 human_gate_required: true
 desired_state: "第五条 Python CLI 切片 `progress run list` 可以读取 Run 对象目录，并输出未关闭 Run 的只读摘要。"
 from:

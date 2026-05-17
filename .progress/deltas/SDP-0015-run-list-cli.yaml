@@ -4,7 +4,7 @@ state_delta_proposal:
   run_id: RUN-20260517-IV-0015
   target_state_id: TS-0015
   verification_id: EV-0015
-  status: proposed
+  status: applied
   proposed_at: "2026-05-17T21:39:01+08:00"
   proposed_by: verifier
   primary_dimension: implementation
@@ -22,6 +22,7 @@ state_delta_proposal:
         - "src/progress_engine/cli.py 增加 argparse 命令 `run list`。"
         - "src/progress_engine/runs/run_list.py 实现只读 Run 加载、最小结构校验和摘要渲染。"
         - "pytest 覆盖成功路径、缺目录路径、malformed YAML 和缺字段路径。"
+        - "Post-review pytest coverage explicitly verifies that both completed and abandoned runs are omitted."
         - "python3 scripts/check_repo.py 仍通过。"
       caveat: "本切片只证明 Run 目录读取路径；run lifecycle、Evidence 和 delta apply 尚未实现。"
   evidence_refs:
@@ -34,9 +35,9 @@ state_delta_proposal:
     fail: 0
     not_tested: 0
   remaining_gaps:
-    - id: SG-0013
-      summary: "等待 human gate 决定是否接受 `progress run list` 实现。"
-      next_state_path: "Apply SDP-0015 if accepted; then choose the next narrow CLI state path."
+    - id: SG-0003
+      summary: ".progress 对象最小一致性检查仍可继续收敛。"
+      next_state_path: "Choose the next narrow CLI state path or quality slice after this accepted implementation slice."
   recommended_next_interventions:
     - id: IV-0016
       name: "Define next evidence object CLI slice"
@@ -46,13 +47,15 @@ state_delta_proposal:
   do_not_apply_automatically: true
   gate:
     required: true
-    approved_by: null
-    approved_at: null
-    decision: pending
+    approved_by: human_user
+    approved_at: "2026-05-17T22:00:39+08:00"
+    decision: approved
   apply:
     allowed_before_human_approval: false
-    applied_by: null
-    applied_at: null
+    applied_by: human_user
+    applied_at: "2026-05-17T22:00:39+08:00"
+    previous_state_version: PS-0013
+    next_state_version: PS-0014
     project_state_file: ".progress/state/project_state.yaml"
     proposed_patch_summary: "If approved, keep implementation maturity at drafted and add TS-0015 / EV-0015 / SDP-0015 evidence refs."
   rollback:

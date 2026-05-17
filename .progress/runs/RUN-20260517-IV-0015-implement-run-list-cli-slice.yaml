@@ -2,9 +2,10 @@ id: RUN-20260517-IV-0015
 intervention_id: IV-0015
 target_state_id: TS-0015
 started_at: "2026-05-17T21:39:01+08:00"
+completed_at: "2026-05-17T22:00:39+08:00"
 mode: "local-code"
 primary_dimension: implementation
-status: evidence_submitted
+status: completed
 state_reconciliation:
   current_implementation_state:
     maturity: drafted

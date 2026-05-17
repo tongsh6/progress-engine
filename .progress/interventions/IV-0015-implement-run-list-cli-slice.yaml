@@ -2,7 +2,7 @@ id: IV-0015
 name: "Implement read-only run list CLI slice"
 primary_dimension: implementation
 target_state_id: TS-0015
-status: evidence_submitted
+status: completed
 goal: "只实现 `progress run list` 这一条只读 Python CLI 用户路径，验证 Run 对象目录读取路径。"
 in_scope:
   - "扩展 argparse 命令 `progress run list`"
