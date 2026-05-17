@@ -1,0 +1,18 @@
+flowchart LR
+  ART[Artifacts + Ledger + Git] --> SE[State Engine]
+  SE --> SR[State Reconciler]
+  SR --> GAP[State Gaps]
+  GAP --> OP[Outcome Planner]
+  OP --> TS[Target State]
+  TS --> IP[Intervention Planner]
+  IP --> IV[Intervention]
+  IV --> CCB[Context Capsule Builder]
+  CCB --> RO[Run Orchestrator]
+  RO --> EV[Evidence]
+  EV --> VF[Evidence Verifier]
+  VF --> SD[State Delta Proposal]
+  SD --> GATE[Apply / Reject / Rollback]
+  GATE --> LEDGER[State Ledger]
+  LEDGER --> SE
+  VF --> CEE[Change Event Engine]
+  CEE --> SR

@@ -1,0 +1,3886 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ProgressEngine 完整项目策划书 v3</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">ProgressEngine 完整项目策划书 v3</h1>
+</header>
+<h1 id="progressengine-完整项目策划书-v3">ProgressEngine 完整项目策划书
+v3</h1>
+<blockquote>
+<p>核心口径：持续推进项目状态，而不是持续完成任务。</p>
+</blockquote>
+<h2 id="目录">目录</h2>
+<ul>
+<li><a href="#ProgressEngine-项目策划书-v3">ProgressEngine 项目策划书
+v3</a></li>
+<li><a href="#执行摘要">执行摘要</a></li>
+<li><a href="#愿景定位与问题定义">愿景定位与问题定义</a></li>
+<li><a
+href="#核心方法论：持续推进项目状态">核心方法论：持续推进项目状态</a></li>
+<li><a
+href="#项目状态模型与成熟度矩阵">项目状态模型与成熟度矩阵</a></li>
+<li><a href="#目标状态选择策略">目标状态选择策略</a></li>
+<li><a href="#从-0-启动角色流水线">从 0 启动角色流水线</a></li>
+<li><a href="#系统架构与模块边界">系统架构与模块边界</a></li>
+<li><a href="#核心对象与数据模型">核心对象与数据模型</a></li>
+<li><a href="#Intervention-推进动作与执行协议">Intervention
+推进动作与执行协议</a></li>
+<li><a href="#Fresh-Context-上下文隔离协议">Fresh Context
+上下文隔离协议</a></li>
+<li><a href="#Evidence-Verifier-证据验证协议">Evidence Verifier
+证据验证协议</a></li>
+<li><a href="#非代码产物验证协议">非代码产物验证协议</a></li>
+<li><a href="#Change-Event-影响分析与失效传播">Change Event
+影响分析与失效传播</a></li>
+<li><a href="#State-Delta-提案、应用与回滚协议">State Delta
+提案、应用与回滚协议</a></li>
+<li><a href="#CLI-与交互设计">CLI 与交互设计</a></li>
+<li><a href="#工作流与典型场景">工作流与典型场景</a></li>
+<li><a href="#MVP-范围与路线图">MVP 范围与路线图</a></li>
+<li><a href="#质量体系与风险管理">质量体系与风险管理</a></li>
+<li><a href="#Guarded-Spiral-自动化边界">Guarded Spiral
+自动化边界</a></li>
+<li><a href="#实施计划与推进动作清单">实施计划与推进动作清单</a></li>
+<li><a
+href="#运营方式、商业化与后续演进">运营方式、商业化与后续演进</a></li>
+<li><a href="#术语表">术语表</a></li>
+<li><a href="#自检协议与开放缺口">自检协议与开放缺口</a></li>
+<li><a href="#v3-版本修正清单">v3 版本修正清单</a></li>
+<li><a href="#v3-自检与修正报告">v3 自检与修正报告</a></li>
+</ul>
+<hr />
+<h2 id="readme">README</h2>
+<p>本包是 ProgressEngine 的第三版完整项目策划书。相较
+v2，本版做了更严格的一致性、自检和闭环补强：</p>
+<ol type="1">
+<li><strong>把核心目标从“生成任务池 /
+编译任务图”改为“持续推进项目状态”。</strong></li>
+<li><strong>把任务降级为推进动作的一种执行形态。</strong>任务不是目标，项目状态变化才是目标。</li>
+<li><strong>补齐关键闭环协议。</strong>包括项目状态成熟度矩阵、目标状态选择策略、从
+0 启动角色流水线、非代码产物验证协议、Change Event 影响分析、Fresh
+Context 执行协议、State Delta 提案/应用/回滚协议、Guarded Spiral
+自动化边界。</li>
+<li><strong>明确 MVP 第一阶段以 prompt-only / repo-native / CLI-first
+为主。</strong> 不把模型调用和复杂自动化作为第一阶段核心风险。</li>
+</ol>
+<p>建议阅读顺序：</p>
+<pre class="text"><code>ProgressEngine_完整项目策划书_v3.md
+  ↓
+docs/02_核心方法论_持续推进项目状态.md
+  ↓
+docs/03_项目状态模型与成熟度矩阵.md
+  ↓
+docs/05_从0启动角色流水线.md
+  ↓
+docs/14_CLI与交互设计.md
+  ↓
+docs/16_MVP范围与路线图.md</code></pre>
+<p>本版核心定义：</p>
+<blockquote>
+<p>ProgressEngine 是一个状态驱动的 AI
+软件工程系统，目标不是生成任务池，而是持续推进项目状态。它通过状态建模、目标状态规划、推进动作拆解、上下文隔离执行和证据验证，把模糊项目意图逐步推进为可用产品、工程资产和决策结果。</p>
+</blockquote>
+<h2 id="v3-自检修正重点">v3 自检修正重点</h2>
+<p>v3 在 v2 基础上额外修正：</p>
+<ol type="1">
+<li>明确 <code>progress update</code> 的冗余问题，统一为
+<code>delta apply</code> 后自动写入状态，并通过
+<code>progress state refresh</code> 做重新评估。</li>
+<li>补齐成熟度矩阵中的 <code>seed</code>
+及异常状态说明，避免枚举和矩阵不一致。</li>
+<li>强化 <code>StateDelta</code> 的 proposal / approval / apply /
+rollback 元数据。</li>
+<li>强化 <code>ChangeEvent</code> 的影响分析字段，包括 artifact
+effect、invalidated claims、generated gaps / targets /
+interventions。</li>
+<li>明确 <code>verify</code> 只生成 State Delta Proposal，不直接更新
+Project State。</li>
+<li>明确 <code>delta apply</code>
+才能修改状态账本，且必须可回滚或显式声明不可回滚。</li>
+<li>增加自检协议，说明哪些内容可以机器检查、哪些必须人工审查。</li>
+</ol>
+<hr />
+<h2 id="执行摘要">执行摘要</h2>
+<h2 id="项目名称">1. 项目名称</h2>
+<p><strong>ProgressEngine</strong></p>
+<h2 id="一句话定义">2. 一句话定义</h2>
+<p>ProgressEngine 是一个<strong>持续推进项目状态</strong>的 AI
+软件工程系统。它不是任务管理器，也不是 AI
+编程器，而是通过状态建模、目标状态规划、推进动作拆解、隔离执行和证据验证，把模糊项目意图逐步推进为可用产品、工程资产和决策结果。</p>
+<h2 id="项目背景">3. 项目背景</h2>
+<p>单人或小团队用 AI 做软件项目时，常见问题不是“AI
+不能写代码”，而是：</p>
+<ul>
+<li>项目初期没有方向，只能靠逐渐摸索。</li>
+<li>产品、项目、技术、质量职责都压在一个人身上。</li>
+<li>AI 会话很快上下文膨胀，注意力漂移。</li>
+<li>AI
+容易“假完成”：自称完成，但没有证据，没有验收映射，没有后续计划。</li>
+<li>项目推进过程中的产品变化、架构发现、质量缺口、任务拆分没有被系统性记录。</li>
+<li>项目状态散落在聊天、代码、文档、记忆和临时 TODO
+中，难以复盘和持续推进。</li>
+</ul>
+<p>ProgressEngine 的目标是建立一个 repo-native、状态驱动、AI-native
+的项目推进系统，让一个人也能像一个小型软件组织一样，从 0
+开始持续推进项目。</p>
+<h2 id="核心转变">4. 核心转变</h2>
+<p>本项目的关键认知修正是：</p>
+<pre class="text"><code>任务不是目标。
+任务池不是目标。
+任务图不是目标。
+真正目标是持续推进项目状态。</code></pre>
+<p>因此系统主循环不是：</p>
+<pre class="text"><code>生成任务 → 执行任务 → 完成任务</code></pre>
+<p>而是：</p>
+<pre class="text"><code>评估当前项目状态
+  ↓
+识别状态缺口
+  ↓
+选择下一步目标状态
+  ↓
+规划最小有效推进动作
+  ↓
+隔离上下文执行
+  ↓
+证据验证
+  ↓
+应用状态变化
+  ↓
+重新评估项目状态</code></pre>
+<h2 id="核心产物">5. 核心产物</h2>
+<p>ProgressEngine 第一阶段应产出：</p>
+<ul>
+<li><code>.progress/</code> 项目运行目录协议。</li>
+<li>项目状态模型与成熟度矩阵。</li>
+<li>从 0 启动角色流水线。</li>
+<li>目标状态选择策略。</li>
+<li>推进动作 Intervention 协议。</li>
+<li>Fresh Context 上下文隔离协议。</li>
+<li>Evidence Verifier 证据验证协议。</li>
+<li>Change Event 影响分析与失效传播协议。</li>
+<li>State Delta 提案、应用、回滚协议。</li>
+<li>CLI-first 的本地工具。</li>
+<li>Prompt-only 的 AI 执行入口。</li>
+</ul>
+<h2 id="mvp-成功标准">6. MVP 成功标准</h2>
+<p>第一版 MVP 不追求全自动编码，不追求 Web 平台，不追求复杂 agent
+编排。它的成功标准是：</p>
+<pre class="text"><code>输入一个模糊项目意图
+  ↓
+生成第一版可审查 Project State
+  ↓
+识别当前最重要的 State Gap
+  ↓
+推荐一个 Target State
+  ↓
+生成一个可执行 Intervention
+  ↓
+生成 Fresh Context Capsule
+  ↓
+用户或外部 AI 执行
+  ↓
+收集 Evidence
+  ↓
+独立 Verify
+  ↓
+生成 State Delta Proposal
+  ↓
+应用到项目状态账本</code></pre>
+<p>只要这条闭环成立，ProgressEngine 就能开始服务真实项目推进。</p>
+<hr />
+<h2 id="愿景定位与问题定义">愿景定位与问题定义</h2>
+<h2 id="愿景">1. 愿景</h2>
+<p>ProgressEngine 的愿景是：</p>
+<blockquote>
+<p>让一个人能够在 AI
+协助下，以产品经理、项目经理、技术负责人、质量负责人和开发者的复合视角，从模糊意图开始，持续推进一个软件项目走向可用、可验证、可交付的状态。</p>
+</blockquote>
+<p>它面向的不是“更快写代码”，而是“更可靠地推进项目”。</p>
+<h2 id="用户画像">2. 用户画像</h2>
+<h3 id="主要用户">2.1 主要用户</h3>
+<ul>
+<li>独立开发者。</li>
+<li>小团队技术负责人。</li>
+<li>使用 AI 编码工具推进多个项目的人。</li>
+<li>想把隐性项目推进经验体系化的人。</li>
+<li>既关心工程质量，也关心产品验证的人。</li>
+</ul>
+<h3 id="用户当前行为">2.2 用户当前行为</h3>
+<p>当前用户通常会这样推进项目：</p>
+<pre class="text"><code>有一个想法
+  ↓
+开一个 AI 对话
+  ↓
+让 AI 生成一些代码或文档
+  ↓
+逐渐搭建项目
+  ↓
+发现问题后修修补补
+  ↓
+手写台账
+  ↓
+手动阅读台账挑任务
+  ↓
+继续执行</code></pre>
+<p>这条路径的问题是：前半段非常混乱，后半段才逐渐形成秩序。</p>
+<p>ProgressEngine
+要做的是让项目从第一天就拥有可推进的状态结构，而不是混乱若干轮之后才开始台账化。</p>
+<h2 id="核心问题">3. 核心问题</h2>
+<h3 id="项目初期无方向">3.1 项目初期无方向</h3>
+<p>用户有意图，但不知道如何系统地把意图变成项目状态、产品范围、设计、架构、质量计划和推进动作。</p>
+<h3 id="ai-缺少项目治理边界">3.2 AI 缺少项目治理边界</h3>
+<p>AI
+可以写代码，但缺少项目级上下文治理。它容易忽略非目标、跳过验收、扩大范围或自作主张改变架构。</p>
+<h3 id="上下文膨胀导致注意力漂移">3.3 上下文膨胀导致注意力漂移</h3>
+<p>长会话会积累过多上下文，导致模型对当前任务的关注度下降，质量不可控。</p>
+<h3 id="假完成">3.4 假完成</h3>
+<p>AI 常见输出：</p>
+<pre class="text"><code>功能已完成。
+后续可以继续优化。
+这个可以放到下一阶段。</code></pre>
+<p>但没有证据，没有状态变化记录，没有新任务，没有验证结果。</p>
+<h3 id="非代码工作缺少验证">3.5 非代码工作缺少验证</h3>
+<p>PRD、架构设计、UX
+流程、质量计划等非代码产物容易“写了就算完成”，但实际上可能缺少关键字段、反方审查和可执行性。</p>
+<h3 id="项目是螺旋式推进不是瀑布式推进">3.6
+项目是螺旋式推进，不是瀑布式推进</h3>
+<p>项目会不断出现：</p>
+<ul>
+<li>产品澄清。</li>
+<li>架构修正。</li>
+<li>任务重拆。</li>
+<li>质量查漏。</li>
+<li>用户反馈。</li>
+<li>实现中发现设计缺陷。</li>
+</ul>
+<p>系统必须支持前进、后退、修正、重规划，而不是一次性生成计划后机械执行。</p>
+<h2 id="解决方案概述">4. 解决方案概述</h2>
+<p>ProgressEngine 用以下机制解决问题：</p>
+<table>
+<thead>
+<tr class="header">
+<th>问题</th>
+<th>机制</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>项目初期无方向</td>
+<td>从 0 启动角色流水线</td>
+</tr>
+<tr class="even">
+<td>AI 注意力漂移</td>
+<td>One Intervention, One Fresh Context</td>
+</tr>
+<tr class="odd">
+<td>假完成</td>
+<td>Evidence Verifier + State Delta</td>
+</tr>
+<tr class="even">
+<td>任务制造机倾向</td>
+<td>State-first 调度</td>
+</tr>
+<tr class="odd">
+<td>非代码产物自证循环</td>
+<td>Artifact Review Checklist</td>
+</tr>
+<tr class="even">
+<td>螺旋式变化</td>
+<td>Change Event + Impact Analysis + Invalidation</td>
+</tr>
+<tr class="odd">
+<td>状态账本污染</td>
+<td>Proposal / Apply / Rollback</td>
+</tr>
+<tr class="even">
+<td>自动化风险</td>
+<td>Guarded Spiral Automation Policy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="非目标">5. 非目标</h2>
+<p>第一阶段不做：</p>
+<ul>
+<li>不做大而全 SaaS。</li>
+<li>不做多用户协作系统。</li>
+<li>不做复杂 Web Dashboard。</li>
+<li>不直接替代 ChatGPT、Codex、Claude Code 等 AI 工具。</li>
+<li>不承诺完全自动完成高风险产品和架构决策。</li>
+<li>不把任务数量、任务池规模作为成功指标。</li>
+</ul>
+<h2 id="成功判断">6. 成功判断</h2>
+<p>ProgressEngine
+成功不是因为它生成了很多任务，而是因为用户能清楚回答：</p>
+<pre class="text"><code>当前项目真实状态是什么？
+当前最大状态缺口是什么？
+下一步目标状态是什么？
+为什么优先推进这个状态？
+用什么动作推进？
+完成后有什么证据？
+状态是否真的改变？
+如果失败，回流到哪个环节？</code></pre>
+<hr />
+<h2 id="核心方法论持续推进项目状态">核心方法论：持续推进项目状态</h2>
+<h2 id="总纲">1. 总纲</h2>
+<p>ProgressEngine 的总纲是：</p>
+<blockquote>
+<p>持续推进项目状态，而不是持续完成任务。</p>
+</blockquote>
+<p>项目推进的本质是：</p>
+<pre class="text"><code>在不确定性中，持续把意图转化为可验证的产品能力、工程资产和决策证据。</code></pre>
+<h2 id="核心公式">2. 核心公式</h2>
+<pre class="text"><code>Project State
+  → State Gap
+  → Target State
+  → Intervention
+  → Fresh Run
+  → Evidence
+  → State Delta
+  → Updated Project State</code></pre>
+<p>解释：</p>
+<table>
+<thead>
+<tr class="header">
+<th>概念</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Project State</td>
+<td>当前项目真实状态</td>
+</tr>
+<tr class="even">
+<td>State Gap</td>
+<td>当前状态与期望状态之间的缺口</td>
+</tr>
+<tr class="odd">
+<td>Target State</td>
+<td>下一步希望项目达到的状态</td>
+</tr>
+<tr class="even">
+<td>Intervention</td>
+<td>推动状态变化的动作</td>
+</tr>
+<tr class="odd">
+<td>Fresh Run</td>
+<td>一次隔离上下文执行</td>
+</tr>
+<tr class="even">
+<td>Evidence</td>
+<td>证明状态变化的证据</td>
+</tr>
+<tr class="odd">
+<td>State Delta</td>
+<td>本轮执行导致的状态变化声明</td>
+</tr>
+<tr class="even">
+<td>Updated Project State</td>
+<td>被证据更新后的项目状态</td>
+</tr>
+</tbody>
+</table>
+<h2 id="核心原则">3. 核心原则</h2>
+<h3 id="state-first">3.1 State First</h3>
+<p>系统每轮首先判断项目状态，而不是挑任务。</p>
+<pre class="text"><code>先问：项目下一步应该变成什么状态？
+再问：需要采取什么动作？
+最后才问：这个动作是否需要变成任务或 Run？</code></pre>
+<h3 id="task-second">3.2 Task Second</h3>
+<p>任务是推进动作的可执行形态，不是系统核心。</p>
+<pre class="text"><code>Task = Executable Intervention</code></pre>
+<p>如果一个任务不能说明它推动哪个项目状态维度，就不应该执行。</p>
+<h3 id="evidence-required">3.3 Evidence Required</h3>
+<p>任何状态变化必须有证据。</p>
+<pre class="text"><code>没有证据，状态不变。</code></pre>
+<h3 id="fresh-context">3.4 Fresh Context</h3>
+<p>每个推进动作必须使用新的上下文空间。</p>
+<pre class="text"><code>One Intervention, One Fresh Context.</code></pre>
+<p>上一轮完整对话不能进入下一轮。下一轮只能读取已落账的项目事实源。</p>
+<h3 id="executor-cannot-self-close">3.5 Executor Cannot Self-Close</h3>
+<p>执行者不能关闭自己的任务或状态变化。Verifier 必须独立验证。</p>
+<h3 id="no-silent-deferral">3.6 No Silent Deferral</h3>
+<p>任何“后续再做”都必须变成结构化状态缺口、Change Event 或新的
+Intervention。</p>
+<h3 id="spiral-not-waterfall">3.7 Spiral, Not Waterfall</h3>
+<p>项目不是线性推进，而是：</p>
+<pre class="text"><code>前进 → 发现问题 → 回退修正 → 重规划 → 再前进</code></pre>
+<p>系统必须显式支持 reopened、stale、superseded、rollback 等状态。</p>
+<h2 id="主循环">4. 主循环</h2>
+<pre class="text"><code>Assess Project State
+  ↓
+Score State Gaps
+  ↓
+Select Target State
+  ↓
+Generate Intervention Proposal
+  ↓
+Gate / Approve
+  ↓
+Build Fresh Context Capsule
+  ↓
+Execute Run
+  ↓
+Collect Evidence
+  ↓
+Verify in Fresh Context
+  ↓
+Propose State Delta
+  ↓
+Apply / Reject / Rollback
+  ↓
+Emit Change Events
+  ↓
+Reassess Project State</code></pre>
+<h2 id="和普通项目管理的区别">5. 和普通项目管理的区别</h2>
+<table>
+<thead>
+<tr class="header">
+<th>普通项目管理</th>
+<th>ProgressEngine</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>以任务列表为中心</td>
+<td>以项目状态为中心</td>
+</tr>
+<tr class="even">
+<td>完成任务即进展</td>
+<td>证据化状态变化才算进展</td>
+</tr>
+<tr class="odd">
+<td>阶段计划相对静态</td>
+<td>持续根据事件重规划</td>
+</tr>
+<tr class="even">
+<td>上下文依赖人脑记忆</td>
+<td>上下文来自事实源和 Capsule</td>
+</tr>
+<tr class="odd">
+<td>AI 执行后自称完成</td>
+<td>Verifier 独立验证</td>
+</tr>
+<tr class="even">
+<td>变更可能散落在聊天</td>
+<td>Change Event 统一捕获</td>
+</tr>
+</tbody>
+</table>
+<h2 id="和-ai-编程工具的区别">6. 和 AI 编程工具的区别</h2>
+<p>AI 编程工具解决的是：</p>
+<pre class="text"><code>如何完成一个局部代码任务？</code></pre>
+<p>ProgressEngine 解决的是：</p>
+<pre class="text"><code>当前项目最需要推进什么状态？
+如何把这个状态变化转化为可执行动作？
+如何证明状态真的改变？
+如何把结果沉淀到下一轮？</code></pre>
+<p>ProgressEngine 可以调用 AI 编程工具，但它不等同于 AI 编程工具。</p>
+<hr />
+<h2 id="项目状态模型与成熟度矩阵">项目状态模型与成熟度矩阵</h2>
+<h2 id="project-state-结构">1. Project State 结构</h2>
+<p>ProgressEngine 使用 <code>Project State</code>
+表示项目当前真实状态。项目状态不是单一状态，而是由多个维度组成。</p>
+<pre class="text"><code>Project State
+  ├── Intent State
+  ├── Product State
+  ├── UX / Design State
+  ├── System Design State
+  ├── Architecture State
+  ├── Implementation State
+  ├── Quality State
+  ├── Delivery State
+  └── Knowledge / Governance State</code></pre>
+<h2 id="状态维度定义">2. 状态维度定义</h2>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intent</td>
+<td>项目意图、目标、约束是否清楚</td>
+</tr>
+<tr class="even">
+<td>Product</td>
+<td>用户、场景、范围、价值是否清楚</td>
+</tr>
+<tr class="odd">
+<td>UX / Design</td>
+<td>用户流程、交互、信息结构、界面体验是否清楚</td>
+</tr>
+<tr class="even">
+<td>System Design</td>
+<td>系统边界、数据流、模块关系是否清楚</td>
+</tr>
+<tr class="odd">
+<td>Architecture</td>
+<td>技术栈、架构决策、关键风险是否清楚</td>
+</tr>
+<tr class="even">
+<td>Implementation</td>
+<td>已实现能力、运行状态、代码结构</td>
+</tr>
+<tr class="odd">
+<td>Quality</td>
+<td>测试、验收、风险覆盖、质量门禁</td>
+</tr>
+<tr class="even">
+<td>Delivery</td>
+<td>部署、回滚、监控、发布准备</td>
+</tr>
+<tr class="odd">
+<td>Knowledge / Governance</td>
+<td>决策、假设、风险、反馈、变更是否沉淀</td>
+</tr>
+</tbody>
+</table>
+<h2 id="成熟度枚举">3. 成熟度枚举</h2>
+<p>为了避免状态评估完全主观，使用统一成熟度枚举：</p>
+<pre class="text"><code>unknown      未知或未评估
+weak         有模糊信息，但不足以指导下一步
+seed         有初始结构或草案起点
+drafted      有完整初稿，但未审查
+reviewed     已经过角色审查或 checklist 审查
+accepted     已被人工或策略门禁接受，可指导下游工作
+validated    已被实现、测试、用户反馈或实验验证
+stale        因新变化失效，需要复核
+reopened     之前接受过，但因事件重新打开
+superseded   已被新版本替代
+blocked      因依赖、缺口或风险无法继续推进</code></pre>
+<h2 id="成熟度矩阵">4. 成熟度矩阵</h2>
+<p>成熟度矩阵用于判断每个状态维度是否已经足以指导下游推进。<code>seed</code>
+表示已有起点但还不足以称为完整初稿；<code>stale / reopened / superseded / blocked</code>
+是异常或治理状态，不是线性成熟度阶段。</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>unknown / weak</th>
+<th>seed</th>
+<th>drafted</th>
+<th>reviewed</th>
+<th>accepted</th>
+<th>validated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intent</td>
+<td>只有想法或口头描述</td>
+<td>有一段原始意图记录</td>
+<td>有 intent.yaml，包含目标和约束</td>
+<td>经过意图澄清问题审查</td>
+<td>人工确认项目方向</td>
+<td>经过真实推进仍然成立</td>
+</tr>
+<tr class="even">
+<td>Product</td>
+<td>用户和场景不清</td>
+<td>有候选用户或问题假设</td>
+<td>有 PRD / Product Brief 初稿</td>
+<td>经过 Product Critic 审查</td>
+<td>MVP 范围、非目标、成功标准确认</td>
+<td>用户反馈或实验支持价值假设</td>
+</tr>
+<tr class="odd">
+<td>UX / Design</td>
+<td>无流程或界面想法</td>
+<td>有粗略流程或界面草图</td>
+<td>有用户流程/命令交互/页面草图</td>
+<td>经过 UX checklist 审查</td>
+<td>可指导实现</td>
+<td>被可用性测试或真实使用验证</td>
+</tr>
+<tr class="even">
+<td>System Design</td>
+<td>系统边界模糊</td>
+<td>有候选模块或边界线索</td>
+<td>有模块、数据流、接口草案</td>
+<td>经过系统设计审查</td>
+<td>模块边界可指导拆解</td>
+<td>实现证明边界可用</td>
+</tr>
+<tr class="odd">
+<td>Architecture</td>
+<td>技术路线不清</td>
+<td>有候选技术栈</td>
+<td>有技术方案和备选方案</td>
+<td>经过 Tech Critic 审查</td>
+<td>ADR 接受，关键风险有处理计划</td>
+<td>Spike 或实现证明方案可行</td>
+</tr>
+<tr class="even">
+<td>Implementation</td>
+<td>无可运行能力</td>
+<td>有仓库或脚手架起点</td>
+<td>有脚手架或局部实现</td>
+<td>经过代码 review 或运行检查</td>
+<td>核心能力可运行</td>
+<td>自动化测试/演示/用户使用证明可用</td>
+</tr>
+<tr class="odd">
+<td>Quality</td>
+<td>没有测试策略</td>
+<td>有质量关注点列表</td>
+<td>有质量计划和测试矩阵</td>
+<td>经过 QA review</td>
+<td>核心门禁确认</td>
+<td>测试、回归、缺陷数据支持质量信心</td>
+</tr>
+<tr class="even">
+<td>Delivery</td>
+<td>不可部署</td>
+<td>有部署目标或候选环境</td>
+<td>有部署方案草案</td>
+<td>经过 release checklist 审查</td>
+<td>可部署、可回滚、可观察</td>
+<td>真实发布或内测运行成功</td>
+</tr>
+<tr class="odd">
+<td>Knowledge</td>
+<td>决策散落</td>
+<td>有零散记录</td>
+<td>有假设、风险、决策记录</td>
+<td>经过 reconcile 审查</td>
+<td>账本与项目现实一致</td>
+<td>经过多轮迭代仍可追溯</td>
+</tr>
+</tbody>
+</table>
+<h3 id="异常与治理状态">4.1 异常与治理状态</h3>
+<p>这些状态不代表成熟度上升，而代表项目需要治理动作：</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>状态</th>
+<th>含义</th>
+<th>必须动作</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>stale</td>
+<td>由于新事件或新版本，原状态声明可能失效</td>
+<td>运行 reassess，生成 Gap 或 Reopen 事件</td>
+</tr>
+<tr class="even">
+<td>reopened</td>
+<td>曾经 accepted / reviewed 的 artifact 被重新打开</td>
+<td>重新 review，可能生成新的 Target State</td>
+</tr>
+<tr class="odd">
+<td>superseded</td>
+<td>被新版本完全替代</td>
+<td>更新引用，标记依赖项 stale</td>
+</tr>
+<tr class="even">
+<td>blocked</td>
+<td>因依赖、风险或信息缺失无法推进</td>
+<td>生成解除阻塞的 Intervention</td>
+</tr>
+</tbody>
+</table>
+<h2 id="progress-status-与-maturity-分离">5. Progress Status 与 Maturity
+分离</h2>
+<p>成熟度表示“可信程度”，进展状态表示“当前操作状态”。两者不应混用。</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">state_dimension</span><span class="kw">:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> drafted</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">progress</span><span class="kw">:</span><span class="at"> in_progress</span></span></code></pre></div>
+<p><code>progress</code> 枚举：</p>
+<pre class="text"><code>not_started
+in_progress
+partial
+complete
+blocked
+waiting_for_review</code></pre>
+<p>示例：</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">product</span><span class="kw">:</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> reviewed</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">progress</span><span class="kw">:</span><span class="at"> partial</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;MVP scope reviewed, but success metrics still weak.&quot;</span></span></code></pre></div>
+<h2 id="state-assessment-输出">6. State Assessment 输出</h2>
+<p>每次 <code>progress assess</code> 应输出：</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assessment</span><span class="kw">:</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">project_id</span><span class="kw">:</span><span class="at"> progressengine</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">assessed_at</span><span class="kw">:</span><span class="at"> 2026-05-16</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dimensions</span><span class="kw">:</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">product</span><span class="kw">:</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> reviewed</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">progress</span><span class="kw">:</span><span class="at"> partial</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">evidence</span><span class="kw">:</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> artifacts/prd.md</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> reviews/product_critic_001.md</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">gaps</span><span class="kw">:</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> G-004</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">quality</span><span class="kw">:</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> weak</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">progress</span><span class="kw">:</span><span class="at"> not_started</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">evidence</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">gaps</span><span class="kw">:</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> G-008</span></span></code></pre></div>
+<h2 id="判定规则">7. 判定规则</h2>
+<p>状态不能因为“存在文档”就自动升级。升级必须同时满足：</p>
+<pre class="text"><code>artifact exists
++ required fields present
++ review checklist passed
++ evidence recorded
++ no blocking gap</code></pre>
+<p>对于 validated 状态，还需要：</p>
+<pre class="text"><code>implementation evidence / test evidence / user feedback / experiment result</code></pre>
+<hr />
+<h2 id="目标状态选择策略">目标状态选择策略</h2>
+<h2 id="为什么需要目标状态选择策略">1. 为什么需要目标状态选择策略</h2>
+<p>如果系统只根据已有任务池选择任务，就会退化成任务工具。ProgressEngine
+每轮必须先判断：</p>
+<pre class="text"><code>当前最有价值的项目状态变化是什么？</code></pre>
+<p>这需要一个可解释的目标状态选择策略。</p>
+<h2 id="从-state-gap-到-target-state">2. 从 State Gap 到 Target
+State</h2>
+<p>流程：</p>
+<pre class="text"><code>Project State Assessment
+  ↓
+State Gaps
+  ↓
+Gap Scoring
+  ↓
+Target State Candidate
+  ↓
+Target State Selection
+  ↓
+Intervention Planning</code></pre>
+<h2 id="state-gap-数据结构">3. State Gap 数据结构</h2>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gap</span><span class="kw">:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> G-001</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dimension</span><span class="kw">:</span><span class="at"> product</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">current_state</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Product scope is drafted but not reviewed.&quot;</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">desired_state</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;MVP scope accepted with explicit non-goals and success metrics.&quot;</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> high</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">evidence</span><span class="kw">:</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> artifacts/prd.md</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">impact</span><span class="kw">:</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Implementation tasks may encode wrong scope.&quot;</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Quality acceptance criteria cannot be finalized.&quot;</span></span></code></pre></div>
+<h2 id="评分模型">4. 评分模型</h2>
+<p>每个目标状态候选使用 0-5 分评分：</p>
+<table>
+<thead>
+<tr class="header">
+<th>因子</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>risk_reduction</td>
+<td>是否降低关键风险</td>
+</tr>
+<tr class="even">
+<td>downstream_unlock</td>
+<td>是否解锁后续工作</td>
+</tr>
+<tr class="odd">
+<td>user_value_proximity</td>
+<td>是否更接近用户价值</td>
+</tr>
+<tr class="even">
+<td>quality_confidence_gain</td>
+<td>是否提升质量信心</td>
+</tr>
+<tr class="odd">
+<td>prevents_wrong_work</td>
+<td>是否避免在错误方向上继续实现</td>
+</tr>
+<tr class="even">
+<td>implementation_capability_gain</td>
+<td>是否增加可运行能力</td>
+</tr>
+<tr class="odd">
+<td>knowledge_clarity_gain</td>
+<td>是否提升项目可追溯性</td>
+</tr>
+<tr class="even">
+<td>effort</td>
+<td>预计成本，越高越扣分</td>
+</tr>
+<tr class="odd">
+<td>reversibility</td>
+<td>是否容易回退，越容易越加分</td>
+</tr>
+<tr class="even">
+<td>automation_suitability</td>
+<td>是否适合自动或半自动执行</td>
+</tr>
+</tbody>
+</table>
+<p>推荐公式：</p>
+<pre class="text"><code>score =
+  risk_reduction
++ downstream_unlock
++ user_value_proximity
++ quality_confidence_gain
++ prevents_wrong_work
++ implementation_capability_gain
++ knowledge_clarity_gain
++ reversibility
++ automation_suitability
+- effort</code></pre>
+<h2 id="选择策略">5. 选择策略</h2>
+<h3 id="explore-模式">5.1 Explore 模式</h3>
+<p>适合项目早期。</p>
+<p>优先级：</p>
+<pre class="text"><code>降低最大不确定性 &gt; 增加代码量</code></pre>
+<p>常见目标状态：</p>
+<ul>
+<li>Intent accepted。</li>
+<li>Product scope reviewed。</li>
+<li>Architecture options reviewed。</li>
+<li>Quality plan drafted。</li>
+</ul>
+<h3 id="converge-模式">5.2 Converge 模式</h3>
+<p>适合从概念收敛到 MVP。</p>
+<p>优先级：</p>
+<pre class="text"><code>明确范围 &gt; 明确架构 &gt; 明确验收 &gt; 再实现</code></pre>
+<h3 id="build-模式">5.3 Build 模式</h3>
+<p>适合主要方向已定后。</p>
+<p>优先级：</p>
+<pre class="text"><code>增加可运行能力 &gt; 补文档</code></pre>
+<p>但如果实现中发现设计缺口，必须回退到对应状态维度。</p>
+<h3 id="harden-模式">5.4 Harden 模式</h3>
+<p>适合发布前。</p>
+<p>优先级：</p>
+<pre class="text"><code>质量证据 &gt; 新功能</code></pre>
+<h3 id="release-模式">5.5 Release 模式</h3>
+<p>适合交付阶段。</p>
+<p>优先级：</p>
+<pre class="text"><code>部署、回滚、监控、已知问题、反馈入口</code></pre>
+<h2 id="target-state-模板">6. Target State 模板</h2>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">target_state</span><span class="kw">:</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> TS-001</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dimension</span><span class="kw">:</span><span class="at"> product</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">from</span><span class="kw">:</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> drafted</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;PRD exists but scope is not reviewed.&quot;</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">to</span><span class="kw">:</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> accepted</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;MVP scope accepted with explicit non-goals and success metrics.&quot;</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">why_now</span><span class="kw">:</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Implementation tasks depend on stable scope.&quot;</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Avoid building features outside MVP.&quot;</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">score</span><span class="kw">:</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">risk_reduction</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">downstream_unlock</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">user_value_proximity</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">quality_confidence_gain</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">prevents_wrong_work</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">effort</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">required_interventions</span><span class="kw">:</span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> IV-001</span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">gate_required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<h2 id="输出要求">7. 输出要求</h2>
+<p><code>progress target</code> 不应只输出一个答案，而应输出：</p>
+<pre class="text"><code>Top 3 Target State Candidates
+  - 推荐目标状态
+  - 为什么现在做
+  - 不做的风险
+  - 需要的人类确认
+  - 对应推进动作建议</code></pre>
+<h2 id="禁止规则">8. 禁止规则</h2>
+<ul>
+<li>不允许直接从状态缺口跳到代码实现。</li>
+<li>不允许忽略高风险状态缺口继续刷实现任务。</li>
+<li>不允许选择无法验证的目标状态。</li>
+<li>不允许选择没有 State Delta 定义的目标状态。</li>
+</ul>
+<hr />
+<h2 id="从-0-启动角色流水线">从 0 启动角色流水线</h2>
+<h2 id="目的">1. 目的</h2>
+<p>用户最早的问题是：</p>
+<pre class="text"><code>我有一个意图，如何在产品经理、项目经理、技术负责人、质量负责人等角色的帮助下，从 0 开始推进项目？</code></pre>
+<p>ProgressEngine 的启动流程必须解决这个问题。</p>
+<h2 id="启动原则">2. 启动原则</h2>
+<p>从 0 启动不是瀑布式定稿，而是创建第一版可运行的项目认知结构。</p>
+<pre class="text"><code>Initial Project State = seed version, not final truth.</code></pre>
+<p>后续每次执行都会根据新发现重评估和修正。</p>
+<h2 id="启动流水线">3. 启动流水线</h2>
+<pre class="text"><code>Intent Intake
+  ↓
+Product Lead Pass
+  ↓
+Product Critic Pass
+  ↓
+UX / Interaction Pass
+  ↓
+Project Manager Pass
+  ↓
+Tech Lead Pass
+  ↓
+Architecture Critic Pass
+  ↓
+QA Lead Pass
+  ↓
+State Synthesizer Pass
+  ↓
+Initial Target State Proposal</code></pre>
+<p>每个 pass 都是独立上下文，不继承完整聊天历史，只读取前一个 pass
+产出的 artifact。</p>
+<h2 id="各角色职责">4. 各角色职责</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pass</th>
+<th>输入</th>
+<th>输出</th>
+<th>推进的状态</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intent Intake</td>
+<td>用户原始意图</td>
+<td>intent.yaml</td>
+<td>Intent</td>
+</tr>
+<tr class="even">
+<td>Product Lead</td>
+<td>intent.yaml</td>
+<td>product_brief.md, prd.md</td>
+<td>Product</td>
+</tr>
+<tr class="odd">
+<td>Product Critic</td>
+<td>product_brief, prd</td>
+<td>product_review.md, gaps</td>
+<td>Product / Knowledge</td>
+</tr>
+<tr class="even">
+<td>UX / Interaction</td>
+<td>PRD</td>
+<td>ux_design.md</td>
+<td>UX / Design</td>
+</tr>
+<tr class="odd">
+<td>Project Manager</td>
+<td>PRD, gaps</td>
+<td>roadmap.md, state_targets.yaml</td>
+<td>Knowledge / Planning</td>
+</tr>
+<tr class="even">
+<td>Tech Lead</td>
+<td>PRD, UX, constraints</td>
+<td>technical_design.md, ADR draft</td>
+<td>Architecture / System</td>
+</tr>
+<tr class="odd">
+<td>Architecture Critic</td>
+<td>technical_design</td>
+<td>arch_review.md, risks</td>
+<td>Architecture / Knowledge</td>
+</tr>
+<tr class="even">
+<td>QA Lead</td>
+<td>PRD, Tech Design</td>
+<td>quality_plan.md, test_matrix.md</td>
+<td>Quality</td>
+</tr>
+<tr class="odd">
+<td>State Synthesizer</td>
+<td>all artifacts</td>
+<td>project_state.yaml</td>
+<td>全局状态</td>
+</tr>
+</tbody>
+</table>
+<h2 id="intent-intake">5. Intent Intake</h2>
+<p>目标：把模糊想法变成结构化意图。</p>
+<p>输出：</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">intent</span><span class="kw">:</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">raw</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;...&quot;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">project_name</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">desired_outcome</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">target_user</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">constraints</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">non_goals</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">known_risks</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">target_stage</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;local_mvp&quot;</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">time_budget</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">confidence</span><span class="kw">:</span><span class="at"> low</span></span></code></pre></div>
+<p>必须澄清：</p>
+<ul>
+<li>你想解决什么问题？</li>
+<li>给谁解决？</li>
+<li>第一阶段希望达到什么状态？</li>
+<li>明确不做什么？</li>
+<li>有哪些资源和技术约束？</li>
+</ul>
+<h2 id="product-lead-pass">6. Product Lead Pass</h2>
+<p>目标：生成第一版产品判断。</p>
+<p>输出必须包含：</p>
+<ul>
+<li>目标用户。</li>
+<li>核心场景。</li>
+<li>当前替代方案。</li>
+<li>MVP 范围。</li>
+<li>Must / Should / Won’t。</li>
+<li>成功标准。</li>
+<li>高风险假设。</li>
+</ul>
+<h2 id="product-critic-pass">7. Product Critic Pass</h2>
+<p>目标：防止产品文档自证循环。</p>
+<p>检查：</p>
+<ul>
+<li>用户是否过宽？</li>
+<li>问题是否真实？</li>
+<li>MVP 是否过大？</li>
+<li>非目标是否足够明确？</li>
+<li>成功标准是否可验证？</li>
+<li>是否存在“为了完整而做”的功能？</li>
+</ul>
+<p>输出：</p>
+<pre class="text"><code>product_review.md
+state_gaps.yaml
+change_events.jsonl</code></pre>
+<h2 id="ux-interaction-pass">8. UX / Interaction Pass</h2>
+<p>即使是 CLI 工具，也需要 UX 设计。</p>
+<p>输出：</p>
+<ul>
+<li>核心使用路径。</li>
+<li>命令交互流程。</li>
+<li>成功状态输出。</li>
+<li>失败状态输出。</li>
+<li>用户确认点。</li>
+<li>空状态与错误提示。</li>
+</ul>
+<h2 id="project-manager-pass">9. Project Manager Pass</h2>
+<p>目标：不是排死计划，而是规划可推进状态序列。</p>
+<p>输出：</p>
+<pre class="text"><code>roadmap.md
+state_targets.yaml
+risk_log.yaml</code></pre>
+<p>核心问题：</p>
+<pre class="text"><code>项目先达到什么状态，才能安全进入下一状态？</code></pre>
+<h2 id="tech-lead-pass">10. Tech Lead Pass</h2>
+<p>目标：生成初始技术方案。</p>
+<p>输出必须包含：</p>
+<ul>
+<li>技术栈选择。</li>
+<li>模块边界。</li>
+<li>数据模型草案。</li>
+<li>文件系统协议。</li>
+<li>CLI 架构。</li>
+<li>Adapter 边界。</li>
+<li>ADR 草案。</li>
+<li>技术风险。</li>
+</ul>
+<h2 id="architecture-critic-pass">11. Architecture Critic Pass</h2>
+<p>检查：</p>
+<ul>
+<li>是否过度设计？</li>
+<li>是否低估状态账本复杂度？</li>
+<li>是否把任务误当目标？</li>
+<li>是否存在上下文污染风险？</li>
+<li>是否有无法回滚的决策？</li>
+</ul>
+<h2 id="qa-lead-pass">12. QA Lead Pass</h2>
+<p>目标：定义质量策略，而不是事后补测试。</p>
+<p>输出：</p>
+<ul>
+<li>状态成熟度判定检查。</li>
+<li>Evidence 要求。</li>
+<li>非代码产物 review checklist。</li>
+<li>CLI 测试策略。</li>
+<li>Fresh Context 测试策略。</li>
+<li>State Delta 回滚测试。</li>
+</ul>
+<h2 id="state-synthesizer-pass">13. State Synthesizer Pass</h2>
+<p>目标：合成第一版项目状态。</p>
+<p>输出：</p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project_state</span><span class="kw">:</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dimensions</span><span class="kw">:</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">intent</span><span class="kw">:</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> accepted</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">product</span><span class="kw">:</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> reviewed</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ux</span><span class="kw">:</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> drafted</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">architecture</span><span class="kw">:</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> drafted</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">quality</span><span class="kw">:</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> drafted</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">implementation</span><span class="kw">:</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> unknown</span></span></code></pre></div>
+<h2 id="启动完成门禁">14. 启动完成门禁</h2>
+<p>进入执行前，必须满足：</p>
+<pre class="text"><code>Intent 至少 accepted
+Product 至少 reviewed
+Architecture 至少 drafted
+Quality 至少 drafted
+至少有 1 个明确 Target State
+至少有 1 个可执行 Intervention</code></pre>
+<p>否则不能进入 <code>progress plan</code> 与后续 Run 流程。</p>
+<hr />
+<h2 id="系统架构与模块边界">系统架构与模块边界</h2>
+<h2 id="架构目标">1. 架构目标</h2>
+<p>ProgressEngine 的架构目标：</p>
+<ul>
+<li>repo-native：项目事实源在仓库内。</li>
+<li>CLI-first：先用命令行完成闭环。</li>
+<li>prompt-only friendly：第一版不强依赖模型 API。</li>
+<li>state-driven：所有执行都服务项目状态变化。</li>
+<li>fresh-context：每个推进动作有独立上下文。</li>
+<li>evidence-backed：状态变化必须证据化。</li>
+<li>reversible：状态账本支持提案、应用、回滚。</li>
+</ul>
+<h2 id="顶层模块">2. 顶层模块</h2>
+<pre class="text"><code>ProgressEngine
+  ├── State Engine
+  ├── State Reconciler
+  ├── Outcome Planner
+  ├── Intervention Planner
+  ├── Context Capsule Builder
+  ├── Run Orchestrator
+  ├── Evidence Verifier
+  ├── Change Event Engine
+  ├── State Ledger
+  ├── Automation Policy Engine
+  └── Adapter Layer</code></pre>
+<h2 id="模块职责">3. 模块职责</h2>
+<table>
+<thead>
+<tr class="header">
+<th>模块</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>State Engine</td>
+<td>管理 Project State、State Dimension、Maturity</td>
+</tr>
+<tr class="even">
+<td>State Reconciler</td>
+<td>调和文档、代码、git、ledger、runs，判断真实状态</td>
+</tr>
+<tr class="odd">
+<td>Outcome Planner</td>
+<td>根据 State Gap 选择下一步 Target State</td>
+</tr>
+<tr class="even">
+<td>Intervention Planner</td>
+<td>将 Target State 转成推进动作</td>
+</tr>
+<tr class="odd">
+<td>Context Capsule Builder</td>
+<td>为每个 Intervention 生成独立上下文</td>
+</tr>
+<tr class="even">
+<td>Run Orchestrator</td>
+<td>管理 Run 生命周期，确保新会话执行</td>
+</tr>
+<tr class="odd">
+<td>Evidence Verifier</td>
+<td>验证状态变化证据，防假完成</td>
+</tr>
+<tr class="even">
+<td>Change Event Engine</td>
+<td>捕获变化、失败、反馈、失效事件</td>
+</tr>
+<tr class="odd">
+<td>State Ledger</td>
+<td>存储状态、证据、决策、风险、Delta</td>
+</tr>
+<tr class="even">
+<td>Automation Policy Engine</td>
+<td>判断哪些动作可自动，哪些必须人工 gate</td>
+</tr>
+<tr class="odd">
+<td>Adapter Layer</td>
+<td>对接 ChatGPT/Codex/Claude Code/本地命令/API</td>
+</tr>
+</tbody>
+</table>
+<h2 id="推荐目录结构">4. 推荐目录结构</h2>
+<pre class="text"><code>.progress/
+  project.yaml
+
+  state/
+    project_state.yaml
+    state_history.jsonl
+    state_gaps.yaml
+    target_states.yaml
+
+  artifacts/
+    intent.md
+    product_brief.md
+    prd.md
+    ux_design.md
+    system_design.md
+    technical_design.md
+    quality_plan.md
+    release_strategy.md
+
+  decisions/
+    ADR-0001.md
+    ADR-0002.md
+
+  interventions/
+    IV-001.yaml
+    IV-002.yaml
+
+  pools/
+    intent.yaml
+    product.yaml
+    ux.yaml
+    system.yaml
+    architecture.yaml
+    implementation.yaml
+    quality.yaml
+    docs.yaml
+    release.yaml
+    feedback.yaml
+    meta.yaml
+
+  runs/
+    RUN-YYYYMMDD-001/
+      run.yaml
+      context_capsule.md
+      plan.md
+      output.md
+      evidence.yaml
+      verification.md
+      state_delta_proposal.yaml
+      handoff.md
+
+  events/
+    change_events.jsonl
+    invalidation_log.jsonl
+
+  ledger/
+    assumptions.yaml
+    risks.yaml
+    findings.yaml
+    feedback.yaml
+    decisions.yaml
+    state_deltas.yaml
+
+  policies/
+    automation_policy.yaml
+    maturity_rules.yaml
+    verification_rules.yaml
+
+  reviews/
+    product_review_001.md
+    architecture_review_001.md
+    quality_review_001.md</code></pre>
+<h2 id="数据流">5. 数据流</h2>
+<pre class="text"><code>Artifacts + Ledger + Git State
+  ↓
+State Reconciler
+  ↓
+Project State + State Gaps
+  ↓
+Outcome Planner
+  ↓
+Target State
+  ↓
+Intervention Planner
+  ↓
+Intervention Proposal
+  ↓
+Context Capsule Builder
+  ↓
+Run Orchestrator
+  ↓
+Evidence Verifier
+  ↓
+State Delta Proposal
+  ↓
+Apply / Rollback
+  ↓
+Updated Project State</code></pre>
+<h2 id="adapter-layer">6. Adapter Layer</h2>
+<p>第一版不强制直接调用 AI。</p>
+<p>支持模式：</p>
+<table>
+<thead>
+<tr class="header">
+<th>模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prompt-only</td>
+<td>生成 Context Capsule，用户复制到 AI 工具</td>
+</tr>
+<tr class="even">
+<td>manual-run</td>
+<td>用户人工执行，然后录入 Evidence</td>
+</tr>
+<tr class="odd">
+<td>shell-adapter</td>
+<td>调用本地命令或外部 CLI</td>
+</tr>
+<tr class="even">
+<td>api-adapter</td>
+<td>后续直接调用模型 API</td>
+</tr>
+<tr class="odd">
+<td>verify-only</td>
+<td>只验证已有结果</td>
+</tr>
+</tbody>
+</table>
+<h2 id="架构边界">7. 架构边界</h2>
+<p>ProgressEngine 不直接等于：</p>
+<ul>
+<li>IDE 插件。</li>
+<li>AI 编程模型。</li>
+<li>项目管理 SaaS。</li>
+<li>任务看板。</li>
+</ul>
+<p>它是：</p>
+<pre class="text"><code>项目状态推进层</code></pre>
+<p>它可以在未来嵌入 IDE、调用模型或连接
+GitHub，但第一性职责是维护项目状态的证据化推进。</p>
+<hr />
+<h2 id="核心对象与数据模型">核心对象与数据模型</h2>
+<h2 id="对象总览">1. 对象总览</h2>
+<p>ProgressEngine 的核心对象不是 Task，而是 Project State 及其变化。</p>
+<pre class="text"><code>Intent
+ProjectState
+StateDimension
+StateGap
+TargetState
+Intervention
+ContextCapsule
+Run
+Evidence
+Verification
+StateDelta
+ChangeEvent
+Ledger</code></pre>
+<h2 id="projectstate">2. ProjectState</h2>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project_state</span><span class="kw">:</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">project_id</span><span class="kw">:</span><span class="at"> progressengine</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">version</span><span class="kw">:</span><span class="at"> PS-0004</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">updated_at</span><span class="kw">:</span><span class="at"> 2026-05-16T10:00:00-07:00</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dimensions</span><span class="kw">:</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">intent</span><span class="kw">:</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> accepted</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">progress</span><span class="kw">:</span><span class="at"> complete</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Project direction accepted.&quot;</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">evidence_refs</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">EV</span><span class="dv">-001</span><span class="kw">]</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">gaps</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">product</span><span class="kw">:</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> reviewed</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">progress</span><span class="kw">:</span><span class="at"> partial</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;MVP scope reviewed; success metrics need refinement.&quot;</span></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">evidence_refs</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">EV</span><span class="dv">-002</span><span class="kw">]</span></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">gaps</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">G</span><span class="dv">-003</span><span class="kw">]</span></span></code></pre></div>
+<h2 id="stategap">3. StateGap</h2>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">state_gap</span><span class="kw">:</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> G-003</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dimension</span><span class="kw">:</span><span class="at"> product</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> high</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">current_state</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Success metrics are generic.&quot;</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">desired_state</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;MVP success metrics are measurable and tied to first user workflow.&quot;</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">evidence_refs</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">EV</span><span class="dv">-002</span><span class="kw">]</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">impact</span><span class="kw">:</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Cannot verify MVP adoption.&quot;</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;QA cannot create release acceptance criteria.&quot;</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">suggested_targets</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">TS</span><span class="dv">-003</span><span class="kw">]</span></span></code></pre></div>
+<h2 id="targetstate">4. TargetState</h2>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">target_state</span><span class="kw">:</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> TS-003</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dimension</span><span class="kw">:</span><span class="at"> product</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">from_maturity</span><span class="kw">:</span><span class="at"> reviewed</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">to_maturity</span><span class="kw">:</span><span class="at"> accepted</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;MVP success metrics accepted.&quot;</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">why_now</span><span class="kw">:</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Release readiness depends on measurable success criteria.&quot;</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">score</span><span class="kw">:</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">risk_reduction</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">downstream_unlock</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">effort</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">required_interventions</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">IV</span><span class="dv">-007</span><span class="kw">]</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">gate_required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<h2 id="intervention">5. Intervention</h2>
+<p>Intervention 是推进动作。Task 只是可执行粒度的 Intervention。</p>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">intervention</span><span class="kw">:</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> IV-007</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> product_clarification</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">target_state</span><span class="kw">:</span><span class="at"> TS-003</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dimension</span><span class="kw">:</span><span class="at"> product</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Define measurable MVP success metrics&quot;</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">goal</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Turn generic MVP goals into measurable success metrics.&quot;</span></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">in_scope</span><span class="kw">:</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Define 3-5 success metrics.&quot;</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Map metrics to release gate.&quot;</span></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">out_of_scope</span><span class="kw">:</span></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Do not change MVP feature scope.&quot;</span></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">inputs</span><span class="kw">:</span></span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> .progress/artifacts/prd.md</span></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">outputs</span><span class="kw">:</span></span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> .progress/artifacts/prd.md</span></span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">acceptance</span><span class="kw">:</span></span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Each metric has a measurable threshold.&quot;</span></span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Each metric maps to a user workflow or system behavior.&quot;</span></span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">evidence_required</span><span class="kw">:</span></span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> artifact_review</span></span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> checklist_result</span></span>
+<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">automation</span><span class="kw">:</span></span>
+<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mode</span><span class="kw">:</span><span class="at"> supervised</span></span></code></pre></div>
+<h2 id="run">6. Run</h2>
+<p>Run 是一次隔离上下文执行。</p>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">run</span><span class="kw">:</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> RUN-20260516-001</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">intervention_id</span><span class="kw">:</span><span class="at"> IV-007</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">status</span><span class="kw">:</span><span class="at"> verifying</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">execution_session</span><span class="kw">:</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fresh_context</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">transcript_carried_forward</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">verification_session</span><span class="kw">:</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fresh_context</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">outputs</span><span class="kw">:</span></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">context_capsule</span><span class="kw">:</span><span class="at"> context_capsule.md</span></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">evidence</span><span class="kw">:</span><span class="at"> evidence.yaml</span></span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">state_delta_proposal</span><span class="kw">:</span><span class="at"> state_delta_proposal.yaml</span></span></code></pre></div>
+<h2 id="evidence">7. Evidence</h2>
+<p>Evidence 是状态变化证据。</p>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">evidence</span><span class="kw">:</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> EV-010</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">run_id</span><span class="kw">:</span><span class="at"> RUN-20260516-001</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">evidence_type</span><span class="kw">:</span><span class="at"> artifact_review</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">claims</span><span class="kw">:</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">dimension</span><span class="kw">:</span><span class="at"> product</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">before</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Success metrics generic.&quot;</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">after</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Success metrics measurable.&quot;</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">acceptance_mapping</span><span class="kw">:</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">criterion</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Each metric has threshold.&quot;</span></span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">status</span><span class="kw">:</span><span class="at"> pass</span></span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">evidence_ref</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;.progress/artifacts/prd.md#success-metrics&quot;</span></span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">commands_run</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">artifacts_changed</span><span class="kw">:</span></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> .progress/artifacts/prd.md</span></span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">reviewer</span><span class="kw">:</span></span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> product_critic</span></span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">result</span><span class="kw">:</span><span class="at"> pass_with_notes</span></span></code></pre></div>
+<h2 id="statedelta">8. StateDelta</h2>
+<p>StateDelta 是经过验证后可应用到 Project State 的变化提案。</p>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">state_delta</span><span class="kw">:</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> SD-010</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">run_id</span><span class="kw">:</span><span class="at"> RUN-20260516-001</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">verification_id</span><span class="kw">:</span><span class="at"> VR-010</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">status</span><span class="kw">:</span><span class="at"> proposed</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">proposed_by</span><span class="kw">:</span><span class="at"> verifier</span></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">proposed_at</span><span class="kw">:</span><span class="at"> 2026-05-16T10:20:00-07:00</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">primary_dimension</span><span class="kw">:</span><span class="at"> product</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">secondary_dimensions</span><span class="kw">:</span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> quality</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">before</span><span class="kw">:</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">product</span><span class="kw">:</span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> reviewed</span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Success metrics weak.&quot;</span></span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">after</span><span class="kw">:</span></span>
+<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">product</span><span class="kw">:</span></span>
+<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> accepted</span></span>
+<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Success metrics accepted.&quot;</span></span>
+<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">evidence_refs</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">EV</span><span class="dv">-010</span><span class="kw">]</span></span>
+<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">remaining_gaps</span><span class="kw">:</span></span>
+<span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> G-011</span></span>
+<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">emitted_events</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb58-23"><a href="#cb58-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">gate</span><span class="kw">:</span></span>
+<span id="cb58-24"><a href="#cb58-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb58-25"><a href="#cb58-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">approved_by</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb58-26"><a href="#cb58-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">approved_at</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb58-27"><a href="#cb58-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">apply</span><span class="kw">:</span></span>
+<span id="cb58-28"><a href="#cb58-28" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">applied_by</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb58-29"><a href="#cb58-29" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">applied_at</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb58-30"><a href="#cb58-30" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">previous_state_version</span><span class="kw">:</span><span class="at"> PS-0003</span></span>
+<span id="cb58-31"><a href="#cb58-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">next_state_version</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb58-32"><a href="#cb58-32" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">rollback</span><span class="kw">:</span></span>
+<span id="cb58-33"><a href="#cb58-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">reversible</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb58-34"><a href="#cb58-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rollback_delta_id</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span></code></pre></div>
+<h2 id="changeevent">9. ChangeEvent</h2>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">change_event</span><span class="kw">:</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> EVT-001</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> implementation_finding</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> high</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">source</span><span class="kw">:</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">run_id</span><span class="kw">:</span><span class="at"> RUN-20260516-002</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">intervention_id</span><span class="kw">:</span><span class="at"> IV-008</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Implementation revealed that Context Capsule requires artifact priority rules.&quot;</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">affected_dimensions</span><span class="kw">:</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> system_design</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> quality</span></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">affected_artifacts</span><span class="kw">:</span></span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> technical_design</span></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">effect</span><span class="kw">:</span><span class="at"> reopen</span></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">invalidates</span><span class="kw">:</span></span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">interventions</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">IV-009</span><span class="kw">]</span></span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">state_claims</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">SD</span><span class="dv">-004</span><span class="kw">]</span></span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">emitted_gaps</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">G</span><span class="dv">-012</span><span class="kw">]</span></span>
+<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">emitted_targets</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">TS-009</span><span class="kw">]</span></span>
+<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">emitted_interventions</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">IV</span><span class="dv">-014</span><span class="kw">]</span></span>
+<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">requires_human_review</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<h2 id="id-约定">10. ID 约定</h2>
+<table>
+<thead>
+<tr class="header">
+<th>对象</th>
+<th>前缀</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Project State</td>
+<td>PS</td>
+</tr>
+<tr class="even">
+<td>State Gap</td>
+<td>G</td>
+</tr>
+<tr class="odd">
+<td>Target State</td>
+<td>TS</td>
+</tr>
+<tr class="even">
+<td>Intervention</td>
+<td>IV</td>
+</tr>
+<tr class="odd">
+<td>Run</td>
+<td>RUN</td>
+</tr>
+<tr class="even">
+<td>Evidence</td>
+<td>EV</td>
+</tr>
+<tr class="odd">
+<td>Verification</td>
+<td>VR</td>
+</tr>
+<tr class="even">
+<td>State Delta</td>
+<td>SD</td>
+</tr>
+<tr class="odd">
+<td>Change Event</td>
+<td>EVT</td>
+</tr>
+<tr class="even">
+<td>Architecture Decision</td>
+<td>ADR</td>
+</tr>
+<tr class="odd">
+<td>Risk</td>
+<td>R</td>
+</tr>
+</tbody>
+</table>
+<h2 id="状态转移">11. 状态转移</h2>
+<h3 id="intervention-状态">Intervention 状态</h3>
+<pre class="text"><code>proposed → approved → ready → running → implemented → verifying → verified → closed
+                                             ↓              ↓
+                                          blocked        rejected
+                                             ↓
+                                      stale / needs_review / reopened</code></pre>
+<h3 id="statedelta-状态">StateDelta 状态</h3>
+<pre class="text"><code>proposed → approved → applied
+    ↓          ↓          ↓
+ rejected   expired   rolled_back</code></pre>
+<h3 id="artifact-状态">Artifact 状态</h3>
+<pre class="text"><code>seed → drafted → reviewed → accepted → validated
+                   ↓           ↓
+                 reopened    stale → superseded</code></pre>
+<hr />
+<h2 id="intervention-推进动作与执行协议">Intervention
+推进动作与执行协议</h2>
+<h2 id="定义">1. 定义</h2>
+<p>Intervention 是为推动项目状态变化而设计的推进动作。</p>
+<pre class="text"><code>Intervention = State Gap → Target State 的行动方案</code></pre>
+<p>Task 不是一等核心。Task 是可执行粒度的 Intervention。</p>
+<h2 id="intervention-类型">2. Intervention 类型</h2>
+<table>
+<thead>
+<tr class="header">
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>intent_clarification</td>
+<td>澄清项目意图</td>
+</tr>
+<tr class="even">
+<td>product_design</td>
+<td>产品定义、PRD、用户故事</td>
+</tr>
+<tr class="odd">
+<td>ux_design</td>
+<td>用户流程、交互、界面、CLI 输出体验</td>
+</tr>
+<tr class="even">
+<td>system_design</td>
+<td>系统边界、数据流、模块关系</td>
+</tr>
+<tr class="odd">
+<td>architecture_decision</td>
+<td>架构方案、ADR、技术取舍</td>
+</tr>
+<tr class="even">
+<td>planning</td>
+<td>路线图、状态目标、推进计划</td>
+</tr>
+<tr class="odd">
+<td>implementation</td>
+<td>代码实现</td>
+</tr>
+<tr class="even">
+<td>quality_gap</td>
+<td>测试、验收、质量门禁补齐</td>
+</tr>
+<tr class="odd">
+<td>documentation</td>
+<td>文档和知识沉淀</td>
+</tr>
+<tr class="even">
+<td>release</td>
+<td>部署、回滚、监控、发布准备</td>
+</tr>
+<tr class="odd">
+<td>feedback_analysis</td>
+<td>用户反馈分析</td>
+</tr>
+<tr class="even">
+<td>meta</td>
+<td>重拆、重评估、重规划、协议修正</td>
+</tr>
+<tr class="odd">
+<td>repair</td>
+<td>修复验证失败结果</td>
+</tr>
+</tbody>
+</table>
+<h2 id="intervention-contract">3. Intervention Contract</h2>
+<p>每个 Intervention 必须包含：</p>
+<div class="sourceCode" id="cb64"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">id</span><span class="kw">:</span><span class="at"> IV-001</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">type</span><span class="kw">:</span><span class="at"> implementation</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dimension</span><span class="kw">:</span><span class="at"> implementation</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="fu">target_state</span><span class="kw">:</span><span class="at"> TS-001</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Implement intent intake command&quot;</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="fu">goal</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;...&quot;</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="fu">why_now</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="fu">in_scope</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="fu">out_of_scope</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="fu">inputs</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="fu">outputs</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="fu">acceptance</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="fu">evidence_required</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a><span class="fu">context_budget</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a><span class="fu">automation</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a><span class="fu">done_policy</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a><span class="fu">fallback_policy</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span></code></pre></div>
+<h2 id="必须回答的问题">4. 必须回答的问题</h2>
+<p>每个 Intervention 必须能回答：</p>
+<pre class="text"><code>它推动哪个状态维度？
+当前状态是什么？
+目标状态是什么？
+为什么现在做？
+完成后如何证明状态改变？
+如果做不完，会产生什么 gap 或 event？</code></pre>
+<h2 id="ready-条件">5. Ready 条件</h2>
+<p>一个 Intervention 只有满足以下条件才可执行：</p>
+<pre class="text"><code>target_state 已定义
+scope 明确
+out_of_scope 明确
+输入 artifact 存在
+验收标准可检查
+evidence_required 明确
+context_budget 未超限
+automation policy 允许当前执行模式</code></pre>
+<h2 id="执行边界">6. 执行边界</h2>
+<p>Intervention 不允许：</p>
+<ul>
+<li>擅自修改目标状态。</li>
+<li>引入未批准架构变更。</li>
+<li>扩大 scope。</li>
+<li>将未完成事项口头延期。</li>
+<li>用“基本完成”替代 Evidence。</li>
+<li>在同一上下文继续执行下一个 Intervention。</li>
+</ul>
+<h2 id="失败处理">7. 失败处理</h2>
+<p>如果执行失败，必须产生以下之一：</p>
+<table>
+<thead>
+<tr class="header">
+<th>结果</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Repair Intervention</td>
+<td>小范围修复</td>
+</tr>
+<tr class="even">
+<td>Clarification Gap</td>
+<td>需要产品/设计/架构澄清</td>
+</tr>
+<tr class="odd">
+<td>Change Event</td>
+<td>发现影响上游事实的事件</td>
+</tr>
+<tr class="even">
+<td>Blocker</td>
+<td>当前推进动作被阻断</td>
+</tr>
+<tr class="odd">
+<td>Split Request</td>
+<td>任务过大，需要拆分</td>
+</tr>
+</tbody>
+</table>
+<h2 id="no-silent-deferral-1">8. No Silent Deferral</h2>
+<p>错误示例：</p>
+<pre class="text"><code>这个功能可以放到下一阶段。</code></pre>
+<p>正确输出：</p>
+<div class="sourceCode" id="cb68"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deferred_intervention</span><span class="kw">:</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> IV-019</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Add token budget visualization&quot;</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">reason</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Not required for MVP target state TS-004.&quot;</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">target_state</span><span class="kw">:</span><span class="at"> TS-012</span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">trigger</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;After Context Capsule generator is validated.&quot;</span></span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">acceptance</span><span class="kw">:</span></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;CLI displays estimated context size.&quot;</span></span></code></pre></div>
+<h2 id="intervention-与旧任务池的关系">9. Intervention
+与旧任务池的关系</h2>
+<p>仍然可以按工作流维护池：</p>
+<pre class="text"><code>product pool
+ux pool
+architecture pool
+implementation pool
+quality pool
+release pool
+meta pool</code></pre>
+<p>但池只是组织方式，不是目标。</p>
+<p>调度器选择的是：</p>
+<pre class="text"><code>下一步最有价值的状态变化</code></pre>
+<p>而不是：</p>
+<pre class="text"><code>任务池中的下一个任务</code></pre>
+<hr />
+<h2 id="fresh-context-上下文隔离协议">Fresh Context 上下文隔离协议</h2>
+<h2 id="背景">1. 背景</h2>
+<p>AI 任务质量下降的核心原因之一是上下文膨胀和注意力漂移。ProgressEngine
+必须强制上下文隔离。</p>
+<h2 id="核心规则">2. 核心规则</h2>
+<pre class="text"><code>One Intervention, One Fresh Context.</code></pre>
+<p>每个 Intervention 必须在新的上下文空间中执行。</p>
+<h2 id="禁止继承完整聊天历史">3. 禁止继承完整聊天历史</h2>
+<p>下一轮 Run 不允许读取上一轮完整聊天。只能读取：</p>
+<ul>
+<li>Project State。</li>
+<li>已接受 artifact。</li>
+<li>Ledger。</li>
+<li>已应用 State Delta。</li>
+<li>当前 Intervention。</li>
+<li>相关文件。</li>
+<li>必要 Evidence。</li>
+</ul>
+<p>未落账的信息视为不存在。</p>
+<h2 id="execution-session-与-verification-session-分离">4. Execution
+Session 与 Verification Session 分离</h2>
+<pre class="text"><code>Execution Session: 执行推进动作
+Verification Session: 独立验证结果</code></pre>
+<p>执行者不能验证自己的完成状态。</p>
+<h2 id="context-capsule">5. Context Capsule</h2>
+<p>Context Capsule 是单个 Intervention 的上下文胶囊。</p>
+<p>内容包括：</p>
+<pre class="text"><code>项目快照
+当前目标状态
+当前 Intervention
+相关 artifact 摘要
+相关文件列表
+非目标
+验收标准
+证据要求
+执行规则
+失败处理规则</code></pre>
+<h2 id="capsule-示例">6. Capsule 示例</h2>
+<div class="sourceCode" id="cb75"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Context Capsule: IV-007</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Project Snapshot</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Project: ProgressEngine</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Current Mode: Explore / Converge</span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Current State: Product reviewed, Quality drafted, Implementation unknown</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Target State</span></span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>TS-003: MVP success metrics accepted.</span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intervention</span></span>
+<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>IV-007: Define measurable MVP success metrics.</span>
+<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## In Scope</span></span>
+<span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Define measurable success metrics.</span>
+<span id="cb75-16"><a href="#cb75-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Map metrics to release gate.</span>
+<span id="cb75-17"><a href="#cb75-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Out of Scope</span></span>
+<span id="cb75-19"><a href="#cb75-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Do not change MVP feature scope.</span>
+<span id="cb75-20"><a href="#cb75-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Do not introduce new modules.</span>
+<span id="cb75-21"><a href="#cb75-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-22"><a href="#cb75-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Evidence Required</span></span>
+<span id="cb75-23"><a href="#cb75-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Updated PRD section.</span>
+<span id="cb75-24"><a href="#cb75-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Product checklist pass.</span>
+<span id="cb75-25"><a href="#cb75-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>State Delta proposal.</span>
+<span id="cb75-26"><a href="#cb75-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-27"><a href="#cb75-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rules</span></span>
+<span id="cb75-28"><a href="#cb75-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Do not claim completion without acceptance mapping.</span>
+<span id="cb75-29"><a href="#cb75-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Do not defer silently.</span>
+<span id="cb75-30"><a href="#cb75-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Output remaining gaps explicitly.</span></code></pre></div>
+<h2 id="context-budget">7. Context Budget</h2>
+<p>每个 Intervention 必须声明上下文预算：</p>
+<div class="sourceCode" id="cb76"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">context_budget</span><span class="kw">:</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max_artifacts</span><span class="kw">:</span><span class="at"> </span><span class="dv">8</span></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max_files</span><span class="kw">:</span><span class="at"> </span><span class="dv">12</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max_acceptance_items</span><span class="kw">:</span><span class="at"> </span><span class="dv">7</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max_expected_diff_files</span><span class="kw">:</span><span class="at"> </span><span class="dv">8</span></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">allow_full_repo_scan</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
+<p>如果超预算，系统必须执行：</p>
+<pre class="text"><code>split intervention</code></pre>
+<p>而不是强行执行。</p>
+<h2 id="执行模式">8. 执行模式</h2>
+<table>
+<thead>
+<tr class="header">
+<th>模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prompt-only</td>
+<td>生成 Capsule，用户复制给 AI</td>
+</tr>
+<tr class="even">
+<td>manual-run</td>
+<td>用户人工执行，再录入 Evidence</td>
+</tr>
+<tr class="odd">
+<td>shell-adapter</td>
+<td>调用本地命令或 AI CLI</td>
+</tr>
+<tr class="even">
+<td>api-adapter</td>
+<td>直接调用模型 API</td>
+</tr>
+<tr class="odd">
+<td>verify-only</td>
+<td>只做验证</td>
+</tr>
+</tbody>
+</table>
+<p>MVP 第一版优先支持：</p>
+<pre class="text"><code>prompt-only + manual-run + verify-only</code></pre>
+<h2 id="session-ttl">9. Session TTL</h2>
+<pre class="text"><code>Session TTL = 1 Intervention</code></pre>
+<p>一个会话完成一个 Intervention 后必须关闭。后续只能通过 State
+Delta、Evidence 和 Ledger 交接。</p>
+<h2 id="split-触发条件">10. Split 触发条件</h2>
+<p>必须拆分的情况：</p>
+<ul>
+<li>需要修改多个无关模块。</li>
+<li>验收标准超过 7 条。</li>
+<li>相关文件超过预算。</li>
+<li>同时包含产品决策和代码实现。</li>
+<li>同时包含架构变更和实现。</li>
+<li>Evidence 无法在单轮验证。</li>
+</ul>
+<h2 id="上下文污染检测">11. 上下文污染检测</h2>
+<p>Verifier 应检查：</p>
+<ul>
+<li>输出是否引用了 Capsule 之外的未授权假设。</li>
+<li>是否扩大 scope。</li>
+<li>是否引入未落账决策。</li>
+<li>是否把未完成事项口头延期。</li>
+</ul>
+<hr />
+<h2 id="evidence-verifier-证据验证协议">Evidence Verifier
+证据验证协议</h2>
+<h2 id="目标">1. 目标</h2>
+<p>防止 AI 假完成，确保每次项目状态变化都有证据。</p>
+<h2 id="基本规则">2. 基本规则</h2>
+<pre class="text"><code>Executor can implement.
+Verifier decides whether state advanced.</code></pre>
+<p>执行者最多可以输出：</p>
+<pre class="text"><code>implemented / evidence submitted</code></pre>
+<p>不能直接输出：</p>
+<pre class="text"><code>done / state advanced</code></pre>
+<h2 id="evidence-类型">3. Evidence 类型</h2>
+<table>
+<thead>
+<tr class="header">
+<th>类型</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>code_diff</td>
+<td>修改的代码文件</td>
+</tr>
+<tr class="even">
+<td>test_result</td>
+<td>测试命令和结果</td>
+</tr>
+<tr class="odd">
+<td>artifact_review</td>
+<td>文档 checklist 通过</td>
+</tr>
+<tr class="even">
+<td>command_output</td>
+<td>CLI 输出</td>
+</tr>
+<tr class="odd">
+<td>demo_result</td>
+<td>可运行演示</td>
+</tr>
+<tr class="even">
+<td>user_feedback</td>
+<td>用户反馈或访谈记录</td>
+</tr>
+<tr class="odd">
+<td>decision_record</td>
+<td>ADR 或决策记录</td>
+</tr>
+<tr class="even">
+<td>risk_update</td>
+<td>风险状态变化</td>
+</tr>
+<tr class="odd">
+<td>release_check</td>
+<td>发布检查结果</td>
+</tr>
+</tbody>
+</table>
+<h2 id="验证流程">4. 验证流程</h2>
+<pre class="text"><code>Collect Evidence
+  ↓
+Map Evidence to Acceptance Criteria
+  ↓
+Check Scope
+  ↓
+Check No Silent Deferral
+  ↓
+Check State Delta Claim
+  ↓
+Pass / Partial / Fail</code></pre>
+<h2 id="验收映射">5. 验收映射</h2>
+<p>每条 acceptance criterion 必须有结果：</p>
+<div class="sourceCode" id="cb84"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acceptance_mapping</span><span class="kw">:</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">criterion</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;CLI can generate context capsule.&quot;</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">status</span><span class="kw">:</span><span class="at"> pass</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">evidence</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;tests/context_capsule_test.ts::generates_capsule&quot;</span></span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">criterion</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Missing artifact returns clear error.&quot;</span></span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">status</span><span class="kw">:</span><span class="at"> fail</span></span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">evidence</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">required_action</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Create repair intervention.&quot;</span></span></code></pre></div>
+<p>状态：</p>
+<pre class="text"><code>pass
+fail
+not_tested
+not_applicable
+blocked</code></pre>
+<h2 id="验证输出">6. 验证输出</h2>
+<div class="sourceCode" id="cb86"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">verification</span><span class="kw">:</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> VR-001</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">run_id</span><span class="kw">:</span><span class="at"> RUN-001</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">result</span><span class="kw">:</span><span class="at"> partial</span></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Implementation works for normal path, but missing artifact error is not tested.&quot;</span></span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">acceptance_mapping</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">scope_check</span><span class="kw">:</span></span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">result</span><span class="kw">:</span><span class="at"> pass</span></span>
+<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">evidence_check</span><span class="kw">:</span></span>
+<span id="cb86-10"><a href="#cb86-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">result</span><span class="kw">:</span><span class="at"> partial</span></span>
+<span id="cb86-11"><a href="#cb86-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">silent_deferral_check</span><span class="kw">:</span></span>
+<span id="cb86-12"><a href="#cb86-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">result</span><span class="kw">:</span><span class="at"> pass</span></span>
+<span id="cb86-13"><a href="#cb86-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">recommended_action</span><span class="kw">:</span></span>
+<span id="cb86-14"><a href="#cb86-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> repair_intervention</span></span>
+<span id="cb86-15"><a href="#cb86-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Add missing artifact error test.&quot;</span></span></code></pre></div>
+<h2 id="不能接受的完成表述">7. 不能接受的完成表述</h2>
+<p>以下表述不能作为完成证据：</p>
+<pre class="text"><code>基本完成。
+主要功能已经实现。
+后续可以优化。
+理论上应该可以。
+我已经更新了相关内容。</code></pre>
+<p>必须替换为：</p>
+<pre class="text"><code>哪个状态维度发生了什么变化？
+哪条验收标准通过？
+证据在哪里？
+哪些未通过？
+是否产生新的 gap？</code></pre>
+<h2 id="scope-check">8. Scope Check</h2>
+<p>Verifier 必须检查：</p>
+<ul>
+<li>是否修改了 out_of_scope 文件。</li>
+<li>是否引入新依赖。</li>
+<li>是否改变架构。</li>
+<li>是否绕过质量门禁。</li>
+<li>是否更改项目状态但没有 State Delta。</li>
+</ul>
+<h2 id="结果处理">9. 结果处理</h2>
+<table>
+<thead>
+<tr class="header">
+<th>结果</th>
+<th>后续</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>pass</td>
+<td>生成 State Delta Proposal</td>
+</tr>
+<tr class="even">
+<td>partial</td>
+<td>生成 Repair / Gap / Event</td>
+</tr>
+<tr class="odd">
+<td>fail</td>
+<td>回滚或阻断</td>
+</tr>
+<tr class="even">
+<td>blocked</td>
+<td>生成 blocker 和上游 clarification</td>
+</tr>
+</tbody>
+</table>
+<h2 id="独立上下文验证">10. 独立上下文验证</h2>
+<p>Verification Session 必须使用新的上下文，只包含：</p>
+<ul>
+<li>Intervention Contract。</li>
+<li>Evidence。</li>
+<li>Diff / artifact changes。</li>
+<li>验证规则。</li>
+</ul>
+<p>不能继承执行者长篇解释。</p>
+<hr />
+<h2 id="非代码产物验证协议">非代码产物验证协议</h2>
+<h2 id="背景-1">1. 背景</h2>
+<p>代码可以通过测试、diff、运行命令验证。但产品、设计、架构、质量计划等非代码产物容易出现自证循环：</p>
+<pre class="text"><code>我写了一个文档，所以状态推进了。</code></pre>
+<p>ProgressEngine 必须避免这种情况。</p>
+<h2 id="非代码-evidence-公式">2. 非代码 Evidence 公式</h2>
+<pre class="text"><code>Non-code Evidence = Artifact + Checklist + Reviewer Result + Remaining Gaps</code></pre>
+<p>只有 artifact 不算充分证据。</p>
+<h2 id="product-prd-验证清单">3. Product / PRD 验证清单</h2>
+<p>PRD 至少包含：</p>
+<ul>
+<li>目标用户。</li>
+<li>核心问题。</li>
+<li>使用场景。</li>
+<li>当前替代方案。</li>
+<li>MVP 目标。</li>
+<li>Must / Should / Won’t。</li>
+<li>非目标。</li>
+<li>成功指标。</li>
+<li>用户故事。</li>
+<li>验收标准。</li>
+<li>关键假设。</li>
+<li>风险和依赖。</li>
+</ul>
+<p>PRD reviewed 必须满足：</p>
+<pre class="text"><code>字段完整
++ Product Critic 审查
++ 范围没有明显膨胀
++ 非目标明确
++ 成功指标可验证</code></pre>
+<p>PRD accepted 需要人工确认或策略 gate。</p>
+<h2 id="ux-interaction-验证清单">4. UX / Interaction 验证清单</h2>
+<p>UX 产物至少包含：</p>
+<ul>
+<li>核心用户路径。</li>
+<li>关键交互步骤。</li>
+<li>成功状态。</li>
+<li>失败状态。</li>
+<li>空状态。</li>
+<li>错误提示。</li>
+<li>确认点。</li>
+<li>对应 PRD 场景。</li>
+</ul>
+<p>对于 CLI 产品，还要包含：</p>
+<ul>
+<li>命令输入输出示例。</li>
+<li>错误消息。</li>
+<li>人工确认提示。</li>
+<li>交互退出方式。</li>
+</ul>
+<h2 id="technical-design-验证清单">5. Technical Design 验证清单</h2>
+<p>技术设计至少包含：</p>
+<ul>
+<li>技术栈选择及理由。</li>
+<li>备选方案比较。</li>
+<li>模块边界。</li>
+<li>数据模型。</li>
+<li>核心流程。</li>
+<li>文件系统协议。</li>
+<li>外部依赖。</li>
+<li>错误处理。</li>
+<li>安全/隐私考虑。</li>
+<li>技术风险。</li>
+<li>ADR 索引。</li>
+<li>明确不做什么。</li>
+</ul>
+<p>reviewed 需要 Tech Critic 通过。</p>
+<p>accepted 需要关键 ADR 接受。</p>
+<p>validated 需要 Spike、测试或实现证明。</p>
+<h2 id="quality-plan-验证清单">6. Quality Plan 验证清单</h2>
+<p>质量计划至少包含：</p>
+<ul>
+<li>状态成熟度判定规则。</li>
+<li>每类 Intervention 的 evidence 要求。</li>
+<li>代码测试策略。</li>
+<li>非代码 artifact review 策略。</li>
+<li>Fresh Context 检查。</li>
+<li>State Delta 检查。</li>
+<li>回归测试。</li>
+<li>发布门禁。</li>
+</ul>
+<h2 id="release-strategy-验证清单">7. Release Strategy 验证清单</h2>
+<p>发布策略至少包含：</p>
+<ul>
+<li>部署目标。</li>
+<li>环境变量。</li>
+<li>回滚方式。</li>
+<li>日志与监控。</li>
+<li>已知问题。</li>
+<li>反馈入口。</li>
+<li>发布阻断条件。</li>
+</ul>
+<h2 id="reviewer-result">8. Reviewer Result</h2>
+<p>非代码验证输出：</p>
+<div class="sourceCode" id="cb92"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">artifact_review</span><span class="kw">:</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">artifact</span><span class="kw">:</span><span class="at"> artifacts/prd.md</span></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">reviewer_role</span><span class="kw">:</span><span class="at"> product_critic</span></span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">result</span><span class="kw">:</span><span class="at"> pass_with_notes</span></span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">checklist</span><span class="kw">:</span></span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">target_user</span><span class="kw">:</span><span class="at"> pass</span></span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">non_goals</span><span class="kw">:</span><span class="at"> pass</span></span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">success_metrics</span><span class="kw">:</span><span class="at"> fail</span></span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">remaining_gaps</span><span class="kw">:</span></span>
+<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> G-003</span></span>
+<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">suggested_target_states</span><span class="kw">:</span></span>
+<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> TS-003</span></span></code></pre></div>
+<h2 id="状态升级规则">9. 状态升级规则</h2>
+<pre class="text"><code>artifact exists       → seed / drafted
+checklist passed      → reviewed
+human gate accepted   → accepted
+real-world evidence   → validated
+new conflicting event → stale / reopened</code></pre>
+<hr />
+<h2 id="change-event-影响分析与失效传播">Change Event
+影响分析与失效传播</h2>
+<h2 id="目的-1">1. 目的</h2>
+<p>项目是螺旋式推进。实现、验证、反馈和外部变化都会让已有状态失效。Change
+Event 用来捕获这些变化，并触发影响分析、失效传播和重新推进。</p>
+<h2 id="change-event-类型">2. Change Event 类型</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>类型</th>
+<th>来源</th>
+<th>可能影响</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>new_intent</td>
+<td>用户新增意图</td>
+<td>Intent / Product / Planning</td>
+</tr>
+<tr class="even">
+<td>scope_change</td>
+<td>MVP 范围变化</td>
+<td>Product / UX / Quality / Implementation</td>
+</tr>
+<tr class="odd">
+<td>implementation_finding</td>
+<td>实现中发现设计缺口</td>
+<td>System / Architecture / Planning</td>
+</tr>
+<tr class="even">
+<td>verification_failure</td>
+<td>验证失败</td>
+<td>Quality / Implementation / State Delta</td>
+</tr>
+<tr class="odd">
+<td>quality_gap</td>
+<td>QA 发现缺口</td>
+<td>Quality / Implementation</td>
+</tr>
+<tr class="even">
+<td>architecture_conflict</td>
+<td>架构冲突</td>
+<td>Architecture / System / ADR</td>
+</tr>
+<tr class="odd">
+<td>task_too_large</td>
+<td>上下文或范围超限</td>
+<td>Planning / Meta</td>
+</tr>
+<tr class="even">
+<td>user_feedback</td>
+<td>用户反馈</td>
+<td>Product / UX / Roadmap</td>
+</tr>
+<tr class="odd">
+<td>release_blocker</td>
+<td>发布阻断</td>
+<td>Delivery / Quality</td>
+</tr>
+<tr class="even">
+<td>external_change</td>
+<td>依赖、API、环境变化</td>
+<td>Architecture / Implementation</td>
+</tr>
+<tr class="odd">
+<td>human_override</td>
+<td>人工方向调整</td>
+<td>多维度</td>
+</tr>
+</tbody>
+</table>
+<h2 id="事件结构">3. 事件结构</h2>
+<div class="sourceCode" id="cb94"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">change_event</span><span class="kw">:</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> EVT-001</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> implementation_finding</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> high</span></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">source</span><span class="kw">:</span></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">run_id</span><span class="kw">:</span><span class="at"> RUN-001</span></span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">intervention_id</span><span class="kw">:</span><span class="at"> IV-001</span></span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Context Capsule generation requires artifact priority rules.&quot;</span></span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">affected_dimensions</span><span class="kw">:</span></span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> system_design</span></span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> quality</span></span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">affected_artifacts</span><span class="kw">:</span></span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">id</span><span class="kw">:</span><span class="at"> technical_design</span></span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">current_version</span><span class="kw">:</span><span class="at"> v2</span></span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">effect</span><span class="kw">:</span><span class="at"> reopen</span></span>
+<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">invalidates</span><span class="kw">:</span></span>
+<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">interventions</span><span class="kw">:</span></span>
+<span id="cb94-18"><a href="#cb94-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> IV-009</span></span>
+<span id="cb94-19"><a href="#cb94-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">state_claims</span><span class="kw">:</span></span>
+<span id="cb94-20"><a href="#cb94-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> SD-004</span></span>
+<span id="cb94-21"><a href="#cb94-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">target_states</span><span class="kw">:</span></span>
+<span id="cb94-22"><a href="#cb94-22" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> TS-005</span></span>
+<span id="cb94-23"><a href="#cb94-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">emitted_gaps</span><span class="kw">:</span></span>
+<span id="cb94-24"><a href="#cb94-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> G-012</span></span>
+<span id="cb94-25"><a href="#cb94-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">emitted_targets</span><span class="kw">:</span></span>
+<span id="cb94-26"><a href="#cb94-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> TS-009</span></span>
+<span id="cb94-27"><a href="#cb94-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">emitted_interventions</span><span class="kw">:</span></span>
+<span id="cb94-28"><a href="#cb94-28" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> IV-014</span></span>
+<span id="cb94-29"><a href="#cb94-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">requires_human_review</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<h2 id="影响分析流程">4. 影响分析流程</h2>
+<pre class="text"><code>Capture Event
+  ↓
+Classify Event
+  ↓
+Identify Affected Dimensions
+  ↓
+Identify Affected Artifacts
+  ↓
+Identify Invalidated State Claims
+  ↓
+Mark Affected Interventions stale / blocked
+  ↓
+Emit New Gaps
+  ↓
+Propose New Target States
+  ↓
+Plan New Interventions</code></pre>
+<h2 id="失效传播规则">5. 失效传播规则</h2>
+<h3 id="artifact-reopened">5.1 Artifact reopened</h3>
+<p>当实现发现架构文档不足时：</p>
+<div class="sourceCode" id="cb96"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">artifact_effect</span><span class="kw">:</span><span class="at"> reopen</span></span></code></pre></div>
+<p>意味着：</p>
+<ul>
+<li>artifact 状态从 accepted/reviewed 变为 reopened。</li>
+<li>依赖该 artifact 的目标状态需要复核。</li>
+<li>相关 Intervention 进入 stale 或 needs_review。</li>
+</ul>
+<h3 id="artifact-superseded">5.2 Artifact superseded</h3>
+<p>当新版本完全替代旧版本时：</p>
+<div class="sourceCode" id="cb97"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">artifact_effect</span><span class="kw">:</span><span class="at"> supersede</span></span></code></pre></div>
+<p>意味着：</p>
+<ul>
+<li>旧 artifact 不再作为事实源。</li>
+<li>旧任务引用需要重算。</li>
+</ul>
+<h3 id="state-claim-invalidated">5.3 State claim invalidated</h3>
+<p>如果某个 State Delta 的证据被推翻：</p>
+<div class="sourceCode" id="cb98"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">invalidates</span><span class="kw">:</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">state_claims</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">SD</span><span class="dv">-004</span><span class="kw">]</span></span></code></pre></div>
+<p>必须：</p>
+<ul>
+<li>标记对应 Project State 维度为 stale。</li>
+<li>生成 reassessment Intervention。</li>
+</ul>
+<h2 id="示例实现中发现系统设计缺口">6. 示例：实现中发现系统设计缺口</h2>
+<p>当前 Intervention：</p>
+<pre class="text"><code>IV-008 Implement Context Capsule Builder</code></pre>
+<p>发现：</p>
+<pre class="text"><code>artifact 优先级未定义，导致 capsule 内容不可控。</code></pre>
+<p>系统应生成：</p>
+<pre class="text"><code>EVT-002 implementation_finding
+G-014 system design gap
+TS-010 artifact priority rule accepted
+IV-020 define artifact priority rules</code></pre>
+<p>同时：</p>
+<pre class="text"><code>IV-008 blocked
+technical_design reopened
+相关 quality tests stale</code></pre>
+<h2 id="禁止行为">7. 禁止行为</h2>
+<ul>
+<li>不允许在实现中临时发明规则并继续。</li>
+<li>不允许忽略影响继续执行下游任务。</li>
+<li>不允许口头说明“后面再补”。</li>
+<li>不允许 Change Event 不落账。</li>
+</ul>
+<hr />
+<h2 id="state-delta-提案应用与回滚协议">State Delta
+提案、应用与回滚协议</h2>
+<h2 id="目的-2">1. 目的</h2>
+<p>State Delta
+是项目状态变化的正式声明。为了防止状态账本被污染，所有状态更新必须经过：</p>
+<pre class="text"><code>Evidence → Verify → Propose → Gate → Apply → Reassess</code></pre>
+<h2 id="state-delta-不是自动写入">2. State Delta 不是自动写入</h2>
+<p>Verifier 通过后生成的是：</p>
+<pre class="text"><code>State Delta Proposal</code></pre>
+<p>不是直接修改 Project State。</p>
+<h2 id="流程">3. 流程</h2>
+<pre class="text"><code>Run Completed
+  ↓
+Evidence Submitted
+  ↓
+Verification Passed / Partial
+  ↓
+State Delta Proposed
+  ↓
+Human or Policy Gate
+  ↓
+Apply / Reject
+  ↓
+Update Project State
+  ↓
+Record in Ledger
+  ↓
+Reassess</code></pre>
+<h2 id="state-delta-模板">4. State Delta 模板</h2>
+<div class="sourceCode" id="cb106"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">state_delta</span><span class="kw">:</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> SD-001</span></span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">run_id</span><span class="kw">:</span><span class="at"> RUN-001</span></span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">intervention_id</span><span class="kw">:</span><span class="at"> IV-001</span></span>
+<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">verification_id</span><span class="kw">:</span><span class="at"> VR-001</span></span>
+<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">status</span><span class="kw">:</span><span class="at"> proposed</span></span>
+<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">proposed_at</span><span class="kw">:</span><span class="at"> 2026-05-16T10:00:00-07:00</span></span>
+<span id="cb106-8"><a href="#cb106-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">proposed_by</span><span class="kw">:</span><span class="at"> verifier</span></span>
+<span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">primary_dimension</span><span class="kw">:</span><span class="at"> implementation</span></span>
+<span id="cb106-10"><a href="#cb106-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">secondary_dimensions</span><span class="kw">:</span></span>
+<span id="cb106-11"><a href="#cb106-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> quality</span></span>
+<span id="cb106-12"><a href="#cb106-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">before</span><span class="kw">:</span></span>
+<span id="cb106-13"><a href="#cb106-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">implementation</span><span class="kw">:</span></span>
+<span id="cb106-14"><a href="#cb106-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> unknown</span></span>
+<span id="cb106-15"><a href="#cb106-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;No intent intake command exists.&quot;</span></span>
+<span id="cb106-16"><a href="#cb106-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">after</span><span class="kw">:</span></span>
+<span id="cb106-17"><a href="#cb106-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">implementation</span><span class="kw">:</span></span>
+<span id="cb106-18"><a href="#cb106-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maturity</span><span class="kw">:</span><span class="at"> drafted</span></span>
+<span id="cb106-19"><a href="#cb106-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Intent intake command implemented for basic input.&quot;</span></span>
+<span id="cb106-20"><a href="#cb106-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">evidence_refs</span><span class="kw">:</span></span>
+<span id="cb106-21"><a href="#cb106-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> EV-001</span></span>
+<span id="cb106-22"><a href="#cb106-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">acceptance_summary</span><span class="kw">:</span></span>
+<span id="cb106-23"><a href="#cb106-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pass</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
+<span id="cb106-24"><a href="#cb106-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fail</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
+<span id="cb106-25"><a href="#cb106-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">not_tested</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
+<span id="cb106-26"><a href="#cb106-26" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">remaining_gaps</span><span class="kw">:</span></span>
+<span id="cb106-27"><a href="#cb106-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> G-006</span></span>
+<span id="cb106-28"><a href="#cb106-28" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">emitted_events</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb106-29"><a href="#cb106-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">gate</span><span class="kw">:</span></span>
+<span id="cb106-30"><a href="#cb106-30" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb106-31"><a href="#cb106-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">approved_by</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb106-32"><a href="#cb106-32" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">approved_at</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb106-33"><a href="#cb106-33" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">apply</span><span class="kw">:</span></span>
+<span id="cb106-34"><a href="#cb106-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">applied_by</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb106-35"><a href="#cb106-35" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">applied_at</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb106-36"><a href="#cb106-36" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">previous_state_version</span><span class="kw">:</span><span class="at"> PS-0002</span></span>
+<span id="cb106-37"><a href="#cb106-37" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">next_state_version</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb106-38"><a href="#cb106-38" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">rollback</span><span class="kw">:</span></span>
+<span id="cb106-39"><a href="#cb106-39" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">reversible</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb106-40"><a href="#cb106-40" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rollback_delta_id</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb106-41"><a href="#cb106-41" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">rollback_steps</span><span class="kw">:</span></span>
+<span id="cb106-42"><a href="#cb106-42" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Restore project_state.yaml to PS-0002.&quot;</span></span>
+<span id="cb106-43"><a href="#cb106-43" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;Mark IV-001 as reopened.&quot;</span></span></code></pre></div>
+<h2 id="proposal-apply-边界">5. Proposal / Apply 边界</h2>
+<p><code>verify</code> 只能生成 State Delta Proposal。只有
+<code>delta apply</code> 才能修改 Project State。任何工具实现不得把
+verification pass 等同于 state updated。</p>
+<h2 id="apply-条件">6. Apply 条件</h2>
+<p>State Delta 只有满足以下条件才能 apply：</p>
+<ul>
+<li>Verification result 为 pass 或 pass_with_warnings。</li>
+<li>Evidence 映射完整。</li>
+<li>Scope check 通过。</li>
+<li>No silent deferral check 通过。</li>
+<li>对应 automation policy 允许自动 apply，或人工确认。</li>
+</ul>
+<h2 id="reject-条件">7. Reject 条件</h2>
+<p>以下情况必须 reject：</p>
+<ul>
+<li>Evidence 缺失。</li>
+<li>验收映射不完整。</li>
+<li>修改超出 scope。</li>
+<li>引入未批准架构变更。</li>
+<li>产物自证循环。</li>
+<li>Verifier 与 Executor 是同一上下文。</li>
+</ul>
+<h2 id="rollback">8. Rollback</h2>
+<p>回滚不一定回滚代码，但必须回滚状态声明。</p>
+<div class="sourceCode" id="cb107"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> delta rollback SD-001</span></code></pre></div>
+<p>回滚后：</p>
+<ul>
+<li>Project State 恢复到 previous_state_version。</li>
+<li>State Delta 标记为 rolled_back。</li>
+<li>生成 Change Event。</li>
+<li>相关 Intervention 重新进入 reopened 或 stale。</li>
+</ul>
+<h2 id="state-history">9. State History</h2>
+<p>每次 apply 都写入：</p>
+<pre class="text"><code>.progress/state/state_history.jsonl</code></pre>
+<p>字段：</p>
+<div class="sourceCode" id="cb109"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">state_version</span><span class="kw">:</span><span class="at"> PS-0003</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">applied_delta</span><span class="kw">:</span><span class="at"> SD-001</span></span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="fu">applied_at</span><span class="kw">:</span><span class="at"> ...</span></span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="fu">applied_by</span><span class="kw">:</span><span class="at"> human | policy</span></span>
+<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Implementation state moved from unknown to drafted.&quot;</span></span></code></pre></div>
+<h2 id="重新评估">10. 重新评估</h2>
+<p>Apply 后必须运行 reassess：</p>
+<div class="sourceCode" id="cb110"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> assess <span class="at">--after-delta</span> SD-001</span></code></pre></div>
+<p>因为一个 State Delta 可能产生新的 gap 或让旧 target 失效。</p>
+<hr />
+<h2 id="cli-与交互设计">CLI 与交互设计</h2>
+<h2 id="cli-目标">1. CLI 目标</h2>
+<p>CLI 是 ProgressEngine MVP 的主要入口。它不应首先成为 AI
+执行器，而应成为项目状态推进工具。</p>
+<h2 id="命令总览">2. 命令总览</h2>
+<div class="sourceCode" id="cb111"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> init</span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> intake</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> assess</span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> gaps</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> target</span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> plan</span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> capsule</span>
+<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> run</span>
+<span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> evidence</span>
+<span id="cb111-10"><a href="#cb111-10" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> verify</span>
+<span id="cb111-11"><a href="#cb111-11" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> delta</span>
+<span id="cb111-12"><a href="#cb111-12" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> event</span>
+<span id="cb111-13"><a href="#cb111-13" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> state</span>
+<span id="cb111-14"><a href="#cb111-14" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> spiral</span></code></pre></div>
+<h2 id="命令语义">3. 命令语义</h2>
+<h3 id="progress-init">3.1 <code>progress init</code></h3>
+<p>初始化 <code>.progress/</code> 目录。</p>
+<div class="sourceCode" id="cb112"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> init <span class="at">--project</span> progressengine</span></code></pre></div>
+<p>生成：</p>
+<pre class="text"><code>.progress/project.yaml
+.progress/state/project_state.yaml
+.progress/policies/*
+.progress/artifacts/*</code></pre>
+<h3 id="progress-intake">3.2 <code>progress intake</code></h3>
+<p>捕获初始意图。</p>
+<div class="sourceCode" id="cb114"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> intake <span class="at">--from</span> intent.md</span></code></pre></div>
+<p>输出：</p>
+<pre class="text"><code>.progress/artifacts/intent.md
+.progress/state/project_state.yaml</code></pre>
+<h3 id="progress-assess">3.3 <code>progress assess</code></h3>
+<p>评估当前项目真实状态。</p>
+<div class="sourceCode" id="cb116"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> assess</span></code></pre></div>
+<p>输出：</p>
+<pre class="text"><code>Project State Summary
+State Maturity by Dimension
+Detected Gaps
+Stale Claims
+Recommended Next Target Candidates</code></pre>
+<h3 id="progress-gaps">3.4 <code>progress gaps</code></h3>
+<p>列出状态缺口。</p>
+<div class="sourceCode" id="cb118"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> gaps list</span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> gaps show G-001</span></code></pre></div>
+<h3 id="progress-target">3.5 <code>progress target</code></h3>
+<p>推荐目标状态。</p>
+<div class="sourceCode" id="cb119"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> target suggest</span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> target approve TS-001</span></code></pre></div>
+<p>注意：<code>target</code> 不执行动作，只处理目标状态。</p>
+<h3 id="progress-plan">3.6 <code>progress plan</code></h3>
+<p>把目标状态转成推进动作。</p>
+<div class="sourceCode" id="cb120"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> plan <span class="at">--target</span> TS-001</span></code></pre></div>
+<p>输出：</p>
+<pre class="text"><code>Intervention Proposal IV-001</code></pre>
+<h3 id="progress-capsule">3.7 <code>progress capsule</code></h3>
+<p>生成 Fresh Context Capsule。</p>
+<div class="sourceCode" id="cb122"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> capsule <span class="at">--intervention</span> IV-001</span></code></pre></div>
+<p>输出：</p>
+<pre class="text"><code>.progress/runs/RUN-001/context_capsule.md</code></pre>
+<h3 id="progress-run">3.8 <code>progress run</code></h3>
+<p>管理 Run 生命周期。</p>
+<div class="sourceCode" id="cb124"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> run start <span class="at">--intervention</span> IV-001 <span class="at">--mode</span> prompt-only</span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> run close RUN-001</span></code></pre></div>
+<p>MVP 第一版中，<code>run start</code>
+可以只生成上下文包，不直接调用模型。</p>
+<h3 id="progress-evidence">3.9 <code>progress evidence</code></h3>
+<p>录入证据。</p>
+<div class="sourceCode" id="cb125"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> evidence add <span class="at">--run</span> RUN-001 <span class="at">--file</span> evidence.yaml</span>
+<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> evidence list <span class="at">--run</span> RUN-001</span></code></pre></div>
+<h3 id="progress-verify">3.10 <code>progress verify</code></h3>
+<p>独立验证结果。</p>
+<div class="sourceCode" id="cb126"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> verify <span class="at">--run</span> RUN-001</span></code></pre></div>
+<p>输出：</p>
+<pre class="text"><code>verification.md
+state_delta_proposal.yaml</code></pre>
+<h3 id="progress-delta">3.11 <code>progress delta</code></h3>
+<p>管理 State Delta。</p>
+<div class="sourceCode" id="cb128"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> delta review SD-001</span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> delta apply SD-001</span>
+<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> delta reject SD-001</span>
+<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> delta rollback SD-001</span></code></pre></div>
+<h3 id="progress-event">3.12 <code>progress event</code></h3>
+<p>管理 Change Event。</p>
+<div class="sourceCode" id="cb129"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> event add <span class="at">--type</span> implementation_finding</span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> event list</span>
+<span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> event show EVT-001</span></code></pre></div>
+<h3 id="progress-state">3.13 <code>progress state</code></h3>
+<p>查看、刷新和回放项目状态。<code>delta apply</code>
+负责写入状态；<code>state refresh</code>
+负责重新评估派生缺口和状态摘要。</p>
+<div class="sourceCode" id="cb130"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> state show</span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> state history</span>
+<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> state refresh <span class="at">--after-delta</span> SD-001</span></code></pre></div>
+<h3 id="progress-spiral">3.14 <code>progress spiral</code></h3>
+<p>执行受控螺旋推进。</p>
+<div class="sourceCode" id="cb131"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> spiral <span class="at">--mode</span> guarded <span class="at">--max-runs</span> 3</span></code></pre></div>
+<p>每轮必须 fresh context。</p>
+<h2 id="标准推进命令序列">4. 标准推进命令序列</h2>
+<div class="sourceCode" id="cb132"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> assess</span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> target suggest</span>
+<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> target approve TS-001</span>
+<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> plan <span class="at">--target</span> TS-001</span>
+<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> capsule <span class="at">--intervention</span> IV-001</span>
+<span id="cb132-6"><a href="#cb132-6" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> run start <span class="at">--intervention</span> IV-001 <span class="at">--mode</span> prompt-only</span>
+<span id="cb132-7"><a href="#cb132-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 用户或 AI 执行</span></span>
+<span id="cb132-8"><a href="#cb132-8" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> evidence add <span class="at">--run</span> RUN-001 <span class="at">--file</span> evidence.yaml</span>
+<span id="cb132-9"><a href="#cb132-9" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> verify <span class="at">--run</span> RUN-001</span>
+<span id="cb132-10"><a href="#cb132-10" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> delta review SD-001</span>
+<span id="cb132-11"><a href="#cb132-11" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> delta apply SD-001</span>
+<span id="cb132-12"><a href="#cb132-12" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> state refresh <span class="at">--after-delta</span> SD-001</span>
+<span id="cb132-13"><a href="#cb132-13" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> assess</span></code></pre></div>
+<h2 id="cli-输出原则">5. CLI 输出原则</h2>
+<ul>
+<li>输出当前状态，而不是只输出命令结果。</li>
+<li>每个命令都说明下一步建议。</li>
+<li>明确区分 proposal 和 applied。</li>
+<li>不用“完成”描述未验证结果。</li>
+<li>失败时给出 repair / gap / event 建议。</li>
+</ul>
+<h2 id="交互示例">6. 交互示例</h2>
+<pre class="text"><code>$ progress assess
+
+Project: progressengine
+State version: PS-0005
+
+Dimensions:
+- Intent: accepted / complete
+- Product: reviewed / partial
+- UX: drafted / partial
+- Architecture: drafted / in_progress
+- Implementation: unknown / not_started
+- Quality: drafted / partial
+
+Top Gaps:
+1. G-003 Product success metrics are weak.
+2. G-005 Architecture adapter boundary unclear.
+3. G-007 Quality evidence rules incomplete.
+
+Recommended Target:
+TS-003 Accept measurable MVP success metrics.</code></pre>
+<hr />
+<h2 id="工作流与典型场景">工作流与典型场景</h2>
+<h2 id="场景一从-0-创建项目">1. 场景一：从 0 创建项目</h2>
+<pre class="text"><code>用户输入意图
+  ↓
+progress init
+  ↓
+progress intake
+  ↓
+角色流水线生成第一版 artifacts
+  ↓
+progress assess
+  ↓
+progress target suggest
+  ↓
+生成第一个 Target State</code></pre>
+<p>示例：</p>
+<div class="sourceCode" id="cb135"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> init <span class="at">--project</span> my-tool</span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> intake <span class="at">--from</span> intent.md</span>
+<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> assess</span>
+<span id="cb135-4"><a href="#cb135-4" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> target suggest</span></code></pre></div>
+<p>输出不是任务池，而是：</p>
+<pre class="text"><code>当前项目状态
+主要状态缺口
+推荐目标状态
+建议推进动作</code></pre>
+<h2 id="场景二产品状态不清阻止继续编码">2.
+场景二：产品状态不清，阻止继续编码</h2>
+<p>状态：</p>
+<pre class="text"><code>Implementation ready tasks exist, but Product State is weak.</code></pre>
+<p>系统行为：</p>
+<pre class="text"><code>不继续执行代码任务
+  ↓
+推荐产品澄清 Target State
+  ↓
+生成 product_clarification Intervention</code></pre>
+<h2 id="场景三执行中发现架构缺口">3. 场景三：执行中发现架构缺口</h2>
+<p>执行 <code>IV-008 Implement context capsule generator</code>
+时发现：</p>
+<pre class="text"><code>artifact priority rules missing</code></pre>
+<p>系统行为：</p>
+<pre class="text"><code>生成 EVT-002 implementation_finding
+  ↓
+technical_design reopened
+  ↓
+IV-008 blocked
+  ↓
+生成 TS-010 artifact priority rules accepted
+  ↓
+生成 IV-020 define artifact priority rules</code></pre>
+<p>这是正常的螺旋推进，不是失败。</p>
+<h2 id="场景四ai-假完成被拦截">4. 场景四：AI 假完成被拦截</h2>
+<p>Executor 输出：</p>
+<pre class="text"><code>功能已经基本完成，后续可以补异常路径。</code></pre>
+<p>Verifier 检测：</p>
+<pre class="text"><code>missing acceptance mapping
+silent deferral detected
+error path untested</code></pre>
+<p>结果：</p>
+<pre class="text"><code>verification: fail
+state_delta: not proposed
+new intervention: IV-021 add error-path tests</code></pre>
+<h2 id="场景五非代码产物验证">5. 场景五：非代码产物验证</h2>
+<p>用户更新 PRD。</p>
+<p>系统不直接升级 Product State，而是：</p>
+<pre class="text"><code>PRD artifact exists
+  ↓
+Product Checklist
+  ↓
+Product Critic Review
+  ↓
+State Delta Proposal
+  ↓
+Apply</code></pre>
+<p>如果成功指标仍然不清楚，则 Product State 保持 reviewed /
+partial，不升级到 accepted。</p>
+<h2 id="场景六上下文超预算">6. 场景六：上下文超预算</h2>
+<p>Intervention 需要读取 30 个文件和 15 条验收标准。</p>
+<p>系统输出：</p>
+<pre class="text"><code>Context budget exceeded.
+This intervention must be split.</code></pre>
+<p>生成：</p>
+<pre class="text"><code>META intervention: split IV-030</code></pre>
+<h2 id="场景七发布前状态评估">7. 场景七：发布前状态评估</h2>
+<p>发布前运行：</p>
+<div class="sourceCode" id="cb147"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> assess <span class="at">--mode</span> release</span></code></pre></div>
+<p>系统检查：</p>
+<ul>
+<li>Implementation 是否 validated。</li>
+<li>Quality 是否 accepted/validated。</li>
+<li>Delivery 是否 reviewed/accepted。</li>
+<li>Known gaps 是否存在 release blocker。</li>
+<li>Rollback 是否定义。</li>
+<li>Feedback channel 是否存在。</li>
+</ul>
+<h2 id="场景八持续螺旋推进">8. 场景八：持续螺旋推进</h2>
+<div class="sourceCode" id="cb148"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> spiral <span class="at">--mode</span> guarded <span class="at">--max-runs</span> 3</span></code></pre></div>
+<p>每轮：</p>
+<pre class="text"><code>assess
+select target state
+plan intervention
+build fresh capsule
+execute / prompt-only
+verify
+propose state delta
+apply if allowed
+reassess</code></pre>
+<p>如果任何一轮产生 high severity event，spiral 停止，等待人工
+gate。</p>
+<hr />
+<h2 id="mvp-范围与路线图">MVP 范围与路线图</h2>
+<h2 id="mvp-定义">1. MVP 定义</h2>
+<p>ProgressEngine MVP 的目标不是自动完成整个软件项目，而是证明：</p>
+<pre class="text"><code>一个模糊项目意图可以被转化为可审查项目状态，
+并通过目标状态、推进动作、隔离上下文、证据验证和 State Delta，
+完成至少一轮真实的项目状态推进。</code></pre>
+<h2 id="must-have">2. Must Have</h2>
+<h3 id="project-state">2.1 Project State</h3>
+<ul>
+<li><code>.progress/</code> 初始化。</li>
+<li>Project State schema。</li>
+<li>状态维度与成熟度矩阵。</li>
+<li>State Gap 记录。</li>
+</ul>
+<h3 id="从-0-启动">2.2 从 0 启动</h3>
+<ul>
+<li>intent intake。</li>
+<li>角色流水线 prompt 模板。</li>
+<li>初始 artifacts 生成。</li>
+<li>初始 Project State 合成。</li>
+</ul>
+<h3 id="target-state">2.3 Target State</h3>
+<ul>
+<li>gaps list。</li>
+<li>target suggest。</li>
+<li>target scoring。</li>
+<li>target approve。</li>
+</ul>
+<h3 id="intervention-1">2.4 Intervention</h3>
+<ul>
+<li>Intervention schema。</li>
+<li>plan target to intervention。</li>
+<li>readiness check。</li>
+</ul>
+<h3 id="fresh-context-1">2.5 Fresh Context</h3>
+<ul>
+<li>context capsule 生成。</li>
+<li>context budget 检查。</li>
+<li>prompt-only run start。</li>
+</ul>
+<h3 id="evidence-verification">2.6 Evidence / Verification</h3>
+<ul>
+<li>evidence add。</li>
+<li>acceptance mapping。</li>
+<li>verifier checklist。</li>
+<li>State Delta proposal。</li>
+</ul>
+<h3 id="state-delta">2.7 State Delta</h3>
+<ul>
+<li>delta apply。</li>
+<li>delta reject。</li>
+<li>delta rollback。</li>
+<li>state history。</li>
+</ul>
+<h3 id="change-event">2.8 Change Event</h3>
+<ul>
+<li>event add/list/show。</li>
+<li>basic impact analysis。</li>
+<li>mark artifact stale/reopened。</li>
+</ul>
+<h2 id="should-have">3. Should Have</h2>
+<ul>
+<li>Mermaid 图生成。</li>
+<li>基础 TUI。</li>
+<li>Git diff 检查。</li>
+<li>自动检测 stale interventions。</li>
+<li>shell-adapter 调用测试命令。</li>
+<li>markdown/html report。</li>
+</ul>
+<h2 id="wont-have">4. Won’t Have</h2>
+<p>第一阶段不做：</p>
+<ul>
+<li>Web SaaS。</li>
+<li>多用户权限。</li>
+<li>实时 agent 编排。</li>
+<li>自动调用所有模型。</li>
+<li>自动发布生产环境。</li>
+<li>全自动高风险架构决策。</li>
+<li>复杂项目组合管理。</li>
+</ul>
+<h2 id="版本路线图">5. 版本路线图</h2>
+<h3 id="v0.1-state-loop-mvp">v0.1 — State Loop MVP</h3>
+<p>目标：跑通状态推进闭环。</p>
+<p>功能：</p>
+<pre class="text"><code>init / intake / assess / gaps / target / plan / capsule / evidence / verify / delta apply</code></pre>
+<p>成功标准：</p>
+<pre class="text"><code>能从一个意图生成第一版 project state，并完成一轮 State Delta 应用。</code></pre>
+<h3 id="v0.2-bootstrap-role-pipeline">v0.2 — Bootstrap Role
+Pipeline</h3>
+<p>目标：强化从 0 启动。</p>
+<p>功能：</p>
+<ul>
+<li>Product Lead Pass。</li>
+<li>Product Critic Pass。</li>
+<li>Tech Lead Pass。</li>
+<li>QA Lead Pass。</li>
+<li>State Synthesizer。</li>
+</ul>
+<p>成功标准：</p>
+<pre class="text"><code>能为新项目生成可审查 artifacts 和初始 target states。</code></pre>
+<h3 id="v0.3-change-event-reassessment">v0.3 — Change Event +
+Reassessment</h3>
+<p>目标：支持螺旋式回退。</p>
+<p>功能：</p>
+<ul>
+<li>Change Event 捕获。</li>
+<li>影响分析。</li>
+<li>stale/reopened 标记。</li>
+<li>intervention invalidation。</li>
+</ul>
+<h3 id="v0.4-guarded-spiral">v0.4 — Guarded Spiral</h3>
+<p>目标：连续推进，但每轮 fresh context。</p>
+<p>功能：</p>
+<div class="sourceCode" id="cb154"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> spiral <span class="at">--mode</span> guarded <span class="at">--max-runs</span> N</span></code></pre></div>
+<h3 id="v1.0-adapter-integration">v1.0 — Adapter Integration</h3>
+<p>目标：连接外部 AI 执行工具。</p>
+<p>支持：</p>
+<ul>
+<li>shell adapter。</li>
+<li>API adapter。</li>
+<li>GitHub/Codex/Claude Code 等执行接口。</li>
+</ul>
+<h2 id="mvp-验收标准">6. MVP 验收标准</h2>
+<p>MVP 通过标准：</p>
+<pre class="text"><code>1. 可以初始化新项目。
+2. 可以记录原始意图。
+3. 可以生成并评估 Project State。
+4. 可以识别 State Gap。
+5. 可以推荐 Target State。
+6. 可以生成 Intervention。
+7. 可以为 Intervention 生成 Context Capsule。
+8. 可以收集 Evidence。
+9. 可以独立 Verify。
+10. 可以生成并应用 State Delta。
+11. 可以在下一轮 assess 中看到状态变化。</code></pre>
+<h2 id="第一批推进动作">7. 第一批推进动作</h2>
+<p>建议从这些动作开始实现：</p>
+<pre class="text"><code>IV-001 Define project_state schema
+IV-002 Implement progress init
+IV-003 Implement intent intake
+IV-004 Implement state assessment from static files
+IV-005 Implement gap list
+IV-006 Implement target scoring
+IV-007 Implement intervention schema
+IV-008 Implement context capsule generator
+IV-009 Implement evidence schema
+IV-010 Implement verifier checklist
+IV-011 Implement state delta apply/rollback</code></pre>
+<hr />
+<h2 id="质量体系与风险管理">质量体系与风险管理</h2>
+<h2 id="质量目标">1. 质量目标</h2>
+<p>ProgressEngine 的质量目标不是“没有 bug”，而是：</p>
+<pre class="text"><code>项目状态变化可信、可追溯、可回滚。</code></pre>
+<h2 id="质量门禁">2. 质量门禁</h2>
+<h3 id="state-assessment-gate">2.1 State Assessment Gate</h3>
+<p>检查：</p>
+<ul>
+<li>状态维度完整。</li>
+<li>成熟度枚举合法。</li>
+<li>Evidence refs 存在。</li>
+<li>Gap refs 存在。</li>
+</ul>
+<h3 id="target-selection-gate">2.2 Target Selection Gate</h3>
+<p>检查：</p>
+<ul>
+<li>Target State 有明确 from/to。</li>
+<li>评分模型完整。</li>
+<li>why_now 合理。</li>
+<li>对应 gap 存在。</li>
+</ul>
+<h3 id="intervention-readiness-gate">2.3 Intervention Readiness
+Gate</h3>
+<p>检查：</p>
+<ul>
+<li>target_state 存在。</li>
+<li>in_scope/out_of_scope 明确。</li>
+<li>inputs 存在。</li>
+<li>acceptance 可验证。</li>
+<li>evidence_required 明确。</li>
+<li>context budget 未超限。</li>
+</ul>
+<h3 id="fresh-context-gate">2.4 Fresh Context Gate</h3>
+<p>检查：</p>
+<ul>
+<li>Context Capsule 是新生成。</li>
+<li>未携带上一轮完整 transcript。</li>
+<li>包含必要事实源。</li>
+<li>未包含无关上下文。</li>
+</ul>
+<h3 id="evidence-gate">2.5 Evidence Gate</h3>
+<p>检查：</p>
+<ul>
+<li>Evidence 映射 acceptance。</li>
+<li>文件/命令/审查结果存在。</li>
+<li>非代码 artifact 有 checklist。</li>
+</ul>
+<h3 id="delta-apply-gate">2.6 Delta Apply Gate</h3>
+<p>检查：</p>
+<ul>
+<li>Verifier 通过。</li>
+<li>Policy 允许。</li>
+<li>可回滚。</li>
+<li>状态历史可写入。</li>
+</ul>
+<h2 id="测试策略">3. 测试策略</h2>
+<table>
+<thead>
+<tr class="header">
+<th>模块</th>
+<th>测试类型</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Schema</td>
+<td>fixture validation</td>
+</tr>
+<tr class="even">
+<td>CLI</td>
+<td>command output tests</td>
+</tr>
+<tr class="odd">
+<td>State Engine</td>
+<td>state transition tests</td>
+</tr>
+<tr class="even">
+<td>Target Planner</td>
+<td>scoring tests</td>
+</tr>
+<tr class="odd">
+<td>Capsule Builder</td>
+<td>context generation tests</td>
+</tr>
+<tr class="even">
+<td>Verifier</td>
+<td>acceptance mapping tests</td>
+</tr>
+<tr class="odd">
+<td>Delta Apply</td>
+<td>rollback tests</td>
+</tr>
+<tr class="even">
+<td>Event Engine</td>
+<td>invalidation tests</td>
+</tr>
+</tbody>
+</table>
+<h2 id="高风险点">4. 高风险点</h2>
+<table>
+<thead>
+<tr class="header">
+<th>风险</th>
+<th>影响</th>
+<th>缓解</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>退化成任务管理器</td>
+<td>偏离愿景</td>
+<td>State-first 硬规则</td>
+</tr>
+<tr class="even">
+<td>非代码产物假完成</td>
+<td>状态虚假推进</td>
+<td>Artifact checklist + Critic</td>
+</tr>
+<tr class="odd">
+<td>自动化过度</td>
+<td>误推进状态</td>
+<td>Guarded policy</td>
+</tr>
+<tr class="even">
+<td>上下文污染</td>
+<td>AI 质量下降</td>
+<td>Fresh Context</td>
+</tr>
+<tr class="odd">
+<td>状态账本污染</td>
+<td>后续判断错误</td>
+<td>Proposal / Apply / Rollback</td>
+</tr>
+<tr class="even">
+<td>Change Event 未传播</td>
+<td>旧任务继续执行</td>
+<td>Invalidation log</td>
+</tr>
+<tr class="odd">
+<td>过度设计</td>
+<td>MVP 延迟</td>
+<td>CLI-first, prompt-only</td>
+</tr>
+</tbody>
+</table>
+<h2 id="质量指标">5. 质量指标</h2>
+<p>建议跟踪：</p>
+<pre class="text"><code>false completion rate
+state delta rejection rate
+reopened artifact count
+stale intervention count
+average runs per accepted state delta
+manual gate frequency
+context budget exceed count
+verification failure categories</code></pre>
+<h2 id="发布阻断条件">6. 发布阻断条件</h2>
+<p>以下情况不能发布：</p>
+<ul>
+<li>State Delta apply/rollback 未验证。</li>
+<li>Fresh Context 不能稳定生成。</li>
+<li>Evidence schema 不完整。</li>
+<li>非代码 artifact 无法 review。</li>
+<li>Change Event 不能标记 stale/reopened。</li>
+<li>CLI 不能跑通完整状态推进闭环。</li>
+</ul>
+<hr />
+<h2 id="guarded-spiral-自动化边界">Guarded Spiral 自动化边界</h2>
+<h2 id="背景-2">1. 背景</h2>
+<p>ProgressEngine
+可以自动推进，但不能无边界自动推进。自动化必须服务状态推进，同时避免错误状态被写入。</p>
+<h2 id="自动化模式">2. 自动化模式</h2>
+<table>
+<thead>
+<tr class="header">
+<th>模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>manual</td>
+<td>只生成建议和上下文，由人执行</td>
+</tr>
+<tr class="even">
+<td>prompt-only</td>
+<td>生成 prompt，用户复制给 AI</td>
+</tr>
+<tr class="odd">
+<td>guarded</td>
+<td>自动执行低风险步骤，关键点人工 gate</td>
+</tr>
+<tr class="even">
+<td>adapter</td>
+<td>调用外部 AI/CLI 工具执行</td>
+</tr>
+<tr class="odd">
+<td>autonomous</td>
+<td>后续高级模式，MVP 不做</td>
+</tr>
+</tbody>
+</table>
+<h2 id="guarded-spiral-流程">3. Guarded Spiral 流程</h2>
+<pre class="text"><code>assess
+  ↓
+suggest target
+  ↓
+policy check
+  ↓
+plan intervention
+  ↓
+build capsule
+  ↓
+execute if allowed
+  ↓
+verify
+  ↓
+propose delta
+  ↓
+apply only if allowed
+  ↓
+reassess</code></pre>
+<h2 id="自动允许项">4. 自动允许项</h2>
+<div class="sourceCode" id="cb160"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto_allowed</span><span class="kw">:</span></span>
+<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> state_assessment</span></span>
+<span id="cb160-3"><a href="#cb160-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> gap_listing</span></span>
+<span id="cb160-4"><a href="#cb160-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> target_scoring</span></span>
+<span id="cb160-5"><a href="#cb160-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> context_capsule_generation</span></span>
+<span id="cb160-6"><a href="#cb160-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> schema_validation</span></span>
+<span id="cb160-7"><a href="#cb160-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> documentation_check</span></span>
+<span id="cb160-8"><a href="#cb160-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> evidence_structure_check</span></span>
+<span id="cb160-9"><a href="#cb160-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> stale_reference_detection</span></span></code></pre></div>
+<h2 id="需要人工-gate-的项">5. 需要人工 gate 的项</h2>
+<div class="sourceCode" id="cb161"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">human_gate_required</span><span class="kw">:</span></span>
+<span id="cb161-2"><a href="#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> product_scope_change</span></span>
+<span id="cb161-3"><a href="#cb161-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> target_state_approval</span></span>
+<span id="cb161-4"><a href="#cb161-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> architecture_decision</span></span>
+<span id="cb161-5"><a href="#cb161-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> dependency_introduction</span></span>
+<span id="cb161-6"><a href="#cb161-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> destructive_file_change</span></span>
+<span id="cb161-7"><a href="#cb161-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> release_action</span></span>
+<span id="cb161-8"><a href="#cb161-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> state_delta_apply</span></span>
+<span id="cb161-9"><a href="#cb161-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> rollback</span></span>
+<span id="cb161-10"><a href="#cb161-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> user_visible_behavior_change</span></span></code></pre></div>
+<h2 id="自动停止条件">6. 自动停止条件</h2>
+<p>Guarded Spiral 必须在以下情况下停止：</p>
+<ul>
+<li>产生 high severity Change Event。</li>
+<li>需要人工 gate。</li>
+<li>Context budget 超限。</li>
+<li>连续两次 verification fail。</li>
+<li>出现 silent deferral。</li>
+<li>State Delta 被 reject。</li>
+<li>Git working tree 有未解释变更。</li>
+</ul>
+<h2 id="命令">7. 命令</h2>
+<div class="sourceCode" id="cb162"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="ex">progress</span> spiral <span class="at">--mode</span> guarded <span class="at">--max-runs</span> 3</span></code></pre></div>
+<p>选项：</p>
+<div class="sourceCode" id="cb163"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="ex">--allow-docs-only</span></span>
+<span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="ex">--allow-low-risk-code</span></span>
+<span id="cb163-3"><a href="#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="ex">--no-delta-auto-apply</span></span>
+<span id="cb163-4"><a href="#cb163-4" aria-hidden="true" tabindex="-1"></a><span class="ex">--stop-on-event</span> high</span></code></pre></div>
+<h2 id="自动化不是长会话">8. 自动化不是长会话</h2>
+<p>Guarded Spiral 不能使用一个长 AI 会话连续完成多个动作。</p>
+<p>必须是：</p>
+<pre class="text"><code>Run 1 fresh context
+  ↓
+verify / delta / reassess
+  ↓
+Run 2 fresh context
+  ↓
+verify / delta / reassess</code></pre>
+<h2 id="安全边界">9. 安全边界</h2>
+<p>即使未来支持模型 API，以下操作默认禁止自动执行：</p>
+<ul>
+<li>删除大量文件。</li>
+<li>修改生产配置。</li>
+<li>发布生产环境。</li>
+<li>改变核心架构。</li>
+<li>改变 MVP 范围。</li>
+<li>写入不可回滚 State Delta。</li>
+</ul>
+<hr />
+<h2 id="实施计划与推进动作清单">实施计划与推进动作清单</h2>
+<h2 id="实施策略">1. 实施策略</h2>
+<p>ProgressEngine 自身也应该用 ProgressEngine
+方法推进。也就是说，不从“实现所有功能”开始，而是先推进状态。</p>
+<h2 id="初始目标状态序列">2. 初始目标状态序列</h2>
+<pre class="text"><code>TS-001 Project concept accepted
+TS-002 Project state schema drafted
+TS-003 CLI init can create .progress structure
+TS-004 State assessment can read static project state
+TS-005 Gap and target suggestion can run
+TS-006 Intervention can generate context capsule
+TS-007 Evidence and verification can produce state delta proposal
+TS-008 State delta can apply and rollback
+TS-009 One full state advancement loop validated</code></pre>
+<h2 id="第一阶段推进动作">3. 第一阶段推进动作</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>目标状态</th>
+<th>类型</th>
+<th>标题</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IV-001</td>
+<td>TS-001</td>
+<td>product</td>
+<td>Finalize ProgressEngine project kernel</td>
+</tr>
+<tr class="even">
+<td>IV-002</td>
+<td>TS-002</td>
+<td>system</td>
+<td>Define project_state schema</td>
+</tr>
+<tr class="odd">
+<td>IV-003</td>
+<td>TS-003</td>
+<td>implementation</td>
+<td>Implement progress init</td>
+</tr>
+<tr class="even">
+<td>IV-004</td>
+<td>TS-004</td>
+<td>implementation</td>
+<td>Implement state assessment reader</td>
+</tr>
+<tr class="odd">
+<td>IV-005</td>
+<td>TS-005</td>
+<td>implementation</td>
+<td>Implement gap listing and target scoring</td>
+</tr>
+<tr class="even">
+<td>IV-006</td>
+<td>TS-006</td>
+<td>implementation</td>
+<td>Implement context capsule generator</td>
+</tr>
+<tr class="odd">
+<td>IV-007</td>
+<td>TS-007</td>
+<td>quality</td>
+<td>Implement evidence verifier checklist</td>
+</tr>
+<tr class="even">
+<td>IV-008</td>
+<td>TS-008</td>
+<td>implementation</td>
+<td>Implement state delta apply/rollback</td>
+</tr>
+<tr class="odd">
+<td>IV-009</td>
+<td>TS-009</td>
+<td>meta</td>
+<td>Run end-to-end state advancement fixture</td>
+</tr>
+</tbody>
+</table>
+<h2 id="建议技术栈">4. 建议技术栈</h2>
+<p>第一版可以使用：</p>
+<pre class="text"><code>语言：TypeScript 或 Python
+运行方式：本地 CLI
+数据格式：YAML + Markdown + JSONL
+测试：单元测试 + fixture tests
+发布：npm package 或 pip package，二选一</code></pre>
+<p>选择标准：</p>
+<ul>
+<li>如果你希望 CLI 快速开发和跨平台分发，TypeScript + Node 更合适。</li>
+<li>如果你希望 YAML/文件处理和原型速度，Python 更简单。</li>
+</ul>
+<p>建议第一版按你已有项目栈决定，不为了工具而换栈。</p>
+<h2 id="里程碑">5. 里程碑</h2>
+<h3 id="m1state-loop-skeleton">M1：State Loop Skeleton</h3>
+<p>目标：完成 Project State 基础闭环。</p>
+<p>交付：</p>
+<ul>
+<li><code>.progress/</code> 初始化。</li>
+<li>project_state schema。</li>
+<li>assess 命令。</li>
+</ul>
+<h3 id="m2target-and-intervention">M2：Target and Intervention</h3>
+<p>目标：从 gap 到 target，再到 intervention。</p>
+<p>交付：</p>
+<ul>
+<li>gap list。</li>
+<li>target suggest。</li>
+<li>intervention plan。</li>
+</ul>
+<h3 id="m3fresh-context-and-evidence">M3：Fresh Context and
+Evidence</h3>
+<p>目标：生成上下文，收集证据。</p>
+<p>交付：</p>
+<ul>
+<li>context capsule。</li>
+<li>evidence schema。</li>
+<li>verifier 输出。</li>
+</ul>
+<h3 id="m4state-delta-and-reassessment">M4：State Delta and
+Reassessment</h3>
+<p>目标：状态变化可应用、可回滚。</p>
+<p>交付：</p>
+<ul>
+<li>verify 生成 State Delta Proposal；delta review/apply/rollback。</li>
+<li>state history。</li>
+<li>reassess。</li>
+</ul>
+<h3 id="m5bootstrap-role-pipeline">M5：Bootstrap Role Pipeline</h3>
+<p>目标：从 0 启动新项目。</p>
+<p>交付：</p>
+<ul>
+<li>intent intake。</li>
+<li>role pass prompts。</li>
+<li>initial artifacts。</li>
+<li>initial state synthesis。</li>
+</ul>
+<h3 id="m6change-event-and-spiral">M6：Change Event and Spiral</h3>
+<p>目标：支持螺旋式回退和自动推进。</p>
+<p>交付：</p>
+<ul>
+<li>event engine。</li>
+<li>invalidation。</li>
+<li>guarded spiral。</li>
+</ul>
+<h2 id="第一版不要做的事">6. 第一版不要做的事</h2>
+<ul>
+<li>不要先做漂亮 UI。</li>
+<li>不要先做多模型调度。</li>
+<li>不要先做完整自动化。</li>
+<li>不要让任务池成为主产物。</li>
+<li>不要把复杂项目管理功能提前塞进 MVP。</li>
+</ul>
+<h2 id="验收用例">7. 验收用例</h2>
+<h3 id="用例从意图到第一轮状态推进">用例：从意图到第一轮状态推进</h3>
+<p>输入：</p>
+<pre class="text"><code>我想做一个帮助个人开发者用 AI 推进软件项目的本地 CLI 工具。</code></pre>
+<p>期望输出：</p>
+<pre class="text"><code>intent artifact
+project_state
+state gaps
+target state
+intervention
+context capsule
+evidence
+verification
+state delta
+updated project state</code></pre>
+<p>成功判断：</p>
+<pre class="text"><code>Project State 从 unknown/weak 推进到至少 seed/drafted，且有 Evidence。</code></pre>
+<hr />
+<h2 id="运营方式商业化与后续演进">运营方式、商业化与后续演进</h2>
+<h2 id="采用路径">1. 采用路径</h2>
+<p>建议采用路径：</p>
+<pre class="text"><code>自用验证
+  ↓
+开源 CLI / 模板
+  ↓
+VS Code / IDE 集成
+  ↓
+团队版 / 托管版
+  ↓
+AI 工程治理平台</code></pre>
+<h2 id="自用阶段">2. 自用阶段</h2>
+<p>目标：验证 ProgressEngine 是否真的解决你的问题。</p>
+<p>成功标准：</p>
+<ul>
+<li>你能用它启动一个新项目。</li>
+<li>不再靠混乱摸索才进入台账阶段。</li>
+<li>每轮 AI 执行都有 fresh context。</li>
+<li>假完成能被发现。</li>
+<li>项目状态能被持续推进。</li>
+</ul>
+<h2 id="开源阶段">3. 开源阶段</h2>
+<p>可开源内容：</p>
+<ul>
+<li><code>.progress/</code> 协议。</li>
+<li>CLI。</li>
+<li>模板。</li>
+<li>role pass prompts。</li>
+<li>schema。</li>
+<li>examples。</li>
+</ul>
+<p>开源价值：</p>
+<ul>
+<li>吸引独立开发者和 AI 编程用户。</li>
+<li>收集真实项目反馈。</li>
+<li>验证状态驱动方法论。</li>
+</ul>
+<h2 id="商业化方向">4. 商业化方向</h2>
+<h3 id="pro-cli">4.1 Pro CLI</h3>
+<ul>
+<li>高级 report。</li>
+<li>多项目 workspace。</li>
+<li>adapter 集成。</li>
+<li>GitHub / Linear / Jira sync。</li>
+</ul>
+<h3 id="team-edition">4.2 Team Edition</h3>
+<ul>
+<li>多人状态账本。</li>
+<li>角色审批。</li>
+<li>项目状态仪表盘。</li>
+<li>审计日志。</li>
+</ul>
+<h3 id="hosted-platform">4.3 Hosted Platform</h3>
+<ul>
+<li>Web Dashboard。</li>
+<li>Agent execution orchestration。</li>
+<li>项目状态智能分析。</li>
+<li>多仓库治理。</li>
+</ul>
+<h2 id="目标用户扩展">5. 目标用户扩展</h2>
+<p>从：</p>
+<pre class="text"><code>独立开发者</code></pre>
+<p>扩展到：</p>
+<pre class="text"><code>小团队技术负责人
+AI coding team lead
+研发效能负责人
+技术咨询团队
+内部工具团队</code></pre>
+<h2 id="长期演进">6. 长期演进</h2>
+<p>长期可以形成：</p>
+<pre class="text"><code>AI-native Engineering Management System</code></pre>
+<p>但必须坚持：</p>
+<pre class="text"><code>状态推进优先于任务管理
+证据优先于口头完成
+上下文隔离优先于长会话自动化
+螺旋推进优先于瀑布计划</code></pre>
+<h2 id="护城河">7. 护城河</h2>
+<p>真正的护城河不是 CLI，而是：</p>
+<ul>
+<li>状态驱动方法论。</li>
+<li>非代码产物验证协议。</li>
+<li>Fresh Context 执行协议。</li>
+<li>Evidence-backed State Delta。</li>
+<li>Change Event 失效传播。</li>
+<li>真实项目使用数据形成的状态推进策略。</li>
+</ul>
+<hr />
+<h2 id="术语表">术语表</h2>
+<h2 id="progressengine">ProgressEngine</h2>
+<p>持续推进项目状态的 AI 软件工程系统。</p>
+<h2 id="project-state-1">Project State</h2>
+<p>当前项目真实状态，由多个维度组成。</p>
+<h2 id="state-dimension">State Dimension</h2>
+<p>项目状态的一个维度，例如 Product、Architecture、Quality。</p>
+<h2 id="maturity">Maturity</h2>
+<p>状态维度的可信成熟度，例如
+drafted、reviewed、accepted、validated。</p>
+<h2 id="state-gap">State Gap</h2>
+<p>当前项目状态与期望状态之间的缺口。</p>
+<h2 id="target-state-1">Target State</h2>
+<p>下一步希望项目达到的状态。</p>
+<h2 id="intervention-2">Intervention</h2>
+<p>为了推动状态变化而设计的推进动作。Task 是其可执行形态之一。</p>
+<h2 id="run-1">Run</h2>
+<p>一次隔离上下文执行。</p>
+<h2 id="fresh-context-2">Fresh Context</h2>
+<p>为单个 Intervention 重新生成的独立上下文空间。</p>
+<h2 id="context-capsule-1">Context Capsule</h2>
+<p>用于执行一个 Intervention 的最小充分上下文包。</p>
+<h2 id="evidence-1">Evidence</h2>
+<p>证明状态变化的证据。</p>
+<h2 id="evidence-verifier">Evidence Verifier</h2>
+<p>独立验证 Evidence 是否支持状态变化的模块或角色。</p>
+<h2 id="state-delta-1">State Delta</h2>
+<p>状态变化提案。只有通过验证和 gate 后才能 apply。</p>
+<h2 id="change-event-1">Change Event</h2>
+<p>项目推进中产生的变化事件，例如实现发现、验证失败、用户反馈、架构冲突。</p>
+<h2 id="artifact">Artifact</h2>
+<p>项目事实源文件，例如 PRD、技术设计、质量计划。</p>
+<h2 id="ledger">Ledger</h2>
+<p>项目长期账本，包括状态、决策、风险、证据、反馈。</p>
+<h2 id="guarded-spiral">Guarded Spiral</h2>
+<p>带人工 gate 和自动化边界的连续推进模式。</p>
+<h2 id="no-silent-deferral-2">No Silent Deferral</h2>
+<p>禁止口头延期；任何延期必须转成结构化 gap、event 或 intervention。</p>
+<hr />
+<h2 id="自检协议与开放缺口">自检协议与开放缺口</h2>
+<h2 id="目的-3">1. 目的</h2>
+<p>ProgressEngine
+的项目策划书不能只靠一次性生成。每次版本输出后，应进行多轮自检，目标是降低明显错误、遗漏、歧义和闭环缺陷。这里的“自检通过”不代表绝对无缺陷，而代表在当前检查协议下没有发现阻断级问题。</p>
+<h2 id="自检边界">2. 自检边界</h2>
+<p>不能诚实承诺：</p>
+<pre class="text"><code>100% 没有错误、遗漏、歧义和缺陷。</code></pre>
+<p>可以承诺：</p>
+<pre class="text"><code>按既定检查项重复检查，直到没有发现新的阻断级或高优先级问题，并把剩余不确定性显式记录。</code></pre>
+<h2 id="自检-pass">3. 自检 Pass</h2>
+<h3 id="pass-1愿景一致性">Pass 1：愿景一致性</h3>
+<p>检查是否仍以“持续推进项目状态”为主轴，而不是退化成任务池、任务图或
+agent 编排系统。</p>
+<p>通过条件：</p>
+<ul>
+<li>Project State 是第一核心对象。</li>
+<li>Intervention 是推进动作，不是终极目标。</li>
+<li>Run 是执行单元，不是产品目标。</li>
+<li>任务池 / 任务图仅作为中间表示出现。</li>
+</ul>
+<h3 id="pass-2对象模型一致性">Pass 2：对象模型一致性</h3>
+<p>检查核心对象是否前后一致：</p>
+<pre class="text"><code>ProjectState
+StateGap
+TargetState
+Intervention
+ContextCapsule
+Run
+Evidence
+Verification
+StateDelta
+ChangeEvent
+Ledger</code></pre>
+<p>通过条件：</p>
+<ul>
+<li>ID 前缀一致。</li>
+<li>模板和正文一致。</li>
+<li>StateDelta 不绕过 Verification。</li>
+<li>ChangeEvent 能触发 reassess。</li>
+</ul>
+<h3 id="pass-3主循环闭环">Pass 3：主循环闭环</h3>
+<p>标准闭环：</p>
+<pre class="text"><code>Assess
+  ↓
+Gap
+  ↓
+Target
+  ↓
+Plan Intervention
+  ↓
+Build Fresh Context
+  ↓
+Run
+  ↓
+Evidence
+  ↓
+Verify
+  ↓
+State Delta Proposal
+  ↓
+Apply / Reject / Rollback
+  ↓
+Reassess</code></pre>
+<p>通过条件：每个步骤都有命令、对象、输出和失败路径。</p>
+<h3 id="pass-4上下文隔离">Pass 4：上下文隔离</h3>
+<p>检查是否存在长会话连续执行多个推进动作的隐患。</p>
+<p>通过条件：</p>
+<ul>
+<li>One Intervention, One Fresh Context。</li>
+<li>Execution Session 与 Verification Session 分离。</li>
+<li>下一轮只能读取 Ledger / Artifact / State Delta，不读取完整
+transcript。</li>
+</ul>
+<h3 id="pass-5防假完成">Pass 5：防假完成</h3>
+<p>检查是否允许 AI 自称完成。</p>
+<p>通过条件：</p>
+<ul>
+<li>Executor 不能 self-close。</li>
+<li>Evidence 必须映射 acceptance。</li>
+<li>Verifier 必须独立。</li>
+<li>Silent deferral 必须变成显式 Intervention / Gap / Event。</li>
+</ul>
+<h3 id="pass-6非代码产物验证">Pass 6：非代码产物验证</h3>
+<p>检查 PRD、UX、Architecture、Quality Plan
+是否避免“写了文档所以完成”。</p>
+<p>通过条件：</p>
+<pre class="text"><code>Artifact + Checklist + Reviewer Result + Remaining Gaps</code></pre>
+<p>缺一不可。</p>
+<h3 id="pass-7螺旋推进">Pass 7：螺旋推进</h3>
+<p>检查是否支持前进、后退、重新评估和重新推进。</p>
+<p>通过条件：</p>
+<ul>
+<li>ChangeEvent 可标记 artifact stale / reopened / superseded。</li>
+<li>可生成新 Gap、Target、Intervention。</li>
+<li>可让旧 Intervention stale / blocked / needs_review。</li>
+</ul>
+<h2 id="当前-v3-自检结论">4. 当前 v3 自检结论</h2>
+<p>按上述 Pass 检查，v3 未发现阻断级愿景偏移。已修正的高优先级问题：</p>
+<ol type="1">
+<li><code>progress update</code> 语义冗余，已改为
+<code>progress state refresh</code>，状态写入由 <code>delta apply</code>
+完成。</li>
+<li>成熟度枚举和矩阵不完全对齐，已补充 <code>seed</code>
+和异常状态说明。</li>
+<li>State Delta 模板缺少 proposal/apply/rollback 元数据，已补齐。</li>
+<li>Change Event 模板偏弱，已补充 artifact
+effect、invalidates、propagation 字段。</li>
+<li>验证与状态写入边界不够硬，已明确 <code>verify</code> 只生成
+proposal，<code>delta apply</code> 才能写状态。</li>
+</ol>
+<h2 id="剩余不确定性">5. 剩余不确定性</h2>
+<p>这些不是当前策划书的阻断项，但进入实现前仍应继续收敛：</p>
+<ul>
+<li>各状态维度的判定规则仍需要在真实项目中校准。</li>
+<li>Target State 评分权重需要通过实践调整。</li>
+<li>非代码 reviewer 可以先由 AI 扮演，但长期需要更严格的 checklist
+和人工 gate。</li>
+<li>prompt-only 模式下，Fresh Context
+依赖用户手动遵守复制边界；工具只能生成胶囊，不能完全强制外部聊天工具隔离。</li>
+<li>Guarded Spiral 的自动化边界需要在实现中以 policy 测试覆盖。</li>
+</ul>
+<h2 id="后续实现前检查门槛">6. 后续实现前检查门槛</h2>
+<p>进入代码实现前，至少应完成：</p>
+<ul>
+<li>所有 YAML 模板可被解析。</li>
+<li>CLI 命令语义与对象状态转移一致。</li>
+<li>至少一个端到端
+fixture：<code>intent → assess → target → intervention → capsule → evidence → verify → delta apply → reassess</code>。</li>
+<li>至少一个反例 fixture：verification failed 后生成 Gap / Repair
+Intervention，而不是关闭状态。</li>
+</ul>
+<hr />
+<h2 id="v3-版本修正清单">v3 版本修正清单</h2>
+<p>本版在 v2 基础上做了以下补强：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>类别</th>
+<th>修正</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CLI 闭环</td>
+<td><code>progress update</code> 改为
+<code>progress state refresh</code>，避免与 <code>delta apply</code>
+重叠</td>
+</tr>
+<tr class="even">
+<td>成熟度模型</td>
+<td>成熟度矩阵补充 <code>seed</code>，并单独说明
+<code>stale / reopened / superseded / blocked</code></td>
+</tr>
+<tr class="odd">
+<td>State Delta</td>
+<td>补充
+<code>verification_id</code>、<code>proposed_at</code>、<code>gate</code>、<code>apply</code>、<code>rollback_delta_id</code></td>
+</tr>
+<tr class="even">
+<td>Change Event</td>
+<td>补充 artifact effect、invalidated evidence、propagation 字段</td>
+</tr>
+<tr class="odd">
+<td>Intervention</td>
+<td>补充 <code>expected_state_delta</code> 与
+<code>verification_policy</code></td>
+</tr>
+<tr class="even">
+<td>验证边界</td>
+<td>明确 <code>verify</code> 只生成 proposal，<code>delta apply</code>
+才能修改 Project State</td>
+</tr>
+<tr class="odd">
+<td>自检机制</td>
+<td>新增 <code>docs/22_自检协议与开放缺口.md</code> 与
+<code>v3_自检与修正报告.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>本版仍不声称 100% 无缺陷，只声明按当前检查协议未发现阻断级问题。</p>
+<hr />
+<h2 id="v3-自检与修正报告">v3 自检与修正报告</h2>
+<h2 id="自检结论">1. 自检结论</h2>
+<p>v3 已按以下维度重复检查：</p>
+<ol type="1">
+<li>愿景是否偏离。</li>
+<li>Project State 是否仍是核心对象。</li>
+<li>CLI 命令是否闭环。</li>
+<li>模板与正文是否一致。</li>
+<li>State Delta 是否防止状态污染。</li>
+<li>Change Event 是否支持螺旋推进。</li>
+<li>Fresh Context 是否支持上下文切断。</li>
+<li>Evidence Verifier 是否防止假完成。</li>
+<li>非代码产物是否避免自证循环。</li>
+<li>Guarded Spiral 是否有自动化边界。</li>
+</ol>
+<p>结论：没有发现阻断级缺陷；发现并修复了若干高/中优先级不一致。</p>
+<h2 id="已修复问题">2. 已修复问题</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>问题</th>
+<th>修复</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>progress update</code> 与 <code>delta apply</code>
+语义重叠</td>
+<td>改为 <code>progress state refresh</code>，状态写入只由
+<code>delta apply</code> 发生</td>
+</tr>
+<tr class="even">
+<td>成熟度枚举有 <code>seed</code>，矩阵无 <code>seed</code></td>
+<td>成熟度矩阵增加 <code>seed</code> 列</td>
+</tr>
+<tr class="odd">
+<td>stale/reopened/superseded/blocked 未解释清楚</td>
+<td>增加异常与治理状态说明</td>
+</tr>
+<tr class="even">
+<td>State Delta 缺少 proposal/apply/rollback 元数据</td>
+<td>增加
+verification_id、proposed_at、gate、apply、rollback_delta_id</td>
+</tr>
+<tr class="odd">
+<td>Change Event 模板缺少传播信息</td>
+<td>增加 artifact effect、invalidates evidence、propagation</td>
+</tr>
+<tr class="even">
+<td><code>verify</code> 与状态更新边界不够硬</td>
+<td>明确 verify 只生成 proposal，delta apply 才写状态</td>
+</tr>
+<tr class="odd">
+<td>Intervention 模板对预期 State Delta 表达不足</td>
+<td>增加 expected_state_delta 与 verification_policy</td>
+</tr>
+<tr class="even">
+<td>状态转移缺少 stale / needs_review / reopened</td>
+<td>Intervention 状态转移补充治理状态</td>
+</tr>
+</tbody>
+</table>
+<h2 id="未承诺项">3. 未承诺项</h2>
+<p>本报告不承诺 100%
+无缺陷。它承诺的是：按当前检查协议，未发现新的阻断级问题；剩余不确定性已记录在
+<code>docs/22_自检协议与开放缺口.md</code>。</p>
+<hr />
+</body>
+</html>

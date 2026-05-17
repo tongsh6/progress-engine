@@ -1,0 +1,28 @@
+change_event:
+  id: EVT-001
+  type: implementation_finding
+  severity: medium
+  source:
+    run_id: null
+    intervention_id: null
+    state_delta_id: null
+    evidence_id: null
+  summary: ""
+  affected_dimensions: []
+  affected_artifacts:
+    - id: null
+      current_version: null
+      effect: null   # reopen | supersede | mark_stale | no_change
+      reason: ""
+  invalidates:
+    interventions: []
+    state_claims: []
+    target_states: []
+    evidence: []
+  emitted_gaps: []
+  emitted_targets: []
+  emitted_interventions: []
+  propagation:
+    requires_reassessment: true
+    mark_dependent_items_stale: true
+  requires_human_review: true

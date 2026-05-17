@@ -1,0 +1,31 @@
+artifact_review_checklists:
+  prd:
+    required:
+      - target_user
+      - core_problem
+      - scenarios
+      - mvp_scope
+      - non_goals
+      - success_metrics
+      - acceptance_criteria
+      - assumptions
+      - risks
+  technical_design:
+    required:
+      - tech_stack
+      - alternatives
+      - module_boundaries
+      - data_model
+      - core_flows
+      - error_handling
+      - risks
+      - adr_index
+      - non_goals
+  quality_plan:
+    required:
+      - state_maturity_rules
+      - evidence_requirements
+      - code_test_strategy
+      - artifact_review_strategy
+      - fresh_context_checks
+      - release_gates

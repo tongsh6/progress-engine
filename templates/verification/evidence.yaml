@@ -1,0 +1,20 @@
+evidence:
+  id: EV-001
+  run_id: RUN-YYYYMMDD-001
+  intervention_id: IV-001
+  evidence_type: code_diff
+  claims:
+    - dimension: implementation
+      before: ""
+      after: ""
+      acceptance_mapping:
+        - criterion: ""
+          status: pass
+          evidence_ref: ""
+  commands_run: []
+  artifacts_changed: []
+  files_changed: []
+  reviewer:
+    type: verifier
+    result: pending
+  remaining_gaps: []

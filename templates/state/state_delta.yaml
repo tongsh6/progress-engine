@@ -1,0 +1,32 @@
+state_delta:
+  id: SD-001
+  run_id: RUN-YYYYMMDD-001
+  intervention_id: IV-001
+  verification_id: VR-001
+  status: proposed
+  proposed_at: null
+  proposed_by: verifier
+  primary_dimension: implementation
+  secondary_dimensions: []
+  before: {}
+  after: {}
+  evidence_refs: []
+  acceptance_summary:
+    pass: 0
+    fail: 0
+    not_tested: 0
+  remaining_gaps: []
+  emitted_events: []
+  gate:
+    required: true
+    approved_by: null
+    approved_at: null
+  apply:
+    applied_by: null
+    applied_at: null
+    previous_state_version: null
+    next_state_version: null
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps: []

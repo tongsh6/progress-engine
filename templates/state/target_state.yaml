@@ -1,0 +1,24 @@
+target_state:
+  id: TS-001
+  dimension: product
+  from:
+    maturity: weak
+    summary: ""
+  to:
+    maturity: reviewed
+    summary: ""
+  why_now: []
+  score:
+    risk_reduction: 0
+    downstream_unlock: 0
+    user_value_proximity: 0
+    quality_confidence_gain: 0
+    prevents_wrong_work: 0
+    implementation_capability_gain: 0
+    knowledge_clarity_gain: 0
+    reversibility: 0
+    automation_suitability: 0
+    effort: 0
+  related_gaps: []
+  required_interventions: []
+  gate_required: true

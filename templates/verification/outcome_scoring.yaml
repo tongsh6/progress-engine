@@ -1,0 +1,13 @@
+target_selection_score:
+  weights:
+    risk_reduction: 1.0
+    downstream_unlock: 1.0
+    user_value_proximity: 1.0
+    quality_confidence_gain: 0.8
+    prevents_wrong_work: 1.2
+    implementation_capability_gain: 0.8
+    knowledge_clarity_gain: 0.7
+    reversibility: 0.4
+    automation_suitability: 0.3
+    effort: -1.0
+  formula: "sum(weighted_positive_factors) - effort"

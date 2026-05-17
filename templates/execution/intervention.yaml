@@ -1,0 +1,39 @@
+intervention:
+  id: IV-001
+  type: implementation
+  dimension: implementation
+  target_state: TS-001
+  title: ""
+  goal: ""
+  why_now: []
+  in_scope: []
+  out_of_scope: []
+  inputs: []
+  outputs: []
+  acceptance: []
+  evidence_required: []
+  context_budget:
+    max_artifacts: 8
+    max_files: 12
+    max_acceptance_items: 7
+    max_expected_diff_files: 8
+    allow_full_repo_scan: false
+  automation:
+    mode: supervised
+    human_gate_required: true
+  done_policy:
+    executor_cannot_self_close: true
+    verifier_required: true
+    no_silent_deferral: true
+  expected_state_delta:
+    primary_dimension: null
+    from_maturity: null
+    to_maturity: null
+    required_evidence_types: []
+  verification_policy:
+    fresh_verification_context: true
+    executor_cannot_verify: true
+  fallback_policy:
+    on_failure: emit_repair_or_gap
+    on_context_overflow: split_intervention
+    on_silent_deferral: emit_explicit_intervention

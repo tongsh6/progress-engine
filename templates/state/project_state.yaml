@@ -1,0 +1,59 @@
+project_state:
+  project_id: null
+  version: PS-0001
+  updated_at: null
+  dimensions:
+    intent:
+      maturity: unknown
+      progress: not_started
+      summary: ""
+      evidence_refs: []
+      gaps: []
+    product:
+      maturity: unknown
+      progress: not_started
+      summary: ""
+      evidence_refs: []
+      gaps: []
+    ux_design:
+      maturity: unknown
+      progress: not_started
+      summary: ""
+      evidence_refs: []
+      gaps: []
+    system_design:
+      maturity: unknown
+      progress: not_started
+      summary: ""
+      evidence_refs: []
+      gaps: []
+    architecture:
+      maturity: unknown
+      progress: not_started
+      summary: ""
+      evidence_refs: []
+      gaps: []
+    implementation:
+      maturity: unknown
+      progress: not_started
+      summary: ""
+      evidence_refs: []
+      gaps: []
+    quality:
+      maturity: unknown
+      progress: not_started
+      summary: ""
+      evidence_refs: []
+      gaps: []
+    delivery:
+      maturity: unknown
+      progress: not_started
+      summary: ""
+      evidence_refs: []
+      gaps: []
+    knowledge:
+      maturity: unknown
+      progress: not_started
+      summary: ""
+      evidence_refs: []
+      gaps: []

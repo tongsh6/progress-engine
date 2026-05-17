@@ -1,0 +1,15 @@
+flowchart TD
+  A[Assess Project State] --> B[Score State Gaps]
+  B --> C[Select Target State]
+  C --> D[Plan Intervention]
+  D --> E[Build Fresh Context Capsule]
+  E --> F[Execute Fresh Run]
+  F --> G[Collect Evidence]
+  G --> H[Verify in Fresh Context]
+  H --> I[Propose State Delta]
+  I --> J{Gate}
+  J -->|Apply| K[Update Project State]
+  J -->|Reject| L[Emit Gap / Event]
+  K --> M[Emit Change Events]
+  M --> A
+  L --> A

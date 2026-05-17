@@ -1,0 +1,27 @@
+automation_policy:
+  auto_allowed:
+    - state_assessment
+    - gap_listing
+    - target_scoring
+    - context_capsule_generation
+    - schema_validation
+    - documentation_check
+    - evidence_structure_check
+    - stale_reference_detection
+  human_gate_required:
+    - product_scope_change
+    - target_state_approval
+    - architecture_decision
+    - dependency_introduction
+    - destructive_file_change
+    - release_action
+    - state_delta_apply
+    - rollback
+    - user_visible_behavior_change
+  stop_conditions:
+    - high_severity_change_event
+    - context_budget_exceeded
+    - verification_failed_twice
+    - silent_deferral_detected
+    - state_delta_rejected
+    - unexplained_git_changes

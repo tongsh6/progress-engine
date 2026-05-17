@@ -1,0 +1,20 @@
+run:
+  id: RUN-YYYYMMDD-001
+  intervention_id: IV-001
+  status: planned
+  mode: prompt-only
+  execution_session:
+    fresh_context: true
+    transcript_carried_forward: false
+    started_at: null
+    ended_at: null
+  verification_session:
+    fresh_context: true
+    started_at: null
+    ended_at: null
+  outputs:
+    context_capsule: context_capsule.md
+    plan: plan.md
+    evidence: evidence.yaml
+    verification: verification.md
+    state_delta_proposal: state_delta_proposal.yaml

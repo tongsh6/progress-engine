@@ -1,0 +1,10 @@
+state_gap:
+  id: G-001
+  dimension: product
+  severity: medium
+  current_state: ""
+  desired_state: ""
+  evidence_refs: []
+  impact: []
+  suggested_targets: []
+  status: open
