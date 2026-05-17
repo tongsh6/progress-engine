@@ -9,6 +9,16 @@ evidence:
     - dimension: implementation
       before: "sample before"
       after: "sample after"
+      acceptance_mapping:
+        - criterion: "sample criterion one"
+          status: pass
+          evidence_ref: "tests/fixtures/minimal_progress_project"
+        - criterion: "sample criterion two"
+          status: fail
+          evidence_ref: null
+        - criterion: "sample criterion three"
+          status: not_tested
+          evidence_ref: null
   reviewer:
     type: verifier
     result: pass_requires_human_gate

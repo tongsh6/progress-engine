@@ -1,0 +1,1 @@
+{"state_version":"PS-1001","applied_delta":"SDP-1001","applied_at":"2026-05-17T22:20:00+08:00","applied_by":"human_user","summary":"Sample state history entry.","evidence_refs":["tests/fixtures/minimal_progress_project/.progress/evidence/EV-1001-sample-evidence.yaml"]}

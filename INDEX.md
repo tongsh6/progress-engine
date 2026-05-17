@@ -45,6 +45,10 @@
 - [Intervention List CLI Slice](docs/05-delivery/26-intervention-list-cli-slice.md)
 - [Run List CLI Slice](docs/05-delivery/27-run-list-cli-slice.md)
 - [Evidence List CLI Slice](docs/05-delivery/28-evidence-list-cli-slice.md)
+- [Verify List CLI Slice](docs/05-delivery/29-verify-list-cli-slice.md)
+- [Delta List CLI Slice](docs/05-delivery/30-delta-list-cli-slice.md)
+- [Event List CLI Slice](docs/05-delivery/31-event-list-cli-slice.md)
+- [State History CLI Slice](docs/05-delivery/32-state-history-cli-slice.md)
 
 ### Business & Reference
 

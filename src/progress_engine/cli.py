@@ -7,6 +7,8 @@ import sys
 from pathlib import Path
 from typing import TextIO
 
+from progress_engine.deltas.delta_list import DeltaListError, load_deltas, render_delta_list
+from progress_engine.events.event_list import EventListError, load_events, render_event_list
 from progress_engine.gaps.gap_list import GapListError, load_open_gaps, render_gap_list
 from progress_engine.evidence.evidence_list import (
     EvidenceListError,
@@ -24,7 +26,17 @@ from progress_engine.state.project_state import (
     load_project_state,
     render_state_summary,
 )
+from progress_engine.state.state_history import (
+    StateHistoryError,
+    load_state_history,
+    render_state_history,
+)
 from progress_engine.targets.target_list import TargetListError, load_next_targets, render_target_list
+from progress_engine.verification.verify_list import (
+    VerificationListError,
+    load_verification_reviews,
+    render_verification_reviews,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -34,6 +46,7 @@ def build_parser() -> argparse.ArgumentParser:
     state_parser = subcommands.add_parser("state", help="Read project state.")
     state_subcommands = state_parser.add_subparsers(dest="state_command", required=True)
     state_subcommands.add_parser("show", help="Show current project state summary.")
+    state_subcommands.add_parser("history", help="Show state history summary.")
 
     gaps_parser = subcommands.add_parser("gaps", help="Read state gaps.")
     gaps_subcommands = gaps_parser.add_subparsers(dest="gaps_command", required=True)
@@ -58,6 +71,18 @@ def build_parser() -> argparse.ArgumentParser:
     evidence_subcommands = evidence_parser.add_subparsers(dest="evidence_command", required=True)
     evidence_subcommands.add_parser("list", help="List evidence objects.")
 
+    verify_parser = subcommands.add_parser("verify", help="Read verification reviews.")
+    verify_subcommands = verify_parser.add_subparsers(dest="verify_command", required=True)
+    verify_subcommands.add_parser("list", help="List verification review summaries.")
+
+    delta_parser = subcommands.add_parser("delta", help="Read state delta proposals.")
+    delta_subcommands = delta_parser.add_subparsers(dest="delta_command", required=True)
+    delta_subcommands.add_parser("list", help="List state delta proposals.")
+
+    event_parser = subcommands.add_parser("event", help="Read change events.")
+    event_subcommands = event_parser.add_subparsers(dest="event_command", required=True)
+    event_subcommands.add_parser("list", help="List change events.")
+
     return parser
 
 
@@ -81,6 +106,16 @@ def main(
             print(f"error: {exc}", file=err)
             return 2
         print(render_state_summary(state), file=out)
+        return 0
+
+    if args.command == "state" and args.state_command == "history":
+        root = cwd or Path.cwd()
+        try:
+            history = load_state_history(root)
+        except StateHistoryError as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_state_history(history), file=out)
         return 0
 
     if args.command == "gaps" and args.gaps_command == "list":
@@ -133,6 +168,36 @@ def main(
             print(f"error: {exc}", file=err)
             return 2
         print(render_evidence_list(evidence), file=out)
+        return 0
+
+    if args.command == "verify" and args.verify_command == "list":
+        root = cwd or Path.cwd()
+        try:
+            reviews = load_verification_reviews(root)
+        except VerificationListError as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_verification_reviews(reviews), file=out)
+        return 0
+
+    if args.command == "delta" and args.delta_command == "list":
+        root = cwd or Path.cwd()
+        try:
+            deltas = load_deltas(root)
+        except DeltaListError as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_delta_list(deltas), file=out)
+        return 0
+
+    if args.command == "event" and args.event_command == "list":
+        root = cwd or Path.cwd()
+        try:
+            events = load_events(root)
+        except EventListError as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_event_list(events), file=out)
         return 0
 
     parser.error("unsupported command")

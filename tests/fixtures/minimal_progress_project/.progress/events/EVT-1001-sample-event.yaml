@@ -1,0 +1,20 @@
+change_event:
+  id: EVT-1001
+  type: implementation_finding
+  severity: medium
+  source:
+    run_id: RUN-20260517-IV-1001
+    intervention_id: IV-1001
+  summary: "sample implementation finding"
+  affected_dimensions:
+    - implementation
+    - quality
+  affected_artifacts: []
+  invalidates:
+    interventions: []
+    state_claims: []
+    target_states: []
+  emitted_gaps: []
+  emitted_targets: []
+  emitted_interventions: []
+  requires_human_review: true
