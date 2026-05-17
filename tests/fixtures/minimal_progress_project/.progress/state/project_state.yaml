@@ -1,0 +1,20 @@
+project:
+  id: sample-project
+  name: Sample Project
+  current_phase: fixture
+
+state_dimensions:
+  intent:
+    maturity: accepted
+    summary: "Intent is accepted."
+    evidence: []
+  implementation:
+    maturity: seed
+    summary: "Implementation is seeded."
+    evidence: []
+
+open_state_gaps:
+  - SG-1001
+
+aim_of_next_state:
+  - TS-1001

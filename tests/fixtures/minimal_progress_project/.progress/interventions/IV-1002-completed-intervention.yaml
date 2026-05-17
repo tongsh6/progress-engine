@@ -1,0 +1,10 @@
+id: IV-1002
+name: "completed intervention"
+primary_dimension: quality
+target_state_id: TS-1001
+status: completed
+goal: "Exercise completed filtering."
+in_scope: []
+out_of_scope: []
+evidence_required: []
+automation_policy: human_gate_required

@@ -1,0 +1,6 @@
+id: TS-1001
+name: "sample target"
+primary_dimension: implementation
+status: proposed
+desired_state: "Sample target is listed."
+acceptance_criteria: []

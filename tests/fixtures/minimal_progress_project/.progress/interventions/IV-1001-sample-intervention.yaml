@@ -1,0 +1,10 @@
+id: IV-1001
+name: "sample intervention"
+primary_dimension: implementation
+target_state_id: TS-1001
+status: proposed
+goal: "Exercise intervention listing."
+in_scope: []
+out_of_scope: []
+evidence_required: []
+automation_policy: human_gate_required

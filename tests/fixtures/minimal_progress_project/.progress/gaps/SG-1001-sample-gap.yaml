@@ -1,0 +1,7 @@
+id: SG-1001
+dimension: implementation
+severity: medium
+status: open
+current_state: "Fixture implementation is incomplete."
+desired_state: "Fixture implementation gap is listed."
+evidence_refs: []
