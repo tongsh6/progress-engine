@@ -1,0 +1,31 @@
+id: RUN-20260517-IV-0003
+intervention_id: IV-0003
+target_state_id: TS-0003
+started_at: "2026-05-17T17:00:07+08:00"
+mode: "manual-run"
+primary_dimension: architecture
+status: evidence_submitted
+state_reconciliation:
+  current_architecture_state:
+    maturity: reviewed
+    evidence_refs:
+      - "docs/03-system-design/06-system-architecture-and-module-boundaries.md"
+    summary: "系统模块边界已有定义，但 v0.1 具体技术栈、目录边界、schema / YAML / Markdown 处理方式和 ADR 尚未冻结。"
+  why_iv_0003_is_next:
+    - "Product boundary 已通过 SDP-0002 apply 到 accepted。"
+    - "后续实现必须先知道 runtime、CLI、文件格式、测试和模块边界。"
+    - "IV-0003 只推进 architecture state，不进入 implementation。"
+  out_of_scope_confirmed:
+    - "不实现业务代码。"
+    - "不创建 CLI 命令。"
+    - "不接入复杂 agent 编排。"
+    - "不创建生产发布方案。"
+outputs:
+  updated:
+    - "docs/03-system-design/06-system-architecture-and-module-boundaries.md"
+    - ".progress/targets/TS-0003-v0.1-technical-stack-selected.yaml"
+  created:
+    - "decisions/ADR-0001-v0.1-tech-stack.md"
+    - ".progress/evidence/EV-0003-v0.1-tech-stack.yaml"
+    - ".progress/deltas/SDP-0003-v0.1-tech-stack.yaml"
+completion_claim: "Executor only claims evidence_submitted; architecture state advancement requires verifier review and human gate."

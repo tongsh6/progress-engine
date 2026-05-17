@@ -1,0 +1,78 @@
+evidence:
+  id: EV-0003
+  run_id: RUN-20260517-IV-0003
+  intervention_id: IV-0003
+  target_state_id: TS-0003
+  evidence_type: decision_record
+  created_at: "2026-05-17T17:00:07+08:00"
+  artifacts_under_review:
+    - "docs/03-system-design/06-system-architecture-and-module-boundaries.md"
+    - "decisions/ADR-0001-v0.1-tech-stack.md"
+  claims:
+    - dimension: architecture
+      before: "系统模块边界已有定义，但 v0.1 具体技术栈和实现边界尚未冻结。"
+      after: "v0.1 技术栈被选择为 Python 3.11+、stdlib-first CLI、YAML / Markdown / JSONL repo-native 状态账本，并通过 ADR 记录。"
+      acceptance_mapping:
+        - criterion: "比较 Python、Node.js/TypeScript 等实现路线。"
+          status: pass
+          evidence_ref: "docs/03-system-design/06-system-architecture-and-module-boundaries.md#11-备选方案与拒绝理由"
+        - criterion: "定义 v0.1 目录结构。"
+          status: pass
+          evidence_ref: "docs/03-system-design/06-system-architecture-and-module-boundaries.md#10-v01-目录边界"
+        - criterion: "明确 schema / YAML / Markdown 处理方式。"
+          status: pass
+          evidence_ref: "docs/03-system-design/06-system-architecture-and-module-boundaries.md#8-v01-技术栈选择"
+        - criterion: "输出 ADR 草案。"
+          status: pass
+          evidence_ref: "decisions/ADR-0001-v0.1-tech-stack.md"
+        - criterion: "不实现业务代码。"
+          status: pass
+          evidence_ref: ".progress/runs/RUN-20260517-IV-0003-select-v0.1-tech-stack.yaml"
+        - criterion: "不接入复杂 agent 编排。"
+          status: pass
+          evidence_ref: "decisions/ADR-0001-v0.1-tech-stack.md#decision"
+        - criterion: "不违反已 accepted 的 v0.1 product boundary。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md"
+  artifact_review:
+    reviewer_role: architecture_critic
+    result: pass_with_notes
+    checklist:
+      tech_stack: pass
+      alternatives: pass
+      module_boundaries: pass
+      data_model: pass
+      core_flows: pass
+      file_system_protocol: pass
+      external_dependencies: pass
+      error_handling: partial
+      risks: pass
+      adr_index: pass
+      non_goals: pass
+    notes:
+      - "Error handling remains implementation-level detail and should be covered by the first CLI implementation intervention."
+      - "Object schema consistency remains SG-0003 / IV-0004, not part of this architecture decision."
+  scope_check:
+    result: pass
+    notes:
+      - "No CLI code or business implementation was added."
+      - "No model API, external agent, Web UI, SaaS, or production deployment path was introduced."
+  commands_run:
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 37 files; [OK] local Markdown links passed."
+  files_changed:
+    - "docs/03-system-design/06-system-architecture-and-module-boundaries.md"
+    - "decisions/ADR-0001-v0.1-tech-stack.md"
+    - ".progress/targets/TS-0003-v0.1-technical-stack-selected.yaml"
+    - ".progress/runs/RUN-20260517-IV-0003-select-v0.1-tech-stack.yaml"
+    - ".progress/evidence/EV-0003-v0.1-tech-stack.yaml"
+    - ".progress/deltas/SDP-0003-v0.1-tech-stack.yaml"
+    - ".progress/gaps/SG-0004-first-cli-slice-gap.yaml"
+  reviewer:
+    type: verifier
+    result: pass_with_notes
+  remaining_gaps:
+    - SG-0003
+    - SG-0004
+  supports_state_delta_proposal: SDP-0003

@@ -2,7 +2,7 @@ id: IV-0003
 name: Select v0.1 technical stack
 primary_dimension: architecture
 target_state_id: TS-0003
-status: proposed
+status: completed
 goal: "选择 v0.1 CLI / state engine / verifier 的实现技术栈和模块边界。"
 in_scope:
   - "比较 Python、Node.js/TypeScript 等实现路线"

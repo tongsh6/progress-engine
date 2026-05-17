@@ -1,0 +1,72 @@
+state_delta_proposal:
+  id: SDP-0003
+  source_intervention: IV-0003
+  run_id: RUN-20260517-IV-0003
+  target_state_id: TS-0003
+  verification_id: EV-0003
+  status: applied
+  proposed_at: "2026-05-17T17:00:07+08:00"
+  proposed_by: verifier
+  primary_dimension: architecture
+  before:
+    architecture:
+      maturity: reviewed
+      summary: "系统模块边界已有定义，尚需选择 v0.1 具体技术栈。"
+      current_problem:
+        - "后续实现缺少 runtime、CLI、YAML / Markdown、测试和目录边界决策。"
+        - "没有 ADR 记录 Python / TypeScript / Rust / Go 等方案取舍。"
+  after:
+    architecture:
+      recommended_maturity: accepted
+      summary: "v0.1 技术栈已选择为 Python 3.11+、stdlib-first CLI、YAML / Markdown / JSONL repo-native 状态账本，并有 ADR 支撑。"
+      advancement_reason:
+        - "架构文档明确 v0.1 技术栈、模块边界、目录边界、备选方案和后续实现前置条件。"
+        - "ADR-0001 记录技术决策、后果和拒绝方案。"
+        - "Evidence 已映射 IV-0003 验收项。"
+      caveat: "该 proposal 需要人工 gate；在 apply 前不得修改 .progress/state/project_state.yaml 的 architecture maturity。"
+  evidence_refs:
+    - "docs/03-system-design/06-system-architecture-and-module-boundaries.md"
+    - "decisions/ADR-0001-v0.1-tech-stack.md"
+    - ".progress/targets/TS-0003-v0.1-technical-stack-selected.yaml"
+    - ".progress/evidence/EV-0003-v0.1-tech-stack.yaml"
+  acceptance_summary:
+    pass: 7
+    fail: 0
+    partial: 1
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0003
+      summary: ".progress 对象 schema、命名约定和必填字段检查仍偏弱。"
+      next_state_path: "Use IV-0004 to strengthen docs and YAML checks before or during implementation."
+    - id: SG-0004
+      summary: "第一批 CLI implementation intervention 尚未定义。"
+      next_state_path: "After SDP-0003 approval, create a focused implementation target and intervention for the first CLI slice."
+  recommended_next_interventions:
+    - id: IV-0004
+      name: "Strengthen docs and YAML check"
+      condition: "Recommended before first implementation slice so `.progress` object drift is caught early."
+      primary_dimension: quality
+    - id: IV-0006
+      name: "Define first Python CLI implementation slice"
+      condition: "Run only after SDP-0003 is approved."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-17T17:13:44+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: codex
+    applied_at: "2026-05-17T17:13:44+08:00"
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Update state_dimensions.architecture.maturity from reviewed to accepted and add ADR-0001 / EV-0003 / SDP-0003 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "Reject SDP-0003 without changing Project State."
+      - "Mark TS-0003 reopened if human gate rejects Python as v0.1 main path."
+      - "Generate an architecture clarification intervention with the rejected tradeoff."

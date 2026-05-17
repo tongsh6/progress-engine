@@ -182,3 +182,87 @@ ProgressEngine 不直接等于：
 ```
 
 它可以在未来嵌入 IDE、调用模型或连接 GitHub，但第一性职责是维护项目状态的证据化推进。
+
+## 8. v0.1 技术栈选择
+
+`IV-0003` 将 v0.1 技术栈冻结为：
+
+| 层面 | v0.1 选择 | 理由 |
+|---|---|---|
+| Runtime | Python 3.11+ | 本仓库已有 Python 自检脚本和 `src/progress_engine/` 预留目录；适合本地 CLI、文件系统操作和低依赖分发。 |
+| CLI | Python stdlib `argparse` 起步，保留后续迁移到 Typer / Click 的空间 | v0.1 先证明状态闭环，不把 CLI 框架作为核心风险。 |
+| 状态文件 | YAML + Markdown + JSONL | YAML 适合可审查对象，Markdown 适合人类协议和报告，JSONL 适合 append-only history / events。 |
+| YAML 处理 | PyYAML 作为最小依赖；无 PyYAML 时检查脚本可降级跳过解析 | 与现有 `scripts/check_repo.py` 一致，降低引入复杂 schema runtime 的风险。 |
+| 数据模型 | Python dataclass / typed dict 起步，schema 文件作为后续质量门禁 | v0.1 优先保持对象清晰和 repo-native 可读性，避免过早 ORM 或数据库抽象。 |
+| 测试 | `pytest` 用于后续 CLI / state transition / verifier 测试 | Python CLI 生态成熟，适合 fixture-based 验证 YAML 和文件变更。 |
+| 包管理 | `pyproject.toml` 在实现阶段引入 | 本次只冻结技术边界，不创建实现配置文件。 |
+| 模型 API | 不接入 | v0.1 采用 prompt-only / manual-run，避免把模型调用变成 MVP 前置条件。 |
+| Web / SaaS | 不接入 | 已由 v0.1 产品边界排除。 |
+
+该选择的正式决策记录见 `decisions/ADR-0001-v0.1-tech-stack.md`。
+
+## 9. v0.1 模块边界
+
+v0.1 实现应优先覆盖最小状态闭环，而不是一次性实现顶层模块的完整形态。
+
+| v0.1 模块 | 最小职责 | 暂不承担 |
+|---|---|---|
+| State Store | 读取 / 写入 `.progress/state/project_state.yaml`、`state_history.jsonl`。 | 数据库、远程同步、多项目 workspace。 |
+| Object Loader | 读取 Target State、Intervention、Evidence、State Delta Proposal、Change Event。 | 完整 schema migration、跨版本兼容层。 |
+| State Reconciler | 基于显式 evidence refs 和 gap refs 输出当前状态摘要。 | 自动理解任意代码库或聊天历史。 |
+| Intervention Planner | 从 Target State 和模板生成 Intervention 草案。 | 自动拆完整任务图。 |
+| Capsule Builder | 生成 Fresh Context Capsule 的 Markdown 文件。 | 自动调用外部 AI agent。 |
+| Evidence Recorder | 记录 artifact review、command output、test result 等 Evidence。 | 自动判断真实业务价值。 |
+| Verifier | 检查 acceptance mapping、scope、silent deferral 和 State Delta claim。 | 替代人工产品 / 架构判断。 |
+| Delta Manager | 生成、review、apply、reject State Delta Proposal。 | 绕过 human gate 自动改状态。 |
+| Repo Check | 检查 required paths、YAML parse、Markdown links。 | 完整语义 schema 校验。 |
+
+## 10. v0.1 目录边界
+
+v0.1 实现阶段可使用以下目录边界：
+
+```text
+src/progress_engine/
+  cli/              # argparse command handlers
+  state/            # project state load/save/history
+  objects/          # target/intervention/evidence/delta/event loaders
+  planning/         # target to intervention helpers
+  capsule/          # Fresh Context Capsule builder
+  verification/     # artifact/evidence/scope checks
+  delta/            # proposal/apply/reject/rollback helpers
+  repo_check/       # docs/YAML/Markdown local checks
+
+tests/
+  fixtures/         # sample .progress objects
+  test_state.py
+  test_verification.py
+  test_delta.py
+  test_repo_check.py
+
+schemas/
+  target_state.schema.yaml
+  intervention.schema.yaml
+  evidence.schema.yaml
+  state_delta.schema.yaml
+```
+
+这些目录是实现边界，不代表 `IV-0003` 已创建或实现代码。
+
+## 11. 备选方案与拒绝理由
+
+| 方案 | 结论 | 理由 |
+|---|---|---|
+| Node.js / TypeScript CLI | 暂不采用为 v0.1 主路径 | 类型系统和 CLI 生态强，但当前仓库已有 Python 自检脚本；v0.1 的核心风险在状态协议，不在前端或 JS 生态。 |
+| Rust CLI | 暂不采用 | 分发和性能优秀，但实现成本高于 v0.1 需要。 |
+| Go CLI | 暂不采用 | 单文件分发好，但 YAML / Markdown / repo-native artifact 工作流不比 Python 更低摩擦。 |
+| SQLite / embedded DB | 暂不采用 | 会削弱 repo-native 可审查性；v0.1 状态事实源应保持文件化。 |
+| Full model API integration | 明确排除 | v0.1 产品边界是 prompt-only / manual-run 优先。 |
+
+## 12. 后续实现前置条件
+
+进入代码实现前，需要先完成或确认：
+
+- `SDP-0003` 被人工确认，architecture maturity 可以推进到 accepted。
+- `IV-0004` 明确最小 docs / YAML / Markdown / `.progress` 对象检查边界。
+- 实现阶段再创建 `pyproject.toml`、测试 fixture 和 CLI 入口，不在技术栈选择阶段提前生成。
+- 如果人工拒绝 Python 主路径，应重新打开 `TS-0003`，并创建新的 architecture clarification intervention。

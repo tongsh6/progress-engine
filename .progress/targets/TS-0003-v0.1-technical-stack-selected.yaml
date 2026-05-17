@@ -1,0 +1,38 @@
+id: TS-0003
+name: "v0.1 technical stack selected"
+primary_dimension: architecture
+source_intervention: IV-0003
+status: accepted
+human_gate_required: true
+desired_state: "v0.1 CLI / state engine / verifier 的技术栈、模块边界和实现前置条件被明确选择，可作为后续实现 intervention 的依据。"
+from:
+  maturity: reviewed
+  summary: "系统模块边界已有定义，但 v0.1 具体实现技术栈、目录边界和 schema / YAML / Markdown 处理方式尚未冻结。"
+to:
+  maturity: accepted
+  summary: "v0.1 技术栈选择为 Python 3.11+、stdlib-first CLI、YAML / Markdown / JSONL repo-native 状态账本，并通过 ADR 记录。"
+required_evidence:
+  - "docs/03-system-design/06-system-architecture-and-module-boundaries.md 明确 v0.1 技术栈、模块边界、目录边界和拒绝方案。"
+  - "decisions/ADR-0001-v0.1-tech-stack.md 记录技术栈决策、上下文、后果和备选方案。"
+  - ".progress/evidence/EV-0003-v0.1-tech-stack.yaml 映射 architecture checklist。"
+acceptance_criteria:
+  - id: AC-TS-0003-01
+    criterion: "明确 v0.1 runtime、CLI、状态文件格式、YAML 处理、测试和 packaging 方向。"
+  - id: AC-TS-0003-02
+    criterion: "说明 Python、Node.js / TypeScript、Rust、Go、数据库和模型 API 等方案的取舍。"
+  - id: AC-TS-0003-03
+    criterion: "模块边界覆盖 state、object loading、planning、capsule、verification、delta 和 repo check。"
+  - id: AC-TS-0003-04
+    criterion: "不实现业务代码，不创建 CLI 功能，不接入外部 agent。"
+  - id: AC-TS-0003-05
+    criterion: "技术选择不违反 TS-0002 的 v0.1 MVP 产品边界。"
+non_goals:
+  - "不实现 CLI、State Engine、Verifier 或任何业务代码。"
+  - "不创建生产发布方案。"
+  - "不接入模型 API 或外部 AI agent。"
+  - "不建立 Web UI、SaaS、多用户协作或跨项目 workspace。"
+downstream_unlocked:
+  - "Future implementation intervention: create Python package metadata and first CLI slice"
+  - "IV-0004: Strengthen docs and YAML check"
+related_gaps:
+  - SG-0003
