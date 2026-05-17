@@ -1,0 +1,23 @@
+id: SG-0016
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0019
+current_state: "`progress verify list` 已实现并接受；State Delta Proposal 相关的下一条只读 CLI 切片尚未定义。"
+desired_state: "下一条只读 CLI 切片被明确限定在 State Delta Proposal 读取或审查路径上，继续沿状态闭环扩展。"
+evidence_refs:
+  - ".progress/deltas/SDP-0019-verify-list-cli.yaml"
+  - "src/progress_engine/verification/verify_list.py"
+impact:
+  - "不阻断已实现的只读 state/gap/target/intervention/run/evidence/verify 命令。"
+  - "阻断继续无边界扩展 delta apply、rollback 或自动化命令。"
+suggested_targets:
+  - "TS-0020-next-delta-cli-slice-defined"
+suggested_interventions:
+  - "IV-0020: Define next state delta CLI slice"
+notes:
+  - "下一条切片应保持只读，并优先定义 State Delta Proposal 读取或审查路径，而不是直接进入 apply。"
+resolution:
+  resolved_by: SDP-0021
+  resolved_at: "2026-05-18T00:42:00+08:00"
+  summary: "`progress delta list` 已定义、实现、测试并通过 human gate 接受。"

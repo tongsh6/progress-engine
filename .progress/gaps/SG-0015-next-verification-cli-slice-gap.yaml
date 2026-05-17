@@ -1,7 +1,7 @@
 id: SG-0015
 dimension: implementation
 severity: medium
-status: open
+status: resolved
 source_intervention: IV-0017
 current_state: "`progress evidence list` 已实现并接受；Verification 相关的下一条只读 CLI 切片尚未定义。"
 desired_state: "下一条只读 CLI 切片被明确限定在 Verification 对象读取或审查路径上，继续沿状态闭环扩展。"
@@ -17,3 +17,7 @@ suggested_interventions:
   - "IV-0018: Define next verification CLI slice"
 notes:
   - "下一条切片应保持只读，并优先定义 Verification 读取或审查路径，而不是直接进入 delta apply。"
+resolution:
+  resolved_by: SDP-0019
+  resolved_at: "2026-05-18T00:18:00+08:00"
+  summary: "`progress verify list` 已定义、实现、测试并通过 human gate 接受。"

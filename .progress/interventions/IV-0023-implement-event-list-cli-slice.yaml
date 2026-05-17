@@ -1,0 +1,23 @@
+id: IV-0023
+name: "Implement read-only event list CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0023
+status: completed
+goal: "只实现 `progress event list` 这一条只读 Python CLI 用户路径，验证 Change Event 对象目录读取路径。"
+in_scope:
+  - "扩展 argparse 命令 `progress event list`"
+  - "读取 `.progress/events/*.yaml`"
+  - "读取 `change_event` 根 mapping 下的最小 event 字段"
+  - "输出 Change Event 摘要"
+  - "为成功路径、空目录路径、缺目录路径、malformed YAML 路径、缺根 mapping 路径和缺字段路径添加 pytest"
+out_of_scope:
+  - "不实现 progress event add"
+  - "不实现 progress event show"
+  - "不传播 invalidation"
+  - "不写入 Project State 或 JSONL event log"
+  - "不实现模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过"
+  - "PYTHONPATH=src python3 -m progress_engine event list 输出 Change Event 摘要"
+automation_policy: human_gate_required

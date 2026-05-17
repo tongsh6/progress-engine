@@ -1,0 +1,19 @@
+id: SG-0019
+dimension: quality
+severity: medium
+status: open
+source_intervention: IV-0025
+current_state: "核心只读 CLI 观察路径已覆盖 state、history、gap、target、intervention、run、evidence、verify、delta 和 event；.progress 对象一致性检查仍停留在最小字段和文件名层级。"
+desired_state: "下一条推进切片被明确限定在增强 .progress 对象质量检查上，优先收敛 SG-0003。"
+evidence_refs:
+  - ".progress/deltas/SDP-0025-state-history-cli.yaml"
+  - "scripts/check_repo.py"
+impact:
+  - "不阻断已实现的只读 CLI 路径。"
+  - "阻断继续扩展写操作前的账本质量信心。"
+suggested_targets:
+  - "TS-0026-next-progress-object-quality-slice-defined"
+suggested_interventions:
+  - "IV-0026: Define next progress object quality slice"
+notes:
+  - "下一步应优先设计质量检查增强，而不是继续扩大 CLI 命令面。"

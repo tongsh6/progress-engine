@@ -1,0 +1,40 @@
+id: TS-0021
+name: "delta list CLI slice working"
+primary_dimension: implementation
+source_gap: SG-0016
+status: accepted
+human_gate_required: true
+desired_state: "第八条 Python CLI 切片 `progress delta list` 可以读取 State Delta Proposal 目录，并输出只读 proposal 摘要。"
+from:
+  maturity: drafted
+  summary: "`progress delta list` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress delta list` 作为只读 Python CLI 切片可运行、可测试，证明 State Delta Proposal 目录读取路径成立。"
+required_evidence:
+  - "CLI 支持 `progress delta list`。"
+  - "命令只读取 `.progress/deltas/*.yaml`。"
+  - "命令读取 `state_delta_proposal` 根 mapping 下的最小 proposal 字段和 acceptance summary。"
+  - "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML 路径、缺根 mapping 路径和缺字段路径。"
+  - "python3 scripts/check_repo.py 仍通过。"
+acceptance_criteria:
+  - id: AC-TS-0021-01
+    criterion: "`progress delta list` 能读取 `.progress/deltas/*.yaml` 并输出 State Delta Proposal 摘要。"
+  - id: AC-TS-0021-02
+    criterion: "命令能读取 `state_delta_proposal` 根 mapping 下的最小 proposal 字段和 acceptance summary。"
+  - id: AC-TS-0021-03
+    criterion: "deltas 目录缺失时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0021-04
+    criterion: "State Delta Proposal YAML 解析失败、缺少根 mapping 或必要字段缺失时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0021-05
+    criterion: "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML 路径、缺根 mapping 路径和缺字段路径。"
+  - id: AC-TS-0021-06
+    criterion: "`python3 scripts/check_repo.py` 仍通过。"
+non_goals:
+  - "不实现 `progress delta apply`。"
+  - "不实现 `progress delta reject`。"
+  - "不实现 `progress delta rollback`。"
+  - "不写入 Project State 或 state history。"
+  - "不实现模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0016

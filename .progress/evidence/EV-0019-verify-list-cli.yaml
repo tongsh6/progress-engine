@@ -1,0 +1,63 @@
+evidence:
+  id: EV-0019
+  run_id: RUN-20260518-IV-0019
+  intervention_id: IV-0019
+  target_state_id: TS-0019
+  evidence_type: code_diff
+  created_at: "2026-05-18T00:18:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress verify list` 已定义但尚未实现。"
+      after: "`progress verify list` 已作为只读 Python CLI 切片实现，能读取 Evidence 对象并输出 Verification review 摘要。"
+      acceptance_mapping:
+        - criterion: "`progress verify list` 能读取 `.progress/evidence/*.yaml` 并输出 Verification review 摘要。"
+          status: pass
+          evidence_ref: "tests/test_cli_verify_list.py::test_verify_list_prints_verification_reviews"
+        - criterion: "命令能复用 Evidence loader，并读取 `reviewer.result` 和 acceptance mapping status 计数。"
+          status: pass
+          evidence_ref: "src/progress_engine/verification/verify_list.py"
+        - criterion: "evidence 目录缺失时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_verify_list.py::test_verify_list_returns_2_when_evidence_directory_is_missing"
+        - criterion: "Evidence YAML 解析失败、缺少根 mapping、必要字段缺失或 acceptance mapping status 缺失时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_verify_list.py"
+        - criterion: "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML 路径、缺字段路径和缺 acceptance status 路径。"
+          status: pass
+          evidence_ref: "python3 -m pytest tests/test_cli_verify_list.py"
+        - criterion: "`python3 scripts/check_repo.py` 仍通过。"
+          status: pass
+          evidence_ref: "python3 scripts/check_repo.py"
+  scope_check:
+    result: pass
+    notes:
+      - "实现只增加 `progress verify list` 只读路径。"
+      - "命令只读取 `.progress/evidence/*.yaml`，不修改 .progress 状态账本。"
+      - "未实现 progress verify --run、verification artifact 生成、State Delta Proposal 生成、Delta apply、模型 API、Web UI 或 agent 编排。"
+      - "本地 review 未发现与 docs/05-delivery/29-verify-list-cli-slice.md 的偏差。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_cli_verify_list.py"
+      result: pass
+      output_summary: "7 passed in 0.04s"
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "34 passed in 0.11s"
+    - command: "PYTHONPATH=src python3 -m progress_engine verify list"
+      result: pass
+      output_summary: "Printed Verification review summaries for EV-0002 through EV-0019 from .progress/evidence."
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 131 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 105 files."
+  files_changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/verification/__init__.py"
+    - "src/progress_engine/verification/verify_list.py"
+    - "src/progress_engine/README.md"
+    - "tests/fixtures/minimal_progress_project/.progress/evidence/EV-1001-sample-evidence.yaml"
+    - "tests/test_cli_verify_list.py"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0003
+  supports_state_delta_proposal: SDP-0019

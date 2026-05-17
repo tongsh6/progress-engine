@@ -1,0 +1,21 @@
+id: IV-0025
+name: "Implement read-only state history CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0025
+status: completed
+goal: "只实现 `progress state history` 这一条只读 Python CLI 用户路径，验证 State History JSONL 读取路径。"
+in_scope:
+  - "扩展 argparse 命令 `progress state history`"
+  - "读取 `.progress/state/state_history.jsonl`"
+  - "读取每条 history entry 的最小字段"
+  - "输出 State History 摘要"
+  - "为成功路径、空文件路径、缺文件路径、malformed JSONL 路径和缺字段路径添加 pytest"
+out_of_scope:
+  - "不实现 progress state refresh"
+  - "不实现 state replay 或 rollback"
+  - "不实现 delta apply、模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过"
+  - "PYTHONPATH=src python3 -m progress_engine state history 输出 State History 摘要"
+automation_policy: human_gate_required

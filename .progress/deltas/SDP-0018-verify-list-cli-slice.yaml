@@ -1,0 +1,65 @@
+state_delta_proposal:
+  id: SDP-0018
+  source_intervention: IV-0018
+  run_id: RUN-20260518-IV-0018
+  target_state_id: TS-0018
+  verification_id: EV-0018
+  status: applied
+  proposed_at: "2026-05-18T00:10:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "`progress evidence list` 已实现并接受；Verification 审查路径尚未定义。"
+      current_problem:
+        - "继续扩展 CLI 前需要冻结第七条小范围实现切片。"
+        - "直接进入 verification artifact 生成或 delta apply 会扩大 MVP 风险。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "第七条 Python CLI implementation slice 已定义为只读的 `progress verify list`，下一步可以有限实现。"
+      advancement_reason:
+        - "切片规格明确用户路径、输入、输出、状态影响和文件边界。"
+        - "acceptance criteria 和 evidence_required 已可测试。"
+        - "out_of_scope 明确排除 verify 写操作、verification artifact 生成、State Delta Proposal 生成、Delta apply、模型 API、Web UI 和 agent 编排。"
+      caveat: "本轮未实现代码；implementation maturity 保持 drafted。"
+  evidence_refs:
+    - "docs/05-delivery/29-verify-list-cli-slice.md"
+    - ".progress/targets/TS-0018-next-verification-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0018-define-verify-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0018-verify-list-cli-slice.yaml"
+  acceptance_summary:
+    pass: 3
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0015
+      summary: "第七条 CLI slice 已定义，但尚未实现；接受 SDP-0018 后应以 IV-0019 进入有限代码实现。"
+      next_state_path: "Implement only `progress verify list` with a minimal review loader and pytest fixture coverage."
+  recommended_next_interventions:
+    - id: IV-0019
+      name: "Implement read-only verify list CLI slice"
+      condition: "Run only after SDP-0018 is accepted by human gate."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-18T00:10:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-18T00:10:00+08:00"
+    previous_state_version: PS-0016
+    next_state_version: PS-0017
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted and add TS-0018 / EV-0018 / SDP-0018 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, mark TS-0018 back to proposed and IV-0018 back to proposed."
+      - "Replace docs/05-delivery/29-verify-list-cli-slice.md with the accepted alternate slice."

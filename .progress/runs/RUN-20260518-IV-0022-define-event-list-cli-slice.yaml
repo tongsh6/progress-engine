@@ -1,0 +1,30 @@
+id: RUN-20260518-IV-0022
+intervention_id: IV-0022
+target_state_id: TS-0022
+started_at: "2026-05-18T00:55:00+08:00"
+completed_at: "2026-05-18T00:55:00+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0021-delta-list-cli.yaml"
+      - ".progress/deltas/SDP-0021-delta-list-cli.yaml"
+    summary: "`progress delta list` 已实现并接受；Change Event 读取路径尚未定义。"
+  why_iv_0022_is_next:
+    - "TS-0022 是当前 aim_of_next_state。"
+    - "Change Event 是状态闭环中用于记录变化和失效影响的下一核心对象。"
+  out_of_scope_confirmed:
+    - "不实现 progress event add / show。"
+    - "不传播 invalidation 或标记 stale。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/31-event-list-cli-slice.md"
+    - ".progress/interventions/IV-0022-define-event-list-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0022-define-event-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0022-event-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0022-event-list-cli-slice.yaml"
+completion_claim: "Executor claims the event list CLI slice is defined and ready for implementation."

@@ -1,0 +1,39 @@
+id: TS-0019
+name: "verify list CLI slice working"
+primary_dimension: implementation
+source_gap: SG-0015
+status: accepted
+human_gate_required: true
+desired_state: "第七条 Python CLI 切片 `progress verify list` 可以读取 Evidence 对象目录，并输出 reviewer result 和 acceptance mapping 摘要。"
+from:
+  maturity: drafted
+  summary: "`progress verify list` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress verify list` 作为只读 Python CLI 切片可运行、可测试，证明 Verification review 路径成立。"
+required_evidence:
+  - "CLI 支持 `progress verify list`。"
+  - "命令只读取 `.progress/evidence/*.yaml`。"
+  - "命令复用 Evidence loader，并读取 reviewer result 和 acceptance mapping status。"
+  - "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML 路径、缺字段路径和缺 acceptance status 路径。"
+  - "python3 scripts/check_repo.py 仍通过。"
+acceptance_criteria:
+  - id: AC-TS-0019-01
+    criterion: "`progress verify list` 能读取 `.progress/evidence/*.yaml` 并输出 Verification review 摘要。"
+  - id: AC-TS-0019-02
+    criterion: "命令能复用 Evidence loader，并读取 `reviewer.result` 和 acceptance mapping status 计数。"
+  - id: AC-TS-0019-03
+    criterion: "evidence 目录缺失时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0019-04
+    criterion: "Evidence YAML 解析失败、缺少根 mapping、必要字段缺失或 acceptance mapping status 缺失时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0019-05
+    criterion: "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML 路径、缺字段路径和缺 acceptance status 路径。"
+  - id: AC-TS-0019-06
+    criterion: "`python3 scripts/check_repo.py` 仍通过。"
+non_goals:
+  - "不实现 `progress verify --run`。"
+  - "不生成 verification artifact。"
+  - "不生成 State Delta Proposal。"
+  - "不实现 Delta apply、模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0015

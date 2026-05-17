@@ -1,0 +1,37 @@
+id: RUN-20260518-IV-0019
+intervention_id: IV-0019
+target_state_id: TS-0019
+started_at: "2026-05-18T00:18:00+08:00"
+completed_at: "2026-05-18T00:18:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0018-verify-list-cli-slice.yaml"
+      - ".progress/deltas/SDP-0018-verify-list-cli-slice.yaml"
+    summary: "第七条 CLI slice 已定义为 `progress verify list`；实现尚未存在。"
+  why_iv_0019_is_next:
+    - "SDP-0018 已通过 human gate apply。"
+    - "docs/05-delivery/29-verify-list-cli-slice.md 明确下一步为 IV-0019。"
+  out_of_scope_confirmed:
+    - "不实现 progress verify --run。"
+    - "不生成 verification artifact 或 State Delta Proposal。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "src/progress_engine/verification/__init__.py"
+    - "src/progress_engine/verification/verify_list.py"
+    - "tests/test_cli_verify_list.py"
+    - ".progress/targets/TS-0019-verify-list-cli-working.yaml"
+    - ".progress/interventions/IV-0019-implement-verify-list-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0019-implement-verify-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0019-verify-list-cli.yaml"
+    - ".progress/deltas/SDP-0019-verify-list-cli.yaml"
+  modified:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/README.md"
+    - "tests/fixtures/minimal_progress_project/.progress/evidence/EV-1001-sample-evidence.yaml"
+completion_claim: "Executor claims `progress verify list` is implemented, tested, and ready for state delta review."

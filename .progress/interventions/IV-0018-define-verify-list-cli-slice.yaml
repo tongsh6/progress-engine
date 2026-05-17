@@ -1,0 +1,27 @@
+id: IV-0018
+name: "Define next verification CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0018
+status: completed
+goal: "在继续扩展 CLI 前，定义第七条只读、可测试、不会扩张成 verify 写操作 / delta apply 的 Python implementation slice。"
+in_scope:
+  - "选择第七条最小 CLI 用户路径"
+  - "定义输入、输出、状态影响和文件边界"
+  - "定义 acceptance criteria 和 evidence_required"
+  - "定义不做哪些 verification generation / delta 能力"
+selected_slice:
+  id: CLI-007
+  command: "progress verify list"
+  summary: "只读读取 .progress/evidence/*.yaml，输出 reviewer result 和 acceptance mapping 摘要。"
+  specification: "docs/05-delivery/29-verify-list-cli-slice.md"
+  state_effect: "read_only_no_progress_file_mutation"
+out_of_scope:
+  - "不实现 progress verify --run"
+  - "不生成 verification artifact"
+  - "不生成 State Delta Proposal"
+  - "不实现 delta apply、模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "新增 TS-0018 / IV-0018 实现切片定义"
+  - "新增 docs/05-delivery/29-verify-list-cli-slice.md"
+  - "python3 scripts/check_repo.py 通过"
+automation_policy: human_gate_required

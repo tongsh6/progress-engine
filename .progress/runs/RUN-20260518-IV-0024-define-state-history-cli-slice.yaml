@@ -1,0 +1,30 @@
+id: RUN-20260518-IV-0024
+intervention_id: IV-0024
+target_state_id: TS-0024
+started_at: "2026-05-18T01:20:00+08:00"
+completed_at: "2026-05-18T01:20:00+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0023-event-list-cli.yaml"
+      - ".progress/deltas/SDP-0023-event-list-cli.yaml"
+    summary: "`progress event list` 已实现并接受；State History 读取路径尚未定义。"
+  why_iv_0024_is_next:
+    - "TS-0024 是当前 aim_of_next_state。"
+    - "State History 是 State Delta apply 后的状态变更审查记录。"
+  out_of_scope_confirmed:
+    - "不实现 progress state refresh。"
+    - "不实现 state replay、rollback 或 delta apply。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/32-state-history-cli-slice.md"
+    - ".progress/interventions/IV-0024-define-state-history-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0024-define-state-history-cli-slice.yaml"
+    - ".progress/evidence/EV-0024-state-history-cli-slice.yaml"
+    - ".progress/deltas/SDP-0024-state-history-cli-slice.yaml"
+completion_claim: "Executor claims the state history CLI slice is defined and ready for implementation."

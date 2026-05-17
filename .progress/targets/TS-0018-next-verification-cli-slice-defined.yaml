@@ -2,7 +2,7 @@ id: TS-0018
 name: "next verification CLI slice defined"
 primary_dimension: implementation
 source_gap: SG-0015
-status: proposed
+status: accepted
 human_gate_required: true
 desired_state: "下一条 Python CLI implementation slice 被定义为只读、可测试、不会扩张成 delta apply 或自动化执行的小范围 Verification 目标。"
 from:

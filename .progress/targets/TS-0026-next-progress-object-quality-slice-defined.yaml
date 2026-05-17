@@ -1,0 +1,31 @@
+id: TS-0026
+name: "next progress object quality slice defined"
+primary_dimension: quality
+source_gap: SG-0019
+status: proposed
+human_gate_required: true
+desired_state: "下一条 quality slice 被定义为小范围、可测试的 .progress 对象一致性检查增强。"
+from:
+  maturity: reviewed
+  summary: "scripts/check_repo.py 已覆盖 required paths、YAML、JSONL、Markdown local links 和 .progress 对象最小字段 / 文件名检查。"
+to:
+  maturity: reviewed
+  summary: "下一条质量切片明确选择一个更强的 .progress 对象语义检查点，可进入后续实现。"
+required_evidence:
+  - "实现切片明确只覆盖一个最小质量检查增强。"
+  - "acceptance criteria 和 evidence_required 可验证。"
+  - "out_of_scope 明确排除完整 schema 引擎、大规模重构、写操作和自动修复。"
+acceptance_criteria:
+  - id: AC-TS-0026-01
+    criterion: "定义下一条 .progress 对象质量检查 slice 的输入、输出和状态影响。"
+  - id: AC-TS-0026-02
+    criterion: "定义该 slice 的测试和 Evidence 要求。"
+  - id: AC-TS-0026-03
+    criterion: "确认不会越界实现完整 schema 引擎、自动修复或写操作。"
+non_goals:
+  - "不在 target 定义阶段实现代码。"
+  - "不实现完整 schema validation 引擎。"
+  - "不自动修改 .progress 对象。"
+related_gaps:
+  - SG-0003
+  - SG-0019

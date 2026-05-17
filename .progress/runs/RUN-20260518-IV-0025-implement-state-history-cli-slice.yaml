@@ -1,0 +1,36 @@
+id: RUN-20260518-IV-0025
+intervention_id: IV-0025
+target_state_id: TS-0025
+started_at: "2026-05-18T01:28:00+08:00"
+completed_at: "2026-05-18T01:28:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0024-state-history-cli-slice.yaml"
+      - ".progress/deltas/SDP-0024-state-history-cli-slice.yaml"
+    summary: "第十条 CLI slice 已定义为 `progress state history`；实现尚未存在。"
+  why_iv_0025_is_next:
+    - "SDP-0024 已通过 human gate apply。"
+    - "docs/05-delivery/32-state-history-cli-slice.md 明确下一步为 IV-0025。"
+  out_of_scope_confirmed:
+    - "不实现 progress state refresh。"
+    - "不实现 state replay、rollback 或 delta apply。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "src/progress_engine/state/state_history.py"
+    - "tests/fixtures/minimal_progress_project/.progress/state/state_history.jsonl"
+    - "tests/test_cli_state_history.py"
+    - ".progress/targets/TS-0025-state-history-cli-working.yaml"
+    - ".progress/interventions/IV-0025-implement-state-history-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0025-implement-state-history-cli-slice.yaml"
+    - ".progress/evidence/EV-0025-state-history-cli.yaml"
+    - ".progress/deltas/SDP-0025-state-history-cli.yaml"
+  modified:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/README.md"
+completion_claim: "Executor claims `progress state history` is implemented, tested, and ready for state delta review."

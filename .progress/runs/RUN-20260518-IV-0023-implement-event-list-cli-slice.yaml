@@ -1,0 +1,37 @@
+id: RUN-20260518-IV-0023
+intervention_id: IV-0023
+target_state_id: TS-0023
+started_at: "2026-05-18T01:02:00+08:00"
+completed_at: "2026-05-18T01:02:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0022-event-list-cli-slice.yaml"
+      - ".progress/deltas/SDP-0022-event-list-cli-slice.yaml"
+    summary: "第九条 CLI slice 已定义为 `progress event list`；实现尚未存在。"
+  why_iv_0023_is_next:
+    - "SDP-0022 已通过 human gate apply。"
+    - "docs/05-delivery/31-event-list-cli-slice.md 明确下一步为 IV-0023。"
+  out_of_scope_confirmed:
+    - "不实现 progress event add / show。"
+    - "不传播 invalidation 或标记 stale。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "src/progress_engine/events/__init__.py"
+    - "src/progress_engine/events/event_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/events/EVT-1001-sample-event.yaml"
+    - "tests/test_cli_event_list.py"
+    - ".progress/targets/TS-0023-event-list-cli-working.yaml"
+    - ".progress/interventions/IV-0023-implement-event-list-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0023-implement-event-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0023-event-list-cli.yaml"
+    - ".progress/deltas/SDP-0023-event-list-cli.yaml"
+  modified:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/README.md"
+completion_claim: "Executor claims `progress event list` is implemented, tested, and ready for state delta review."

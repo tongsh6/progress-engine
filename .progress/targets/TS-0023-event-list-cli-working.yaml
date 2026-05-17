@@ -1,0 +1,40 @@
+id: TS-0023
+name: "event list CLI slice working"
+primary_dimension: implementation
+source_gap: SG-0017
+status: accepted
+human_gate_required: true
+desired_state: "第九条 Python CLI 切片 `progress event list` 可以读取 Change Event 对象目录，并输出只读事件摘要。"
+from:
+  maturity: drafted
+  summary: "`progress event list` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress event list` 作为只读 Python CLI 切片可运行、可测试，证明 Change Event 对象目录读取路径成立。"
+required_evidence:
+  - "CLI 支持 `progress event list`。"
+  - "命令只读取 `.progress/events/*.yaml`。"
+  - "命令读取 `change_event` 根 mapping 下的最小 event 字段。"
+  - "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML 路径、缺根 mapping 路径和缺字段路径。"
+  - "python3 scripts/check_repo.py 仍通过。"
+acceptance_criteria:
+  - id: AC-TS-0023-01
+    criterion: "`progress event list` 能读取 `.progress/events/*.yaml` 并输出 Change Event 摘要。"
+  - id: AC-TS-0023-02
+    criterion: "命令能读取 `change_event` 根 mapping 下的最小 event 字段。"
+  - id: AC-TS-0023-03
+    criterion: "events 目录缺失时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0023-04
+    criterion: "Change Event YAML 解析失败、缺少根 mapping 或必要字段缺失时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0023-05
+    criterion: "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML 路径、缺根 mapping 路径和缺字段路径。"
+  - id: AC-TS-0023-06
+    criterion: "`python3 scripts/check_repo.py` 仍通过。"
+non_goals:
+  - "不实现 `progress event add`。"
+  - "不实现 `progress event show`。"
+  - "不传播 invalidation。"
+  - "不写入 Project State 或 JSONL event log。"
+  - "不实现模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0017

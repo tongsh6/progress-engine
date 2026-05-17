@@ -404,6 +404,295 @@ python3 scripts/check_repo.py
 [OK] .progress object checks passed for 94 files
 ```
 
+### IV-0018: Define next verification CLI slice
+
+- Target State：`TS-0018: next verification CLI slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 切片结论：第七条 Python CLI 用户路径为只读的 `progress verify list`
+- Evidence：`.progress/evidence/EV-0018-verify-list-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0018-verify-list-cli-slice.yaml`
+- 状态历史：`PS-0017`
+- 主要产物：`docs/05-delivery/29-verify-list-cli-slice.md`
+- 明确边界：
+  - 只读取 `.progress/evidence/*.yaml`
+  - 复用 Evidence loader，读取 reviewer result 和 acceptance mapping status
+  - 不修改 `.progress/`
+  - 不实现 progress verify --run、verification artifact 生成、State Delta Proposal 生成、Delta apply、模型 API、Web UI 或 agent 编排
+- 推荐下一步：
+  - 执行 `IV-0019: Implement read-only verify list CLI slice`
+- 检查结果：
+
+```text
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 131 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 105 files
+```
+
+### IV-0019: Implement read-only verify list CLI slice
+
+- Target State：`TS-0019: verify list CLI slice working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 实现结论：`progress verify list` 的最小 CLI、Verification review 只读加载和 pytest 覆盖已完成
+- Evidence：`.progress/evidence/EV-0019-verify-list-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0019-verify-list-cli.yaml`
+- 状态历史：`PS-0018`
+- 主要产物：
+  - `src/progress_engine/cli.py`
+  - `src/progress_engine/verification/verify_list.py`
+  - `tests/test_cli_verify_list.py`
+- 明确边界：
+  - 只读取 `.progress/evidence/*.yaml`
+  - 复用 Evidence loader
+  - 只汇总 reviewer result 和 acceptance mapping status
+  - 不修改 `.progress/`
+  - 不实现 progress verify --run、verification artifact 生成、State Delta Proposal 生成、Delta apply、模型 API、Web UI 或 agent 编排
+- 后续导航：
+  - 新增 `SG-0016` 和 `TS-0020`，下一步先定义 State Delta Proposal 相关只读 CLI 切片
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_verify_list.py
+7 passed in 0.04s
+
+python3 -m pytest
+34 passed in 0.11s
+
+PYTHONPATH=src python3 -m progress_engine verify list
+Printed Verification review summaries for EV-0002 through EV-0019.
+
+PYTHONPATH=src python3 -m progress_engine target list
+Next targets:
+- TS-0020 [implementation] next state delta CLI slice defined (proposed)
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 131 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 105 files
+```
+
+### IV-0020: Define next state delta CLI slice
+
+- Target State：`TS-0020: next state delta CLI slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 切片结论：第八条 Python CLI 用户路径为只读的 `progress delta list`
+- Evidence：`.progress/evidence/EV-0020-delta-list-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0020-delta-list-cli-slice.yaml`
+- 状态历史：`PS-0019`
+- 主要产物：`docs/05-delivery/30-delta-list-cli-slice.md`
+- 明确边界：
+  - 只读取 `.progress/deltas/*.yaml`
+  - 读取 `state_delta_proposal` 根 mapping 下的最小 proposal 字段和 acceptance summary
+  - 不修改 `.progress/`
+  - 不实现 progress delta apply、reject、rollback、Project State 写入、state history 写入、模型 API、Web UI 或 agent 编排
+- 推荐下一步：
+  - 执行 `IV-0021: Implement read-only delta list CLI slice`
+- 检查结果：
+
+```text
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 143 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 116 files
+```
+
+### IV-0021: Implement read-only delta list CLI slice
+
+- Target State：`TS-0021: delta list CLI slice working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 实现结论：`progress delta list` 的最小 CLI、State Delta Proposal 只读加载和 pytest 覆盖已完成
+- Evidence：`.progress/evidence/EV-0021-delta-list-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0021-delta-list-cli.yaml`
+- 状态历史：`PS-0020`
+- 主要产物：
+  - `src/progress_engine/cli.py`
+  - `src/progress_engine/deltas/delta_list.py`
+  - `tests/test_cli_delta_list.py`
+- 明确边界：
+  - 只读取 `.progress/deltas/*.yaml`
+  - 读取 `state_delta_proposal` 根 mapping 下的最小 proposal 字段和 acceptance summary
+  - 不修改 `.progress/`
+  - 不实现 progress delta apply、reject、rollback、Project State 写入、state history 写入、模型 API、Web UI 或 agent 编排
+- 后续导航：
+  - 新增 `SG-0017` 和 `TS-0022`，下一步先定义 Change Event 相关只读 CLI 切片
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_delta_list.py
+7 passed in 0.04s
+
+python3 -m pytest
+41 passed in 0.14s
+
+PYTHONPATH=src python3 -m progress_engine delta list
+Printed State Delta Proposal summaries for SDP-0002 through SDP-0021.
+
+PYTHONPATH=src python3 -m progress_engine target list
+Next targets:
+- TS-0022 [implementation] next change event CLI slice defined (proposed)
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 143 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 116 files
+```
+
+### IV-0022: Define next change event CLI slice
+
+- Target State：`TS-0022: next change event CLI slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 切片结论：第九条 Python CLI 用户路径为只读的 `progress event list`
+- Evidence：`.progress/evidence/EV-0022-event-list-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0022-event-list-cli-slice.yaml`
+- 状态历史：`PS-0021`
+- 主要产物：`docs/05-delivery/31-event-list-cli-slice.md`
+- 明确边界：
+  - 只读取 `.progress/events/*.yaml`
+  - 读取 `change_event` 根 mapping 下的最小 event 字段
+  - 不修改 `.progress/`
+  - 不实现 progress event add、event show、invalidation propagation、Project State 写入、JSONL event log 写入、模型 API、Web UI 或 agent 编排
+- 推荐下一步：
+  - 执行 `IV-0023: Implement read-only event list CLI slice`
+- 检查结果：
+
+```text
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 155 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 127 files
+```
+
+### IV-0023: Implement read-only event list CLI slice
+
+- Target State：`TS-0023: event list CLI slice working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 实现结论：`progress event list` 的最小 CLI、Change Event 只读加载和 pytest 覆盖已完成
+- Evidence：`.progress/evidence/EV-0023-event-list-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0023-event-list-cli.yaml`
+- 状态历史：`PS-0022`
+- 主要产物：
+  - `src/progress_engine/cli.py`
+  - `src/progress_engine/events/event_list.py`
+  - `tests/test_cli_event_list.py`
+- 明确边界：
+  - 只读取 `.progress/events/*.yaml`
+  - 读取 `change_event` 根 mapping 下的最小 event 字段
+  - 不修改 `.progress/`
+  - 不实现 progress event add、event show、invalidation propagation、Project State 写入、JSONL event log 写入、模型 API、Web UI 或 agent 编排
+- 后续导航：
+  - 新增 `SG-0018` 和 `TS-0024`，下一步先定义 State History 相关只读 CLI 切片
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_event_list.py
+8 passed in 0.04s
+
+python3 -m pytest
+49 passed in 0.18s
+
+PYTHONPATH=src python3 -m progress_engine event list
+Printed Change Event summary for EVT-0002.
+
+PYTHONPATH=src python3 -m progress_engine target list
+Next targets:
+- TS-0024 [implementation] next state history CLI slice defined (proposed)
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 155 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 127 files
+```
+
+### IV-0024: Define next state history CLI slice
+
+- Target State：`TS-0024: next state history CLI slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 切片结论：第十条 Python CLI 用户路径为只读的 `progress state history`
+- Evidence：`.progress/evidence/EV-0024-state-history-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0024-state-history-cli-slice.yaml`
+- 状态历史：`PS-0023`
+- 主要产物：`docs/05-delivery/32-state-history-cli-slice.md`
+- 明确边界：
+  - 只读取 `.progress/state/state_history.jsonl`
+  - 读取每条 history entry 的最小字段
+  - 不修改 `.progress/`
+  - 不实现 progress state refresh、state replay、rollback、delta apply、模型 API、Web UI 或 agent 编排
+- 推荐下一步：
+  - 执行 `IV-0025: Implement read-only state history CLI slice`
+- 检查结果：
+
+```text
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 166 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 138 files
+```
+
+### IV-0025: Implement read-only state history CLI slice
+
+- Target State：`TS-0025: state history CLI slice working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 实现结论：`progress state history` 的最小 CLI、State History JSONL 只读加载和 pytest 覆盖已完成
+- Evidence：`.progress/evidence/EV-0025-state-history-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0025-state-history-cli.yaml`
+- 状态历史：`PS-0024`
+- 主要产物：
+  - `src/progress_engine/cli.py`
+  - `src/progress_engine/state/state_history.py`
+  - `tests/test_cli_state_history.py`
+- 明确边界：
+  - 只读取 `.progress/state/state_history.jsonl`
+  - 读取每条 history entry 的最小字段
+  - 不修改 `.progress/`
+  - 不实现 progress state refresh、state replay、rollback、delta apply、模型 API、Web UI 或 agent 编排
+- 后续导航：
+  - 新增 `SG-0019` 和 `TS-0026`，下一步先定义 .progress 对象质量检查增强切片
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_state_history.py
+6 passed in 0.04s
+
+python3 -m pytest
+55 passed in 0.20s
+
+PYTHONPATH=src python3 -m progress_engine state history
+Printed State History summaries for PS-0002 through PS-0022.
+
+PYTHONPATH=src python3 -m progress_engine target list
+Next targets:
+- TS-0026 [quality] next progress object quality slice defined (proposed)
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 166 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 138 files
+```
+
 ## 当前状态
 
 - product：`accepted`
@@ -413,4 +702,4 @@ python3 scripts/check_repo.py
 
 ## 下一步推荐
 
-- 定义 `TS-0018: next verification CLI slice`
+- 定义 `TS-0026: next progress object quality slice`

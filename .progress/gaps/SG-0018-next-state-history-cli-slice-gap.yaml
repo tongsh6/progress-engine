@@ -1,0 +1,23 @@
+id: SG-0018
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0023
+current_state: "`progress event list` 已实现并接受；state history 相关的下一条只读 CLI 切片尚未定义。"
+desired_state: "下一条只读 CLI 切片被明确限定在 state history 读取路径上，继续沿状态闭环扩展。"
+evidence_refs:
+  - ".progress/deltas/SDP-0023-event-list-cli.yaml"
+  - "src/progress_engine/events/event_list.py"
+impact:
+  - "不阻断已实现的只读 state/gap/target/intervention/run/evidence/verify/delta/event 命令。"
+  - "阻断继续无边界扩展写操作或自动化命令。"
+suggested_targets:
+  - "TS-0024-next-state-history-cli-slice-defined"
+suggested_interventions:
+  - "IV-0024: Define next state history CLI slice"
+notes:
+  - "下一条切片应保持只读，并优先定义 `.progress/state/state_history.jsonl` 读取路径。"
+resolution:
+  resolved_by: SDP-0025
+  resolved_at: "2026-05-18T01:28:00+08:00"
+  summary: "`progress state history` 已定义、实现、测试并通过 human gate 接受。"

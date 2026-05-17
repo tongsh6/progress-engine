@@ -1,0 +1,30 @@
+id: RUN-20260518-IV-0020
+intervention_id: IV-0020
+target_state_id: TS-0020
+started_at: "2026-05-18T00:35:00+08:00"
+completed_at: "2026-05-18T00:35:00+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0019-verify-list-cli.yaml"
+      - ".progress/deltas/SDP-0019-verify-list-cli.yaml"
+    summary: "`progress verify list` 已实现并接受；State Delta Proposal 读取路径尚未定义。"
+  why_iv_0020_is_next:
+    - "TS-0020 是当前 aim_of_next_state。"
+    - "State Delta Proposal 是 Verification 之后、Apply 之前的下一核心审查对象。"
+  out_of_scope_confirmed:
+    - "不实现 progress delta apply / reject / rollback。"
+    - "不写入 Project State 或 state history。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/30-delta-list-cli-slice.md"
+    - ".progress/interventions/IV-0020-define-delta-list-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0020-define-delta-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0020-delta-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0020-delta-list-cli-slice.yaml"
+completion_claim: "Executor claims the delta list CLI slice is defined and ready for implementation."

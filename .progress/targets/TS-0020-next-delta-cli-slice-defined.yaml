@@ -1,0 +1,30 @@
+id: TS-0020
+name: "next state delta CLI slice defined"
+primary_dimension: implementation
+source_gap: SG-0016
+status: accepted
+human_gate_required: true
+desired_state: "下一条 Python CLI implementation slice 被定义为只读、可测试、不会扩张成 delta apply / reject / rollback 的小范围 State Delta Proposal 目标。"
+from:
+  maturity: drafted
+  summary: "`progress verify list` 已可运行、可测试，但 State Delta Proposal 相关的下一条 CLI 路径尚未定义。"
+to:
+  maturity: drafted
+  summary: "下一条只读 CLI 路径被定义为有限的 State Delta Proposal 读取或审查路径，可进入后续实现切片。"
+required_evidence:
+  - "实现切片明确只覆盖一个最小 State Delta Proposal 读取能力。"
+  - "acceptance criteria 和 evidence_required 可验证。"
+  - "out_of_scope 明确排除 delta apply、reject、rollback、自动化执行、模型 API、Web UI 和 agent 编排。"
+acceptance_criteria:
+  - id: AC-TS-0020-01
+    criterion: "定义下一条 State Delta Proposal 相关 CLI slice 的用户路径、输入、输出和状态影响。"
+  - id: AC-TS-0020-02
+    criterion: "定义该 slice 的测试和 Evidence 要求。"
+  - id: AC-TS-0020-03
+    criterion: "确认不会越界实现 Delta apply、reject、rollback、自动化执行或 agent 编排。"
+non_goals:
+  - "不在 target 定义阶段实现代码。"
+  - "不实现完整 ProgressEngine CLI。"
+  - "不实现 delta apply、模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0016

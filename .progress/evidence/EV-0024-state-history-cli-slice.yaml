@@ -1,0 +1,43 @@
+evidence:
+  id: EV-0024
+  run_id: RUN-20260518-IV-0024
+  intervention_id: IV-0024
+  target_state_id: TS-0024
+  evidence_type: artifact_review
+  created_at: "2026-05-18T01:20:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress event list` 已实现并接受，但 State History 读取路径尚未定义。"
+      after: "第十条 CLI implementation slice 被定义为只读的 `progress state history`，包含用户路径、输入输出、状态影响、文件边界、acceptance criteria、evidence_required 和 out_of_scope。"
+      acceptance_mapping:
+        - criterion: "定义下一条 State History 相关 CLI slice 的用户路径、输入、输出和状态影响。"
+          status: pass
+          evidence_ref: "docs/05-delivery/32-state-history-cli-slice.md#2-用户路径"
+        - criterion: "定义该 slice 的测试和 Evidence 要求。"
+          status: pass
+          evidence_ref: "docs/05-delivery/32-state-history-cli-slice.md#6-acceptance-criteria"
+        - criterion: "确认不会越界实现 state refresh、delta apply、自动化执行或 agent 编排。"
+          status: pass
+          evidence_ref: "docs/05-delivery/32-state-history-cli-slice.md#8-out-of-scope"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只定义下一条切片，没有实现 `progress state history`。"
+      - "切片命令保持只读，不修改 .progress 状态账本。"
+      - "state refresh、state replay、State Delta apply、Project State 写入、state history 追加、模型 API 和 Web UI 均被排除。"
+  commands_run:
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 166 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 138 files."
+  files_changed:
+    - "docs/05-delivery/32-state-history-cli-slice.md"
+    - ".progress/interventions/IV-0024-define-state-history-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0024-define-state-history-cli-slice.yaml"
+    - ".progress/evidence/EV-0024-state-history-cli-slice.yaml"
+    - ".progress/deltas/SDP-0024-state-history-cli-slice.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0018
+  supports_state_delta_proposal: SDP-0024

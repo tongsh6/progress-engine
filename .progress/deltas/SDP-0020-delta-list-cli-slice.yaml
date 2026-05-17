@@ -1,0 +1,65 @@
+state_delta_proposal:
+  id: SDP-0020
+  source_intervention: IV-0020
+  run_id: RUN-20260518-IV-0020
+  target_state_id: TS-0020
+  verification_id: EV-0020
+  status: applied
+  proposed_at: "2026-05-18T00:35:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "`progress verify list` 已实现并接受；State Delta Proposal 读取路径尚未定义。"
+      current_problem:
+        - "继续扩展 CLI 前需要冻结第八条小范围实现切片。"
+        - "直接进入 delta apply / reject / rollback 会扩大 MVP 风险。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "第八条 Python CLI implementation slice 已定义为只读的 `progress delta list`，下一步可以有限实现。"
+      advancement_reason:
+        - "切片规格明确用户路径、输入、输出、状态影响和文件边界。"
+        - "acceptance criteria 和 evidence_required 已可测试。"
+        - "out_of_scope 明确排除 delta apply、reject、rollback、Project State 写入、state history 写入、模型 API、Web UI 和 agent 编排。"
+      caveat: "本轮未实现代码；implementation maturity 保持 drafted。"
+  evidence_refs:
+    - "docs/05-delivery/30-delta-list-cli-slice.md"
+    - ".progress/targets/TS-0020-next-delta-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0020-define-delta-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0020-delta-list-cli-slice.yaml"
+  acceptance_summary:
+    pass: 3
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0016
+      summary: "第八条 CLI slice 已定义，但尚未实现；接受 SDP-0020 后应以 IV-0021 进入有限代码实现。"
+      next_state_path: "Implement only `progress delta list` with a minimal State Delta Proposal loader and pytest fixture coverage."
+  recommended_next_interventions:
+    - id: IV-0021
+      name: "Implement read-only delta list CLI slice"
+      condition: "Run only after SDP-0020 is accepted by human gate."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-18T00:35:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-18T00:35:00+08:00"
+    previous_state_version: PS-0018
+    next_state_version: PS-0019
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted and add TS-0020 / EV-0020 / SDP-0020 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, mark TS-0020 back to proposed and IV-0020 back to proposed."
+      - "Replace docs/05-delivery/30-delta-list-cli-slice.md with the accepted alternate slice."

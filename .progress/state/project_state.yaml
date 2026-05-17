@@ -36,7 +36,7 @@ state_dimensions:
       - .progress/deltas/SDP-0003-v0.1-tech-stack.yaml
   implementation:
     maturity: drafted
-    summary: "`progress state show`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list` 和 `progress evidence list` 作为只读 Python CLI 切片已经可运行、可测试。"
+    summary: "`progress state show`、`progress state history`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list`、`progress evidence list`、`progress verify list`、`progress delta list` 和 `progress event list` 作为只读 Python CLI 切片已经可运行、可测试。"
     evidence:
       - docs/05-delivery/23-first-python-cli-implementation-slice.md
       - .progress/targets/TS-0006-first-python-cli-slice-defined.yaml
@@ -94,6 +94,42 @@ state_dimensions:
       - .progress/targets/TS-0017-evidence-list-cli-working.yaml
       - .progress/evidence/EV-0017-evidence-list-cli.yaml
       - .progress/deltas/SDP-0017-evidence-list-cli.yaml
+      - docs/05-delivery/29-verify-list-cli-slice.md
+      - .progress/targets/TS-0018-next-verification-cli-slice-defined.yaml
+      - .progress/evidence/EV-0018-verify-list-cli-slice.yaml
+      - .progress/deltas/SDP-0018-verify-list-cli-slice.yaml
+      - src/progress_engine/verification/verify_list.py
+      - tests/test_cli_verify_list.py
+      - .progress/targets/TS-0019-verify-list-cli-working.yaml
+      - .progress/evidence/EV-0019-verify-list-cli.yaml
+      - .progress/deltas/SDP-0019-verify-list-cli.yaml
+      - docs/05-delivery/30-delta-list-cli-slice.md
+      - .progress/targets/TS-0020-next-delta-cli-slice-defined.yaml
+      - .progress/evidence/EV-0020-delta-list-cli-slice.yaml
+      - .progress/deltas/SDP-0020-delta-list-cli-slice.yaml
+      - src/progress_engine/deltas/delta_list.py
+      - tests/test_cli_delta_list.py
+      - .progress/targets/TS-0021-delta-list-cli-working.yaml
+      - .progress/evidence/EV-0021-delta-list-cli.yaml
+      - .progress/deltas/SDP-0021-delta-list-cli.yaml
+      - docs/05-delivery/31-event-list-cli-slice.md
+      - .progress/targets/TS-0022-next-event-cli-slice-defined.yaml
+      - .progress/evidence/EV-0022-event-list-cli-slice.yaml
+      - .progress/deltas/SDP-0022-event-list-cli-slice.yaml
+      - src/progress_engine/events/event_list.py
+      - tests/test_cli_event_list.py
+      - .progress/targets/TS-0023-event-list-cli-working.yaml
+      - .progress/evidence/EV-0023-event-list-cli.yaml
+      - .progress/deltas/SDP-0023-event-list-cli.yaml
+      - docs/05-delivery/32-state-history-cli-slice.md
+      - .progress/targets/TS-0024-next-state-history-cli-slice-defined.yaml
+      - .progress/evidence/EV-0024-state-history-cli-slice.yaml
+      - .progress/deltas/SDP-0024-state-history-cli-slice.yaml
+      - src/progress_engine/state/state_history.py
+      - tests/test_cli_state_history.py
+      - .progress/targets/TS-0025-state-history-cli-working.yaml
+      - .progress/evidence/EV-0025-state-history-cli.yaml
+      - .progress/deltas/SDP-0025-state-history-cli.yaml
   quality:
     maturity: reviewed
     summary: "最小仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links 和 .progress 对象一致性。"
@@ -119,7 +155,7 @@ open_state_gaps:
   - SG-0001
   - SG-0002
   - SG-0003
-  - SG-0015
+  - SG-0019
 
 aim_of_next_state:
-  - TS-0018
+  - TS-0026

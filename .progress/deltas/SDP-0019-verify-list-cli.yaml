@@ -1,0 +1,67 @@
+state_delta_proposal:
+  id: SDP-0019
+  source_intervention: IV-0019
+  run_id: RUN-20260518-IV-0019
+  target_state_id: TS-0019
+  verification_id: EV-0019
+  status: applied
+  proposed_at: "2026-05-18T00:18:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "第七条 Python CLI implementation slice 已定义为只读的 `progress verify list`，但尚未实现。"
+      current_problem:
+        - "Verification review 队列读取路径尚无可运行 CLI。"
+        - "后续 verify 写操作 / delta 工作缺少只读审查基础。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "`progress state show`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list`、`progress evidence list` 和 `progress verify list` 作为只读 Python CLI 切片已经可运行、可测试。"
+      advancement_reason:
+        - "src/progress_engine/cli.py 增加 argparse 命令 `verify list`。"
+        - "src/progress_engine/verification/verify_list.py 复用 Evidence loader，实现只读 reviewer result 和 acceptance mapping status 摘要。"
+        - "pytest 覆盖成功路径、空目录路径、缺目录路径、malformed YAML、缺字段、缺 acceptance mapping 和缺 acceptance status 路径。"
+        - "python3 scripts/check_repo.py 仍通过。"
+      caveat: "本切片只证明 Verification review 只读路径；verify 写操作、verification artifact 生成和 delta apply CLI 尚未实现。"
+  evidence_refs:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/verification/verify_list.py"
+    - "tests/test_cli_verify_list.py"
+    - ".progress/targets/TS-0019-verify-list-cli-working.yaml"
+    - ".progress/evidence/EV-0019-verify-list-cli.yaml"
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0003
+      summary: ".progress 对象最小一致性检查仍可继续收敛。"
+      next_state_path: "Choose the next narrow CLI state path or quality slice after this accepted implementation slice."
+  recommended_next_interventions:
+    - id: IV-0020
+      name: "Define next state delta CLI slice"
+      condition: "Run only after this verify list implementation is accepted."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-18T00:18:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-18T00:18:00+08:00"
+    previous_state_version: PS-0017
+    next_state_version: PS-0018
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted and add TS-0019 / EV-0019 / SDP-0019 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, remove `progress verify list` command wiring and verification review loader files."
+      - "Remove tests/test_cli_verify_list.py and fixture acceptance mapping changes."

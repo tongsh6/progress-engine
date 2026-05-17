@@ -1,0 +1,67 @@
+state_delta_proposal:
+  id: SDP-0025
+  source_intervention: IV-0025
+  run_id: RUN-20260518-IV-0025
+  target_state_id: TS-0025
+  verification_id: EV-0025
+  status: applied
+  proposed_at: "2026-05-18T01:28:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "第十条 Python CLI implementation slice 已定义为只读的 `progress state history`，但尚未实现。"
+      current_problem:
+        - "State History JSONL 读取路径尚无可运行 CLI。"
+        - "后续 state refresh / replay 工作缺少 history 可审查性基础。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "`progress state show`、`progress state history`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list`、`progress evidence list`、`progress verify list`、`progress delta list` 和 `progress event list` 作为只读 Python CLI 切片已经可运行、可测试。"
+      advancement_reason:
+        - "src/progress_engine/cli.py 增加 argparse 命令 `state history`。"
+        - "src/progress_engine/state/state_history.py 实现只读 JSONL 加载、最小结构校验和摘要渲染。"
+        - "pytest 覆盖成功路径、空文件路径、缺文件路径、malformed JSONL、entry 非对象和缺字段路径。"
+        - "python3 scripts/check_repo.py 仍通过。"
+      caveat: "本切片只证明 State History JSONL 读取路径；state refresh、replay 和 delta apply CLI 尚未实现。"
+  evidence_refs:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/state/state_history.py"
+    - "tests/test_cli_state_history.py"
+    - ".progress/targets/TS-0025-state-history-cli-working.yaml"
+    - ".progress/evidence/EV-0025-state-history-cli.yaml"
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0003
+      summary: ".progress 对象最小一致性检查仍可继续收敛。"
+      next_state_path: "Choose a quality slice to strengthen .progress object checks after this accepted implementation slice."
+  recommended_next_interventions:
+    - id: IV-0026
+      name: "Define next progress object quality slice"
+      condition: "Run after this state history implementation is accepted."
+      primary_dimension: quality
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-18T01:28:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-18T01:28:00+08:00"
+    previous_state_version: PS-0023
+    next_state_version: PS-0024
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted and add TS-0025 / EV-0025 / SDP-0025 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, remove `progress state history` command wiring and state history loader file."
+      - "Remove tests/test_cli_state_history.py and fixture state_history.jsonl."

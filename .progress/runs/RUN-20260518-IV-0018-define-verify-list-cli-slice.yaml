@@ -1,0 +1,30 @@
+id: RUN-20260518-IV-0018
+intervention_id: IV-0018
+target_state_id: TS-0018
+started_at: "2026-05-18T00:10:00+08:00"
+completed_at: "2026-05-18T00:10:00+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0017-evidence-list-cli.yaml"
+      - ".progress/deltas/SDP-0017-evidence-list-cli.yaml"
+    summary: "`progress evidence list` 已实现并接受；Verification 审查路径尚未定义。"
+  why_iv_0018_is_next:
+    - "TS-0018 是当前 aim_of_next_state。"
+    - "Verification 是 Evidence 之后、State Delta 之前的下一核心审查步骤。"
+  out_of_scope_confirmed:
+    - "不实现 progress verify --run。"
+    - "不生成 verification artifact 或 State Delta Proposal。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/29-verify-list-cli-slice.md"
+    - ".progress/interventions/IV-0018-define-verify-list-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0018-define-verify-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0018-verify-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0018-verify-list-cli-slice.yaml"
+completion_claim: "Executor claims the verify list CLI slice is defined and ready for implementation."
