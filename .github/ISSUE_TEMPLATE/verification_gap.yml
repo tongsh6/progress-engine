@@ -1,0 +1,30 @@
+name: Verification Gap
+about: 记录验证缺口或假完成风险
+labels: [verification-gap]
+body:
+  - type: input
+    id: run_id
+    attributes:
+      label: Run ID
+  - type: input
+    id: intervention_id
+    attributes:
+      label: Intervention ID
+  - type: textarea
+    id: claim
+    attributes:
+      label: Claim being verified
+      description: 被验证的状态变化声明。
+    validations:
+      required: true
+  - type: textarea
+    id: missing_evidence
+    attributes:
+      label: Missing Evidence
+      description: 缺少什么证据？
+    validations:
+      required: true
+  - type: textarea
+    id: recommended_action
+    attributes:
+      label: Recommended Action

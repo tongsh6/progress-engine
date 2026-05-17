@@ -1,1 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+dist-build/
+
+# Node / front-end future use
+node_modules/
+
+# OS / editor
 .DS_Store
+.idea/
+.vscode/*
+!.vscode/tasks.json
+
+# ProgressEngine runtime outputs that may be local-only
+.progress/tmp/
+.progress/cache/
+.progress/local/
+
+# Generated archives
+*.zip

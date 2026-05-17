@@ -1,0 +1,38 @@
+name: Intervention
+about: 定义一个推进动作
+labels: [intervention]
+body:
+  - type: input
+    id: target_state
+    attributes:
+      label: Target State ID
+      description: 该推进动作服务于哪个 Target State？
+    validations:
+      required: true
+  - type: input
+    id: primary_dimension
+    attributes:
+      label: Primary State Dimension
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: 该推进动作要造成什么状态变化？
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope / Non-goals
+      description: 明确范围和非目标。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence_required
+    attributes:
+      label: Evidence Required
+      description: 完成后必须提交哪些证据？
+    validations:
+      required: true

@@ -1,0 +1,35 @@
+name: State Gap
+about: 记录当前项目状态与目标状态之间的差距
+labels: [state-gap]
+body:
+  - type: input
+    id: dimension
+    attributes:
+      label: State Dimension
+      description: intent/product/design/architecture/implementation/quality/delivery/knowledge
+    validations:
+      required: true
+  - type: textarea
+    id: current_state
+    attributes:
+      label: Current State
+      description: 当前真实状态是什么？
+    validations:
+      required: true
+  - type: textarea
+    id: desired_state
+    attributes:
+      label: Desired State
+      description: 下一步希望达到的状态是什么？
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: 当前判断依据，包括文件、运行结果、审查报告等。
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risk if ignored
+      description: 如果不处理这个缺口，会造成什么问题？

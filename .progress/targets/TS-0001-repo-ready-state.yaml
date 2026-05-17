@@ -1,0 +1,23 @@
+id: TS-0001
+name: Repo-ready project state
+primary_dimension: delivery
+secondary_dimensions:
+  - knowledge
+  - quality
+target_state: "ProgressEngine 仓库可以作为项目事实源继续推进。"
+success_criteria:
+  - "完整策划书、章节文档和模板已提交到仓库。"
+  - ".progress/state/project_state.yaml 存在并能说明当前项目状态。"
+  - "首批推进动作已结构化记录。"
+  - "GitHub PR / Issue 模板已建立。"
+  - "基础自检脚本可运行。"
+selection_rationale:
+  risk_reduction: 5
+  unlocks_downstream_work: 5
+  user_value_proximity: 4
+  quality_confidence_gain: 3
+  prevents_wrong_work: 5
+  effort: 2
+status: proposed
+related_gaps:
+  - SG-0001

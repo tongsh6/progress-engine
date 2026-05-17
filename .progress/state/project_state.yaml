@@ -1,0 +1,56 @@
+project:
+  id: progress-engine
+  name: ProgressEngine
+  repository: tongsh6/progress-engine
+  current_phase: repo_bootstrap
+  operating_principle: "持续推进项目状态，而不是持续完成任务。"
+
+state_dimensions:
+  intent:
+    maturity: accepted
+    summary: "项目愿景已收敛为状态驱动的 AI 软件工程系统。"
+    evidence:
+      - PROJECT_BRIEF.md
+      - docs/00-overview/02-core-methodology-state-driven-progress.md
+  product:
+    maturity: reviewed
+    summary: "产品定位和 MVP 范围已有策划书定义，仍需在仓库内固化 v0.1 边界。"
+    evidence:
+      - docs/05-delivery/16-mvp-scope-and-roadmap.md
+  design:
+    maturity: drafted
+    summary: "CLI 与交互方向已有文档，尚未形成实现级 UX 规格。"
+    evidence:
+      - docs/03-system-design/14-cli-and-interaction-design.md
+  architecture:
+    maturity: reviewed
+    summary: "系统模块边界已有定义，尚需选择 v0.1 具体技术栈。"
+    evidence:
+      - docs/03-system-design/06-system-architecture-and-module-boundaries.md
+  implementation:
+    maturity: not_started
+    summary: "尚未实现 CLI / state engine / verifier 代码。"
+    evidence: []
+  quality:
+    maturity: drafted
+    summary: "质量协议和自检脚本方向已建立，需转为可执行检查。"
+    evidence:
+      - docs/05-delivery/17-quality-system-and-risk-management.md
+      - scripts/check_repo.py
+  delivery:
+    maturity: weak
+    summary: "已有 GitHub 项目骨架和基础 workflow，尚无发布方案。"
+    evidence:
+      - .github/workflows/docs-check.yml
+  knowledge:
+    maturity: reviewed
+    summary: "核心文档、模板、报告已经分层沉淀。"
+    evidence:
+      - INDEX.md
+      - reports/self-check/v3-self-check-report.md
+
+open_state_gaps:
+  - SG-0001
+
+aim_of_next_state:
+  - TS-0001

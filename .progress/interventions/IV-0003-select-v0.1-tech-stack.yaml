@@ -1,0 +1,18 @@
+id: IV-0003
+name: Select v0.1 technical stack
+primary_dimension: architecture
+target_state_id: TS-0003
+status: proposed
+goal: "选择 v0.1 CLI / state engine / verifier 的实现技术栈和模块边界。"
+in_scope:
+  - "比较 Python、Node.js/TypeScript 等实现路线"
+  - "定义 v0.1 目录结构"
+  - "明确 schema / YAML / Markdown 处理方式"
+  - "输出 ADR 草案"
+out_of_scope:
+  - "不实现业务代码"
+  - "不接入复杂 agent 编排"
+evidence_required:
+  - "docs/03-system-design/06-system-architecture-and-module-boundaries.md 更新"
+  - "decisions/ADR-0001-v0.1-tech-stack.md 或等价文档"
+automation_policy: human_gate_required

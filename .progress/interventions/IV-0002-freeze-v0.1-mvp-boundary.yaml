@@ -1,0 +1,18 @@
+id: IV-0002
+name: Freeze v0.1 MVP boundary
+primary_dimension: product
+target_state_id: TS-0002
+status: proposed
+goal: "把 v0.1 的 Must / Should / Won't 固化为实现前可审查范围。"
+in_scope:
+  - "定义 v0.1 最小可运行能力"
+  - "明确不做模型 API、Web UI、多用户协作"
+  - "定义 v0.1 成功标准"
+out_of_scope:
+  - "不拆具体代码任务"
+  - "不选择具体实现语言"
+evidence_required:
+  - "docs/05-delivery/16-mvp-scope-and-roadmap.md 更新"
+  - "新增或更新 .progress/targets/TS-0002*.yaml"
+  - "非代码产物 checklist 通过"
+automation_policy: human_gate_required

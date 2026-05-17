@@ -1,5 +1,15 @@
 # Changelog
 
+## v5 - Repo-ready bootstrap
+
+- 重组为可直接导入 GitHub 仓库的项目骨架。
+- 增加 `.progress/` 初始项目状态账本。
+- 增加 GitHub Issue Templates、PR Template 和 docs-check workflow。
+- 增加 `scripts/check_repo.py` 基础自检脚本。
+- 增加 `CONTRIBUTING.md`、`.gitignore`、`.gitattributes`、`LICENSE.TODO.md`。
+- 为后续 CLI 实现预留 `src/`、`tests/`、`schemas/`。
+
+
 # v3 版本修正清单
 
 本版在 v2 基础上做了以下补强：

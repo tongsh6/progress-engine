@@ -69,3 +69,35 @@ pyproject.toml 或 package.json
 ```
 
 当前包仍是项目策划书，不包含实现代码。
+
+## Repo-ready v5 增补结构
+
+本版在策划书结构基础上增加了更接近真实 GitHub 项目的内容：
+
+```text
+.github/
+  ISSUE_TEMPLATE/          # State Gap / Target State / Intervention / Change Event / Verification Gap
+  workflows/docs-check.yml # 基础文档和 YAML 检查
+  pull_request_template.md
+
+.progress/
+  state/                   # 当前项目状态
+  gaps/                    # 状态缺口
+  targets/                 # 目标状态
+  interventions/           # 推进动作
+  events/                  # Change Event
+  runs/                    # Run 记录
+  evidence/                # Evidence
+  deltas/                  # State Delta Proposal
+  ledger/                  # 风险、决策、假设等账本
+  context_capsules/        # Fresh Context Capsule
+
+scripts/
+  check_repo.py            # 基础自检
+  bootstrap_local_repo.sh  # 本地导入远程仓库辅助脚本
+
+src/ tests/ schemas/
+  为后续 CLI 实现预留。
+```
+
+这版的目标不是开始写实现代码，而是把“项目策划书”推进为“可协作项目仓库初始状态”。

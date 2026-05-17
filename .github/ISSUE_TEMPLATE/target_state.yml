@@ -1,0 +1,29 @@
+name: Target State
+about: 定义一个下一步目标状态
+labels: [target-state]
+body:
+  - type: input
+    id: dimension
+    attributes:
+      label: Primary Dimension
+    validations:
+      required: true
+  - type: textarea
+    id: target_state
+    attributes:
+      label: Target State
+      description: 目标状态的可判定描述。
+    validations:
+      required: true
+  - type: textarea
+    id: success_criteria
+    attributes:
+      label: Success Criteria
+      description: 达到目标状态需要满足哪些条件？
+    validations:
+      required: true
+  - type: textarea
+    id: scoring
+    attributes:
+      label: Selection Rationale
+      description: 风险降低、解锁下游工作、用户价值接近度、质量信心等评分理由。

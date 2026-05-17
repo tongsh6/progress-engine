@@ -1,0 +1,38 @@
+name: Change Event
+about: 记录实现发现、验证失败、反馈、外部变化等事件
+labels: [change-event]
+body:
+  - type: dropdown
+    id: event_type
+    attributes:
+      label: Event Type
+      options:
+        - new_intent
+        - scope_change
+        - user_feedback
+        - implementation_finding
+        - verification_failure
+        - quality_gap
+        - architecture_conflict
+        - stale_task_detected
+        - external_change
+        - human_override
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact Analysis
+      description: 影响哪些 artifact、state claim、target state、intervention？
+    validations:
+      required: true
+  - type: textarea
+    id: emitted
+    attributes:
+      label: Emitted Gaps / Targets / Interventions
