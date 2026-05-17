@@ -1,0 +1,43 @@
+change_event:
+  id: EVT-0002
+  type: documentation_and_state_material_consistency
+  severity: medium
+  source:
+    run_id: RUN-20260517-IV-0002
+    intervention_id: IV-0002
+    state_delta_id: SDP-0002
+    evidence_id: EV-0002
+  summary: "执行 IV-0002 时发现 target 文件命名、索引材料和 .progress 对象检查能力存在不一致或偏弱问题。"
+  affected_dimensions:
+    - knowledge
+    - quality
+    - product
+  affected_artifacts:
+    - id: ".progress/targets/ts-0002-v0.1-MVP-boundary-accepted.yaml"
+      current_version: "pre-IV-0002"
+      effect: supersede
+      reason: "文件名大小写与建议命名和 TS id 口径不一致，内容也不足以支撑 human gate。"
+    - id: "INDEX.md"
+      current_version: "pre-IV-0002"
+      effect: no_change
+      reason: "索引仍主要覆盖 docs/templates/reports，未纳入 .progress 新增 target/evidence/delta/event 材料；本次不扩大范围修改。"
+    - id: "scripts/check_repo.py"
+      current_version: "pre-IV-0002"
+      effect: no_change
+      reason: "当前检查能覆盖 YAML 解析和 Markdown 链接，但未覆盖 .progress 对象必填字段和命名约定；交给 IV-0004。"
+  invalidates:
+    interventions: []
+    state_claims: []
+    target_states:
+      - ".progress/targets/ts-0002-v0.1-MVP-boundary-accepted.yaml"
+    evidence: []
+  emitted_gaps:
+    - SG-0003
+  emitted_targets:
+    - TS-0004
+  emitted_interventions:
+    - IV-0004
+  propagation:
+    requires_reassessment: true
+    mark_dependent_items_stale: false
+  requires_human_review: true

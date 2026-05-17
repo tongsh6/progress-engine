@@ -1,0 +1,44 @@
+id: TS-0002
+name: "v0.1 MVP boundary accepted"
+primary_dimension: product
+source_intervention: IV-0002
+status: accepted
+human_gate_required: true
+desired_state: "v0.1 的 MVP 边界被明确冻结，可作为技术栈选择和实现计划依据。"
+from:
+  maturity: reviewed
+  summary: "产品定位和 MVP 范围已有策划书定义，但 v0.1 Must / Should / Won't、非目标、成功标准和 remaining gaps 尚未在仓库内冻结。"
+to:
+  maturity: accepted
+  summary: "v0.1 MVP 边界经过非代码产物验证并等待人工 gate，可作为 IV-0003 技术栈选择和实现计划依据。"
+required_evidence:
+  - "docs/05-delivery/16-mvp-scope-and-roadmap.md 明确定义 v0.1 目标状态、目标用户、核心场景、Must / Should / Won't、非目标、成功标准和不成功标准。"
+  - ".progress/evidence/EV-0002-v0.1-mvp-boundary.yaml 映射非代码产物 checklist，且避免以文档存在自证完成。"
+  - ".progress/deltas/SDP-0002-v0.1-mvp-boundary.yaml 只提出 product state delta，不直接修改 Project State。"
+  - "python3 scripts/check_repo.py 通过，或失败项进入 Change Event / remaining gap。"
+acceptance_criteria:
+  - id: AC-TS-0002-01
+    criterion: "v0.1 目标状态被定义为 repo-native 状态推进闭环，而不是任务池或自动编码器。"
+  - id: AC-TS-0002-02
+    criterion: "目标用户和核心使用场景明确，足以约束后续技术栈选择。"
+  - id: AC-TS-0002-03
+    criterion: "Must Have 聚焦 Project State、State Gap、Target State、Intervention、Evidence、State Delta 和 Fresh Context。"
+  - id: AC-TS-0002-04
+    criterion: "Won't Have 明确排除 Web UI、SaaS、多用户协作、完整模型 API、外部 agent 自动调用、生产发布、完整 CLI 全功能、复杂调度器、支付权限多租户和跨项目 workspace 管理。"
+  - id: AC-TS-0002-05
+    criterion: "成功标准、不成功标准和 v0.1 / 后续版本边界明确。"
+  - id: AC-TS-0002-06
+    criterion: "未解决问题被记录为 remaining gap、future target state 或 proposed intervention。"
+  - id: AC-TS-0002-07
+    criterion: "State Delta Proposal 需要人工确认，不能自动 apply 到 Project State。"
+non_goals:
+  - "不选择具体实现语言或技术栈。"
+  - "不实现 CLI、State Engine、Verifier 或任何业务代码。"
+  - "不修改 .progress/state/project_state.yaml 的 product maturity。"
+  - "不扩大到 Web UI、SaaS、多用户协作或生产发布。"
+downstream_unlocked:
+  - "IV-0003: Select v0.1 technical stack"
+  - "IV-0004: Strengthen docs and YAML check"
+related_gaps:
+  - SG-0002
+  - SG-0003

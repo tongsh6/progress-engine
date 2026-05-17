@@ -2,7 +2,7 @@ id: IV-0002
 name: Freeze v0.1 MVP boundary
 primary_dimension: product
 target_state_id: TS-0002
-status: proposed
+status: completed
 goal: "把 v0.1 的 Must / Should / Won't 固化为实现前可审查范围。"
 in_scope:
   - "定义 v0.1 最小可运行能力"

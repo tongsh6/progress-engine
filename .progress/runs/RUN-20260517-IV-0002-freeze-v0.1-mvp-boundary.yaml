@@ -1,0 +1,60 @@
+id: RUN-20260517-IV-0002
+intervention_id: IV-0002
+target_state_id: TS-0002
+started_at: "2026-05-17T16:09:42+08:00"
+mode: "manual-run"
+primary_dimension: product
+status: evidence_submitted
+state_reconciliation:
+  current_product_state:
+    maturity: reviewed
+    evidence_refs:
+      - ".progress/state/project_state.yaml"
+      - "docs/05-delivery/16-mvp-scope-and-roadmap.md"
+    summary: "产品定位和 MVP 范围已有策划书定义，但 v0.1 边界尚未冻结为实现前可审查、可确认、可作为技术栈选择依据的状态。"
+  largest_product_state_gap:
+    id: SG-0002
+    summary: "v0.1 MVP 边界缺少冻结后的目标用户、核心场景、Must / Should / Won't、成功标准、不成功标准、版本边界和结构化 remaining gaps。"
+  why_iv_0002_is_highest_priority:
+    - "当前 product maturity 已是 reviewed，下一步下游 architecture / implementation 选择需要 accepted 级产品边界。"
+    - "如果先进入 IV-0003 技术栈选择，技术方案会缺少稳定的范围约束。"
+    - "IV-0002 能降低后续错误实现、过度设计和任务池化叙事风险。"
+  out_of_scope_confirmed:
+    - "不实现 CLI、State Engine、Verifier 或任何代码。"
+    - "不选择具体技术栈。"
+    - "不修改 Project State maturity。"
+    - "不进入 Web UI、SaaS、多用户协作、模型 API 或 agent 编排。"
+    - "不把延期项写成自然语言后续优化，必须进入 gap、target 或 intervention。"
+inputs_read:
+  found:
+    - "README.md"
+    - "PROJECT_BRIEF.md"
+    - "PROJECT_STRUCTURE.md"
+    - "INDEX.md"
+    - ".progress/state/project_state.yaml"
+    - ".progress/interventions/IV-0002-freeze-v0.1-mvp-boundary.yaml"
+    - "docs/05-delivery/16-mvp-scope-and-roadmap.md"
+    - "docs/01-state-engine/03-project-state-model-and-maturity-matrix.md"
+    - "docs/02-bootstrap-workflows/05-zero-to-project-role-pipeline.md"
+    - "docs/04-protocols/10-evidence-verifier-protocol.md"
+    - "docs/04-protocols/11-non-code-artifact-verification-protocol.md"
+    - "docs/04-protocols/13-state-delta-proposal-apply-rollback.md"
+    - "templates/state/target_state.yaml"
+    - "templates/execution/intervention.yaml"
+    - "templates/verification/evidence.yaml"
+    - "templates/state/state_delta.yaml"
+    - "templates/verification/artifact_review_checklist.yaml"
+  missing: []
+outputs:
+  updated:
+    - "docs/05-delivery/16-mvp-scope-and-roadmap.md"
+  created:
+    - ".progress/targets/TS-0002-v0.1-mvp-boundary-accepted.yaml"
+    - ".progress/evidence/EV-0002-v0.1-mvp-boundary.yaml"
+    - ".progress/deltas/SDP-0002-v0.1-mvp-boundary.yaml"
+    - ".progress/gaps/SG-0002-v0.1-pilot-validation-gap.yaml"
+    - ".progress/gaps/SG-0003-progress-object-quality-gate-gap.yaml"
+    - ".progress/events/EVT-0002-v0.1-boundary-doc-gap.yaml"
+  removed_or_replaced:
+    - ".progress/targets/ts-0002-v0.1-MVP-boundary-accepted.yaml"
+completion_claim: "Executor only claims evidence_submitted; Project State advancement requires verifier review and human gate."

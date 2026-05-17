@@ -1,0 +1,102 @@
+evidence:
+  id: EV-0002
+  run_id: RUN-20260517-IV-0002
+  intervention_id: IV-0002
+  target_state_id: TS-0002
+  evidence_type: artifact_review
+  created_at: "2026-05-17T16:09:42+08:00"
+  artifact_under_review: "docs/05-delivery/16-mvp-scope-and-roadmap.md"
+  claims:
+    - dimension: product
+      before: "v0.1 MVP 范围已有策划书定义，但边界尚未冻结为实现前可审查状态。"
+      after: "v0.1 MVP 边界被重构为包含目标状态、目标用户、核心场景、Must / Should / Won't、非目标、成功标准、不成功标准、版本边界和 remaining gaps 的审查材料。"
+      acceptance_mapping:
+        - criterion: "定义 v0.1 目标状态。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#1-v01-目标状态"
+        - criterion: "定义目标用户。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#2-v01-目标用户"
+        - criterion: "定义核心场景。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#3-v01-核心使用场景"
+        - criterion: "定义 Must / Should / Won't。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#4-v01-must-have"
+        - criterion: "定义明确非目标。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#7-v01-明确非目标"
+        - criterion: "定义成功标准。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#8-v01-成功标准"
+        - criterion: "定义不成功标准。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#9-v01-不成功的判定标准"
+        - criterion: "说明与后续版本边界。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#12-v01-与后续版本的边界"
+        - criterion: "列出 remaining gaps。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#13-本次仍未解决的产品问题"
+        - criterion: "说明 remaining gaps 如何进入后续 State Gap / Target State / Intervention。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#14-未解决问题如何进入后续状态推进"
+        - criterion: "避免进入实现细节。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#10-v01-第一批可实现能力"
+        - criterion: "符合状态驱动口径。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#1-v01-目标状态"
+        - criterion: "支持后续 IV-0003 技术栈选择。"
+          status: pass
+          evidence_ref: "docs/05-delivery/16-mvp-scope-and-roadmap.md#11-v01-后续实现前置条件"
+  artifact_review:
+    reviewer_role: product_critic
+    result: pass_with_notes
+    checklist:
+      target_user: pass
+      core_problem: pass
+      scenarios: pass
+      mvp_scope: pass
+      must_should_wont: pass
+      non_goals: pass
+      success_metrics: pass
+      unsuccessful_criteria: pass
+      version_boundary: pass
+      remaining_gaps: pass
+      implementation_scope_guard: pass
+      state_driven_language: pass
+    notes:
+      - "产物足以支持 IV-0003 技术栈选择，但 product validated 仍需要后续试点验证。"
+      - "INDEX.md 和 .progress 对象命名检查问题已进入 EVT-0002 / SG-0003。"
+  scope_check:
+    result: pass
+    notes:
+      - "未实现 CLI、State Engine、Verifier 或业务代码。"
+      - "未修改 .progress/state/project_state.yaml 的 product maturity。"
+  silent_deferral_check:
+    result: pass
+    notes:
+      - "延期项进入 SG-0002、SG-0003、EVT-0002、IV-0003 和 IV-0004。"
+  commands_run:
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 33 files; [OK] local Markdown links passed."
+  artifacts_changed:
+    - "docs/05-delivery/16-mvp-scope-and-roadmap.md"
+  files_changed:
+    - "docs/05-delivery/16-mvp-scope-and-roadmap.md"
+    - ".progress/targets/TS-0002-v0.1-mvp-boundary-accepted.yaml"
+    - ".progress/runs/RUN-20260517-IV-0002-freeze-v0.1-mvp-boundary.yaml"
+    - ".progress/evidence/EV-0002-v0.1-mvp-boundary.yaml"
+    - ".progress/deltas/SDP-0002-v0.1-mvp-boundary.yaml"
+    - ".progress/gaps/SG-0002-v0.1-pilot-validation-gap.yaml"
+    - ".progress/gaps/SG-0003-progress-object-quality-gate-gap.yaml"
+    - ".progress/events/EVT-0002-v0.1-boundary-doc-gap.yaml"
+  reviewer:
+    type: verifier
+    result: pass_with_notes
+  remaining_gaps:
+    - SG-0002
+    - SG-0003
+  supports_state_delta_proposal: SDP-0002

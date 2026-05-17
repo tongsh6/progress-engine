@@ -1,0 +1,18 @@
+id: SG-0002
+dimension: product
+severity: medium
+status: open
+source_intervention: IV-0002
+current_state: "v0.1 MVP 边界已被定义为 repo-native 状态推进闭环，但尚未选定真实试点项目或验证场景。"
+desired_state: "至少选定一个真实或代表性试点项目，用于验证 v0.1 状态闭环是否能从 accepted 推进到 validated。"
+evidence_refs:
+  - "docs/05-delivery/16-mvp-scope-and-roadmap.md#13-本次仍未解决的产品问题"
+impact:
+  - "不阻断 IV-0003 技术栈选择。"
+  - "阻断 product maturity 从 accepted 进一步进入 validated。"
+suggested_targets:
+  - "TS-0005-v0.1-pilot-validation-scenario-selected"
+suggested_interventions:
+  - "IV-0005: Select v0.1 pilot validation scenario"
+notes:
+  - "该 gap 不能被写成自然语言后续优化；需要后续 Target State 和 Intervention 明确推进。"

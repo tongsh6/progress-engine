@@ -1,0 +1,81 @@
+state_delta_proposal:
+  id: SDP-0002
+  source_intervention: IV-0002
+  run_id: RUN-20260517-IV-0002
+  target_state_id: TS-0002
+  verification_id: EV-0002
+  status: applied
+  proposed_at: "2026-05-17T16:09:42+08:00"
+  proposed_by: verifier
+  primary_dimension: product
+  before:
+    product:
+      maturity: reviewed
+      summary: "产品定位和 MVP 范围已有策划书定义，仍需在仓库内固化 v0.1 边界。"
+      current_problem:
+        - "v0.1 Must / Should / Won't、成功标准、不成功标准和版本边界不够明确。"
+        - "延期项尚未全部进入结构化 State Gap / Target State / Intervention。"
+        - "直接进入技术栈选择会缺少已确认产品边界。"
+  after:
+    product:
+      recommended_maturity: accepted
+      summary: "v0.1 MVP 边界已形成可审查冻结态，可作为 IV-0003 技术栈选择和实现计划依据。"
+      advancement_reason:
+        - "MVP 范围文档已补齐目标状态、目标用户、核心场景、Must / Should / Won't、非目标、成功标准、不成功标准、版本边界和后续前置条件。"
+        - "Evidence 已将非代码产物检查项映射到具体文档章节。"
+        - "remaining gaps 已结构化进入 SG-0002、SG-0003、EVT-0002、IV-0003 和 IV-0004。"
+      caveat: "该 proposal 需要人工 gate；在 apply 前不得修改 .progress/state/project_state.yaml。"
+  evidence_refs:
+    - "docs/05-delivery/16-mvp-scope-and-roadmap.md"
+    - ".progress/targets/TS-0002-v0.1-mvp-boundary-accepted.yaml"
+    - ".progress/evidence/EV-0002-v0.1-mvp-boundary.yaml"
+  acceptance_summary:
+    pass: 13
+    fail: 0
+    not_tested: 0
+    blocked: 0
+  remaining_gaps:
+    - id: SG-0002
+      summary: "v0.1 的真实试点项目尚未选定；不阻断 accepted，但阻断 validated。"
+      next_state_path: "Create TS-0005 and IV-0005 for pilot validation scenario selection."
+    - id: SG-0003
+      summary: ".progress 对象 schema、命名约定和必填字段检查仍偏弱。"
+      next_state_path: "Use IV-0004 to strengthen docs and YAML checks."
+    - id: EVT-0002
+      summary: "target 文件命名、INDEX 覆盖和 .progress 检查能力存在一致性缺口。"
+      next_state_path: "Review during IV-0004 or a dedicated governance cleanup intervention."
+  recommended_next_interventions:
+    - id: IV-0003
+      name: "Select v0.1 technical stack"
+      condition: "Run only after human accepts TS-0002 / SDP-0002 or explicitly accepts the product boundary with notes."
+      primary_dimension: architecture
+    - id: IV-0004
+      name: "Strengthen docs and YAML check"
+      condition: "Can run after or alongside IV-0003 if kept limited to quality checks and schema consistency."
+      primary_dimension: quality
+    - id: IV-0005
+      name: "Select v0.1 pilot validation scenario"
+      condition: "Run before claiming product validated."
+      primary_dimension: product
+  emitted_events:
+    - EVT-0002
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-17T17:00:07+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: codex
+    applied_at: "2026-05-17T17:00:07+08:00"
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Update state_dimensions.product.maturity from reviewed to accepted and add TS-0002 / EV-0002 / SDP-0002 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "Reject or close SDP-0002 without changing Project State."
+      - "Keep docs/evidence as historical material or mark TS-0002 reopened if human gate rejects the boundary."
+      - "Generate a product clarification intervention if rejection identifies unresolved boundary questions."

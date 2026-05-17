@@ -1,0 +1,21 @@
+id: SG-0003
+dimension: quality
+severity: medium
+status: open
+source_intervention: IV-0002
+current_state: "仓库已有 docs / YAML / Markdown link 检查，但 .progress 对象 schema、命名约定和必填字段校验仍偏弱。"
+desired_state: ".progress 对象具备最小一致性检查，至少覆盖 Target State、Intervention、Evidence、State Delta Proposal 和 Change Event 的必填字段。"
+evidence_refs:
+  - "scripts/check_repo.py"
+  - "templates/state/target_state.yaml"
+  - "templates/state/state_delta.yaml"
+  - "templates/verification/evidence.yaml"
+impact:
+  - "可能导致状态材料格式漂移。"
+  - "可能降低 Evidence 和 State Delta Proposal 的可审查性。"
+suggested_targets:
+  - "TS-0004"
+suggested_interventions:
+  - "IV-0004"
+notes:
+  - "该 gap 属于 quality state，不并入 IV-0002 的 product boundary 冻结。"
