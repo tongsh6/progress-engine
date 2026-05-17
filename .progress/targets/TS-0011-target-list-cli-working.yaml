@@ -1,0 +1,38 @@
+id: TS-0011
+name: "target list CLI slice working"
+primary_dimension: implementation
+source_gap: SG-0009
+status: accepted
+human_gate_required: true
+desired_state: "第三条 Python CLI 切片 `progress target list` 可以读取 Project State 中声明的 next targets，加载对应 Target State 对象，并输出只读摘要。"
+from:
+  maturity: drafted
+  summary: "`progress target list` 已定义但尚未被接受为实现成果。"
+to:
+  maturity: drafted
+  summary: "`progress target list` 作为只读 Python CLI 切片可运行、可测试，证明 Target State 目录读取路径成立。"
+required_evidence:
+  - "CLI 支持 `progress target list`。"
+  - "命令只读取 Project State 和 `.progress/targets/*.yaml`。"
+  - "pytest 覆盖成功路径、缺 target 文件路径、malformed target 路径和缺必填字段路径。"
+  - "python3 scripts/check_repo.py 仍通过。"
+acceptance_criteria:
+  - id: AC-TS-0011-01
+    criterion: "`progress target list` 能读取 Project State 的 `aim_of_next_state` 并输出对应 Target State 摘要。"
+  - id: AC-TS-0011-02
+    criterion: "命令只列出 Project State 中声明的 next targets，不扫描输出所有 targets。"
+  - id: AC-TS-0011-03
+    criterion: "缺少 target 文件时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0011-04
+    criterion: "target YAML 解析失败或必要字段缺失时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0011-05
+    criterion: "pytest 覆盖成功路径、缺 target 文件路径和 malformed target 路径。"
+  - id: AC-TS-0011-06
+    criterion: "`python3 scripts/check_repo.py` 仍通过。"
+non_goals:
+  - "不实现 target suggest / approve / reject。"
+  - "不实现 intervention planning。"
+  - "不实现 delta apply 或自动推进。"
+  - "不接入模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0009

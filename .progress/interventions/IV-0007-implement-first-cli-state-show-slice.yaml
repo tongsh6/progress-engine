@@ -1,0 +1,22 @@
+id: IV-0007
+name: "Implement first Python CLI state show slice"
+primary_dimension: implementation
+target_state_id: TS-0007
+status: completed
+goal: "只实现 `progress state show` 这一条只读 Python CLI 用户路径，验证 v0.1 的最小代码实现路径。"
+in_scope:
+  - "创建 Python package 和 console script 配置"
+  - "实现 argparse 命令 `progress state show`"
+  - "读取 `.progress/state/project_state.yaml`"
+  - "输出 project id、phase、dimension maturity、open gaps 和 next target"
+  - "为成功路径、缺文件路径和 malformed state 路径添加 pytest"
+out_of_scope:
+  - "不实现完整 CLI 命令集"
+  - "不实现 progress init / assess / gaps / target / capsule / verify / delta"
+  - "不修改命令运行时的 .progress 状态账本"
+  - "不接入模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "pytest tests/test_cli_state_show.py 通过"
+  - "python3 scripts/check_repo.py 通过"
+  - "PYTHONPATH=src python3 -m progress_engine state show 输出当前项目状态摘要"
+automation_policy: human_gate_required

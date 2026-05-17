@@ -1,0 +1,39 @@
+id: RUN-20260517-IV-0015
+intervention_id: IV-0015
+target_state_id: TS-0015
+started_at: "2026-05-17T21:39:01+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: evidence_submitted
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - "docs/05-delivery/27-run-list-cli-slice.md"
+      - ".progress/evidence/EV-0014-run-list-cli-slice.yaml"
+    summary: "`progress run list` 已被定义为第五条只读 CLI 切片，可以有限实现。"
+  why_iv_0015_is_next:
+    - "SDP-0014 已通过 human gate apply。"
+    - "Run 是状态闭环中 Intervention 之后的下一核心对象。"
+  out_of_scope_confirmed:
+    - "不实现 progress run start。"
+    - "不实现 run lifecycle 写操作、Evidence 或 Delta apply。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "src/progress_engine/runs/__init__.py"
+    - "src/progress_engine/runs/run_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/runs/RUN-20260517-IV-1001.yaml"
+    - "tests/fixtures/minimal_progress_project/.progress/runs/RUN-20260517-IV-1002.yaml"
+    - "tests/test_cli_run_list.py"
+    - ".progress/runs/RUN-20260517-IV-0015-implement-run-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0015-run-list-cli.yaml"
+    - ".progress/deltas/SDP-0015-run-list-cli.yaml"
+  updated:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/README.md"
+    - ".progress/gaps/SG-0013-run-list-implementation-gate.yaml"
+    - ".progress/targets/TS-0015-run-list-cli-working.yaml"
+    - ".progress/interventions/IV-0015-implement-run-list-cli-slice.yaml"
+    - ".progress/ledger/project-ledger.md"
+completion_claim: "Executor only claims evidence_submitted; acceptance of the run list implementation is represented by SDP-0015."

@@ -1,0 +1,30 @@
+id: RUN-20260517-IV-0006
+intervention_id: IV-0006
+target_state_id: TS-0006
+started_at: "2026-05-17T17:37:03+08:00"
+mode: "artifact-definition"
+primary_dimension: implementation
+status: evidence_submitted
+state_reconciliation:
+  current_implementation_state:
+    maturity: not_started
+    evidence_refs: []
+    summary: "尚未实现 CLI / state engine / verifier 代码；架构已选择 Python 3.11+，但第一条实现切片此前未冻结。"
+  why_iv_0006_is_next:
+    - "Product、architecture 和最小 quality gate 已具备，进入代码前需要冻结第一条足够小的实现切片。"
+    - "SG-0004 明确阻断从技术栈选择直接膨胀到完整 CLI 实现。"
+  out_of_scope_confirmed:
+    - "不实现代码。"
+    - "不创建完整 CLI 命令集。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/23-first-python-cli-implementation-slice.md"
+    - ".progress/evidence/EV-0006-first-python-cli-slice.yaml"
+    - ".progress/deltas/SDP-0006-first-python-cli-slice.yaml"
+  updated:
+    - "INDEX.md"
+    - ".progress/targets/TS-0006-first-python-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0006-define-first-python-cli-slice.yaml"
+    - ".progress/ledger/project-ledger.md"
+completion_claim: "Executor only claims evidence_submitted; implementation state advancement requires SDP-0006 human gate approval."

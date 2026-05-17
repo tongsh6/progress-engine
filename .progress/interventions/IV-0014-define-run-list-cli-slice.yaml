@@ -1,0 +1,27 @@
+id: IV-0014
+name: "Define next CLI run object slice"
+primary_dimension: implementation
+target_state_id: TS-0014
+status: completed
+goal: "在继续扩展 CLI 前，定义第五条只读、可测试、不会扩张成 run lifecycle / evidence / delta apply 的 Python implementation slice。"
+in_scope:
+  - "选择第五条最小 CLI 用户路径"
+  - "定义输入、输出、状态影响和文件边界"
+  - "定义 acceptance criteria 和 evidence_required"
+  - "定义不做哪些 run lifecycle / evidence / delta 能力"
+selected_slice:
+  id: CLI-005
+  command: "progress run list"
+  summary: "只读读取 .progress/runs/*.yaml，输出未关闭 Run 摘要。"
+  specification: "docs/05-delivery/27-run-list-cli-slice.md"
+  state_effect: "read_only_no_progress_file_mutation"
+out_of_scope:
+  - "不实现代码"
+  - "不实现 progress run start"
+  - "不生成 evidence"
+  - "不实现 delta apply、模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "新增 TS-0014 / IV-0014 实现切片定义"
+  - "新增 docs/05-delivery/27-run-list-cli-slice.md"
+  - "python3 scripts/check_repo.py 通过"
+automation_policy: human_gate_required

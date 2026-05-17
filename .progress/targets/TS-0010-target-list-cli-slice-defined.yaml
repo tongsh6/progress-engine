@@ -1,0 +1,38 @@
+id: TS-0010
+name: "target list CLI slice defined"
+primary_dimension: implementation
+source_gap: SG-0008
+status: accepted
+human_gate_required: true
+desired_state: "第三条 Python CLI implementation slice 被定义为只读、可测试、不会扩张成 target planning 的小范围目标。"
+from:
+  maturity: drafted
+  summary: "`progress state show` 和 `progress gaps list` 已可运行、可测试，但 Target State 读取路径尚未定义。"
+to:
+  maturity: drafted
+  summary: "下一条只读 CLI 路径被定义为 `progress target list`，可进入有限代码实现。"
+required_evidence:
+  - "实现切片明确只覆盖一个最小 Target State 读取能力。"
+  - "acceptance criteria 和 evidence_required 可验证。"
+  - "out_of_scope 明确排除 target suggest / approve、intervention planning、delta apply、模型 API、Web UI 和 agent 编排。"
+selected_slice:
+  id: CLI-003
+  command: "progress target list"
+  specification: "docs/05-delivery/25-target-list-cli-slice.md"
+  rationale:
+    - "`progress gaps list` 已覆盖 State Gap 读取；Target State 是状态闭环下一核心对象。"
+    - "该命令只读，不会 approve target、生成 intervention 或绕过 human gate。"
+    - "该命令能验证 Target State 对象目录读取的最小路径。"
+acceptance_criteria:
+  - id: AC-TS-0010-01
+    criterion: "定义第三个 CLI slice 的用户路径、输入、输出和状态影响。"
+  - id: AC-TS-0010-02
+    criterion: "定义该 slice 的测试和 Evidence 要求。"
+  - id: AC-TS-0010-03
+    criterion: "确认不会越界实现 target suggest / approve、intervention planning 或 agent 编排。"
+non_goals:
+  - "不在 target 定义阶段实现代码。"
+  - "不实现完整 ProgressEngine CLI。"
+  - "不实现 target suggest / approve、模型 API、Web UI 或 agent 编排。"
+related_gaps:
+  - SG-0008

@@ -1,0 +1,41 @@
+id: RUN-20260517-IV-0010
+intervention_id: IV-0010
+target_state_id: TS-0010
+started_at: "2026-05-17T20:44:04+08:00"
+mode: "artifact-definition"
+primary_dimension: implementation
+status: evidence_submitted
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - "src/progress_engine/cli.py"
+      - "src/progress_engine/state/project_state.py"
+      - "src/progress_engine/gaps/gap_list.py"
+      - "tests/test_cli_state_show.py"
+      - "tests/test_cli_gaps_list.py"
+    summary: "`progress state show` 和 `progress gaps list` 已实现并接受；下一步需要定义 Target State 读取路径。"
+  why_iv_0010_is_next:
+    - "状态闭环顺序从 Project State 到 State Gap，再到 Target State。"
+    - "Target State 读取应先保持只读，避免直接进入 suggest / approve / plan。"
+  out_of_scope_confirmed:
+    - "不实现代码。"
+    - "不实现 target suggest / approve。"
+    - "不实现 intervention planning、delta apply、模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/25-target-list-cli-slice.md"
+    - ".progress/gaps/SG-0008-target-list-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0010-target-list-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0010-define-target-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0010-target-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0010-target-list-cli-slice.yaml"
+  updated:
+    - ".progress/state/project_state.yaml"
+    - ".progress/state/state_history.jsonl"
+    - ".progress/gaps/SG-0007-gaps-list-implementation-gate.yaml"
+    - ".progress/targets/TS-0009-gaps-list-cli-working.yaml"
+    - ".progress/interventions/IV-0009-implement-gaps-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0009-gaps-list-cli.yaml"
+    - ".progress/ledger/project-ledger.md"
+completion_claim: "Executor only claims evidence_submitted; acceptance of the next slice definition is represented by SDP-0010."

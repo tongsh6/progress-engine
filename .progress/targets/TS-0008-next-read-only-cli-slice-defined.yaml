@@ -1,0 +1,38 @@
+id: TS-0008
+name: "next read-only CLI slice defined"
+primary_dimension: implementation
+source_gap: SG-0006
+status: accepted
+human_gate_required: true
+desired_state: "第二条 Python CLI implementation slice 被定义为只读、可测试、不会扩张成完整 CLI 的小范围目标。"
+from:
+  maturity: drafted
+  summary: "`progress state show` 已可运行、可测试，但下一条只读 CLI 路径尚未定义。"
+to:
+  maturity: drafted
+  summary: "下一条只读 CLI 路径被定义为 `progress gaps list`，可进入有限代码实现。"
+required_evidence:
+  - "实现切片明确只覆盖一个最小 State Gap 读取能力。"
+  - "acceptance criteria 和 evidence_required 可验证。"
+  - "out_of_scope 明确排除完整 gap management、delta apply、模型 API、Web UI 和 agent 编排。"
+selected_slice:
+  id: CLI-002
+  command: "progress gaps list"
+  specification: "docs/05-delivery/24-next-read-only-cli-slice.md"
+  rationale:
+    - "`progress state show` 已覆盖 Project State 读取；State Gap 是状态闭环下一核心对象。"
+    - "该命令只读，不会绕过 Evidence、State Delta Proposal 或 human gate。"
+    - "该命令能验证从单文件 Project State loader 走向对象目录 loader 的最小路径。"
+acceptance_criteria:
+  - id: AC-TS-0008-01
+    criterion: "定义第二个 CLI slice 的用户路径、输入、输出和状态影响。"
+  - id: AC-TS-0008-02
+    criterion: "定义该 slice 的测试和 Evidence 要求。"
+  - id: AC-TS-0008-03
+    criterion: "确认不会越界实现完整 gap management、delta apply 或 agent 编排。"
+non_goals:
+  - "不在 target 定义阶段实现代码。"
+  - "不实现完整 ProgressEngine CLI。"
+  - "不实现模型 API、Web UI、完整 gap management 或 agent 编排。"
+related_gaps:
+  - SG-0006

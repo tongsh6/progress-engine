@@ -2,7 +2,7 @@ id: TS-0006
 name: "first Python CLI implementation slice defined"
 primary_dimension: implementation
 source_gap: SG-0004
-status: proposed
+status: accepted
 human_gate_required: true
 desired_state: "第一批 Python CLI implementation slice 被定义为可执行但小范围的状态推进目标，进入代码实现前范围清楚、证据要求清楚。"
 from:
@@ -15,6 +15,14 @@ required_evidence:
   - "实现切片明确只覆盖一个最小状态闭环能力。"
   - "acceptance criteria 和 evidence_required 可验证。"
   - "out_of_scope 明确排除完整 CLI、模型 API、Web UI 和复杂调度器。"
+selected_slice:
+  id: CLI-001
+  command: "progress state show"
+  specification: "docs/05-delivery/23-first-python-cli-implementation-slice.md"
+  rationale:
+    - "先证明 Project State 能被 CLI 稳定读取和展示。"
+    - "该命令只读，不会绕过 Evidence、State Delta Proposal 或 human gate。"
+    - "该命令能验证 Python packaging、argparse、PyYAML 和 fixture tests 的最小工程路径。"
 acceptance_criteria:
   - id: AC-TS-0006-01
     criterion: "定义首个 CLI slice 的用户路径、输入、输出和状态影响。"
@@ -25,5 +33,6 @@ acceptance_criteria:
 non_goals:
   - "不在 target 定义阶段实现代码。"
   - "不一次性实现完整 ProgressEngine。"
+  - "不实现模型 API、Web UI、完整 CLI 命令集或 agent 编排。"
 related_gaps:
   - SG-0004

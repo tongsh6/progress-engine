@@ -1,0 +1,23 @@
+id: SG-0008
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0010
+current_state: "`progress state show` 和 `progress gaps list` 已实现并接受；Target State 读取路径尚未定义。"
+desired_state: "下一条只读 CLI 切片被定义为 `progress target list`，继续沿 Project State -> State Gap -> Target State 闭环推进。"
+evidence_refs:
+  - ".progress/deltas/SDP-0009-gaps-list-cli.yaml"
+  - "src/progress_engine/gaps/gap_list.py"
+impact:
+  - "不阻断已实现的只读 CLI。"
+  - "阻断继续无边界扩展 target planning。"
+suggested_targets:
+  - "TS-0010-target-list-cli-slice-defined"
+suggested_interventions:
+  - "IV-0010: Define next CLI state object slice"
+notes:
+  - "下一条切片应保持只读，并覆盖 Target State 读取路径，而不是 suggest / approve。"
+resolution:
+  resolved_by: SDP-0010
+  resolved_at: "2026-05-17T20:47:11+08:00"
+  summary: "下一条只读 CLI slice 已定义为 `progress target list`。"

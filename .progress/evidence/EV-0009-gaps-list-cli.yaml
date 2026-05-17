@@ -1,0 +1,59 @@
+evidence:
+  id: EV-0009
+  run_id: RUN-20260517-IV-0009
+  intervention_id: IV-0009
+  target_state_id: TS-0009
+  evidence_type: code_diff
+  created_at: "2026-05-17T20:37:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress gaps list` 已定义为第二条 CLI slice，但没有可运行代码。"
+      after: "`progress gaps list` 的最小 Python CLI 代码、gap object loader 和 pytest 覆盖已存在。"
+      acceptance_mapping:
+        - criterion: "`progress gaps list` 能读取 Project State 的 `open_state_gaps` 并输出对应 gap 摘要。"
+          status: pass
+          evidence_ref: "PYTHONPATH=src python3 -m progress_engine gaps list"
+        - criterion: "命令只列出 Project State 中声明的 open gaps，不扫描输出已 resolved gap。"
+          status: pass
+          evidence_ref: "src/progress_engine/gaps/gap_list.py"
+        - criterion: "缺少 gap 文件时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_gaps_list.py::test_gaps_list_returns_2_when_gap_file_is_missing"
+        - criterion: "gap YAML 解析失败或必要字段缺失时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_gaps_list.py"
+        - criterion: "pytest 覆盖成功路径、缺 gap 文件路径和 malformed gap 路径。"
+          status: pass
+          evidence_ref: "python3 -m pytest"
+        - criterion: "`python3 scripts/check_repo.py` 仍通过。"
+          status: pass
+          evidence_ref: "python3 scripts/check_repo.py"
+  scope_check:
+    result: pass
+    notes:
+      - "实现范围限于 `progress gaps list`。"
+      - "没有实现 gaps show/create/update/close。"
+      - "CLI 运行时只读 Project State 和 gap YAML，不写入 .progress 状态账本。"
+  commands_run:
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "8 passed in 0.03s"
+    - command: "PYTHONPATH=src python3 -m progress_engine gaps list"
+      result: pass
+      output_summary: "Printed open gaps SG-0001, SG-0002, SG-0003, and SG-0007 with dimensions and desired-state summaries."
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 65 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 45 files."
+  files_changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/README.md"
+    - "src/progress_engine/gaps/__init__.py"
+    - "src/progress_engine/gaps/gap_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/gaps/SG-1001-sample-gap.yaml"
+    - "tests/test_cli_gaps_list.py"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0007
+  supports_state_delta_proposal: SDP-0009

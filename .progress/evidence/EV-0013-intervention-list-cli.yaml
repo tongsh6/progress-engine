@@ -1,0 +1,60 @@
+evidence:
+  id: EV-0013
+  run_id: RUN-20260517-IV-0013
+  intervention_id: IV-0013
+  target_state_id: TS-0013
+  evidence_type: code_diff
+  created_at: "2026-05-17T21:25:43+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress intervention list` 已定义，但没有可运行代码。"
+      after: "`progress intervention list` 的最小 CLI 代码、Intervention loader 和 pytest 覆盖已存在。"
+      acceptance_mapping:
+        - criterion: "`progress intervention list` 能读取 `.progress/interventions/*.yaml` 并输出未完成 Intervention 摘要。"
+          status: pass
+          evidence_ref: "PYTHONPATH=src python3 -m progress_engine intervention list"
+        - criterion: "命令默认不输出 `completed` Intervention。"
+          status: pass
+          evidence_ref: "tests/test_cli_intervention_list.py::test_intervention_list_prints_incomplete_interventions"
+        - criterion: "interventions 目录缺失时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_intervention_list.py::test_intervention_list_returns_2_when_directory_is_missing"
+        - criterion: "Intervention YAML 解析失败或必要字段缺失时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_intervention_list.py"
+        - criterion: "pytest 覆盖成功路径、缺目录路径、malformed YAML 路径和缺字段路径。"
+          status: pass
+          evidence_ref: "python3 -m pytest"
+        - criterion: "`python3 scripts/check_repo.py` 仍通过。"
+          status: pass
+          evidence_ref: "python3 scripts/check_repo.py"
+  scope_check:
+    result: pass
+    notes:
+      - "实现范围限于 `progress intervention list`。"
+      - "没有实现 progress plan、run lifecycle、Evidence 或 Delta 命令。"
+      - "CLI 运行时只读 Intervention YAML，不写入 .progress 状态账本。"
+  commands_run:
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "16 passed in 0.05s"
+    - command: "PYTHONPATH=src python3 -m progress_engine intervention list"
+      result: pass
+      output_summary: "Printed incomplete interventions IV-0001 and IV-0013."
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 92 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 69 files."
+  files_changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/interventions/__init__.py"
+    - "src/progress_engine/interventions/intervention_list.py"
+    - "src/progress_engine/README.md"
+    - "tests/fixtures/minimal_progress_project/.progress/interventions/IV-1001-sample-intervention.yaml"
+    - "tests/fixtures/minimal_progress_project/.progress/interventions/IV-1002-completed-intervention.yaml"
+    - "tests/test_cli_intervention_list.py"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0011
+  supports_state_delta_proposal: SDP-0013

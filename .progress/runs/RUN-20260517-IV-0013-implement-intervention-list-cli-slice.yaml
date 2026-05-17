@@ -1,0 +1,44 @@
+id: RUN-20260517-IV-0013
+intervention_id: IV-0013
+target_state_id: TS-0013
+started_at: "2026-05-17T21:25:43+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: evidence_submitted
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - "docs/05-delivery/26-intervention-list-cli-slice.md"
+      - ".progress/evidence/EV-0012-intervention-list-cli-slice.yaml"
+    summary: "`progress intervention list` 已被定义为第四条只读 CLI 切片，可以有限实现。"
+  why_iv_0013_is_next:
+    - "SDP-0012 已通过 human gate apply。"
+    - "Intervention 是状态闭环中 Target State 之后的下一核心对象。"
+  out_of_scope_confirmed:
+    - "不实现 progress plan。"
+    - "不实现 run lifecycle、Evidence 或 Delta apply。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "src/progress_engine/interventions/__init__.py"
+    - "src/progress_engine/interventions/intervention_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/interventions/IV-1001-sample-intervention.yaml"
+    - "tests/fixtures/minimal_progress_project/.progress/interventions/IV-1002-completed-intervention.yaml"
+    - "tests/test_cli_intervention_list.py"
+    - ".progress/gaps/SG-0011-intervention-list-implementation-gate.yaml"
+    - ".progress/targets/TS-0013-intervention-list-cli-working.yaml"
+    - ".progress/interventions/IV-0013-implement-intervention-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0013-intervention-list-cli.yaml"
+    - ".progress/deltas/SDP-0013-intervention-list-cli.yaml"
+  updated:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/README.md"
+    - ".progress/state/project_state.yaml"
+    - ".progress/state/state_history.jsonl"
+    - ".progress/gaps/SG-0010-intervention-list-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0012-intervention-list-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0012-define-intervention-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0012-intervention-list-cli-slice.yaml"
+    - ".progress/ledger/project-ledger.md"
+completion_claim: "Executor only claims evidence_submitted; acceptance of the intervention list implementation is represented by SDP-0013."

@@ -1,0 +1,37 @@
+id: TS-0015
+name: "run list CLI slice working"
+primary_dimension: implementation
+source_gap: SG-0013
+status: review_ready
+human_gate_required: true
+desired_state: "第五条 Python CLI 切片 `progress run list` 可以读取 Run 对象目录，并输出未关闭 Run 的只读摘要。"
+from:
+  maturity: drafted
+  summary: "`progress run list` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress run list` 作为只读 Python CLI 切片可运行、可测试，证明 Run 对象目录读取路径成立。"
+required_evidence:
+  - "CLI 支持 `progress run list`。"
+  - "命令只读取 `.progress/runs/*.yaml`。"
+  - "pytest 覆盖成功路径、缺目录路径、malformed YAML 路径和缺必填字段路径。"
+  - "python3 scripts/check_repo.py 仍通过。"
+acceptance_criteria:
+  - id: AC-TS-0015-01
+    criterion: "`progress run list` 能读取 `.progress/runs/*.yaml` 并输出未关闭 Run 摘要。"
+  - id: AC-TS-0015-02
+    criterion: "命令默认不输出 `completed` 或 `abandoned` Run。"
+  - id: AC-TS-0015-03
+    criterion: "runs 目录缺失时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0015-04
+    criterion: "Run YAML 解析失败或必要字段缺失时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0015-05
+    criterion: "pytest 覆盖成功路径、缺目录路径、malformed YAML 路径和缺字段路径。"
+  - id: AC-TS-0015-06
+    criterion: "`python3 scripts/check_repo.py` 仍通过。"
+non_goals:
+  - "不实现 `progress run start`。"
+  - "不实现 run lifecycle 写操作。"
+  - "不实现 Evidence、Delta 或模型 API。"
+related_gaps:
+  - SG-0013

@@ -1,0 +1,23 @@
+id: SG-0011
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0013
+current_state: "`progress intervention list` 代码已经实现并通过本地测试，但 Project State 尚未通过 State Delta apply 接受该实现。"
+desired_state: "`progress intervention list` 作为只读 Python CLI 切片被验证并通过 human gate 接受。"
+evidence_refs:
+  - "docs/05-delivery/26-intervention-list-cli-slice.md"
+  - ".progress/evidence/EV-0013-intervention-list-cli.yaml"
+impact:
+  - "不阻断本地命令运行。"
+  - "阻断将第四条 CLI 切片纳入 accepted implementation evidence。"
+suggested_targets:
+  - "TS-0013-intervention-list-cli-working"
+suggested_interventions:
+  - "IV-0013: Implement read-only intervention list CLI slice"
+notes:
+  - "该 gap 应在 SDP-0013 被接受并 apply 后关闭。"
+resolution:
+  resolved_by: SDP-0013
+  resolved_at: "2026-05-17T21:31:35+08:00"
+  summary: "`progress intervention list` 已实现、验证并纳入 Project State evidence。"

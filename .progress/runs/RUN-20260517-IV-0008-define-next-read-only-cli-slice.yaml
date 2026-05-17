@@ -1,0 +1,40 @@
+id: RUN-20260517-IV-0008
+intervention_id: IV-0008
+target_state_id: TS-0008
+started_at: "2026-05-17T20:29:44+08:00"
+mode: "artifact-definition"
+primary_dimension: implementation
+status: evidence_submitted
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - "src/progress_engine/cli.py"
+      - "src/progress_engine/state/project_state.py"
+      - "tests/test_cli_state_show.py"
+      - ".progress/evidence/EV-0007-first-cli-state-show.yaml"
+    summary: "`progress state show` 已实现并接受；下一步需要定义第二条只读 CLI 路径。"
+  why_iv_0008_is_next:
+    - "`progress state show` 只覆盖 Project State 读取。"
+    - "State Gap 是状态闭环的下一核心对象，适合定义为第二条只读 CLI 切片。"
+  out_of_scope_confirmed:
+    - "不实现代码。"
+    - "不实现完整 gap management。"
+    - "不实现 delta apply、模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/24-next-read-only-cli-slice.md"
+    - ".progress/gaps/SG-0006-next-read-only-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0008-next-read-only-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0008-define-next-read-only-cli-slice.yaml"
+    - ".progress/evidence/EV-0008-next-read-only-cli-slice.yaml"
+    - ".progress/deltas/SDP-0008-next-read-only-cli-slice.yaml"
+  updated:
+    - ".progress/state/project_state.yaml"
+    - ".progress/state/state_history.jsonl"
+    - ".progress/gaps/SG-0005-first-cli-state-show-implementation-gap.yaml"
+    - ".progress/targets/TS-0007-first-cli-state-show-working.yaml"
+    - ".progress/interventions/IV-0007-implement-first-cli-state-show-slice.yaml"
+    - ".progress/deltas/SDP-0007-first-cli-state-show.yaml"
+    - ".progress/ledger/project-ledger.md"
+completion_claim: "Executor only claims evidence_submitted; acceptance of the next slice definition is represented by SDP-0008."

@@ -1,0 +1,45 @@
+id: RUN-20260517-IV-0011
+intervention_id: IV-0011
+target_state_id: TS-0011
+started_at: "2026-05-17T20:48:39+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: evidence_submitted
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - "src/progress_engine/cli.py"
+      - "src/progress_engine/gaps/gap_list.py"
+      - "tests/test_cli_gaps_list.py"
+      - "docs/05-delivery/25-target-list-cli-slice.md"
+    summary: "`progress target list` 已定义为第三条只读 CLI 切片。"
+  why_iv_0011_is_next:
+    - "SDP-0010 已通过 human gate apply。"
+    - "TS-0011 只覆盖已冻结的 `progress target list`，不扩大到 target planning。"
+  out_of_scope_confirmed:
+    - "不实现 target suggest / approve / reject。"
+    - "不实现 intervention planning 或 delta apply。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "src/progress_engine/targets/__init__.py"
+    - "src/progress_engine/targets/target_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/targets/TS-1001-sample-target.yaml"
+    - "tests/test_cli_target_list.py"
+    - ".progress/gaps/SG-0009-target-list-implementation-gate.yaml"
+    - ".progress/targets/TS-0011-target-list-cli-working.yaml"
+    - ".progress/interventions/IV-0011-implement-target-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0011-target-list-cli.yaml"
+    - ".progress/deltas/SDP-0011-target-list-cli.yaml"
+  updated:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/README.md"
+    - ".progress/state/project_state.yaml"
+    - ".progress/state/state_history.jsonl"
+    - ".progress/gaps/SG-0008-target-list-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0010-target-list-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0010-define-target-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0010-target-list-cli-slice.yaml"
+    - ".progress/ledger/project-ledger.md"
+completion_claim: "Executor only claims evidence_submitted; implementation evidence acceptance is represented by SDP-0011."

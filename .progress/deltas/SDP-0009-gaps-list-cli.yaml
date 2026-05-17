@@ -1,0 +1,65 @@
+state_delta_proposal:
+  id: SDP-0009
+  source_intervention: IV-0009
+  run_id: RUN-20260517-IV-0009
+  target_state_id: TS-0009
+  verification_id: EV-0009
+  status: applied
+  proposed_at: "2026-05-17T20:37:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "`progress gaps list` 已定义为第二条只读 CLI 切片，但尚未实现代码。"
+      current_problem:
+        - "没有 gap object loader、gaps CLI command 或 pytest 覆盖。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "`progress gaps list` 作为只读 Python CLI 切片已经可运行、可测试。"
+      advancement_reason:
+        - "src/progress_engine/cli.py 增加 argparse 命令 `gaps list`。"
+        - "src/progress_engine/gaps/gap_list.py 实现只读 open gap 加载、最小结构校验和摘要渲染。"
+        - "pytest 覆盖成功路径、缺 gap 文件、malformed gap 和缺必填字段路径。"
+        - "python3 scripts/check_repo.py 仍通过。"
+      caveat: "本切片只证明 State Gap 目录读取路径；完整 gap management、target suggest 和 delta apply 尚未实现。"
+  evidence_refs:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/gaps/gap_list.py"
+    - "tests/test_cli_gaps_list.py"
+    - ".progress/evidence/EV-0009-gaps-list-cli.yaml"
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0007
+      summary: "等待 human gate 决定是否接受 `progress gaps list` 实现。"
+      next_state_path: "Apply SDP-0009 if accepted; then choose the next narrow CLI state path."
+  recommended_next_interventions:
+    - id: IV-0010
+      name: "Define next CLI state object slice"
+      condition: "Run after SDP-0009 is accepted."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-17T20:44:04+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-17T20:44:04+08:00"
+    previous_state_version: PS-0007
+    next_state_version: PS-0008
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "If approved, keep implementation maturity at drafted and add TS-0009 / EV-0009 / SDP-0009 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, keep implementation maturity at drafted."
+      - "Mark TS-0009 back to proposed or replace the implementation with a corrected narrow slice."

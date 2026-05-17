@@ -1,0 +1,46 @@
+id: RUN-20260517-IV-0009
+intervention_id: IV-0009
+target_state_id: TS-0009
+started_at: "2026-05-17T20:37:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: evidence_submitted
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - "src/progress_engine/cli.py"
+      - "src/progress_engine/state/project_state.py"
+      - "tests/test_cli_state_show.py"
+      - ".progress/evidence/EV-0007-first-cli-state-show.yaml"
+      - "docs/05-delivery/24-next-read-only-cli-slice.md"
+    summary: "`progress state show` 已实现并接受；`progress gaps list` 已定义为第二条只读 CLI 切片。"
+  why_iv_0009_is_next:
+    - "SDP-0008 已通过 human gate apply。"
+    - "TS-0009 只覆盖已冻结的 `progress gaps list`，不扩大到完整 gap management。"
+  out_of_scope_confirmed:
+    - "不实现 gap show/create/update/close。"
+    - "不实现 target suggest 或 delta apply。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "src/progress_engine/gaps/__init__.py"
+    - "src/progress_engine/gaps/gap_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/gaps/SG-1001-sample-gap.yaml"
+    - "tests/test_cli_gaps_list.py"
+    - ".progress/gaps/SG-0007-gaps-list-implementation-gate.yaml"
+    - ".progress/targets/TS-0009-gaps-list-cli-working.yaml"
+    - ".progress/interventions/IV-0009-implement-gaps-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0009-gaps-list-cli.yaml"
+    - ".progress/deltas/SDP-0009-gaps-list-cli.yaml"
+  updated:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/README.md"
+    - ".progress/state/project_state.yaml"
+    - ".progress/state/state_history.jsonl"
+    - ".progress/gaps/SG-0006-next-read-only-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0008-next-read-only-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0008-define-next-read-only-cli-slice.yaml"
+    - ".progress/deltas/SDP-0008-next-read-only-cli-slice.yaml"
+    - ".progress/ledger/project-ledger.md"
+completion_claim: "Executor only claims evidence_submitted; implementation evidence acceptance is represented by SDP-0009."

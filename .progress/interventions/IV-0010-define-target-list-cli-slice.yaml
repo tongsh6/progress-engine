@@ -1,0 +1,28 @@
+id: IV-0010
+name: "Define next CLI state object slice"
+primary_dimension: implementation
+target_state_id: TS-0010
+status: completed
+goal: "在继续扩展 CLI 前，定义第三条只读、可测试、不会扩张成 target planning 的 Python implementation slice。"
+in_scope:
+  - "选择第三条最小 CLI 用户路径"
+  - "定义输入、输出、状态影响和文件边界"
+  - "定义 acceptance criteria 和 evidence_required"
+  - "定义不做哪些 target / plan / delta 能力"
+selected_slice:
+  id: CLI-003
+  command: "progress target list"
+  summary: "只读读取 Project State 中的 aim_of_next_state 和对应 .progress/targets/*.yaml，输出 next target 摘要。"
+  specification: "docs/05-delivery/25-target-list-cli-slice.md"
+  state_effect: "read_only_no_progress_file_mutation"
+out_of_scope:
+  - "不实现代码"
+  - "不创建完整 target planning 命令集"
+  - "不实现 target suggest、approve、reject 或 intervention plan"
+  - "不实现 delta apply 或自动推进"
+  - "不接入模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "新增 TS-0010 / IV-0010 实现切片定义"
+  - "新增 docs/05-delivery/25-target-list-cli-slice.md"
+  - "python3 scripts/check_repo.py 通过"
+automation_policy: human_gate_required

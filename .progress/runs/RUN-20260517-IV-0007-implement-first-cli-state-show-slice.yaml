@@ -1,0 +1,46 @@
+id: RUN-20260517-IV-0007
+intervention_id: IV-0007
+target_state_id: TS-0007
+started_at: "2026-05-17T20:24:05+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: evidence_submitted
+state_reconciliation:
+  current_implementation_state:
+    maturity: seed
+    evidence_refs:
+      - "docs/05-delivery/23-first-python-cli-implementation-slice.md"
+      - ".progress/evidence/EV-0006-first-python-cli-slice.yaml"
+    summary: "第一条 Python CLI implementation slice 已定义为只读的 `progress state show`，可以有限实现。"
+  why_iv_0007_is_next:
+    - "SDP-0006 已通过 human gate apply，implementation state 已进入 seed。"
+    - "TS-0007 只覆盖已冻结的 `progress state show` 切片，不扩大到完整 CLI。"
+  out_of_scope_confirmed:
+    - "不实现完整 CLI 命令集。"
+    - "不实现 State Delta apply / rollback。"
+    - "不接入模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "pyproject.toml"
+    - "src/progress_engine/__init__.py"
+    - "src/progress_engine/__main__.py"
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/README.md"
+    - "src/progress_engine/state/__init__.py"
+    - "src/progress_engine/state/project_state.py"
+    - "tests/fixtures/minimal_progress_project/.progress/state/project_state.yaml"
+    - "tests/test_cli_state_show.py"
+    - ".progress/gaps/SG-0005-first-cli-state-show-implementation-gap.yaml"
+    - ".progress/targets/TS-0007-first-cli-state-show-working.yaml"
+    - ".progress/interventions/IV-0007-implement-first-cli-state-show-slice.yaml"
+    - ".progress/evidence/EV-0007-first-cli-state-show.yaml"
+    - ".progress/deltas/SDP-0007-first-cli-state-show.yaml"
+  updated:
+    - ".progress/state/project_state.yaml"
+    - ".progress/state/state_history.jsonl"
+    - ".progress/gaps/SG-0004-first-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0006-first-python-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0006-define-first-python-cli-slice.yaml"
+    - ".progress/deltas/SDP-0006-first-python-cli-slice.yaml"
+    - ".progress/ledger/project-ledger.md"
+completion_claim: "Executor only claims evidence_submitted; implementation maturity advancement to drafted is represented by SDP-0007."

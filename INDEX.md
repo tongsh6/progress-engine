@@ -39,6 +39,12 @@
 - [MVP 范围与路线图](docs/05-delivery/16-mvp-scope-and-roadmap.md)
 - [质量体系与风险管理](docs/05-delivery/17-quality-system-and-risk-management.md)
 - [实施计划与推进动作清单](docs/05-delivery/19-implementation-plan-and-action-list.md)
+- [第一个 Python CLI 实现切片](docs/05-delivery/23-first-python-cli-implementation-slice.md)
+- [下一条只读 CLI 实现切片](docs/05-delivery/24-next-read-only-cli-slice.md)
+- [Target List CLI Slice](docs/05-delivery/25-target-list-cli-slice.md)
+- [Intervention List CLI Slice](docs/05-delivery/26-intervention-list-cli-slice.md)
+- [Run List CLI Slice](docs/05-delivery/27-run-list-cli-slice.md)
+- [Target List CLI 切片](docs/05-delivery/25-target-list-cli-slice.md)
 
 ### Business & Reference
 

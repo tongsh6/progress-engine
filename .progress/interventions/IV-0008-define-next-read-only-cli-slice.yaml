@@ -1,0 +1,27 @@
+id: IV-0008
+name: "Define next read-only state CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0008
+status: completed
+goal: "在继续扩展 CLI 前，定义第二条只读、可测试、不会扩张成完整 CLI 的 Python implementation slice。"
+in_scope:
+  - "选择第二条最小 CLI 用户路径"
+  - "定义输入、输出、状态影响和文件边界"
+  - "定义 acceptance criteria 和 evidence_required"
+  - "定义不做哪些 gap / target / delta 能力"
+selected_slice:
+  id: CLI-002
+  command: "progress gaps list"
+  summary: "只读读取 Project State 中的 open_state_gaps 和对应 .progress/gaps/*.yaml，输出 open gap 摘要。"
+  specification: "docs/05-delivery/24-next-read-only-cli-slice.md"
+  state_effect: "read_only_no_progress_file_mutation"
+out_of_scope:
+  - "不实现代码"
+  - "不创建完整 gap management 命令集"
+  - "不实现 target suggest、delta apply 或自动关闭 gap"
+  - "不接入模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "新增 TS-0008 / IV-0008 实现切片定义"
+  - "新增 docs/05-delivery/24-next-read-only-cli-slice.md"
+  - "python3 scripts/check_repo.py 通过"
+automation_policy: human_gate_required

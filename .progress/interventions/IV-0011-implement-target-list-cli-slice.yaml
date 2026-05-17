@@ -1,0 +1,23 @@
+id: IV-0011
+name: "Implement read-only target list CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0011
+status: completed
+goal: "只实现 `progress target list` 这一条只读 Python CLI 用户路径，验证最小 Target State 对象目录读取路径。"
+in_scope:
+  - "在 argparse 中新增 `progress target list`"
+  - "读取 Project State 的 `aim_of_next_state`"
+  - "读取对应 `.progress/targets/*.yaml` Target State 对象"
+  - "输出 target id、primary_dimension、name 和 status 摘要"
+  - "为成功路径、缺 target 文件、malformed target 和缺必填字段添加 pytest"
+out_of_scope:
+  - "不实现 target suggest / approve / reject"
+  - "不实现 intervention planning"
+  - "不实现 delta apply 或自动推进"
+  - "不修改命令运行时的 .progress 状态账本"
+  - "不接入模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过"
+  - "PYTHONPATH=src python3 -m progress_engine target list 输出当前 next target 摘要"
+automation_policy: human_gate_required

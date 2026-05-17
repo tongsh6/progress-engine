@@ -1,0 +1,22 @@
+id: IV-0015
+name: "Implement read-only run list CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0015
+status: evidence_submitted
+goal: "只实现 `progress run list` 这一条只读 Python CLI 用户路径，验证 Run 对象目录读取路径。"
+in_scope:
+  - "扩展 argparse 命令 `progress run list`"
+  - "读取 `.progress/runs/*.yaml`"
+  - "默认过滤 `completed` 和 `abandoned` Run"
+  - "输出未关闭 Run 摘要"
+  - "为成功路径、缺目录路径、malformed YAML 路径和缺字段路径添加 pytest"
+out_of_scope:
+  - "不实现 progress run start"
+  - "不实现 run lifecycle 写操作"
+  - "不生成 evidence"
+  - "不实现 delta apply、模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过"
+  - "PYTHONPATH=src python3 -m progress_engine run list 输出未关闭 runs"
+automation_policy: human_gate_required

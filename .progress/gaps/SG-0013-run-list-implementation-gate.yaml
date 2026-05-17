@@ -1,0 +1,20 @@
+id: SG-0013
+dimension: implementation
+severity: medium
+status: open
+source_intervention: IV-0014
+current_state: "`progress run list` 代码已经实现并通过本地测试，但 Project State 尚未通过 State Delta apply 接受该实现。"
+desired_state: "`progress run list` 作为只读 Python CLI 切片可运行、可测试，并能读取 Run 对象目录。"
+evidence_refs:
+  - "docs/05-delivery/27-run-list-cli-slice.md"
+  - ".progress/evidence/EV-0014-run-list-cli-slice.yaml"
+  - ".progress/evidence/EV-0015-run-list-cli.yaml"
+impact:
+  - "不阻断已实现的只读 state/gap/target/intervention 命令。"
+  - "阻断 Run 对象读取路径进入 accepted implementation evidence。"
+suggested_targets:
+  - "TS-0015-run-list-cli-working"
+suggested_interventions:
+  - "IV-0015: Implement read-only run list CLI slice"
+notes:
+  - "该 gap 应在 SDP-0015 被接受并 apply 后关闭。"

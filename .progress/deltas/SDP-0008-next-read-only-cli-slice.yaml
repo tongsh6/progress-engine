@@ -1,0 +1,65 @@
+state_delta_proposal:
+  id: SDP-0008
+  source_intervention: IV-0008
+  run_id: RUN-20260517-IV-0008
+  target_state_id: TS-0008
+  verification_id: EV-0008
+  status: applied
+  proposed_at: "2026-05-17T20:29:44+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "`progress state show` 作为只读 Python CLI 切片已经可运行、可测试；下一条只读 CLI 路径尚未定义。"
+      current_problem:
+        - "继续扩展 CLI 前需要冻结第二条小范围实现切片。"
+        - "直接进入 gap management 或 delta apply 会扩大 MVP 风险。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "第二条 Python CLI implementation slice 已定义为只读的 `progress gaps list`，下一步可以有限实现。"
+      advancement_reason:
+        - "切片规格明确用户路径、输入、输出、状态影响和文件边界。"
+        - "acceptance criteria 和 evidence_required 已可测试。"
+        - "out_of_scope 明确排除完整 gap management、target suggest、delta apply、模型 API、Web UI 和 agent 编排。"
+      caveat: "本轮未实现代码；implementation maturity 保持 drafted。"
+  evidence_refs:
+    - "docs/05-delivery/24-next-read-only-cli-slice.md"
+    - ".progress/targets/TS-0008-next-read-only-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0008-define-next-read-only-cli-slice.yaml"
+    - ".progress/evidence/EV-0008-next-read-only-cli-slice.yaml"
+  acceptance_summary:
+    pass: 3
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0006
+      summary: "第二条 CLI slice 已定义，但尚未实现；接受 SDP-0008 后应以 IV-0009 进入有限代码实现。"
+      next_state_path: "Implement only `progress gaps list` with a minimal gap object loader and pytest fixture coverage."
+  recommended_next_interventions:
+    - id: IV-0009
+      name: "Implement read-only gaps list CLI slice"
+      condition: "Run only after SDP-0008 is accepted by human gate."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-17T20:34:51+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-17T20:34:51+08:00"
+    previous_state_version: PS-0006
+    next_state_version: PS-0007
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "If approved, keep implementation maturity at drafted and add TS-0008 / EV-0008 / SDP-0008 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, mark TS-0008 back to proposed and IV-0008 back to proposed."
+      - "Replace docs/05-delivery/24-next-read-only-cli-slice.md with the accepted alternate slice."

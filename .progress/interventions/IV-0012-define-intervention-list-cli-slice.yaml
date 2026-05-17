@@ -1,0 +1,27 @@
+id: IV-0012
+name: "Define next CLI intervention object slice"
+primary_dimension: implementation
+target_state_id: TS-0012
+status: completed
+goal: "在继续扩展 CLI 前，定义第四条只读、可测试、不会扩张成 planning / run orchestration 的 Python implementation slice。"
+in_scope:
+  - "选择第四条最小 CLI 用户路径"
+  - "定义输入、输出、状态影响和文件边界"
+  - "定义 acceptance criteria 和 evidence_required"
+  - "定义不做哪些 planning / run / delta 能力"
+selected_slice:
+  id: CLI-004
+  command: "progress intervention list"
+  summary: "只读读取 .progress/interventions/*.yaml，输出未完成 Intervention 摘要。"
+  specification: "docs/05-delivery/26-intervention-list-cli-slice.md"
+  state_effect: "read_only_no_progress_file_mutation"
+out_of_scope:
+  - "不实现代码"
+  - "不实现 progress plan"
+  - "不启动 run 或生成 evidence"
+  - "不实现 delta apply、模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "新增 TS-0012 / IV-0012 实现切片定义"
+  - "新增 docs/05-delivery/26-intervention-list-cli-slice.md"
+  - "python3 scripts/check_repo.py 通过"
+automation_policy: human_gate_required

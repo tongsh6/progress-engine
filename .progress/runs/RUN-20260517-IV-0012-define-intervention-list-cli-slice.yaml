@@ -1,0 +1,39 @@
+id: RUN-20260517-IV-0012
+intervention_id: IV-0012
+target_state_id: TS-0012
+started_at: "2026-05-17T21:15:14+08:00"
+mode: "artifact-definition"
+primary_dimension: implementation
+status: evidence_submitted
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - "src/progress_engine/targets/target_list.py"
+      - "tests/test_cli_target_list.py"
+      - ".progress/evidence/EV-0011-target-list-cli.yaml"
+    summary: "`progress target list` 已实现并接受；下一步需要定义 Intervention 对象读取路径。"
+  why_iv_0012_is_next:
+    - "状态闭环顺序进入 Intervention 对象。"
+    - "在实现 plan / run 之前，需要先证明 Intervention 对象可被只读读取。"
+  out_of_scope_confirmed:
+    - "不实现代码。"
+    - "不实现 progress plan 或 run lifecycle。"
+    - "不实现 delta apply、模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/26-intervention-list-cli-slice.md"
+    - ".progress/gaps/SG-0010-intervention-list-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0012-intervention-list-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0012-define-intervention-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0012-intervention-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0012-intervention-list-cli-slice.yaml"
+  updated:
+    - ".progress/state/project_state.yaml"
+    - ".progress/state/state_history.jsonl"
+    - ".progress/gaps/SG-0009-target-list-implementation-gate.yaml"
+    - ".progress/targets/TS-0011-target-list-cli-working.yaml"
+    - ".progress/interventions/IV-0011-implement-target-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0011-target-list-cli.yaml"
+    - ".progress/ledger/project-ledger.md"
+completion_claim: "Executor only claims evidence_submitted; acceptance of the next slice definition is represented by SDP-0012."

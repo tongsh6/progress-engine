@@ -1,0 +1,62 @@
+evidence:
+  id: EV-0007
+  run_id: RUN-20260517-IV-0007
+  intervention_id: IV-0007
+  target_state_id: TS-0007
+  evidence_type: code_diff
+  created_at: "2026-05-17T20:24:05+08:00"
+  claims:
+    - dimension: implementation
+      before: "第一条 Python CLI implementation slice 已定义，但没有可运行代码。"
+      after: "`progress state show` 的最小 Python CLI 代码、package 配置和 pytest 覆盖已存在。"
+      acceptance_mapping:
+        - criterion: "`progress state show` 能读取 `.progress/state/project_state.yaml` 并打印 project id、phase、dimension maturity、open gaps 和 next target。"
+          status: pass
+          evidence_ref: "PYTHONPATH=src python3 -m progress_engine state show"
+        - criterion: "命令不修改 `.progress/` 中任何文件。"
+          status: pass
+          evidence_ref: "src/progress_engine/state/project_state.py"
+        - criterion: "缺少 Project State 文件时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_state_show.py::test_state_show_returns_2_when_project_state_is_missing"
+        - criterion: "YAML 解析失败或必要字段缺失时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_state_show.py::test_state_show_returns_2_when_project_state_is_malformed"
+        - criterion: "pytest 覆盖成功路径、缺文件路径和 malformed state 路径。"
+          status: pass
+          evidence_ref: "python3 -m pytest tests/test_cli_state_show.py"
+        - criterion: "`python3 scripts/check_repo.py` 仍通过。"
+          status: pass
+          evidence_ref: "python3 scripts/check_repo.py"
+  scope_check:
+    result: pass
+    notes:
+      - "实现范围限于 `progress state show`。"
+      - "没有实现 progress init / assess / gaps / target / capsule / verify / delta。"
+      - "CLI 运行时只读 Project State，不写入 .progress 状态账本。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_cli_state_show.py"
+      result: pass
+      output_summary: "4 passed"
+    - command: "PYTHONPATH=src python3 -m progress_engine state show"
+      result: pass
+      output_summary: "Printed Project: progress-engine, Phase: repo_bootstrap, dimension maturities, open gaps SG-0001/SG-0002/SG-0003/SG-0005, and next target TS-0007."
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 52 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 33 files."
+  files_changed:
+    - "pyproject.toml"
+    - "src/progress_engine/__init__.py"
+    - "src/progress_engine/__main__.py"
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/README.md"
+    - "src/progress_engine/state/__init__.py"
+    - "src/progress_engine/state/project_state.py"
+    - "tests/fixtures/minimal_progress_project/.progress/state/project_state.yaml"
+    - "tests/test_cli_state_show.py"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0005
+  supports_state_delta_proposal: SDP-0007

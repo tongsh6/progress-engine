@@ -1,0 +1,67 @@
+state_delta_proposal:
+  id: SDP-0007
+  source_intervention: IV-0007
+  run_id: RUN-20260517-IV-0007
+  target_state_id: TS-0007
+  verification_id: EV-0007
+  status: applied
+  proposed_at: "2026-05-17T20:24:05+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: seed
+      summary: "第一条 Python CLI implementation slice 已定义为只读的 `progress state show`，但尚未实现代码。"
+      current_problem:
+        - "没有 package 配置、CLI entrypoint、Project State 读取代码或 pytest 覆盖。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "`progress state show` 作为只读 Python CLI 切片已经可运行、可测试。"
+      advancement_reason:
+        - "pyproject.toml 定义 Python package 和 `progress` console script。"
+        - "src/progress_engine/cli.py 实现 argparse 命令 `state show`。"
+        - "src/progress_engine/state/project_state.py 实现只读 Project State 加载、最小结构校验和摘要渲染。"
+        - "pytest 覆盖成功路径、缺文件路径和 malformed state 路径。"
+        - "python3 scripts/check_repo.py 仍通过。"
+      caveat: "本切片只证明第一条只读 CLI 路径；完整 state engine、delta apply、verifier 和 capsule builder 尚未实现。"
+  evidence_refs:
+    - "pyproject.toml"
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/state/project_state.py"
+    - "tests/test_cli_state_show.py"
+    - ".progress/evidence/EV-0007-first-cli-state-show.yaml"
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0005
+      summary: "等待 human gate 决定是否接受 `progress state show` 实现并将 implementation maturity 推进到 drafted。"
+      next_state_path: "Apply SDP-0007 if accepted; then choose the next narrow CLI state path."
+  recommended_next_interventions:
+    - id: IV-0008
+      name: "Define next read-only state CLI slice"
+      condition: "Run after SDP-0007 is accepted."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-17T20:29:44+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-17T20:29:44+08:00"
+    previous_state_version: PS-0005
+    next_state_version: PS-0006
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "If approved, update implementation maturity from seed to drafted and add TS-0007 / EV-0007 / SDP-0007 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, keep implementation maturity at seed."
+      - "Mark TS-0007 back to proposed or replace the implementation with a corrected narrow slice."

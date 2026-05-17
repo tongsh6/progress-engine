@@ -1,0 +1,65 @@
+state_delta_proposal:
+  id: SDP-0012
+  source_intervention: IV-0012
+  run_id: RUN-20260517-IV-0012
+  target_state_id: TS-0012
+  verification_id: EV-0012
+  status: applied
+  proposed_at: "2026-05-17T21:15:14+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "`progress state show`、`progress gaps list` 和 `progress target list` 已实现并接受；Intervention 对象读取路径尚未定义。"
+      current_problem:
+        - "继续扩展 CLI 前需要冻结第四条小范围实现切片。"
+        - "直接进入 plan / run lifecycle 会扩大 MVP 风险。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "第四条 Python CLI implementation slice 已定义为只读的 `progress intervention list`，下一步可以有限实现。"
+      advancement_reason:
+        - "切片规格明确用户路径、输入、输出、状态影响和文件边界。"
+        - "acceptance criteria 和 evidence_required 已可测试。"
+        - "out_of_scope 明确排除 planning、run orchestration、delta apply、模型 API、Web UI 和 agent 编排。"
+      caveat: "本轮未实现代码；implementation maturity 保持 drafted。"
+  evidence_refs:
+    - "docs/05-delivery/26-intervention-list-cli-slice.md"
+    - ".progress/targets/TS-0012-intervention-list-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0012-define-intervention-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0012-intervention-list-cli-slice.yaml"
+  acceptance_summary:
+    pass: 3
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0010
+      summary: "第四条 CLI slice 已定义，但尚未实现；接受 SDP-0012 后应以 IV-0013 进入有限代码实现。"
+      next_state_path: "Implement only `progress intervention list` with a minimal intervention object loader and pytest fixture coverage."
+  recommended_next_interventions:
+    - id: IV-0013
+      name: "Implement read-only intervention list CLI slice"
+      condition: "Run only after SDP-0012 is accepted by human gate."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-17T21:22:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-17T21:22:00+08:00"
+    previous_state_version: PS-0010
+    next_state_version: PS-0011
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "If approved, keep implementation maturity at drafted and add TS-0012 / EV-0012 / SDP-0012 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, mark TS-0012 back to proposed and IV-0012 back to proposed."
+      - "Replace docs/05-delivery/26-intervention-list-cli-slice.md with the accepted alternate slice."

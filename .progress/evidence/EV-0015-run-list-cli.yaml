@@ -1,0 +1,60 @@
+evidence:
+  id: EV-0015
+  run_id: RUN-20260517-IV-0015
+  intervention_id: IV-0015
+  target_state_id: TS-0015
+  evidence_type: code_diff
+  created_at: "2026-05-17T21:39:01+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress run list` 已定义，但没有可运行代码。"
+      after: "`progress run list` 的最小 CLI 代码、Run loader 和 pytest 覆盖已存在。"
+      acceptance_mapping:
+        - criterion: "`progress run list` 能读取 `.progress/runs/*.yaml` 并输出未关闭 Run 摘要。"
+          status: pass
+          evidence_ref: "PYTHONPATH=src python3 -m progress_engine run list"
+        - criterion: "命令默认不输出 `completed` 或 `abandoned` Run。"
+          status: pass
+          evidence_ref: "tests/test_cli_run_list.py::test_run_list_prints_open_runs"
+        - criterion: "runs 目录缺失时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_run_list.py::test_run_list_returns_2_when_directory_is_missing"
+        - criterion: "Run YAML 解析失败或必要字段缺失时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_run_list.py"
+        - criterion: "pytest 覆盖成功路径、缺目录路径、malformed YAML 路径和缺字段路径。"
+          status: pass
+          evidence_ref: "python3 -m pytest"
+        - criterion: "`python3 scripts/check_repo.py` 仍通过。"
+          status: pass
+          evidence_ref: "python3 scripts/check_repo.py"
+  scope_check:
+    result: pass
+    notes:
+      - "实现范围限于 `progress run list`。"
+      - "没有实现 progress run start、run lifecycle 写操作、Evidence 或 Delta 命令。"
+      - "CLI 运行时只读 Run YAML，不写入 .progress 状态账本。"
+  commands_run:
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "20 passed in 0.07s"
+    - command: "PYTHONPATH=src python3 -m progress_engine run list"
+      result: pass
+      output_summary: "Printed non-completed runs from .progress/runs, including RUN-20260517-IV-0015."
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 106 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 81 files."
+  files_changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/runs/__init__.py"
+    - "src/progress_engine/runs/run_list.py"
+    - "src/progress_engine/README.md"
+    - "tests/fixtures/minimal_progress_project/.progress/runs/RUN-20260517-IV-1001.yaml"
+    - "tests/fixtures/minimal_progress_project/.progress/runs/RUN-20260517-IV-1002.yaml"
+    - "tests/test_cli_run_list.py"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0013
+  supports_state_delta_proposal: SDP-0015

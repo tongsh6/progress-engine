@@ -1,7 +1,7 @@
 id: SG-0004
 dimension: implementation
 severity: medium
-status: open
+status: resolved
 source_intervention: IV-0003
 current_state: "v0.1 技术栈已提出 Python 3.11+ 主路径，但第一批 CLI implementation slice 尚未定义为 Target State / Intervention。"
 desired_state: "在 architecture state 被人工接受后，定义一个最小实现切片，只覆盖读取 Project State、列出 gaps 或生成 State Delta Proposal 中的一条闭环能力。"
@@ -17,3 +17,7 @@ suggested_interventions:
   - "IV-0006: Define first Python CLI implementation slice"
 notes:
   - "该 gap 应在 SDP-0003 获批后推进；不得在 IV-0003 中直接实现 CLI。"
+resolution:
+  resolved_by: SDP-0006
+  resolved_at: "2026-05-17T20:21:45+08:00"
+  summary: "第一条 CLI implementation slice 已定义为只读的 `progress state show`。"

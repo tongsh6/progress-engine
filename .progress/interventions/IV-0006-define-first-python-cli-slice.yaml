@@ -2,13 +2,19 @@ id: IV-0006
 name: "Define first Python CLI implementation slice"
 primary_dimension: implementation
 target_state_id: TS-0006
-status: proposed
+status: completed
 goal: "在开始代码实现前，定义第一个足够小、可验证、不会扩张成完整 CLI 的 Python implementation slice。"
 in_scope:
   - "选择第一条最小 CLI 用户路径"
   - "定义输入、输出、状态影响和文件边界"
   - "定义 acceptance criteria 和 evidence_required"
   - "定义不做哪些 CLI 能力"
+selected_slice:
+  id: CLI-001
+  command: "progress state show"
+  summary: "只读读取 .progress/state/project_state.yaml 并输出项目状态摘要。"
+  specification: "docs/05-delivery/23-first-python-cli-implementation-slice.md"
+  state_effect: "read_only_no_progress_file_mutation"
 out_of_scope:
   - "不实现代码"
   - "不创建完整 CLI 命令集"

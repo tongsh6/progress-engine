@@ -1,0 +1,23 @@
+id: SG-0005
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0007
+current_state: "第一条 CLI slice 已定义，`progress state show` 代码已经实现并提交 Evidence，但 Project State 尚未通过 State Delta apply 推进到实现级状态。"
+desired_state: "`progress state show` 作为只读 Python CLI 切片被验证并通过 human gate 接受。"
+evidence_refs:
+  - "docs/05-delivery/23-first-python-cli-implementation-slice.md"
+  - ".progress/evidence/EV-0007-first-cli-state-show.yaml"
+impact:
+  - "不阻断代码存在。"
+  - "阻断将 implementation maturity 从 seed 推进到 drafted。"
+suggested_targets:
+  - "TS-0007-first-cli-state-show-working"
+suggested_interventions:
+  - "IV-0007: Implement first Python CLI state show slice"
+notes:
+  - "该 gap 应在 SDP-0007 被接受并 apply 后关闭。"
+resolution:
+  resolved_by: SDP-0007
+  resolved_at: "2026-05-17T20:29:44+08:00"
+  summary: "`progress state show` 已实现并通过 pytest 与 repo check。"

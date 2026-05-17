@@ -1,0 +1,43 @@
+id: RUN-20260517-IV-0014
+intervention_id: IV-0014
+target_state_id: TS-0014
+started_at: "2026-05-17T21:31:35+08:00"
+mode: "artifact-definition"
+primary_dimension: implementation
+status: evidence_submitted
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - "src/progress_engine/interventions/intervention_list.py"
+      - "tests/test_cli_intervention_list.py"
+      - ".progress/evidence/EV-0013-intervention-list-cli.yaml"
+    summary: "`progress intervention list` 已实现并接受；下一步需要定义 Run 对象读取路径。"
+  why_iv_0014_is_next:
+    - "状态闭环顺序进入 Run 对象。"
+    - "在实现 run lifecycle、Evidence 或 Delta 之前，需要先证明 Run 对象可被只读读取。"
+  out_of_scope_confirmed:
+    - "不实现代码。"
+    - "不实现 progress run start 或 run lifecycle 写操作。"
+    - "不实现 Evidence、Delta apply、模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/27-run-list-cli-slice.md"
+    - ".progress/gaps/SG-0012-run-list-cli-slice-gap.yaml"
+    - ".progress/gaps/SG-0013-run-list-implementation-gate.yaml"
+    - ".progress/targets/TS-0014-run-list-cli-slice-defined.yaml"
+    - ".progress/targets/TS-0015-run-list-cli-working.yaml"
+    - ".progress/interventions/IV-0014-define-run-list-cli-slice.yaml"
+    - ".progress/interventions/IV-0015-implement-run-list-cli-slice.yaml"
+    - ".progress/evidence/EV-0014-run-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0014-run-list-cli-slice.yaml"
+  updated:
+    - ".progress/state/project_state.yaml"
+    - ".progress/state/state_history.jsonl"
+    - ".progress/gaps/SG-0011-intervention-list-implementation-gate.yaml"
+    - ".progress/targets/TS-0013-intervention-list-cli-working.yaml"
+    - ".progress/interventions/IV-0013-implement-intervention-list-cli-slice.yaml"
+    - ".progress/deltas/SDP-0013-intervention-list-cli.yaml"
+    - ".progress/ledger/project-ledger.md"
+    - "INDEX.md"
+completion_claim: "Executor claims TS-0014 applied by human gate; next implementation is represented by TS-0015 / IV-0015."

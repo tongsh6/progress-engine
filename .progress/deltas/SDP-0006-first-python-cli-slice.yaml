@@ -1,0 +1,65 @@
+state_delta_proposal:
+  id: SDP-0006
+  source_intervention: IV-0006
+  run_id: RUN-20260517-IV-0006
+  target_state_id: TS-0006
+  verification_id: EV-0006
+  status: applied
+  proposed_at: "2026-05-17T17:37:03+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: not_started
+      summary: "尚未实现 CLI / state engine / verifier 代码；第一条 Python CLI implementation slice 尚未冻结。"
+      current_problem:
+        - "从技术栈选择直接进入代码实现存在范围膨胀风险。"
+        - "没有明确第一条 CLI 用户路径、文件边界和 acceptance criteria。"
+  after:
+    implementation:
+      recommended_maturity: seed
+      summary: "第一条 Python CLI implementation slice 已定义为只读的 `progress state show`，下一步可以有限实现。"
+      advancement_reason:
+        - "切片规格明确用户路径、输入、输出、状态影响和文件边界。"
+        - "acceptance criteria 和 evidence_required 已可测试。"
+        - "out_of_scope 明确排除完整 CLI、模型 API、Web UI、Delta apply 和 agent 编排。"
+      caveat: "本轮未实现代码；implementation maturity 是否从 not_started 推进到 seed 需要 human gate。"
+  evidence_refs:
+    - "docs/05-delivery/23-first-python-cli-implementation-slice.md"
+    - ".progress/targets/TS-0006-first-python-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0006-define-first-python-cli-slice.yaml"
+    - ".progress/evidence/EV-0006-first-python-cli-slice.yaml"
+  acceptance_summary:
+    pass: 3
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0004
+      summary: "第一条 CLI slice 已定义，但尚未实现；接受 SDP-0006 后应以 IV-0007 进入有限代码实现。"
+      next_state_path: "Implement only `progress state show` with Python argparse, PyYAML, and pytest fixture coverage."
+  recommended_next_interventions:
+    - id: IV-0007
+      name: "Implement first Python CLI state show slice"
+      condition: "Run only after SDP-0006 is accepted by human gate."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-17T20:21:45+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-17T20:21:45+08:00"
+    previous_state_version: PS-0004
+    next_state_version: PS-0005
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "If approved, update implementation maturity from not_started to seed and add TS-0006 / EV-0006 / SDP-0006 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, mark TS-0006 back to proposed and IV-0006 back to proposed."
+      - "Replace docs/05-delivery/23-first-python-cli-implementation-slice.md with the accepted alternate slice."
