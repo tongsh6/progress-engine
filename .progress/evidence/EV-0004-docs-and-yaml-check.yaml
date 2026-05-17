@@ -1,0 +1,53 @@
+evidence:
+  id: EV-0004
+  run_id: RUN-20260517-IV-0004
+  intervention_id: IV-0004
+  target_state_id: TS-0004
+  evidence_type: command_output
+  created_at: "2026-05-17T17:13:44+08:00"
+  claims:
+    - dimension: quality
+      before: "check_repo.py 只覆盖 required paths、YAML parse 和 Markdown local links。"
+      after: "check_repo.py 额外覆盖 .progress JSONL 解析、对象必填字段和文件名 / id 一致性。"
+      acceptance_mapping:
+        - criterion: "检查 required paths。"
+          status: pass
+          evidence_ref: "scripts/check_repo.py"
+        - criterion: "检查 YAML 可解析。"
+          status: pass
+          evidence_ref: "scripts/check_repo.py"
+        - criterion: "检查 Markdown 本地链接。"
+          status: pass
+          evidence_ref: "scripts/check_repo.py"
+        - criterion: "检查 .progress JSONL 可解析。"
+          status: pass
+          evidence_ref: "scripts/check_repo.py"
+        - criterion: "检查 .progress 对象最小必填字段。"
+          status: pass
+          evidence_ref: "scripts/check_repo.py"
+        - criterion: "检查 .progress 对象文件名以对象 id 开头。"
+          status: pass
+          evidence_ref: "scripts/check_repo.py"
+  scope_check:
+    result: pass
+    notes:
+      - "未做完整 schema 校验。"
+      - "未做复杂 HTML 校验。"
+      - "未实现 CLI / State Engine / Verifier 业务能力。"
+  commands_run:
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 42 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 24 files."
+  files_changed:
+    - "scripts/check_repo.py"
+    - ".progress/targets/TS-0004-minimum-docs-and-yaml-checks-working.yaml"
+    - ".progress/gaps/SG-0001-repo-bootstrap-gap.yaml"
+    - ".progress/runs/RUN-20260517-IV-0004-strengthen-docs-and-yaml-check.yaml"
+    - ".progress/evidence/EV-0004-docs-and-yaml-check.yaml"
+    - ".progress/deltas/SDP-0004-docs-and-yaml-check.yaml"
+  reviewer:
+    type: verifier
+    result: pass_with_notes
+  remaining_gaps:
+    - SG-0003
+  supports_state_delta_proposal: SDP-0004

@@ -5,9 +5,11 @@ This intentionally stays dependency-light. It validates:
 - required files/directories exist;
 - YAML templates and .progress files are parseable if PyYAML is installed;
 - Markdown local links point to existing files where practical.
+- .progress objects have minimum required fields and filename/id alignment.
 """
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -31,6 +33,61 @@ try:
     import yaml  # type: ignore
 except Exception:  # pragma: no cover
     yaml = None
+
+PROGRESS_OBJECT_RULES = [
+    {
+        "glob": ".progress/targets/*.yaml",
+        "prefix": "TS",
+        "root": None,
+        "required": ["id", "name", "primary_dimension", "status"],
+    },
+    {
+        "glob": ".progress/gaps/*.yaml",
+        "prefix": "SG",
+        "root": None,
+        "required": ["id", "dimension", "current_state", "desired_state"],
+    },
+    {
+        "glob": ".progress/interventions/*.yaml",
+        "prefix": "IV",
+        "root": None,
+        "required": ["id", "name", "primary_dimension", "target_state_id", "status", "goal"],
+    },
+    {
+        "glob": ".progress/runs/*.yaml",
+        "prefix": "RUN",
+        "root": None,
+        "required": ["id", "intervention_id", "target_state_id", "status", "primary_dimension"],
+    },
+    {
+        "glob": ".progress/evidence/*.yaml",
+        "prefix": "EV",
+        "root": "evidence",
+        "required": ["id", "run_id", "intervention_id", "evidence_type", "claims", "reviewer"],
+    },
+    {
+        "glob": ".progress/deltas/*.yaml",
+        "prefix": "SDP",
+        "root": "state_delta_proposal",
+        "required": [
+            "id",
+            "source_intervention",
+            "status",
+            "primary_dimension",
+            "before",
+            "after",
+            "evidence_refs",
+            "requires_human_approval",
+            "do_not_apply_automatically",
+        ],
+    },
+    {
+        "glob": ".progress/events/*.yaml",
+        "prefix": "EVT",
+        "root": "change_event",
+        "required": ["id", "type", "severity", "source", "summary", "affected_dimensions"],
+    },
+]
 
 
 def fail(message: str) -> None:
@@ -67,6 +124,65 @@ def check_yaml() -> None:
     ok(f"YAML parse passed for {len(yaml_files)} files")
 
 
+def load_yaml(path: Path) -> object:
+    if yaml is None:
+        return {}
+    with path.open("r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
+
+
+def check_progress_objects() -> None:
+    if yaml is None:
+        warn("PyYAML not installed; skipped .progress object checks")
+        return
+    problems: list[str] = []
+    checked = 0
+    for rule in PROGRESS_OBJECT_RULES:
+        for path in sorted(ROOT.glob(rule["glob"])):
+            checked += 1
+            data = load_yaml(path)
+            if not isinstance(data, dict):
+                problems.append(f"{path.relative_to(ROOT)}: expected YAML mapping")
+                continue
+            obj = data
+            root = rule["root"]
+            if root is not None:
+                nested = data.get(root)
+                if not isinstance(nested, dict):
+                    problems.append(f"{path.relative_to(ROOT)}: missing root mapping '{root}'")
+                    continue
+                obj = nested
+            for field in rule["required"]:
+                value = obj.get(field)
+                if value in (None, "", []):
+                    problems.append(f"{path.relative_to(ROOT)}: missing required field '{field}'")
+            obj_id = obj.get("id")
+            prefix = rule["prefix"]
+            if isinstance(obj_id, str):
+                if not obj_id.startswith(f"{prefix}-"):
+                    problems.append(f"{path.relative_to(ROOT)}: id '{obj_id}' must start with {prefix}-")
+                if not path.name.startswith(obj_id):
+                    problems.append(f"{path.relative_to(ROOT)}: filename must start with id '{obj_id}'")
+    if problems:
+        fail(".progress object checks failed:\n" + "\n".join(f"  - {p}" for p in problems[:80]))
+    ok(f".progress object checks passed for {checked} files")
+
+
+def check_jsonl() -> None:
+    jsonl_files = list(ROOT.glob(".progress/**/*.jsonl"))
+    for path in jsonl_files:
+        with path.open("r", encoding="utf-8") as f:
+            for line_number, line in enumerate(f, start=1):
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    json.loads(line)
+                except Exception as exc:
+                    fail(f"JSONL parse failed: {path.relative_to(ROOT)}:{line_number}: {exc}")
+    ok(f"JSONL parse passed for {len(jsonl_files)} files")
+
+
 def check_markdown_links() -> None:
     link_re = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
     problems: list[str] = []
@@ -93,7 +209,9 @@ def check_markdown_links() -> None:
 def main() -> None:
     check_required()
     check_yaml()
+    check_jsonl()
     check_markdown_links()
+    check_progress_objects()
 
 
 if __name__ == "__main__":

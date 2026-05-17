@@ -1,0 +1,19 @@
+id: IV-0006
+name: "Define first Python CLI implementation slice"
+primary_dimension: implementation
+target_state_id: TS-0006
+status: proposed
+goal: "在开始代码实现前，定义第一个足够小、可验证、不会扩张成完整 CLI 的 Python implementation slice。"
+in_scope:
+  - "选择第一条最小 CLI 用户路径"
+  - "定义输入、输出、状态影响和文件边界"
+  - "定义 acceptance criteria 和 evidence_required"
+  - "定义不做哪些 CLI 能力"
+out_of_scope:
+  - "不实现代码"
+  - "不创建完整 CLI 命令集"
+  - "不接入模型 API 或外部 agent"
+evidence_required:
+  - "新增或更新 TS-0006 / IV-0006 实现切片定义"
+  - "非代码产物 checklist 通过"
+automation_policy: human_gate_required

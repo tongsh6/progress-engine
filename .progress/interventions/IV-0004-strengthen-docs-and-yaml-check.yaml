@@ -2,7 +2,7 @@ id: IV-0004
 name: Strengthen docs and YAML check
 primary_dimension: quality
 target_state_id: TS-0004
-status: ready
+status: completed
 goal: "建立最小自检能力，降低文档链接、YAML 格式和核心文件缺失风险。"
 in_scope:
   - "检查 required paths"

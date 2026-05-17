@@ -1,0 +1,35 @@
+id: TS-0004
+name: "minimum docs and YAML checks working"
+primary_dimension: quality
+status: accepted
+human_gate_required: false
+source_intervention: IV-0004
+desired_state: "最小仓库检查可以稳定覆盖 required paths、YAML 解析、JSONL 解析、Markdown 本地链接和 .progress 对象必填字段 / 文件名一致性。"
+from:
+  maturity: drafted
+  summary: "质量协议和自检脚本方向已建立，但 .progress 对象字段、命名和 JSONL 检查仍偏弱。"
+to:
+  maturity: reviewed
+  summary: "仓库自检脚本可执行，并能发现核心文档、YAML、JSONL、Markdown link 和 .progress 对象一致性问题。"
+required_evidence:
+  - "scripts/check_repo.py 包含 required paths、YAML、JSONL、Markdown local links 和 .progress object checks。"
+  - "python3 scripts/check_repo.py 通过。"
+acceptance_criteria:
+  - id: AC-TS-0004-01
+    criterion: "required paths 检查保留。"
+  - id: AC-TS-0004-02
+    criterion: "YAML parse 检查保留。"
+  - id: AC-TS-0004-03
+    criterion: "Markdown local links 检查保留。"
+  - id: AC-TS-0004-04
+    criterion: "JSONL parse 检查覆盖 .progress 下的 jsonl 文件。"
+  - id: AC-TS-0004-05
+    criterion: ".progress targets/gaps/interventions/runs/evidence/deltas/events 有最小必填字段检查。"
+  - id: AC-TS-0004-06
+    criterion: ".progress 对象文件名必须以对象 id 开头。"
+non_goals:
+  - "不做完整 schema 校验。"
+  - "不做复杂 HTML 校验。"
+  - "不实现 CLI / State Engine / Verifier 业务能力。"
+related_gaps:
+  - SG-0003

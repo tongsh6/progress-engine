@@ -1,0 +1,62 @@
+state_delta_proposal:
+  id: SDP-0004
+  source_intervention: IV-0004
+  run_id: RUN-20260517-IV-0004
+  target_state_id: TS-0004
+  verification_id: EV-0004
+  status: applied
+  proposed_at: "2026-05-17T17:13:44+08:00"
+  proposed_by: verifier
+  primary_dimension: quality
+  before:
+    quality:
+      maturity: drafted
+      summary: "质量协议和自检脚本方向已建立，需转为可执行检查。"
+      current_problem:
+        - ".progress 对象必填字段和文件名 / id 一致性未被检查。"
+        - ".progress JSONL 文件未被解析检查。"
+  after:
+    quality:
+      recommended_maturity: reviewed
+      summary: "最小仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links 和 .progress 对象一致性。"
+      advancement_reason:
+        - "scripts/check_repo.py 增加 JSONL parse check。"
+        - "scripts/check_repo.py 增加 .progress object 最小字段和文件名 id 前缀检查。"
+        - "本地执行 python3 scripts/check_repo.py 作为 evidence。"
+      caveat: "这不是完整 schema 校验；SG-0003 可降级但不应直接关闭。"
+  evidence_refs:
+    - "scripts/check_repo.py"
+    - ".progress/targets/TS-0004-minimum-docs-and-yaml-checks-working.yaml"
+    - ".progress/evidence/EV-0004-docs-and-yaml-check.yaml"
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0003
+      summary: "完整 schema 校验仍未实现；当前只是最小对象一致性检查。"
+      next_state_path: "Future quality intervention can add schema validation if object drift remains a practical problem."
+  recommended_next_interventions:
+    - id: IV-0006
+      name: "Define first Python CLI implementation slice"
+      condition: "Run after SDP-0004 is accepted or auto-applied."
+      primary_dimension: implementation
+  requires_human_approval: false
+  do_not_apply_automatically: false
+  gate:
+    required: false
+    approved_by: policy_auto_allowed
+    approved_at: "2026-05-17T17:13:44+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: true
+    applied_by: codex
+    applied_at: "2026-05-17T17:13:44+08:00"
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Update quality maturity from drafted to reviewed and add EV-0004 / SDP-0004 evidence refs."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "Revert quality maturity to drafted if check behavior is later rejected."
+      - "Keep SG-0003 open for full schema validation."

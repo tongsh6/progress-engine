@@ -1,0 +1,29 @@
+id: TS-0006
+name: "first Python CLI implementation slice defined"
+primary_dimension: implementation
+source_gap: SG-0004
+status: proposed
+human_gate_required: true
+desired_state: "第一批 Python CLI implementation slice 被定义为可执行但小范围的状态推进目标，进入代码实现前范围清楚、证据要求清楚。"
+from:
+  maturity: not_started
+  summary: "尚未实现 CLI / state engine / verifier 代码，也尚未定义第一批实现切片。"
+to:
+  maturity: seed
+  summary: "第一批 Python CLI 实现切片被明确为后续 implementation intervention，可开始有限代码实现。"
+required_evidence:
+  - "实现切片明确只覆盖一个最小状态闭环能力。"
+  - "acceptance criteria 和 evidence_required 可验证。"
+  - "out_of_scope 明确排除完整 CLI、模型 API、Web UI 和复杂调度器。"
+acceptance_criteria:
+  - id: AC-TS-0006-01
+    criterion: "定义首个 CLI slice 的用户路径、输入、输出和状态影响。"
+  - id: AC-TS-0006-02
+    criterion: "定义该 slice 的测试和 Evidence 要求。"
+  - id: AC-TS-0006-03
+    criterion: "确认不会越界实现完整 CLI 或 agent 编排。"
+non_goals:
+  - "不在 target 定义阶段实现代码。"
+  - "不一次性实现完整 ProgressEngine。"
+related_gaps:
+  - SG-0004
