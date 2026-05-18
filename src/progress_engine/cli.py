@@ -20,6 +20,12 @@ from progress_engine.interventions.intervention_list import (
     load_active_interventions,
     render_intervention_list,
 )
+from progress_engine.init.init_project import InitProjectError, init_project, render_init_success
+from progress_engine.intake.intent_intake import (
+    IntentIntakeError,
+    capture_intent,
+    render_intake_success,
+)
 from progress_engine.runs.run_list import RunListError, load_active_runs, render_run_list
 from progress_engine.state.project_state import (
     ProjectStateError,
@@ -42,6 +48,17 @@ from progress_engine.verification.verify_list import (
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="progress")
     subcommands = parser.add_subparsers(dest="command", required=True)
+
+    init_parser = subcommands.add_parser("init", help="Initialize a ProgressEngine project.")
+    init_parser.add_argument("--project", required=True, help="Project id for the new state ledger.")
+
+    intake_parser = subcommands.add_parser("intake", help="Capture project intent.")
+    intake_parser.add_argument(
+        "--from",
+        dest="source",
+        required=True,
+        help="Intent Markdown file to capture.",
+    )
 
     state_parser = subcommands.add_parser("state", help="Read project state.")
     state_subcommands = state_parser.add_subparsers(dest="state_command", required=True)
@@ -97,6 +114,26 @@ def main(
     err = stderr or sys.stderr
     parser = build_parser()
     args = parser.parse_args(argv)
+
+    if args.command == "init":
+        root = cwd or Path.cwd()
+        try:
+            created = init_project(root, args.project)
+        except InitProjectError as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_init_success(args.project, created, root), file=out)
+        return 0
+
+    if args.command == "intake":
+        root = cwd or Path.cwd()
+        try:
+            artifact_path = capture_intent(root, Path(args.source))
+        except IntentIntakeError as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_intake_success(artifact_path), file=out)
+        return 0
 
     if args.command == "state" and args.state_command == "show":
         root = cwd or Path.cwd()
