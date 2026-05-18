@@ -49,6 +49,10 @@
 - [Delta List CLI Slice](docs/05-delivery/30-delta-list-cli-slice.md)
 - [Event List CLI Slice](docs/05-delivery/31-event-list-cli-slice.md)
 - [State History CLI Slice](docs/05-delivery/32-state-history-cli-slice.md)
+- [Project State Reference Check Slice](docs/05-delivery/33-project-state-reference-check-slice.md)
+- [Init CLI Slice](docs/05-delivery/34-init-cli-slice.md)
+- [Intent Intake CLI Slice](docs/05-delivery/35-intent-intake-cli-slice.md)
+- [Assess CLI Slice](docs/05-delivery/36-assess-cli-slice.md)
 
 ### Business & Reference
 
