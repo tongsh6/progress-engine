@@ -798,6 +798,61 @@ python3 scripts/check_repo.py
 
 - human gate review `SDP-0032`；接受后执行 `IV-0033: Implement assess CLI slice`
 
+### IV-0033: Implement assess CLI slice
+
+- Target State：`TS-0033: assess CLI working`
+- 主维度：implementation
+- 结果：已完成代码实现、测试和 verifier evidence；State Delta Proposal 保持 `proposed`，等待 human gate；implementation maturity 暂不变更
+- 实现结论：`progress assess` 可以只读输出当前 Project State maturity、Project State 声明的 open gaps 和 Project State 声明的 next targets
+- Evidence：`.progress/evidence/EV-0033-assess-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0033-assess-cli.yaml`
+- 状态历史：未写入；`TS-0033` 要求 human gate，当前未执行 delta apply
+- 主要产物：
+  - `src/progress_engine/cli.py`
+  - `src/progress_engine/assessment/assess.py`
+  - `tests/test_cli_assess.py`
+  - `src/progress_engine/README.md`
+- 明确边界：
+  - 只读取 `.progress/state/project_state.yaml`
+  - 只读取 Project State 声明的 open gaps 和 next targets
+  - 不自动生成 Gap / Target / Intervention
+  - 不实现 target suggestion、state refresh、delta apply、模型 API、Web UI 或 agent 编排
+- Remaining gaps：
+  - `SG-0026`: 代码实现已完成，但等待 human gate apply 前仍不更新 Project State 和 state history
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_assess.py
+7 passed
+
+python3 -m pytest
+76 passed
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 212 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 184 files
+[OK] Project State reference checks passed
+
+PYTHONPATH=src python3 -m progress_engine assess
+Assessment:
+Project: progress-engine
+Phase: repo_bootstrap
+```
+
+## 当前状态
+
+- product：`accepted`
+- architecture：`accepted`
+- quality：`reviewed`
+- implementation：`drafted`
+
+## 下一步推荐
+
+- human gate review `SDP-0033`；接受后再更新 Project State / state history 并选择下一条 target
+
 ### IV-0030: Define intent intake CLI slice
 
 - Target State：`TS-0030: intent intake CLI slice defined`
