@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 from typing import TextIO
 
+from progress_engine.assessment.assess import load_assessment, render_assessment
 from progress_engine.deltas.delta_list import DeltaListError, load_deltas, render_delta_list
 from progress_engine.events.event_list import EventListError, load_events, render_event_list
 from progress_engine.gaps.gap_list import GapListError, load_open_gaps, render_gap_list
@@ -59,6 +60,8 @@ def build_parser() -> argparse.ArgumentParser:
         required=True,
         help="Intent Markdown file to capture.",
     )
+
+    subcommands.add_parser("assess", help="Show a read-only project assessment summary.")
 
     state_parser = subcommands.add_parser("state", help="Read project state.")
     state_subcommands = state_parser.add_subparsers(dest="state_command", required=True)
@@ -133,6 +136,16 @@ def main(
             print(f"error: {exc}", file=err)
             return 2
         print(render_intake_success(artifact_path), file=out)
+        return 0
+
+    if args.command == "assess":
+        root = cwd or Path.cwd()
+        try:
+            assessment = load_assessment(root)
+        except (ProjectStateError, GapListError, TargetListError) as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_assessment(assessment), file=out)
         return 0
 
     if args.command == "state" and args.state_command == "show":
