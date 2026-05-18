@@ -1,0 +1,29 @@
+id: RUN-20260518-IV-0028
+intervention_id: IV-0028
+target_state_id: TS-0028
+started_at: "2026-05-18T23:12:00+08:00"
+completed_at: "2026-05-18T23:12:00+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0025-state-history-cli.yaml"
+      - ".progress/deltas/SDP-0025-state-history-cli.yaml"
+    summary: "核心只读 CLI 观察路径已完成；第一个受控写操作 CLI slice 尚未定义。"
+  why_iv_0028_is_next:
+    - "TS-0028 是当前 aim_of_next_state。"
+    - "`progress init` 是低风险写操作，适合作为第一条写路径。"
+  out_of_scope_confirmed:
+    - "不实现 delta apply、state refresh 或自动修改既有状态。"
+    - "不覆盖已有 .progress。"
+outputs:
+  created:
+    - "docs/05-delivery/34-init-cli-slice.md"
+    - ".progress/interventions/IV-0028-define-state-changing-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0028-define-state-changing-cli-slice.yaml"
+    - ".progress/evidence/EV-0028-state-changing-cli-slice.yaml"
+    - ".progress/deltas/SDP-0028-state-changing-cli-slice.yaml"
+completion_claim: "Executor claims the first state-changing CLI slice is defined as `progress init --project PROJECT_ID`."

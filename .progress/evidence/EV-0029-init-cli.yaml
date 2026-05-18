@@ -1,0 +1,64 @@
+evidence:
+  id: EV-0029
+  run_id: RUN-20260518-IV-0029
+  intervention_id: IV-0029
+  target_state_id: TS-0029
+  evidence_type: code_diff
+  created_at: "2026-05-18T23:25:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress init --project PROJECT_ID` 已定义但尚未实现。"
+      after: "`progress init --project PROJECT_ID` 已作为第一条受控写操作 CLI slice 实现，能创建最小 `.progress/` 骨架并拒绝覆盖。"
+      acceptance_mapping:
+        - criterion: "`progress init --project sample-project` 在空目录创建最小 `.progress/` 骨架。"
+          status: pass
+          evidence_ref: "tests/test_cli_init.py::test_init_creates_minimal_progress_skeleton"
+        - criterion: "生成的 `.progress/state/project_state.yaml` 可被 `progress state show` 读取。"
+          status: pass
+          evidence_ref: "tests/test_cli_init.py::test_init_project_state_can_be_read_by_state_show"
+        - criterion: "`.progress/` 已存在时返回 exit code `2` 并且不覆盖既有文件。"
+          status: pass
+          evidence_ref: "tests/test_cli_init.py::test_init_refuses_to_overwrite_existing_progress"
+        - criterion: "缺少或非法 `--project` 时返回非零退出码并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_init.py::test_init_rejects_invalid_project_id"
+        - criterion: "pytest 覆盖成功路径、已有 `.progress/` 路径和非法 project id 路径。"
+          status: pass
+          evidence_ref: "python3 -m pytest tests/test_cli_init.py"
+        - criterion: "`python3 scripts/check_repo.py` 和全量 pytest 仍通过。"
+          status: pass
+          evidence_ref: "python3 scripts/check_repo.py; python3 -m pytest"
+  scope_check:
+    result: pass
+    notes:
+      - "实现只增加 `progress init --project PROJECT_ID` 写入路径。"
+      - "命令只在 `.progress/` 不存在时写入，不覆盖已有状态账本。"
+      - "未实现 intake、assess、state refresh、delta apply、自动 gap / target 生成、模型 API、Web UI 或 agent 编排。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_cli_init.py"
+      result: pass
+      output_summary: "4 passed in 0.03s"
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "64 passed in 0.29s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 190 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 162 files; [OK] Project State reference checks passed."
+    - command: "PYTHONPATH=src python3 -m progress_engine init --project sample-project"
+      result: pass
+      output_summary: "Initialized ProgressEngine project in a temporary directory and created README, project_state.yaml, and state_history.jsonl."
+    - command: "PYTHONPATH=src python3 -m progress_engine state show"
+      result: pass
+      output_summary: "Read initialized Project State for sample-project with unknown dimensions and no open gaps or next target."
+  files_changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/init/__init__.py"
+    - "src/progress_engine/init/init_project.py"
+    - "tests/test_cli_init.py"
+    - "src/progress_engine/README.md"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0023
+  supports_state_delta_proposal: SDP-0029

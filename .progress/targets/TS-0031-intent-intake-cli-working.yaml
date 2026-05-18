@@ -1,0 +1,38 @@
+id: TS-0031
+name: "intent intake CLI working"
+primary_dimension: implementation
+source_gap: SG-0024
+status: accepted
+human_gate_required: true
+desired_state: "`progress intake --from FILE` 可以写入初始 intent artifact，并更新 Project State intent 维度。"
+from:
+  maturity: drafted
+  summary: "`progress intake --from FILE` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress intake --from FILE` 作为 bootstrap 写操作可运行、可测试，且不执行自动评估或目标推荐。"
+required_evidence:
+  - "CLI 支持 `progress intake --from FILE`。"
+  - "命令写入 `.progress/artifacts/intent.md`。"
+  - "命令将 Project State intent maturity 更新为 seed。"
+  - "pytest 覆盖成功路径、缺 Project State、缺输入文件和空输入文件路径。"
+  - "python3 scripts/check_repo.py 仍通过。"
+acceptance_criteria:
+  - id: AC-TS-0031-01
+    criterion: "`progress intake --from intent.md` 在已初始化目录写入 `.progress/artifacts/intent.md`。"
+  - id: AC-TS-0031-02
+    criterion: "命令将 Project State 的 `intent` maturity 更新为 `seed` 并追加 intent artifact evidence。"
+  - id: AC-TS-0031-03
+    criterion: "写入后 `progress state show` 仍可读取 Project State。"
+  - id: AC-TS-0031-04
+    criterion: "Project State 缺失、输入文件缺失或输入文件为空时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0031-05
+    criterion: "pytest 覆盖成功路径、缺 Project State、缺输入文件和空输入文件路径。"
+  - id: AC-TS-0031-06
+    criterion: "`python3 scripts/check_repo.py` 和全量 pytest 仍通过。"
+non_goals:
+  - "不实现 assess、target suggestion 或 delta apply。"
+  - "不自动生成 Gap / Target / Intervention。"
+  - "不调用模型 API。"
+related_gaps:
+  - SG-0024

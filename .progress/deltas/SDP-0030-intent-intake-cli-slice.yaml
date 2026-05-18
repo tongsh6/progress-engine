@@ -1,0 +1,64 @@
+state_delta_proposal:
+  id: SDP-0030
+  source_intervention: IV-0030
+  run_id: RUN-20260518-IV-0030
+  target_state_id: TS-0030
+  verification_id: EV-0030
+  status: applied
+  proposed_at: "2026-05-18T23:42:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "`progress init --project PROJECT_ID` 已实现；intent intake 尚未定义。"
+      current_problem:
+        - "初始化后的空账本无法通过 CLI 捕获用户初始意图。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "`progress intake --from FILE` 已定义为下一条小范围 bootstrap 写操作。"
+      advancement_reason:
+        - "切片规格明确用户路径、输入、输出、状态影响和文件边界。"
+        - "acceptance criteria 和 evidence_required 已可测试。"
+        - "out_of_scope 明确排除 assess、target suggestion、Gap / Target / Intervention 自动生成、Evidence 对象生成、State Delta Proposal、delta apply、模型 API、Web UI 和 agent 编排。"
+      caveat: "本轮未实现代码；implementation maturity 保持 drafted。"
+  evidence_refs:
+    - "docs/05-delivery/35-intent-intake-cli-slice.md"
+    - ".progress/targets/TS-0030-intent-intake-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0030-define-intent-intake-cli-slice.yaml"
+    - ".progress/evidence/EV-0030-intent-intake-cli-slice.yaml"
+  acceptance_summary:
+    pass: 3
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0024
+      summary: "`progress intake --from FILE` 已定义，但尚未实现。"
+      next_state_path: "Implement only the bounded intent artifact writer and Project State intent marker."
+  recommended_next_interventions:
+    - id: IV-0031
+      name: "Implement intent intake CLI slice"
+      condition: "Run only after SDP-0030 is accepted by human gate."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-18T23:42:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-18T23:42:00+08:00"
+    previous_state_version: PS-0028
+    next_state_version: PS-0029
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted, mark TS-0030 accepted, add TS-0030 / EV-0030 / SDP-0030 evidence refs, and set TS-0031 as the next target."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, mark TS-0030 back to proposed and IV-0030 back to proposed."
+      - "Replace docs/05-delivery/35-intent-intake-cli-slice.md with the accepted alternate bootstrap slice."

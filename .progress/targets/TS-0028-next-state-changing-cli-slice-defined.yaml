@@ -1,0 +1,31 @@
+id: TS-0028
+name: "next state-changing CLI slice defined"
+primary_dimension: implementation
+source_gap: SG-0021
+status: accepted
+human_gate_required: true
+desired_state: "下一条会修改仓库状态的 CLI slice 被定义为小范围、可测试、带 human gate 的实现目标。"
+from:
+  maturity: drafted
+  summary: "只读 CLI 观察路径已覆盖核心对象；写操作 slice 尚未定义。"
+to:
+  maturity: drafted
+  summary: "第一个受控写操作 CLI slice 的用户路径、输入输出、状态影响、文件边界、验收标准和 out_of_scope 已明确。"
+required_evidence:
+  - "实现切片明确只覆盖一个最小写操作。"
+  - "acceptance criteria 和 evidence_required 可验证。"
+  - "out_of_scope 明确排除绕过 Evidence / Verification / Delta gate、自动 apply 和大规模重构。"
+acceptance_criteria:
+  - id: AC-TS-0028-01
+    criterion: "定义下一条 state-changing CLI slice 的用户路径、输入、输出和状态影响。"
+  - id: AC-TS-0028-02
+    criterion: "定义该 slice 的测试和 Evidence 要求。"
+  - id: AC-TS-0028-03
+    criterion: "确认不会越界绕过 Evidence / Verification / Delta gate 或自动修改状态。"
+non_goals:
+  - "不在 target 定义阶段实现代码。"
+  - "不实现多个写操作。"
+  - "不自动 apply State Delta。"
+related_gaps:
+  - SG-0003
+  - SG-0021

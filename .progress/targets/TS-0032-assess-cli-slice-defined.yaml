@@ -1,0 +1,30 @@
+id: TS-0032
+name: "assess CLI slice defined"
+primary_dimension: implementation
+source_gap: SG-0025
+status: proposed
+human_gate_required: true
+desired_state: "下一条 assessment CLI slice 被定义为小范围、可测试、只读的 `progress assess`。"
+from:
+  maturity: drafted
+  summary: "`progress init` 和 `progress intake` 已实现；assessment 用户路径尚未定义。"
+to:
+  maturity: drafted
+  summary: "`progress assess` 的用户路径、输入输出、状态影响、文件边界、验收标准和 out_of_scope 已明确。"
+required_evidence:
+  - "实现切片明确只覆盖只读 assessment 摘要。"
+  - "acceptance criteria 和 evidence_required 可验证。"
+  - "out_of_scope 明确排除自动生成 Gap / Target / Intervention、state refresh、delta apply 和模型调用。"
+acceptance_criteria:
+  - id: AC-TS-0032-01
+    criterion: "定义 `progress assess` 的用户路径、输入、输出和状态影响。"
+  - id: AC-TS-0032-02
+    criterion: "定义该 slice 的测试和 Evidence 要求。"
+  - id: AC-TS-0032-03
+    criterion: "确认不会越界自动生成 Gap / Target / Intervention、state refresh、delta apply 或模型调用。"
+non_goals:
+  - "不在 target 定义阶段实现代码。"
+  - "不自动修改 Project State。"
+  - "不调用模型 API。"
+related_gaps:
+  - SG-0025

@@ -1,0 +1,23 @@
+id: SG-0024
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0030
+current_state: "`progress intake --from FILE` 已定义为小范围 bootstrap 写操作，但尚未实现。"
+desired_state: "`progress intake --from FILE` 可以写入 `.progress/artifacts/intent.md`，并将 Project State intent 维度更新为 seed。"
+evidence_refs:
+  - "docs/05-delivery/35-intent-intake-cli-slice.md"
+  - ".progress/deltas/SDP-0030-intent-intake-cli-slice.yaml"
+impact:
+  - "不阻断 init 或现有只读 CLI。"
+  - "阻断从空账本进入带初始 intent artifact 的 Project State。"
+suggested_targets:
+  - "TS-0031-intent-intake-cli-working"
+suggested_interventions:
+  - "IV-0031: Implement intent intake CLI slice"
+notes:
+  - "实现必须保持确定性，不自动生成 gap、target 或 delta。"
+resolution:
+  resolved_by: SDP-0031
+  resolved_at: "2026-05-18T23:55:00+08:00"
+  summary: "`progress intake --from FILE` 已实现、测试，并确认可将 Project State intent 维度更新为 seed。"

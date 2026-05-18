@@ -1,0 +1,38 @@
+id: TS-0029
+name: "init CLI slice working"
+primary_dimension: implementation
+source_gap: SG-0022
+status: accepted
+human_gate_required: true
+desired_state: "`progress init --project PROJECT_ID` 可以创建最小 `.progress/` 骨架，并能被 `progress state show` 读取。"
+from:
+  maturity: drafted
+  summary: "`progress init --project PROJECT_ID` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress init --project PROJECT_ID` 作为第一条受控写操作 CLI slice 可运行、可测试，且拒绝覆盖已有 .progress。"
+required_evidence:
+  - "CLI 支持 `progress init --project PROJECT_ID`。"
+  - "命令只在 `.progress/` 不存在时创建最小骨架。"
+  - "生成的 project_state 可被 `progress state show` 读取。"
+  - "pytest 覆盖成功路径、已有 .progress 路径和非法 project id 路径。"
+  - "python3 scripts/check_repo.py 仍通过。"
+acceptance_criteria:
+  - id: AC-TS-0029-01
+    criterion: "`progress init --project sample-project` 在空目录创建最小 `.progress/` 骨架。"
+  - id: AC-TS-0029-02
+    criterion: "生成的 `.progress/state/project_state.yaml` 可被 `progress state show` 读取。"
+  - id: AC-TS-0029-03
+    criterion: "`.progress/` 已存在时返回 exit code `2` 并且不覆盖既有文件。"
+  - id: AC-TS-0029-04
+    criterion: "缺少或非法 `--project` 时返回非零退出码并输出清晰错误。"
+  - id: AC-TS-0029-05
+    criterion: "pytest 覆盖成功路径、已有 `.progress/` 路径和非法 project id 路径。"
+  - id: AC-TS-0029-06
+    criterion: "`python3 scripts/check_repo.py` 和全量 pytest 仍通过。"
+non_goals:
+  - "不实现 intake、assess、state refresh 或 delta apply。"
+  - "不自动生成 gap / target / intervention。"
+  - "不覆盖或迁移已有 .progress。"
+related_gaps:
+  - SG-0022

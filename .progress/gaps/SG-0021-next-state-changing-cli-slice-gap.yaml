@@ -1,0 +1,23 @@
+id: SG-0021
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0027
+current_state: "核心只读 CLI 观察路径和 Project State 引用质量检查已完成；第一个受控写操作 CLI slice 尚未定义。"
+desired_state: "下一条 state-changing CLI slice 被明确限定为小范围、可测试、带 human gate 且不会绕过 Evidence / Verification / Delta 边界。"
+evidence_refs:
+  - ".progress/deltas/SDP-0027-project-state-reference-check.yaml"
+  - "scripts/check_repo.py"
+impact:
+  - "不阻断现有只读 CLI。"
+  - "阻断直接实现 state refresh、delta apply 或 init 等写操作而没有清晰边界。"
+suggested_targets:
+  - "TS-0028-next-state-changing-cli-slice-defined"
+suggested_interventions:
+  - "IV-0028: Define next state-changing CLI slice"
+notes:
+  - "下一步应先定义写操作边界，再进入代码实现。"
+resolution:
+  resolved_by: SDP-0028
+  resolved_at: "2026-05-18T23:12:00+08:00"
+  summary: "第一条受控写操作 CLI slice 已定义为 `progress init --project PROJECT_ID`。"

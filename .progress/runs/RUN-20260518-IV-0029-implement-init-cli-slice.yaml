@@ -1,0 +1,30 @@
+id: RUN-20260518-IV-0029
+intervention_id: IV-0029
+target_state_id: TS-0029
+started_at: "2026-05-18T23:25:00+08:00"
+completed_at: "2026-05-18T23:25:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - "docs/05-delivery/34-init-cli-slice.md"
+      - ".progress/evidence/EV-0028-state-changing-cli-slice.yaml"
+      - ".progress/deltas/SDP-0028-state-changing-cli-slice.yaml"
+    summary: "`progress init --project PROJECT_ID` 已定义但尚未实现。"
+  why_iv_0029_is_next:
+    - "TS-0029 是当前 aim_of_next_state。"
+    - "`progress init` 是进入新项目 bootstrap 的最小写操作。"
+  out_of_scope_confirmed:
+    - "不实现 intake、assess、state refresh 或 delta apply。"
+    - "不覆盖已有 .progress。"
+outputs:
+  changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/init/__init__.py"
+    - "src/progress_engine/init/init_project.py"
+    - "tests/test_cli_init.py"
+    - "src/progress_engine/README.md"
+completion_claim: "Executor claims `progress init --project PROJECT_ID` is implemented, tested, and ready for review."

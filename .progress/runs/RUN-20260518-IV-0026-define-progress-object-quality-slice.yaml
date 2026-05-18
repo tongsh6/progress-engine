@@ -1,0 +1,31 @@
+id: RUN-20260518-IV-0026
+intervention_id: IV-0026
+target_state_id: TS-0026
+started_at: "2026-05-18T22:48:00+08:00"
+completed_at: "2026-05-18T22:48:00+08:00"
+mode: "local-artifact"
+primary_dimension: quality
+status: completed
+state_reconciliation:
+  current_quality_state:
+    maturity: reviewed
+    evidence_refs:
+      - "scripts/check_repo.py"
+      - ".progress/evidence/EV-0004-docs-and-yaml-check.yaml"
+      - ".progress/deltas/SDP-0004-docs-and-yaml-check.yaml"
+    summary: "仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links 和 .progress 对象最小字段 / 文件名检查。"
+  why_iv_0026_is_next:
+    - "TS-0026 是当前 aim_of_next_state。"
+    - "继续实现写操作前，应提高 .progress 对象引用一致性的检查强度。"
+  out_of_scope_confirmed:
+    - "不实现完整 schema validation engine。"
+    - "不自动修复 .progress 对象。"
+    - "不实现 progress state refresh、delta apply、模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/33-project-state-reference-check-slice.md"
+    - ".progress/interventions/IV-0026-define-progress-object-quality-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0026-define-progress-object-quality-slice.yaml"
+    - ".progress/evidence/EV-0026-progress-object-quality-slice.yaml"
+    - ".progress/deltas/SDP-0026-progress-object-quality-slice.yaml"
+completion_claim: "Executor claims the project state reference check slice is defined and ready for implementation."

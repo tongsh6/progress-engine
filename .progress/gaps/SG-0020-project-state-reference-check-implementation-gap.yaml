@@ -1,0 +1,23 @@
+id: SG-0020
+dimension: quality
+severity: medium
+status: resolved
+source_intervention: IV-0026
+current_state: "Project State reference integrity check 已定义，但 `scripts/check_repo.py` 尚未校验 `open_state_gaps` 和 `aim_of_next_state` 引用是否能解析到唯一对象文件。"
+desired_state: "`scripts/check_repo.py` 能检查 Project State 中 open gap 和 next target 引用完整性，并用 focused pytest 覆盖成功与失败路径。"
+evidence_refs:
+  - "docs/05-delivery/33-project-state-reference-check-slice.md"
+  - ".progress/deltas/SDP-0026-progress-object-quality-slice.yaml"
+impact:
+  - "不阻断现有只读 CLI 路径。"
+  - "阻断继续进入 delta apply / state refresh 前的账本引用质量信心。"
+suggested_targets:
+  - "TS-0027-project-state-reference-check-working"
+suggested_interventions:
+  - "IV-0027: Implement project state reference check slice"
+notes:
+  - "实现应保持小范围，只检查 Project State 的 open_state_gaps 和 aim_of_next_state。"
+resolution:
+  resolved_by: SDP-0027
+  resolved_at: "2026-05-18T22:58:00+08:00"
+  summary: "`scripts/check_repo.py` 已实现 Project State 引用完整性检查并通过 focused pytest。"

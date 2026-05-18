@@ -36,7 +36,7 @@ state_dimensions:
       - .progress/deltas/SDP-0003-v0.1-tech-stack.yaml
   implementation:
     maturity: drafted
-    summary: "`progress state show`、`progress state history`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list`、`progress evidence list`、`progress verify list`、`progress delta list` 和 `progress event list` 作为只读 Python CLI 切片已经可运行、可测试。"
+    summary: "`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress state show`、`progress state history`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list`、`progress evidence list`、`progress verify list`、`progress delta list` 和 `progress event list` 已作为 Python CLI 切片可运行、可测试。"
     evidence:
       - docs/05-delivery/23-first-python-cli-implementation-slice.md
       - .progress/targets/TS-0006-first-python-cli-slice-defined.yaml
@@ -130,15 +130,41 @@ state_dimensions:
       - .progress/targets/TS-0025-state-history-cli-working.yaml
       - .progress/evidence/EV-0025-state-history-cli.yaml
       - .progress/deltas/SDP-0025-state-history-cli.yaml
+      - docs/05-delivery/34-init-cli-slice.md
+      - .progress/targets/TS-0028-next-state-changing-cli-slice-defined.yaml
+      - .progress/evidence/EV-0028-state-changing-cli-slice.yaml
+      - .progress/deltas/SDP-0028-state-changing-cli-slice.yaml
+      - src/progress_engine/init/init_project.py
+      - tests/test_cli_init.py
+      - .progress/targets/TS-0029-init-cli-working.yaml
+      - .progress/evidence/EV-0029-init-cli.yaml
+      - .progress/deltas/SDP-0029-init-cli.yaml
+      - docs/05-delivery/35-intent-intake-cli-slice.md
+      - .progress/targets/TS-0030-intent-intake-cli-slice-defined.yaml
+      - .progress/evidence/EV-0030-intent-intake-cli-slice.yaml
+      - .progress/deltas/SDP-0030-intent-intake-cli-slice.yaml
+      - src/progress_engine/intake/intent_intake.py
+      - tests/test_cli_intake.py
+      - .progress/targets/TS-0031-intent-intake-cli-working.yaml
+      - .progress/evidence/EV-0031-intent-intake-cli.yaml
+      - .progress/deltas/SDP-0031-intent-intake-cli.yaml
   quality:
     maturity: reviewed
-    summary: "最小仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links 和 .progress 对象一致性。"
+    summary: "仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links、.progress 对象一致性和 Project State open gap / next target 引用完整性。"
     evidence:
       - docs/05-delivery/17-quality-system-and-risk-management.md
       - scripts/check_repo.py
       - .progress/targets/TS-0004-minimum-docs-and-yaml-checks-working.yaml
       - .progress/evidence/EV-0004-docs-and-yaml-check.yaml
       - .progress/deltas/SDP-0004-docs-and-yaml-check.yaml
+      - docs/05-delivery/33-project-state-reference-check-slice.md
+      - .progress/targets/TS-0026-next-progress-object-quality-slice-defined.yaml
+      - .progress/evidence/EV-0026-progress-object-quality-slice.yaml
+      - .progress/deltas/SDP-0026-progress-object-quality-slice.yaml
+      - tests/test_check_repo.py
+      - .progress/targets/TS-0027-project-state-reference-check-working.yaml
+      - .progress/evidence/EV-0027-project-state-reference-check.yaml
+      - .progress/deltas/SDP-0027-project-state-reference-check.yaml
   delivery:
     maturity: weak
     summary: "已有 GitHub 项目骨架和基础 workflow，尚无发布方案。"
@@ -155,7 +181,7 @@ open_state_gaps:
   - SG-0001
   - SG-0002
   - SG-0003
-  - SG-0019
+  - SG-0025
 
 aim_of_next_state:
-  - TS-0026
+  - TS-0032

@@ -1,0 +1,31 @@
+id: RUN-20260518-IV-0031
+intervention_id: IV-0031
+target_state_id: TS-0031
+started_at: "2026-05-18T23:55:00+08:00"
+completed_at: "2026-05-18T23:55:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - "docs/05-delivery/35-intent-intake-cli-slice.md"
+      - ".progress/evidence/EV-0030-intent-intake-cli-slice.yaml"
+      - ".progress/deltas/SDP-0030-intent-intake-cli-slice.yaml"
+    summary: "`progress intake --from FILE` 已定义但尚未实现。"
+  why_iv_0031_is_next:
+    - "TS-0031 是当前 aim_of_next_state。"
+    - "intent intake 是 init 后的最小 bootstrap 写操作。"
+  out_of_scope_confirmed:
+    - "不实现 assess、target suggestion、delta apply 或模型调用。"
+outputs:
+  changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/init/init_project.py"
+    - "src/progress_engine/intake/__init__.py"
+    - "src/progress_engine/intake/intent_intake.py"
+    - "tests/test_cli_intake.py"
+    - "tests/test_cli_init.py"
+    - "src/progress_engine/README.md"
+completion_claim: "Executor claims `progress intake --from FILE` is implemented, tested, and ready for review."

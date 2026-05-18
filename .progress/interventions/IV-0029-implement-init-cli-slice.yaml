@@ -1,0 +1,28 @@
+id: IV-0029
+name: "Implement init CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0029
+status: completed
+goal: "只实现 `progress init --project PROJECT_ID` 这一条受控写操作 CLI 路径，创建最小 `.progress/` 骨架并拒绝覆盖。"
+in_scope:
+  - "扩展 argparse 命令 `progress init --project PROJECT_ID`"
+  - "创建最小 `.progress/` 目录结构"
+  - "写入 `.progress/README.md`"
+  - "写入可被 `progress state show` 读取的 `.progress/state/project_state.yaml`"
+  - "创建空 `.progress/state/state_history.jsonl`"
+  - "拒绝覆盖已有 `.progress/`"
+  - "为成功路径、state show 读取路径、已有 `.progress/` 和非法 project id 添加 pytest"
+out_of_scope:
+  - "不实现 progress intake"
+  - "不实现 progress assess"
+  - "不实现 progress state refresh"
+  - "不实现 delta apply / reject / rollback"
+  - "不自动生成 gap / target / intervention"
+  - "不覆盖或迁移已有 .progress"
+  - "不实现模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "python3 -m pytest tests/test_cli_init.py 通过"
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过"
+  - "临时目录中 `progress init --project sample-project` 后 `progress state show` 可读取"
+automation_policy: human_gate_required

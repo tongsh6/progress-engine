@@ -1,0 +1,28 @@
+id: RUN-20260518-IV-0027
+intervention_id: IV-0027
+target_state_id: TS-0027
+started_at: "2026-05-18T22:58:00+08:00"
+completed_at: "2026-05-18T22:58:00+08:00"
+mode: "local-code"
+primary_dimension: quality
+status: completed
+state_reconciliation:
+  current_quality_state:
+    maturity: reviewed
+    evidence_refs:
+      - "docs/05-delivery/33-project-state-reference-check-slice.md"
+      - ".progress/evidence/EV-0026-progress-object-quality-slice.yaml"
+      - ".progress/deltas/SDP-0026-progress-object-quality-slice.yaml"
+    summary: "Project State reference integrity check 已定义，但尚未实现。"
+  why_iv_0027_is_next:
+    - "TS-0027 是当前 aim_of_next_state。"
+    - "该检查直接降低进入写操作前的 .progress 账本漂移风险。"
+  out_of_scope_confirmed:
+    - "不实现完整 schema validation engine。"
+    - "不自动修复 .progress 对象。"
+    - "不实现 progress state refresh、delta apply、模型 API、Web UI 或外部 agent。"
+outputs:
+  changed:
+    - "scripts/check_repo.py"
+    - "tests/test_check_repo.py"
+completion_claim: "Executor claims Project State reference integrity check is implemented, tested, and ready for review."

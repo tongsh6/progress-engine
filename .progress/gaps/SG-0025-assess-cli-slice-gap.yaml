@@ -1,0 +1,19 @@
+id: SG-0025
+dimension: implementation
+severity: medium
+status: open
+source_intervention: IV-0031
+current_state: "`progress init` 和 `progress intake` 已实现；基于当前 Project State 输出 assessment 摘要的 CLI slice 尚未定义。"
+desired_state: "下一条 assess CLI slice 被明确限定为只读地汇总 Project State maturity、open gaps 和 next targets，不自动生成新对象。"
+evidence_refs:
+  - ".progress/deltas/SDP-0031-intent-intake-cli.yaml"
+  - "src/progress_engine/intake/intent_intake.py"
+impact:
+  - "不阻断 init、intake 或现有只读对象列表。"
+  - "阻断进入更高层 bootstrap flow 前的 assessment 用户路径。"
+suggested_targets:
+  - "TS-0032-assess-cli-slice-defined"
+suggested_interventions:
+  - "IV-0032: Define assess CLI slice"
+notes:
+  - "下一步应先定义只读 assess 边界，不自动生成 Gap / Target。"

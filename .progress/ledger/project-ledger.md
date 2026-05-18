@@ -702,4 +702,252 @@ python3 scripts/check_repo.py
 
 ## 下一步推荐
 
-- 定义 `TS-0026: next progress object quality slice`
+- 定义 `TS-0032: assess CLI slice`
+
+### IV-0031: Implement intent intake CLI slice
+
+- Target State：`TS-0031: intent intake CLI working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 实现结论：`progress intake --from FILE` 可捕获初始 intent artifact，并把 Project State intent 维度更新为 `seed`
+- Evidence：`.progress/evidence/EV-0031-intent-intake-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0031-intent-intake-cli.yaml`
+- 状态历史：`PS-0030`
+- 主要产物：
+  - `src/progress_engine/cli.py`
+  - `src/progress_engine/intake/intent_intake.py`
+  - `tests/test_cli_intake.py`
+- 明确边界：
+  - 只写入 `.progress/artifacts/intent.md`
+  - 只更新 Project State 的 intent 维度
+  - 不实现 assess、target suggestion、Gap / Target / Intervention 自动生成、Evidence 对象、State Delta Proposal、delta apply、模型 API、Web UI 或 agent 编排
+- 后续导航：
+  - 新增 `SG-0025` 和 `TS-0032`，下一步先定义只读 `progress assess` slice
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_intake.py tests/test_cli_init.py
+9 passed in 0.06s
+
+python3 -m pytest
+69 passed in 0.27s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 202 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 174 files
+[OK] Project State reference checks passed
+
+progress init -> progress intake -> progress state show
+intent: seed
+```
+
+## 当前状态
+
+- product：`accepted`
+- architecture：`accepted`
+- quality：`reviewed`
+- implementation：`drafted`
+
+## 下一步推荐
+
+- 定义 `TS-0032: assess CLI slice`
+
+### IV-0030: Define intent intake CLI slice
+
+- Target State：`TS-0030: intent intake CLI slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 切片结论：下一条 bootstrap CLI 路径为 `progress intake --from FILE`
+- Evidence：`.progress/evidence/EV-0030-intent-intake-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0030-intent-intake-cli-slice.yaml`
+- 状态历史：`PS-0029`
+- 主要产物：`docs/05-delivery/35-intent-intake-cli-slice.md`
+- 明确边界：
+  - 只写入 `.progress/artifacts/intent.md`
+  - 只把 Project State intent 维度标记为 `seed`
+  - 不实现 assess、target suggestion、Gap / Target / Intervention 自动生成、Evidence 对象生成、State Delta Proposal、delta apply、模型 API、Web UI 或 agent 编排
+- 后续导航：
+  - 新增 `SG-0024` 和 `TS-0031`，下一步有限实现 `progress intake --from FILE`
+
+## 当前状态
+
+- product：`accepted`
+- architecture：`accepted`
+- quality：`reviewed`
+- implementation：`drafted`
+
+## 下一步推荐
+
+- 执行 `IV-0031: Implement intent intake CLI slice`
+
+### IV-0029: Implement init CLI slice
+
+- Target State：`TS-0029: init CLI slice working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 实现结论：`progress init --project PROJECT_ID` 可创建最小 `.progress/` 骨架，并拒绝覆盖已有 `.progress/`
+- Evidence：`.progress/evidence/EV-0029-init-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0029-init-cli.yaml`
+- 状态历史：`PS-0028`
+- 主要产物：
+  - `src/progress_engine/cli.py`
+  - `src/progress_engine/init/init_project.py`
+  - `tests/test_cli_init.py`
+- 明确边界：
+  - 只在不存在 `.progress/` 时创建最小骨架
+  - 生成的 `.progress/state/project_state.yaml` 可被 `progress state show` 读取
+  - 不实现 intake、assess、state refresh、delta apply、自动 gap / target 生成、模型 API、Web UI 或 agent 编排
+- 后续导航：
+  - 新增 `SG-0023` 和 `TS-0030`，下一步先定义 intent intake CLI slice
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_init.py
+4 passed in 0.03s
+
+python3 -m pytest
+64 passed in 0.29s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 190 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 162 files
+[OK] Project State reference checks passed
+
+PYTHONPATH=src python3 -m progress_engine init --project sample-project
+Initialized ProgressEngine project: sample-project
+
+PYTHONPATH=src python3 -m progress_engine state show
+Project: sample-project
+Phase: initialized
+```
+
+## 当前状态
+
+- product：`accepted`
+- architecture：`accepted`
+- quality：`reviewed`
+- implementation：`drafted`
+
+## 下一步推荐
+
+- 定义 `TS-0030: intent intake CLI slice`
+
+### IV-0028: Define next state-changing CLI slice
+
+- Target State：`TS-0028: next state-changing CLI slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 切片结论：第一条写操作 CLI 路径为 `progress init --project PROJECT_ID`
+- Evidence：`.progress/evidence/EV-0028-state-changing-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0028-state-changing-cli-slice.yaml`
+- 状态历史：`PS-0027`
+- 主要产物：`docs/05-delivery/34-init-cli-slice.md`
+- 明确边界：
+  - 只在不存在 `.progress/` 时创建最小骨架
+  - 拒绝覆盖或迁移已有 `.progress/`
+  - 不实现 intake、assess、state refresh、delta apply、自动 gap / target 生成、模型 API、Web UI 或 agent 编排
+- 后续导航：
+  - 新增 `SG-0022` 和 `TS-0029`，下一步有限实现 `progress init --project PROJECT_ID`
+
+## 当前状态
+
+- product：`accepted`
+- architecture：`accepted`
+- quality：`reviewed`
+- implementation：`drafted`
+
+## 下一步推荐
+
+- 执行 `IV-0029: Implement init CLI slice`
+
+### IV-0027: Implement project state reference check slice
+
+- Target State：`TS-0027: project state reference check working`
+- 主维度：quality
+- 结果：已通过 human gate apply，quality maturity 保持 `reviewed`
+- 实现结论：`scripts/check_repo.py` 已能检查 Project State 的 `open_state_gaps` 和 `aim_of_next_state` 引用完整性
+- Evidence：`.progress/evidence/EV-0027-project-state-reference-check.yaml`
+- State Delta：`.progress/deltas/SDP-0027-project-state-reference-check.yaml`
+- 状态历史：`PS-0026`
+- 主要产物：
+  - `scripts/check_repo.py`
+  - `tests/test_check_repo.py`
+- 明确边界：
+  - 只检查 Project State 的 open gap 和 next target 引用
+  - 不自动修复 `.progress` 对象
+  - 不实现完整 schema engine、state refresh、delta apply、模型 API、Web UI 或 agent 编排
+- 后续导航：
+  - 新增 `SG-0021` 和 `TS-0028`，下一步先定义第一个受控写操作 CLI slice
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_check_repo.py
+5 passed in 0.03s
+
+python3 -m pytest
+60 passed in 0.24s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 178 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 150 files
+[OK] Project State reference checks passed
+```
+
+## 当前状态
+
+- product：`accepted`
+- architecture：`accepted`
+- quality：`reviewed`
+- implementation：`drafted`
+
+## 下一步推荐
+
+- 定义 `TS-0028: next state-changing CLI slice`
+
+### IV-0026: Define next progress object quality slice
+
+- Target State：`TS-0026: next progress object quality slice defined`
+- 主维度：quality
+- 结果：已通过 human gate apply，quality maturity 保持 `reviewed`
+- 切片结论：下一条质量检查切片为 Project State reference integrity check
+- Evidence：`.progress/evidence/EV-0026-progress-object-quality-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0026-progress-object-quality-slice.yaml`
+- 状态历史：`PS-0025`
+- 主要产物：`docs/05-delivery/33-project-state-reference-check-slice.md`
+- 明确边界：
+  - 只增强 `python3 scripts/check_repo.py`
+  - 只校验 `open_state_gaps` 和 `aim_of_next_state` 引用
+  - 不自动修复 `.progress` 对象
+  - 不实现完整 schema engine、state refresh、delta apply、模型 API、Web UI 或 agent 编排
+- 后续导航：
+  - 新增 `SG-0020` 和 `TS-0027`，下一步有限实现 Project State 引用完整性检查
+- 检查结果：
+
+```text
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 172 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 144 files
+```
+
+## 当前状态
+
+- product：`accepted`
+- architecture：`accepted`
+- quality：`reviewed`
+- implementation：`drafted`
+
+## 下一步推荐
+
+- 执行 `IV-0027: Implement project state reference check slice`

@@ -1,0 +1,37 @@
+id: TS-0027
+name: "project state reference check working"
+primary_dimension: quality
+source_gap: SG-0020
+status: accepted
+human_gate_required: true
+desired_state: "`scripts/check_repo.py` 可以校验 Project State 的 open gap 和 next target 引用完整性。"
+from:
+  maturity: reviewed
+  summary: "Project State reference integrity check 已定义，但尚未实现。"
+to:
+  maturity: reviewed
+  summary: "仓库检查能发现 `open_state_gaps` 和 `aim_of_next_state` 中缺失、重复或类型错误的引用。"
+required_evidence:
+  - "scripts/check_repo.py 增加 Project State reference integrity check。"
+  - "pytest 覆盖成功路径、缺 gap、缺 target、引用字段类型错误和引用元素类型错误。"
+  - "python3 scripts/check_repo.py 仍通过。"
+acceptance_criteria:
+  - id: AC-TS-0027-01
+    criterion: "`python3 scripts/check_repo.py` 校验 Project State 的 `open_state_gaps` 引用。"
+  - id: AC-TS-0027-02
+    criterion: "`python3 scripts/check_repo.py` 校验 Project State 的 `aim_of_next_state` 引用。"
+  - id: AC-TS-0027-03
+    criterion: "缺少 gap 或 target 文件时返回非零退出码并输出包含字段名和 id 的错误。"
+  - id: AC-TS-0027-04
+    criterion: "引用字段不是 list 或元素不是非空 string 时返回非零退出码并输出清晰错误。"
+  - id: AC-TS-0027-05
+    criterion: "pytest 覆盖成功路径和关键失败路径。"
+  - id: AC-TS-0027-06
+    criterion: "`python3 scripts/check_repo.py` 仍通过。"
+non_goals:
+  - "不实现完整 schema validation engine。"
+  - "不自动修复 .progress 对象。"
+  - "不实现 progress state refresh 或 delta apply。"
+related_gaps:
+  - SG-0003
+  - SG-0020

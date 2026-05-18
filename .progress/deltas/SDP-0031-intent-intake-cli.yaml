@@ -1,0 +1,67 @@
+state_delta_proposal:
+  id: SDP-0031
+  source_intervention: IV-0031
+  run_id: RUN-20260518-IV-0031
+  target_state_id: TS-0031
+  verification_id: EV-0031
+  status: applied
+  proposed_at: "2026-05-18T23:55:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "`progress intake --from FILE` 已定义但尚未实现。"
+      current_problem:
+        - "初始化后的空账本无法通过 CLI 捕获用户初始意图。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress state show`、`progress state history`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list`、`progress evidence list`、`progress verify list`、`progress delta list` 和 `progress event list` 已作为 Python CLI 切片可运行、可测试。"
+      advancement_reason:
+        - "src/progress_engine/cli.py 增加 argparse 命令 `intake --from`。"
+        - "src/progress_engine/intake/intent_intake.py 实现 intent 文件读取、artifact 写入和 Project State intent 维度更新。"
+        - "init 骨架补充 `.progress/artifacts/` 目录。"
+        - "tests/test_cli_intake.py 覆盖成功路径、state show 读取路径、缺 Project State、缺输入文件和空输入文件路径。"
+        - "python3 scripts/check_repo.py 和全量 pytest 均通过。"
+      caveat: "本切片只捕获 intent artifact；assess、target suggestion 和 delta apply 尚未实现。"
+  evidence_refs:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/intake/intent_intake.py"
+    - "tests/test_cli_intake.py"
+    - ".progress/targets/TS-0031-intent-intake-cli-working.yaml"
+    - ".progress/evidence/EV-0031-intent-intake-cli.yaml"
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0025
+      summary: "基于现有 Project State 生成只读 assessment 摘要的 CLI slice 尚未定义。"
+      next_state_path: "Define a bounded `progress assess` read-only slice before implementing automatic gap or target generation."
+  recommended_next_interventions:
+    - id: IV-0032
+      name: "Define assess CLI slice"
+      condition: "Run after intent intake CLI is accepted."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-18T23:55:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-18T23:55:00+08:00"
+    previous_state_version: PS-0029
+    next_state_version: PS-0030
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted, mark TS-0031 accepted, add TS-0031 / EV-0031 / SDP-0031 evidence refs, and set TS-0032 as the next target."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, remove `progress intake` command wiring and intake module."
+      - "Remove tests/test_cli_intake.py and README update."

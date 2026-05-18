@@ -1,0 +1,43 @@
+evidence:
+  id: EV-0028
+  run_id: RUN-20260518-IV-0028
+  intervention_id: IV-0028
+  target_state_id: TS-0028
+  evidence_type: artifact_review
+  created_at: "2026-05-18T23:12:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "核心只读 CLI 观察路径已完成，但第一个受控写操作 CLI slice 尚未定义。"
+      after: "第一条 state-changing CLI slice 被定义为 `progress init --project PROJECT_ID`，只在 `.progress/` 不存在时创建最小骨架。"
+      acceptance_mapping:
+        - criterion: "定义下一条 state-changing CLI slice 的用户路径、输入、输出和状态影响。"
+          status: pass
+          evidence_ref: "docs/05-delivery/34-init-cli-slice.md#2-用户路径"
+        - criterion: "定义该 slice 的测试和 Evidence 要求。"
+          status: pass
+          evidence_ref: "docs/05-delivery/34-init-cli-slice.md#6-acceptance-criteria"
+        - criterion: "确认不会越界绕过 Evidence / Verification / Delta gate 或自动修改状态。"
+          status: pass
+          evidence_ref: "docs/05-delivery/34-init-cli-slice.md#8-out-of-scope"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只定义下一条写操作切片，没有实现代码。"
+      - "切片拒绝覆盖已有 .progress。"
+      - "state refresh、delta apply、intake、自动 gap / target 生成、模型 API 和 Web UI 均被排除。"
+  commands_run:
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] Project State reference checks passed."
+  files_changed:
+    - "docs/05-delivery/34-init-cli-slice.md"
+    - ".progress/interventions/IV-0028-define-state-changing-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0028-define-state-changing-cli-slice.yaml"
+    - ".progress/evidence/EV-0028-state-changing-cli-slice.yaml"
+    - ".progress/deltas/SDP-0028-state-changing-cli-slice.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0022
+  supports_state_delta_proposal: SDP-0028

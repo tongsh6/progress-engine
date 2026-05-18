@@ -1,0 +1,23 @@
+id: IV-0027
+name: "Implement project state reference check slice"
+primary_dimension: quality
+target_state_id: TS-0027
+status: completed
+goal: "只实现 Project State reference integrity check，让 `scripts/check_repo.py` 发现 open gap 和 next target 引用漂移。"
+in_scope:
+  - "校验 `.progress/state/project_state.yaml` 的 `open_state_gaps` 是非空 string list"
+  - "校验 `.progress/state/project_state.yaml` 的 `aim_of_next_state` 是非空 string list"
+  - "校验每个 open gap id 唯一匹配 `.progress/gaps/{id}-*.yaml`"
+  - "校验每个 next target id 唯一匹配 `.progress/targets/{id}-*.yaml`"
+  - "为成功路径、缺 gap、缺 target、字段类型错误和元素类型错误添加 pytest"
+out_of_scope:
+  - "不实现完整 schema validation engine"
+  - "不自动修复 .progress 对象"
+  - "不校验所有跨对象引用"
+  - "不实现 progress state refresh 或 delta apply"
+  - "不实现模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "python3 -m pytest tests/test_check_repo.py 通过"
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过并输出 Project State reference checks passed"
+automation_policy: human_gate_required

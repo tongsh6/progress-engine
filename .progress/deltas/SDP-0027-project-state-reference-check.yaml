@@ -1,0 +1,66 @@
+state_delta_proposal:
+  id: SDP-0027
+  source_intervention: IV-0027
+  run_id: RUN-20260518-IV-0027
+  target_state_id: TS-0027
+  verification_id: EV-0027
+  status: applied
+  proposed_at: "2026-05-18T22:58:00+08:00"
+  proposed_by: verifier
+  primary_dimension: quality
+  before:
+    quality:
+      maturity: reviewed
+      summary: "Project State reference integrity check 已定义，但尚未实现。"
+      current_problem:
+        - "`scripts/check_repo.py` 尚未校验 open_state_gaps 和 aim_of_next_state 引用是否解析到唯一对象文件。"
+        - "Project State 引用漂移可能到 CLI 运行时才暴露。"
+  after:
+    quality:
+      recommended_maturity: reviewed
+      summary: "仓库检查已覆盖 Project State open gap 和 next target 引用完整性。"
+      advancement_reason:
+        - "scripts/check_repo.py 新增 collect_project_state_reference_problems 和 check_project_state_references。"
+        - "检查覆盖 open_state_gaps 与 aim_of_next_state 的 list 类型、元素类型、id 前缀、缺失文件和重复匹配。"
+        - "tests/test_check_repo.py 覆盖成功路径、缺 gap、缺 target、字段类型错误和元素类型错误。"
+        - "python3 scripts/check_repo.py 和全量 pytest 均通过。"
+      caveat: "本切片只检查 Project State 的 gap / target 引用；完整跨对象引用校验仍未实现。"
+  evidence_refs:
+    - "scripts/check_repo.py"
+    - "tests/test_check_repo.py"
+    - ".progress/targets/TS-0027-project-state-reference-check-working.yaml"
+    - ".progress/evidence/EV-0027-project-state-reference-check.yaml"
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0003
+      summary: ".progress 对象质量 gate 仍可继续收敛，尤其是更广的跨对象引用和写操作 gate。"
+      next_state_path: "Define the first controlled state-changing CLI slice before implementing any write operation."
+  recommended_next_interventions:
+    - id: IV-0028
+      name: "Define next state-changing CLI slice"
+      condition: "Run after this Project State reference check is accepted."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-18T22:58:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-18T22:58:00+08:00"
+    previous_state_version: PS-0025
+    next_state_version: PS-0026
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep quality maturity at reviewed, mark TS-0027 accepted, add TS-0027 / EV-0027 / SDP-0027 evidence refs, and set TS-0028 as the next target."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, remove Project State reference check functions from scripts/check_repo.py."
+      - "Remove tests/test_check_repo.py."

@@ -2,7 +2,7 @@ id: TS-0026
 name: "next progress object quality slice defined"
 primary_dimension: quality
 source_gap: SG-0019
-status: proposed
+status: accepted
 human_gate_required: true
 desired_state: "下一条 quality slice 被定义为小范围、可测试的 .progress 对象一致性检查增强。"
 from:

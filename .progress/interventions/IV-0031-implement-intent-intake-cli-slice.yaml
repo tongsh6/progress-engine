@@ -1,0 +1,25 @@
+id: IV-0031
+name: "Implement intent intake CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0031
+status: completed
+goal: "只实现 `progress intake --from FILE` 这一条 bootstrap 写操作，写入初始 intent artifact 并更新 Project State intent 维度。"
+in_scope:
+  - "扩展 argparse 命令 `progress intake --from FILE`"
+  - "读取用户提供的非空 intent 文件"
+  - "写入 `.progress/artifacts/intent.md`"
+  - "将 Project State intent maturity 更新为 seed"
+  - "将 `.progress/artifacts/intent.md` 加入 Project State intent evidence"
+  - "为成功路径、state show 读取路径、缺 Project State、缺输入文件和空输入文件添加 pytest"
+out_of_scope:
+  - "不实现 progress assess"
+  - "不自动生成 Gap / Target / Intervention"
+  - "不生成 Evidence 对象或 State Delta Proposal"
+  - "不实现 delta apply"
+  - "不实现模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "python3 -m pytest tests/test_cli_intake.py 通过"
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过"
+  - "临时目录中 init -> intake -> state show 串联成功"
+automation_policy: human_gate_required

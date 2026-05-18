@@ -1,0 +1,55 @@
+evidence:
+  id: EV-0027
+  run_id: RUN-20260518-IV-0027
+  intervention_id: IV-0027
+  target_state_id: TS-0027
+  evidence_type: code_diff
+  created_at: "2026-05-18T22:58:00+08:00"
+  claims:
+    - dimension: quality
+      before: "Project State reference integrity check 已定义，但 `scripts/check_repo.py` 尚未校验 open gap 和 next target 引用。"
+      after: "`scripts/check_repo.py` 已校验 `open_state_gaps` 和 `aim_of_next_state` 引用能解析到唯一对象文件，并有 focused pytest 覆盖。"
+      acceptance_mapping:
+        - criterion: "`python3 scripts/check_repo.py` 校验 Project State 的 `open_state_gaps` 引用。"
+          status: pass
+          evidence_ref: "scripts/check_repo.py::collect_project_state_reference_problems"
+        - criterion: "`python3 scripts/check_repo.py` 校验 Project State 的 `aim_of_next_state` 引用。"
+          status: pass
+          evidence_ref: "scripts/check_repo.py::collect_project_state_reference_problems"
+        - criterion: "缺少 gap 或 target 文件时返回非零退出码并输出包含字段名和 id 的错误。"
+          status: pass
+          evidence_ref: "tests/test_check_repo.py"
+        - criterion: "引用字段不是 list 或元素不是非空 string 时返回非零退出码并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_check_repo.py"
+        - criterion: "pytest 覆盖成功路径和关键失败路径。"
+          status: pass
+          evidence_ref: "python3 -m pytest tests/test_check_repo.py"
+        - criterion: "`python3 scripts/check_repo.py` 仍通过。"
+          status: pass
+          evidence_ref: "python3 scripts/check_repo.py"
+  scope_check:
+    result: pass
+    notes:
+      - "实现只增强 `scripts/check_repo.py` 的只读检查。"
+      - "检查读取 `.progress/state/project_state.yaml`、`.progress/gaps/*.yaml` 和 `.progress/targets/*.yaml`，不修改 .progress。"
+      - "未实现完整 schema engine、自动修复、state refresh、delta apply、模型 API、Web UI 或 agent 编排。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_check_repo.py"
+      result: pass
+      output_summary: "5 passed in 0.03s"
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "60 passed in 0.24s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 178 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 150 files; [OK] Project State reference checks passed."
+  files_changed:
+    - "scripts/check_repo.py"
+    - "tests/test_check_repo.py"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0003
+  supports_state_delta_proposal: SDP-0027

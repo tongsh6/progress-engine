@@ -1,0 +1,28 @@
+id: IV-0030
+name: "Define intent intake CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0030
+status: completed
+goal: "定义 `progress intake --from FILE` 这一条小范围 bootstrap 写操作，捕获初始 intent artifact 并避免自动评估。"
+in_scope:
+  - "定义 `progress intake --from FILE` 用户路径"
+  - "定义输入、输出、状态影响和文件边界"
+  - "定义 acceptance criteria 和 evidence_required"
+  - "定义不做 assess、target suggestion、delta apply 或模型调用"
+selected_slice:
+  id: CLI-012
+  command: "progress intake --from FILE"
+  summary: "复制用户提供的 intent 文件到 `.progress/artifacts/intent.md`，并把 Project State intent 维度标记为 seed。"
+  specification: "docs/05-delivery/35-intent-intake-cli-slice.md"
+  state_effect: "writes_intent_artifact_and_updates_intent_dimension"
+out_of_scope:
+  - "不实现 progress assess"
+  - "不自动生成 Gap / Target / Intervention"
+  - "不生成 Evidence 对象或 State Delta Proposal"
+  - "不实现 delta apply"
+  - "不实现模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "新增 TS-0030 / IV-0030 实现切片定义"
+  - "新增 docs/05-delivery/35-intent-intake-cli-slice.md"
+  - "python3 scripts/check_repo.py 通过"
+automation_policy: human_gate_required

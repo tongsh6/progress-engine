@@ -1,0 +1,65 @@
+state_delta_proposal:
+  id: SDP-0028
+  source_intervention: IV-0028
+  run_id: RUN-20260518-IV-0028
+  target_state_id: TS-0028
+  verification_id: EV-0028
+  status: applied
+  proposed_at: "2026-05-18T23:12:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "只读 CLI 观察路径已覆盖核心对象；写操作 slice 尚未定义。"
+      current_problem:
+        - "直接实现 state refresh、delta apply 或 init 会扩大风险。"
+        - "第一个写操作需要明确拒绝覆盖和测试边界。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "第一条 state-changing CLI slice 已定义为 `progress init --project PROJECT_ID`，下一步可以有限实现。"
+      advancement_reason:
+        - "切片规格明确用户路径、输入、输出、状态影响和文件边界。"
+        - "acceptance criteria 和 evidence_required 已可测试。"
+        - "out_of_scope 明确排除 intake、assess、state refresh、delta apply、自动 gap / target 生成、覆盖已有 .progress、模型 API、Web UI 和 agent 编排。"
+      caveat: "本轮未实现代码；implementation maturity 保持 drafted。"
+  evidence_refs:
+    - "docs/05-delivery/34-init-cli-slice.md"
+    - ".progress/targets/TS-0028-next-state-changing-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0028-define-state-changing-cli-slice.yaml"
+    - ".progress/evidence/EV-0028-state-changing-cli-slice.yaml"
+  acceptance_summary:
+    pass: 3
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0022
+      summary: "`progress init --project PROJECT_ID` 已定义，但尚未实现。"
+      next_state_path: "Implement only the minimal init skeleton writer with overwrite protection."
+  recommended_next_interventions:
+    - id: IV-0029
+      name: "Implement init CLI slice"
+      condition: "Run only after SDP-0028 is accepted by human gate."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-18T23:12:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-18T23:12:00+08:00"
+    previous_state_version: PS-0026
+    next_state_version: PS-0027
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted, mark TS-0028 accepted, add TS-0028 / EV-0028 / SDP-0028 evidence refs, and set TS-0029 as the next target."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, mark TS-0028 back to proposed and IV-0028 back to proposed."
+      - "Replace docs/05-delivery/34-init-cli-slice.md with the accepted alternate write slice."

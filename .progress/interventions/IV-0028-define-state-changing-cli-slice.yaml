@@ -1,0 +1,29 @@
+id: IV-0028
+name: "Define next state-changing CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0028
+status: completed
+goal: "定义第一条会修改仓库状态的 CLI slice，确保它小范围、可测试、拒绝覆盖且不绕过 Evidence / Verification / Delta 边界。"
+in_scope:
+  - "选择第一个最小写操作 CLI 用户路径"
+  - "定义输入、输出、状态影响和文件边界"
+  - "定义 acceptance criteria 和 evidence_required"
+  - "定义不做哪些 state refresh / delta apply / 自动执行能力"
+selected_slice:
+  id: CLI-011
+  command: "progress init --project PROJECT_ID"
+  summary: "只在不存在 `.progress/` 的目录创建最小 ProgressEngine 状态账本骨架。"
+  specification: "docs/05-delivery/34-init-cli-slice.md"
+  state_effect: "creates_progress_skeleton_when_absent"
+out_of_scope:
+  - "不实现 progress intake"
+  - "不实现 progress assess"
+  - "不实现 progress state refresh"
+  - "不实现 delta apply / reject / rollback"
+  - "不覆盖或迁移已有 .progress"
+  - "不实现模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "新增 TS-0028 / IV-0028 实现切片定义"
+  - "新增 docs/05-delivery/34-init-cli-slice.md"
+  - "python3 scripts/check_repo.py 通过"
+automation_policy: human_gate_required

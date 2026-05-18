@@ -1,0 +1,28 @@
+id: RUN-20260518-IV-0030
+intervention_id: IV-0030
+target_state_id: TS-0030
+started_at: "2026-05-18T23:42:00+08:00"
+completed_at: "2026-05-18T23:42:00+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0029-init-cli.yaml"
+      - ".progress/deltas/SDP-0029-init-cli.yaml"
+    summary: "`progress init --project PROJECT_ID` 已实现；intent intake 尚未定义。"
+  why_iv_0030_is_next:
+    - "TS-0030 是当前 aim_of_next_state。"
+    - "intent intake 是 init 后的最小 bootstrap 写操作。"
+  out_of_scope_confirmed:
+    - "不实现 assess、target suggestion、delta apply 或模型调用。"
+outputs:
+  created:
+    - "docs/05-delivery/35-intent-intake-cli-slice.md"
+    - ".progress/interventions/IV-0030-define-intent-intake-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0030-define-intent-intake-cli-slice.yaml"
+    - ".progress/evidence/EV-0030-intent-intake-cli-slice.yaml"
+    - ".progress/deltas/SDP-0030-intent-intake-cli-slice.yaml"
+completion_claim: "Executor claims the intent intake CLI slice is defined and ready for implementation."

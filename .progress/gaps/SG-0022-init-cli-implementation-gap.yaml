@@ -1,0 +1,23 @@
+id: SG-0022
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0028
+current_state: "`progress init --project PROJECT_ID` 已定义为第一条受控写操作 CLI slice，但尚未实现。"
+desired_state: "`progress init --project PROJECT_ID` 可以在空目录创建最小 `.progress/` 骨架，且拒绝覆盖已有 `.progress/`。"
+evidence_refs:
+  - "docs/05-delivery/34-init-cli-slice.md"
+  - ".progress/deltas/SDP-0028-state-changing-cli-slice.yaml"
+impact:
+  - "不阻断现有只读 CLI。"
+  - "阻断新项目从空目录使用 ProgressEngine CLI 初始化状态账本。"
+suggested_targets:
+  - "TS-0029-init-cli-working"
+suggested_interventions:
+  - "IV-0029: Implement init CLI slice"
+notes:
+  - "实现必须拒绝覆盖已有 .progress，并保持小范围。"
+resolution:
+  resolved_by: SDP-0029
+  resolved_at: "2026-05-18T23:25:00+08:00"
+  summary: "`progress init --project PROJECT_ID` 已实现、测试，并确认生成的 Project State 可被 `progress state show` 读取。"

@@ -1,7 +1,7 @@
 id: SG-0019
 dimension: quality
 severity: medium
-status: open
+status: resolved
 source_intervention: IV-0025
 current_state: "核心只读 CLI 观察路径已覆盖 state、history、gap、target、intervention、run、evidence、verify、delta 和 event；.progress 对象一致性检查仍停留在最小字段和文件名层级。"
 desired_state: "下一条推进切片被明确限定在增强 .progress 对象质量检查上，优先收敛 SG-0003。"
@@ -17,3 +17,7 @@ suggested_interventions:
   - "IV-0026: Define next progress object quality slice"
 notes:
   - "下一步应优先设计质量检查增强，而不是继续扩大 CLI 命令面。"
+resolution:
+  resolved_by: SDP-0026
+  resolved_at: "2026-05-18T22:48:00+08:00"
+  summary: "下一条 .progress 对象质量检查切片已定义为 Project State reference integrity check。"

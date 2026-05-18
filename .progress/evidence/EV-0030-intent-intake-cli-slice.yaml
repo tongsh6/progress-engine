@@ -1,0 +1,43 @@
+evidence:
+  id: EV-0030
+  run_id: RUN-20260518-IV-0030
+  intervention_id: IV-0030
+  target_state_id: TS-0030
+  evidence_type: artifact_review
+  created_at: "2026-05-18T23:42:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress init --project PROJECT_ID` 已实现；intent intake 尚未定义。"
+      after: "下一条 bootstrap CLI slice 被定义为 `progress intake --from FILE`，只写入 intent artifact 并更新 intent 维度到 seed。"
+      acceptance_mapping:
+        - criterion: "定义 `progress intake --from FILE` 的用户路径、输入、输出和状态影响。"
+          status: pass
+          evidence_ref: "docs/05-delivery/35-intent-intake-cli-slice.md#2-用户路径"
+        - criterion: "定义该 slice 的测试和 Evidence 要求。"
+          status: pass
+          evidence_ref: "docs/05-delivery/35-intent-intake-cli-slice.md#6-acceptance-criteria"
+        - criterion: "确认不会越界实现 assess、target suggestion、delta apply 或模型调用。"
+          status: pass
+          evidence_ref: "docs/05-delivery/35-intent-intake-cli-slice.md#8-out-of-scope"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只定义 intent intake 切片，没有实现代码。"
+      - "切片不生成 Gap、Target、Intervention、Evidence 对象或 State Delta Proposal。"
+      - "assess、target suggestion、delta apply、模型 API 和 Web UI 均被排除。"
+  commands_run:
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] Project State reference checks passed."
+  files_changed:
+    - "docs/05-delivery/35-intent-intake-cli-slice.md"
+    - ".progress/interventions/IV-0030-define-intent-intake-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0030-define-intent-intake-cli-slice.yaml"
+    - ".progress/evidence/EV-0030-intent-intake-cli-slice.yaml"
+    - ".progress/deltas/SDP-0030-intent-intake-cli-slice.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0024
+  supports_state_delta_proposal: SDP-0030
