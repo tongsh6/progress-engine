@@ -2,6 +2,7 @@
 
 Current implemented slice:
 
+<!-- progress-engine-cli-commands:start -->
 ```bash
 progress init --project PROJECT_ID
 progress intake --from FILE
@@ -17,6 +18,7 @@ progress verify list
 progress delta list
 progress event list
 ```
+<!-- progress-engine-cli-commands:end -->
 
 `progress init --project PROJECT_ID` is the first controlled write slice. It creates a minimal `.progress/` skeleton only when `.progress/` does not already exist and refuses to overwrite existing state.
 

@@ -4,13 +4,35 @@
 
 ProgressEngine 是一个状态驱动的 AI 软件工程系统。它通过状态建模、目标状态规划、推进动作拆解、Fresh Context 隔离执行和 Evidence Verifier 证据验证，把模糊项目意图逐步推进为可用产品、工程资产和决策结果。
 
-当前仓库处于 **project-state bootstrap** 阶段：已经具备项目策划书、方法论、协议、模板、初始 `.progress/` 状态账本和 GitHub 协作骨架；尚未进入 CLI 实现。
+当前仓库处于 **v0.1 CLI bootstrap** 阶段：已经具备项目策划书、方法论、协议、模板、初始 `.progress/` 状态账本、GitHub 协作骨架和一组可测试的本地 CLI 切片。
 
 ## 当前目标状态
 
 ```text
-仓库从“只有远程空仓库”推进为“可协作、可审查、可继续实施的项目初始状态”。
+仓库从“可审查项目状态”推进为“可在本地维护最小状态推进闭环的 CLI-first 工具”。
 ```
+
+## 当前已实现 CLI
+
+<!-- progress-engine-cli-commands:start -->
+```bash
+progress init --project PROJECT_ID
+progress intake --from FILE
+progress assess
+progress state show
+progress state history
+progress gaps list
+progress target list
+progress intervention list
+progress run list
+progress evidence list
+progress verify list
+progress delta list
+progress event list
+```
+<!-- progress-engine-cli-commands:end -->
+
+这些命令仍遵守 v0.1 边界：除 `init` 和 `intake` 这两个受控 bootstrap 写入切片外，当前命令只读取 `.progress/` 账本，不自动生成 Gap、Target、Intervention、Evidence、State Delta，不执行 `delta apply`，也不调用模型或外部 agent。
 
 ## 推荐阅读顺序
 
@@ -56,22 +78,19 @@ progress-engine/
   .github/                 # GitHub 协作模板和自检 workflow
   scripts/                 # 仓库检查与初始化脚本
   schemas/                 # 后续 schema 实现位置
-  src/                     # 后续 CLI / 核心代码实现位置
-  tests/                   # 后续测试位置
+  src/                     # CLI / 核心代码实现位置
+  tests/                   # pytest 测试
 ```
 
-## 本地初始化建议
+## 本地使用建议
 
 ```bash
 git clone git@github.com:tongsh6/progress-engine.git
 cd progress-engine
 
-# 将本包内容复制进仓库根目录后：
+python3 -m pytest
 python3 scripts/check_repo.py
-
-git add .
-git commit -m "docs: bootstrap ProgressEngine project state"
-git push origin main
+PYTHONPATH=src python3 -m progress_engine assess
 ```
 
 如果使用 HTTPS：
@@ -80,16 +99,18 @@ git push origin main
 git clone https://github.com/tongsh6/progress-engine.git
 ```
 
-## 首批推进动作
+## 当前推进入口
 
-`.progress/interventions/` 中已经给出第一批推进动作：
+当前状态判断以 `.progress/state/project_state.yaml`、`.progress/ledger/project-ledger.md` 和 State Delta Proposal 为准。常用本地观察入口：
 
-| ID | 目标 |
-|---|---|
-| `IV-0001` | 将 repo 初始化为可审查项目状态。 |
-| `IV-0002` | 固化 v0.1 MVP 边界。 |
-| `IV-0003` | 选择 v0.1 技术栈和 CLI 实现路径。 |
-| `IV-0004` | 建立最小 schema / docs 自检能力。 |
+```bash
+PYTHONPATH=src python3 -m progress_engine assess
+PYTHONPATH=src python3 -m progress_engine target list
+PYTHONPATH=src python3 -m progress_engine intervention list
+PYTHONPATH=src python3 -m progress_engine event list
+```
+
+Project State 只能通过 Evidence、Verification、State Delta Proposal 和 gate 流程更新；不要把 CLI 输出或文档改动直接视为状态已 apply。
 
 ## 当前状态原则
 

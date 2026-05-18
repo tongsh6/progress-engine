@@ -194,8 +194,8 @@ ProgressEngine 不直接等于：
 | 状态文件 | YAML + Markdown + JSONL | YAML 适合可审查对象，Markdown 适合人类协议和报告，JSONL 适合 append-only history / events。 |
 | YAML 处理 | PyYAML 作为最小依赖；无 PyYAML 时检查脚本可降级跳过解析 | 与现有 `scripts/check_repo.py` 一致，降低引入复杂 schema runtime 的风险。 |
 | 数据模型 | Python dataclass / typed dict 起步，schema 文件作为后续质量门禁 | v0.1 优先保持对象清晰和 repo-native 可读性，避免过早 ORM 或数据库抽象。 |
-| 测试 | `pytest` 用于后续 CLI / state transition / verifier 测试 | Python CLI 生态成熟，适合 fixture-based 验证 YAML 和文件变更。 |
-| 包管理 | `pyproject.toml` 在实现阶段引入 | 本次只冻结技术边界，不创建实现配置文件。 |
+| 测试 | `pytest` 用于 CLI / state transition / verifier 测试 | Python CLI 生态成熟，适合 fixture-based 验证 YAML 和文件变更。 |
+| 包管理 | `pyproject.toml` 已作为 Python package 配置引入 | 保持本地 CLI 和测试入口可运行。 |
 | 模型 API | 不接入 | v0.1 采用 prompt-only / manual-run，避免把模型调用变成 MVP 前置条件。 |
 | Web / SaaS | 不接入 | 已由 v0.1 产品边界排除。 |
 
@@ -246,7 +246,7 @@ schemas/
   state_delta.schema.yaml
 ```
 
-这些目录是实现边界，不代表 `IV-0003` 已创建或实现代码。
+这些目录是实现边界，不要求一次性创建所有模块；实际实现应继续按 Intervention 小切片逐步落地。
 
 ## 11. 备选方案与拒绝理由
 
@@ -258,11 +258,15 @@ schemas/
 | SQLite / embedded DB | 暂不采用 | 会削弱 repo-native 可审查性；v0.1 状态事实源应保持文件化。 |
 | Full model API integration | 明确排除 | v0.1 产品边界是 prompt-only / manual-run 优先。 |
 
-## 12. 后续实现前置条件
+## 12. 已关闭前置条件与后续约束
 
-进入代码实现前，需要先完成或确认：
+以下前置条件已经关闭：
 
-- `SDP-0003` 被人工确认，architecture maturity 可以推进到 accepted。
-- `IV-0004` 明确最小 docs / YAML / Markdown / `.progress` 对象检查边界。
-- 实现阶段再创建 `pyproject.toml`、测试 fixture 和 CLI 入口，不在技术栈选择阶段提前生成。
-- 如果人工拒绝 Python 主路径，应重新打开 `TS-0003`，并创建新的 architecture clarification intervention。
+- `SDP-0003` 已被人工确认，architecture maturity 已推进到 accepted。
+- `IV-0004` 已明确并实现最小 docs / YAML / Markdown / `.progress` 对象检查边界。
+- `pyproject.toml`、测试 fixture 和 CLI 入口已在后续 implementation interventions 中按小切片创建。
+
+后续约束：
+
+- 如果人工重新否决 Python 主路径，应重新打开 `TS-0003`，并创建新的 architecture clarification intervention。
+- 新 CLI 能力仍必须通过 Target State、Intervention、Evidence、Verification 和 State Delta Proposal 推进。

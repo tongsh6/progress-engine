@@ -51,24 +51,33 @@ ProgressEngine/
 4. **把审查报告独立归档。** `reports/self-check` 保存自检和版本修正记录，不混入产品规格。
 5. **文件名使用 ASCII。** 避免不同系统解压时出现中文文件名编码问题。
 
-## 后续如果进入代码实现
+## 当前代码结构
 
-可以在此结构基础上增加：
+代码实现已经按 v0.1 CLI-first 路线落入 `src/` 和 `tests/`：
 
 ```text
 src/
-  progressengine/
+  progress_engine/
+    assessment/
+    deltas/
+    events/
+    evidence/
+    gaps/
+    init/
+    intake/
+    interventions/
+    runs/
     state/
-    planning/
-    execution/
+    targets/
     verification/
-    ledger/
+    cli.py
 tests/
+  fixtures/
 schemas/
-pyproject.toml 或 package.json
+pyproject.toml
 ```
 
-当前包仍是项目策划书，不包含实现代码。
+当前实现仍保持小切片策略：优先提供本地 CLI、`.progress/` 对象读取、受控 bootstrap 写入和仓库质量检查，不引入 Web UI、模型 API 或外部 agent 编排。
 
 ## Repo-ready v5 增补结构
 
@@ -96,8 +105,9 @@ scripts/
   check_repo.py            # 基础自检
   bootstrap_local_repo.sh  # 本地导入远程仓库辅助脚本
 
-src/ tests/ schemas/
-  为后续 CLI 实现预留。
+src/                     # CLI / 核心代码实现
+tests/                   # pytest 测试与 fixture
+schemas/                 # 后续 schema 实现位置
 ```
 
-这版的目标不是开始写实现代码，而是把“项目策划书”推进为“可协作项目仓库初始状态”。
+当前仓库已经从“项目策划书”推进到“可协作、可审查、可继续实施的 CLI-first 项目状态”。
