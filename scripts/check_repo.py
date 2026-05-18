@@ -168,6 +168,58 @@ def check_progress_objects() -> None:
     ok(f".progress object checks passed for {checked} files")
 
 
+def collect_project_state_reference_problems(root: Path) -> list[str]:
+    if yaml is None:
+        return []
+
+    state_path = root / ".progress/state/project_state.yaml"
+    if not state_path.exists():
+        return [".progress/state/project_state.yaml: missing Project State file"]
+
+    data = load_yaml(state_path)
+    if not isinstance(data, dict):
+        return [".progress/state/project_state.yaml: expected YAML mapping"]
+
+    problems: list[str] = []
+    reference_rules = [
+        ("open_state_gaps", ".progress/gaps", "SG"),
+        ("aim_of_next_state", ".progress/targets", "TS"),
+    ]
+    for field, directory, prefix in reference_rules:
+        values = data.get(field)
+        if not isinstance(values, list):
+            problems.append(f"project_state.{field}: expected list")
+            continue
+        for index, obj_id in enumerate(values):
+            if not isinstance(obj_id, str) or not obj_id:
+                problems.append(f"project_state.{field}[{index}]: expected non-empty string")
+                continue
+            if not obj_id.startswith(f"{prefix}-"):
+                problems.append(
+                    f"project_state.{field}[{index}]: id '{obj_id}' must start with {prefix}-"
+                )
+                continue
+            matches = sorted((root / directory).glob(f"{obj_id}-*.yaml"))
+            if not matches:
+                problems.append(f"project_state.{field}: missing referenced id {obj_id}")
+            elif len(matches) > 1:
+                rendered = ", ".join(str(path.relative_to(root)) for path in matches)
+                problems.append(
+                    f"project_state.{field}: referenced id {obj_id} matches multiple files: {rendered}"
+                )
+    return problems
+
+
+def check_project_state_references() -> None:
+    if yaml is None:
+        warn("PyYAML not installed; skipped Project State reference checks")
+        return
+    problems = collect_project_state_reference_problems(ROOT)
+    if problems:
+        fail("Project State reference checks failed:\n" + "\n".join(f"  - {p}" for p in problems))
+    ok("Project State reference checks passed")
+
+
 def check_jsonl() -> None:
     jsonl_files = list(ROOT.glob(".progress/**/*.jsonl"))
     for path in jsonl_files:
@@ -212,6 +264,7 @@ def main() -> None:
     check_jsonl()
     check_markdown_links()
     check_progress_objects()
+    check_project_state_references()
 
 
 if __name__ == "__main__":
