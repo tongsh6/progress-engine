@@ -1,0 +1,28 @@
+id: IV-0032
+name: "Define assess CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0032
+status: completed
+goal: "定义 `progress assess` 这一条只读 assessment 用户路径，汇总 Project State maturity、open gaps 和 next targets。"
+in_scope:
+  - "定义 `progress assess` 用户路径"
+  - "定义输入、输出、状态影响和文件边界"
+  - "定义 acceptance criteria 和 evidence_required"
+  - "定义不做 Gap / Target / Intervention 自动生成、state refresh、delta apply 或模型调用"
+selected_slice:
+  id: CLI-013
+  command: "progress assess"
+  summary: "只读汇总 `.progress/state/project_state.yaml`、Project State 声明的 open gaps 和 next targets。"
+  specification: "docs/05-delivery/36-assess-cli-slice.md"
+  state_effect: "read_only_assessment_summary"
+out_of_scope:
+  - "不自动生成 Gap / Target / Intervention"
+  - "不实现 target suggestion 或 intervention planning"
+  - "不生成 Evidence 对象或 State Delta Proposal"
+  - "不实现 state refresh 或 delta apply"
+  - "不实现模型 API、Web UI 或外部 agent"
+evidence_required:
+  - "新增 docs/05-delivery/36-assess-cli-slice.md"
+  - "acceptance criteria 和 evidence_required 可验证"
+  - "python3 scripts/check_repo.py 通过"
+automation_policy: human_gate_required

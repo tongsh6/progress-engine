@@ -1,0 +1,38 @@
+id: TS-0033
+name: "assess CLI working"
+primary_dimension: implementation
+source_gap: SG-0026
+status: proposed
+human_gate_required: true
+desired_state: "`progress assess` 可以只读输出当前 Project State、open gaps 和 next targets 的 assessment 摘要。"
+from:
+  maturity: drafted
+  summary: "`progress assess` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress assess` 作为只读 assessment 命令可运行、可测试，且不自动生成新对象。"
+required_evidence:
+  - "CLI 支持 `progress assess`。"
+  - "命令读取 Project State maturity。"
+  - "命令只列出 Project State 声明的 open gaps 和 next targets。"
+  - "pytest 覆盖成功路径、缺 Project State、缺 gap 引用和缺 target 引用路径。"
+  - "python3 scripts/check_repo.py 仍通过。"
+acceptance_criteria:
+  - id: AC-TS-0033-01
+    criterion: "`progress assess` 能读取 Project State 并输出 project、phase 和各维度 maturity 摘要。"
+  - id: AC-TS-0033-02
+    criterion: "命令只列出 Project State 中声明的 open gaps，并包含 gap id、dimension 和 desired_state。"
+  - id: AC-TS-0033-03
+    criterion: "命令只列出 Project State 中声明的 next targets，并包含 target id、primary_dimension 和 name。"
+  - id: AC-TS-0033-04
+    criterion: "Project State、gap 或 target 引用缺失 / YAML 不可解析时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0033-05
+    criterion: "pytest 覆盖成功路径、缺 Project State、缺 gap 引用和缺 target 引用路径。"
+  - id: AC-TS-0033-06
+    criterion: "`python3 scripts/check_repo.py` 和全量 pytest 仍通过。"
+non_goals:
+  - "不自动生成 Gap / Target / Intervention。"
+  - "不实现 target suggestion、state refresh 或 delta apply。"
+  - "不调用模型 API。"
+related_gaps:
+  - SG-0026

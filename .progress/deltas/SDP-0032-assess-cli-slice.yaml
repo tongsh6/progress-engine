@@ -1,0 +1,66 @@
+state_delta_proposal:
+  id: SDP-0032
+  source_intervention: IV-0032
+  run_id: RUN-20260518-IV-0032
+  target_state_id: TS-0032
+  verification_id: EV-0032
+  status: proposed
+  proposed_at: "2026-05-18T23:51:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "`progress init --project PROJECT_ID` 和 `progress intake --from FILE` 已实现；assessment 用户路径尚未定义。"
+      current_problem:
+        - "进入更高层 bootstrap flow 前，用户还没有一个汇总当前 maturity、open gaps 和 next targets 的只读 assessment 命令。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "`progress assess` 已定义为下一条只读 assessment CLI slice。"
+      advancement_reason:
+        - "切片规格明确用户路径、输入、输出、状态影响和文件边界。"
+        - "acceptance criteria 和 evidence_required 已可测试。"
+        - "out_of_scope 明确排除 Gap / Target / Intervention 自动生成、target suggestion、state refresh、delta apply、模型 API、Web UI 和 agent 编排。"
+      caveat: "本轮未实现代码；implementation maturity 保持 drafted。"
+  evidence_refs:
+    - "docs/05-delivery/36-assess-cli-slice.md"
+    - ".progress/targets/TS-0032-assess-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0032-define-assess-cli-slice.yaml"
+    - ".progress/evidence/EV-0032-assess-cli-slice.yaml"
+    - ".progress/gaps/SG-0026-assess-cli-implementation-gap.yaml"
+    - ".progress/targets/TS-0033-assess-cli-working.yaml"
+  acceptance_summary:
+    pass: 3
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0026
+      summary: "`progress assess` 已定义，但尚未实现。"
+      next_state_path: "Implement only the bounded read-only assessment summary before automatic target suggestion or state refresh."
+  recommended_next_interventions:
+    - id: IV-0033
+      name: "Implement assess CLI slice"
+      condition: "Run only after SDP-0032 is accepted by human gate."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: null
+    approved_at: null
+    decision: pending
+  apply:
+    allowed_before_human_approval: false
+    applied_by: null
+    applied_at: null
+    previous_state_version: PS-0030
+    next_state_version: null
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted, mark TS-0032 accepted, resolve SG-0025, add SG-0026 / TS-0033 / EV-0032 / SDP-0032 evidence refs, and set TS-0033 as the next target."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, mark IV-0032 back to proposed and replace docs/05-delivery/36-assess-cli-slice.md with the accepted alternate assessment boundary."
+      - "Do not modify runtime CLI code because this slice did not implement code."

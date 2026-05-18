@@ -1,0 +1,19 @@
+id: SG-0026
+dimension: implementation
+severity: medium
+status: proposed
+source_intervention: IV-0032
+current_state: "`progress assess` 已定义为只读 assessment CLI slice，但尚未实现。"
+desired_state: "`progress assess` 可以只读输出 Project State maturity、open gaps 和 next targets 的确定性摘要。"
+evidence_refs:
+  - "docs/05-delivery/36-assess-cli-slice.md"
+  - ".progress/deltas/SDP-0032-assess-cli-slice.yaml"
+impact:
+  - "不阻断 init、intake 或现有只读对象列表。"
+  - "阻断进入更高层 bootstrap flow 前的 assessment 用户路径。"
+suggested_targets:
+  - "TS-0033-assess-cli-working"
+suggested_interventions:
+  - "IV-0033: Implement assess CLI slice"
+notes:
+  - "实现必须保持只读，不自动生成 Gap、Target、Intervention 或 State Delta。"

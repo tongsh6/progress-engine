@@ -1,0 +1,31 @@
+id: RUN-20260518-IV-0032
+intervention_id: IV-0032
+target_state_id: TS-0032
+started_at: "2026-05-18T23:51:00+08:00"
+completed_at: "2026-05-18T23:51:00+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0031-intent-intake-cli.yaml"
+      - ".progress/deltas/SDP-0031-intent-intake-cli.yaml"
+    summary: "`progress init --project PROJECT_ID` 和 `progress intake --from FILE` 已实现；assessment 用户路径尚未定义。"
+  why_iv_0032_is_next:
+    - "TS-0032 是当前 aim_of_next_state。"
+    - "SG-0025 指向只读 assessment slice 定义，要求不自动生成新对象。"
+    - "assessment 摘要是进入更高层 bootstrap flow 前的低风险观察面。"
+  out_of_scope_confirmed:
+    - "不实现 Gap / Target / Intervention 自动生成、state refresh、delta apply 或模型调用。"
+outputs:
+  created:
+    - "docs/05-delivery/36-assess-cli-slice.md"
+    - ".progress/interventions/IV-0032-define-assess-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0032-define-assess-cli-slice.yaml"
+    - ".progress/evidence/EV-0032-assess-cli-slice.yaml"
+    - ".progress/deltas/SDP-0032-assess-cli-slice.yaml"
+    - ".progress/gaps/SG-0026-assess-cli-implementation-gap.yaml"
+    - ".progress/targets/TS-0033-assess-cli-working.yaml"
+completion_claim: "Executor claims the assess CLI slice is defined and ready for verifier review."

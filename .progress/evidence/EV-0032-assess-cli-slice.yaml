@@ -1,0 +1,50 @@
+evidence:
+  id: EV-0032
+  run_id: RUN-20260518-IV-0032
+  intervention_id: IV-0032
+  target_state_id: TS-0032
+  evidence_type: artifact_review
+  created_at: "2026-05-18T23:51:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress init --project PROJECT_ID` 和 `progress intake --from FILE` 已实现；assessment 用户路径尚未定义。"
+      after: "下一条 assessment CLI slice 被定义为只读的 `progress assess`，汇总 Project State maturity、open gaps 和 next targets。"
+      acceptance_mapping:
+        - criterion: "定义 `progress assess` 的用户路径、输入、输出和状态影响。"
+          status: pass
+          evidence_ref: "docs/05-delivery/36-assess-cli-slice.md#2-用户路径"
+        - criterion: "定义该 slice 的测试和 Evidence 要求。"
+          status: pass
+          evidence_ref: "docs/05-delivery/36-assess-cli-slice.md#6-acceptance-criteria"
+        - criterion: "确认不会越界自动生成 Gap / Target / Intervention、state refresh、delta apply 或模型调用。"
+          status: pass
+          evidence_ref: "docs/05-delivery/36-assess-cli-slice.md#8-out-of-scope"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只定义 assess CLI 切片，没有实现运行时代码。"
+      - "切片只读取 Project State、被引用的 open gaps 和被引用的 next targets。"
+      - "Gap / Target / Intervention 自动生成、target suggestion、state refresh、delta apply、模型 API 和 Web UI 均被排除。"
+  commands_run:
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "69 passed in 0.28s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 208 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 180 files; [OK] Project State reference checks passed."
+  files_changed:
+    - "docs/05-delivery/36-assess-cli-slice.md"
+    - ".progress/interventions/IV-0032-define-assess-cli-slice.yaml"
+    - ".progress/runs/RUN-20260518-IV-0032-define-assess-cli-slice.yaml"
+    - ".progress/evidence/EV-0032-assess-cli-slice.yaml"
+    - ".progress/deltas/SDP-0032-assess-cli-slice.yaml"
+    - ".progress/gaps/SG-0026-assess-cli-implementation-gap.yaml"
+    - ".progress/targets/TS-0033-assess-cli-working.yaml"
+    - ".progress/ledger/project-ledger.md"
+    - "INDEX.md"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0026
+  supports_state_delta_proposal: SDP-0032

@@ -755,6 +755,49 @@ intent: seed
 
 - 定义 `TS-0032: assess CLI slice`
 
+### IV-0032: Define assess CLI slice
+
+- Target State：`TS-0032: assess CLI slice defined`
+- 主维度：implementation
+- 结果：已完成 artifact review，State Delta Proposal 保持 `proposed`，等待 human gate；implementation maturity 暂不变更
+- 切片结论：下一条 assessment CLI 路径为只读的 `progress assess`
+- Evidence：`.progress/evidence/EV-0032-assess-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0032-assess-cli-slice.yaml`
+- 状态历史：未写入；`TS-0032` 要求 human gate，当前未执行 delta apply
+- 主要产物：`docs/05-delivery/36-assess-cli-slice.md`
+- 明确边界：
+  - 只读取 `.progress/state/project_state.yaml`
+  - 只读取 Project State 声明的 open gaps 和 next targets
+  - 不自动生成 Gap / Target / Intervention
+  - 不实现 target suggestion、state refresh、delta apply、模型 API、Web UI 或 agent 编排
+- Remaining gaps：
+  - `SG-0026`: `progress assess` 已定义但尚未实现；下一步应在 human gate 接受后执行 `IV-0033: Implement assess CLI slice`
+- 检查结果：
+
+```text
+python3 -m pytest
+69 passed in 0.28s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 208 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 180 files
+[OK] Project State reference checks passed
+```
+
+## 当前状态
+
+- product：`accepted`
+- architecture：`accepted`
+- quality：`reviewed`
+- implementation：`drafted`
+
+## 下一步推荐
+
+- human gate review `SDP-0032`；接受后执行 `IV-0033: Implement assess CLI slice`
+
 ### IV-0030: Define intent intake CLI slice
 
 - Target State：`TS-0030: intent intake CLI slice defined`
