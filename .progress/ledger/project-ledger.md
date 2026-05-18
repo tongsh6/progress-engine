@@ -853,6 +853,60 @@ Phase: repo_bootstrap
 
 - human gate review `SDP-0033`；接受后再更新 Project State / state history 并选择下一条 target
 
+### EVT-0003: Repair CLI status documentation drift
+
+- Change Event：`EVT-0003: readme cli status drift`
+- 主维度：quality / knowledge / implementation
+- 结果：已修复入口文档、结构文档、ADR 和系统架构文档中的实现前状态漂移；未修改 Project State，未执行 State Delta apply
+- Evidence：本轮 git diff、`python3 -m pytest`、`python3 scripts/check_repo.py`、`PYTHONPATH=src python3 -m progress_engine assess`
+- State Delta：无。本轮是质量缺口修复和门禁增强，不声明 Project State 成熟度变化
+- 状态历史：未写入；不绕过 human gate / State Delta apply 流程
+- 主要产物：
+  - `README.md`
+  - `PROJECT_STRUCTURE.md`
+  - `decisions/ADR-0001-v0.1-tech-stack.md`
+  - `docs/03-system-design/06-system-architecture-and-module-boundaries.md`
+  - `scripts/check_repo.py`
+  - `tests/test_check_repo.py`
+  - `src/progress_engine/README.md`
+  - `.progress/events/EVT-0003-readme-cli-status-drift.yaml`
+- 修复内容：
+  - 顶层 README 从早期 bootstrap 指令更新为当前 CLI-first 本地使用入口
+  - Project Structure 从“预留实现目录”更新为真实 `src/progress_engine/` 和 pytest 结构
+  - ADR-0001 从 `Proposed` 更新为已通过 human gate 的 `Accepted`
+  - 系统架构文档删除 `pyproject.toml` 尚未创建、代码实现前等过期叙述
+  - 仓库检查新增 CLI 状态文档漂移门禁，覆盖 README、PROJECT_STRUCTURE、ADR-0001 和系统架构文档
+- 检查结果：
+
+```text
+python3 -m pytest
+82 passed
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 213 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 185 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+
+PYTHONPATH=src python3 -m progress_engine assess
+Assessment output remained read-only and continued to show Project State before SDP-0033 apply.
+```
+
+## 当前状态
+
+- product：`accepted`
+- architecture：`accepted`
+- quality：`reviewed`
+- implementation：`drafted`
+
+## 下一步推荐
+
+- human gate review `SDP-0033`；接受后再更新 Project State / state history
+- 继续处理 remaining gaps：`SG-0002`、`SG-0003` 和未 apply 的 `SG-0025` / `SG-0026`
+
 ### IV-0030: Define intent intake CLI slice
 
 - Target State：`TS-0030: intent intake CLI slice defined`

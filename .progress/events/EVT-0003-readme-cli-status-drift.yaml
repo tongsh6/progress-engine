@@ -1,0 +1,51 @@
+change_event:
+  id: EVT-0003
+  type: quality_gap
+  severity: medium
+  source:
+    run_id: null
+    intervention_id: null
+    state_delta_id: null
+    evidence_id: null
+  summary: "阅读台账时发现 README、PROJECT_STRUCTURE、ADR-0001 和系统架构文档仍包含实现前或早期 bootstrap 状态叙述，但代码和包内 README 已包含多个可测试 CLI 切片。"
+  affected_dimensions:
+    - knowledge
+    - quality
+    - implementation
+  affected_artifacts:
+    - id: "README.md"
+      current_version: "pre-EVT-0003"
+      effect: reopen
+      reason: "顶层项目入口与真实 CLI 实现状态不一致，仍包含复制包内容和首批推进动作等早期 bootstrap 指令，会误导当前状态判断。"
+    - id: "PROJECT_STRUCTURE.md"
+      current_version: "pre-EVT-0003"
+      effect: reopen
+      reason: "项目结构说明仍把 src/tests/schemas 描述为后续 CLI 实现预留，且示例包名与真实 src/progress_engine 不一致。"
+    - id: "decisions/ADR-0001-v0.1-tech-stack.md"
+      current_version: "pre-EVT-0003"
+      effect: reopen
+      reason: "ADR 状态仍写作 Proposed，但 SDP-0003 已 human gate approve 并 apply。"
+    - id: "docs/03-system-design/06-system-architecture-and-module-boundaries.md"
+      current_version: "pre-EVT-0003"
+      effect: reopen
+      reason: "系统架构文档仍包含代码实现前和 pyproject 尚未创建的叙述。"
+    - id: "src/progress_engine/README.md"
+      current_version: "pre-EVT-0003"
+      effect: no_change
+      reason: "包内 README 的命令列表较新，但缺少可被仓库检查复用的同步标记。"
+    - id: "scripts/check_repo.py"
+      current_version: "pre-EVT-0003"
+      effect: reopen
+      reason: "仓库检查未覆盖顶层 README 与 CLI 状态材料的明显漂移。"
+  invalidates:
+    interventions: []
+    state_claims: []
+    target_states: []
+    evidence: []
+  emitted_gaps: []
+  emitted_targets: []
+  emitted_interventions: []
+  propagation:
+    requires_reassessment: false
+    mark_dependent_items_stale: false
+  requires_human_review: false

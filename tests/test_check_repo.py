@@ -98,3 +98,174 @@ aim_of_next_state:
     problems = check_repo.collect_project_state_reference_problems(project_root)
 
     assert problems == ["project_state.aim_of_next_state[0]: expected non-empty string"]
+
+
+def test_readme_cli_status_check_passes_when_marker_blocks_match(tmp_path: Path) -> None:
+    check_repo = load_check_repo_module()
+    project_root = tmp_path / "project"
+    package_root = project_root / "src" / "progress_engine"
+    package_root.mkdir(parents=True)
+    readme_block = """
+<!-- progress-engine-cli-commands:start -->
+```bash
+progress assess
+progress state show
+```
+<!-- progress-engine-cli-commands:end -->
+""".lstrip()
+    (project_root / "README.md").write_text(readme_block, encoding="utf-8")
+    (package_root / "README.md").write_text(readme_block, encoding="utf-8")
+
+    problems = check_repo.collect_readme_cli_status_problems(project_root)
+
+    assert problems == []
+
+
+def test_readme_cli_status_check_reports_stale_status_phrase(tmp_path: Path) -> None:
+    check_repo = load_check_repo_module()
+    project_root = tmp_path / "project"
+    package_root = project_root / "src" / "progress_engine"
+    package_root.mkdir(parents=True)
+    readme_block = """
+当前仓库尚未进入 CLI 实现。
+
+<!-- progress-engine-cli-commands:start -->
+```bash
+progress assess
+```
+<!-- progress-engine-cli-commands:end -->
+""".lstrip()
+    (project_root / "README.md").write_text(readme_block, encoding="utf-8")
+    (package_root / "README.md").write_text(readme_block, encoding="utf-8")
+
+    problems = check_repo.collect_readme_cli_status_problems(project_root)
+
+    assert problems == ["README.md: stale implementation status phrase: 尚未进入 CLI 实现"]
+
+
+def test_readme_cli_status_check_reports_stale_bootstrap_instructions(
+    tmp_path: Path,
+) -> None:
+    check_repo = load_check_repo_module()
+    project_root = tmp_path / "project"
+    package_root = project_root / "src" / "progress_engine"
+    package_root.mkdir(parents=True)
+    readme_text = """
+<!-- progress-engine-cli-commands:start -->
+```bash
+progress assess
+```
+<!-- progress-engine-cli-commands:end -->
+
+# 将本包内容复制进仓库根目录后：
+git commit -m "docs: bootstrap ProgressEngine project state"
+## 首批推进动作
+""".lstrip()
+    package_readme_text = """
+<!-- progress-engine-cli-commands:start -->
+```bash
+progress assess
+```
+<!-- progress-engine-cli-commands:end -->
+""".lstrip()
+    (project_root / "README.md").write_text(readme_text, encoding="utf-8")
+    (package_root / "README.md").write_text(package_readme_text, encoding="utf-8")
+
+    problems = check_repo.collect_readme_cli_status_problems(project_root)
+
+    assert problems == [
+        "README.md: stale implementation status phrase: 将本包内容复制进仓库根目录后",
+        "README.md: stale implementation status phrase: "
+        'git commit -m "docs: bootstrap ProgressEngine project state"',
+        "README.md: stale implementation status phrase: ## 首批推进动作",
+    ]
+
+
+def test_readme_cli_status_check_reports_mismatched_command_blocks(tmp_path: Path) -> None:
+    check_repo = load_check_repo_module()
+    project_root = tmp_path / "project"
+    package_root = project_root / "src" / "progress_engine"
+    package_root.mkdir(parents=True)
+    (project_root / "README.md").write_text(
+        """
+<!-- progress-engine-cli-commands:start -->
+```bash
+progress assess
+```
+<!-- progress-engine-cli-commands:end -->
+""".lstrip(),
+        encoding="utf-8",
+    )
+    (package_root / "README.md").write_text(
+        """
+<!-- progress-engine-cli-commands:start -->
+```bash
+progress state show
+```
+<!-- progress-engine-cli-commands:end -->
+""".lstrip(),
+        encoding="utf-8",
+    )
+
+    problems = check_repo.collect_readme_cli_status_problems(project_root)
+
+    assert problems == [
+        "README.md: CLI command marker block must match src/progress_engine/README.md"
+    ]
+
+
+def test_readme_cli_status_check_reports_stale_project_structure_phrase(
+    tmp_path: Path,
+) -> None:
+    check_repo = load_check_repo_module()
+    project_root = tmp_path / "project"
+    package_root = project_root / "src" / "progress_engine"
+    package_root.mkdir(parents=True)
+    readme_block = """
+<!-- progress-engine-cli-commands:start -->
+```bash
+progress assess
+```
+<!-- progress-engine-cli-commands:end -->
+""".lstrip()
+    (project_root / "README.md").write_text(readme_block, encoding="utf-8")
+    (package_root / "README.md").write_text(readme_block, encoding="utf-8")
+    (project_root / "PROJECT_STRUCTURE.md").write_text(
+        "src/ tests/ schemas/\n  为后续 CLI 实现预留。\n",
+        encoding="utf-8",
+    )
+
+    problems = check_repo.collect_readme_cli_status_problems(project_root)
+
+    assert problems == [
+        "PROJECT_STRUCTURE.md: stale implementation status phrase: 为后续 CLI 实现预留"
+    ]
+
+
+def test_readme_cli_status_check_reports_stale_adr_status(tmp_path: Path) -> None:
+    check_repo = load_check_repo_module()
+    project_root = tmp_path / "project"
+    package_root = project_root / "src" / "progress_engine"
+    decisions_root = project_root / "decisions"
+    package_root.mkdir(parents=True)
+    decisions_root.mkdir()
+    readme_block = """
+<!-- progress-engine-cli-commands:start -->
+```bash
+progress assess
+```
+<!-- progress-engine-cli-commands:end -->
+""".lstrip()
+    (project_root / "README.md").write_text(readme_block, encoding="utf-8")
+    (package_root / "README.md").write_text(readme_block, encoding="utf-8")
+    (decisions_root / "ADR-0001-v0.1-tech-stack.md").write_text(
+        "## 状态\n\nProposed，等待人工确认。\n",
+        encoding="utf-8",
+    )
+
+    problems = check_repo.collect_readme_cli_status_problems(project_root)
+
+    assert problems == [
+        "decisions/ADR-0001-v0.1-tech-stack.md: "
+        "stale implementation status phrase: Proposed，等待人工确认"
+    ]

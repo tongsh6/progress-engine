@@ -6,6 +6,7 @@ This intentionally stays dependency-light. It validates:
 - YAML templates and .progress files are parseable if PyYAML is installed;
 - Markdown local links point to existing files where practical.
 - .progress objects have minimum required fields and filename/id alignment.
+- CLI status documentation does not drift from the implemented slices.
 """
 from __future__ import annotations
 
@@ -26,6 +27,7 @@ REQUIRED = [
     "docs/04-protocols/10-evidence-verifier-protocol.md",
     "templates/state/project_state.yaml",
     ".progress/state/project_state.yaml",
+    "src/progress_engine/README.md",
     ".github/pull_request_template.md",
 ]
 
@@ -220,6 +222,115 @@ def check_project_state_references() -> None:
     ok("Project State reference checks passed")
 
 
+def collect_readme_cli_status_problems(root: Path) -> list[str]:
+    readme_path = root / "README.md"
+    package_readme_path = root / "src/progress_engine/README.md"
+    if not readme_path.exists() or not package_readme_path.exists():
+        return []
+
+    readme_text = readme_path.read_text(encoding="utf-8")
+    package_readme_text = package_readme_path.read_text(encoding="utf-8")
+    problems: list[str] = []
+
+    problems.extend(
+        collect_stale_document_phrases(
+            readme_text,
+            "README.md",
+            [
+                "尚未进入 CLI 实现",
+                "后续 CLI / 核心代码实现位置",
+                "后续测试位置",
+                "将本包内容复制进仓库根目录后",
+                "git commit -m \"docs: bootstrap ProgressEngine project state\"",
+                "## 首批推进动作",
+            ],
+        )
+    )
+
+    readme_commands = extract_cli_command_block(readme_text)
+    package_commands = extract_cli_command_block(package_readme_text)
+    if readme_commands is None:
+        problems.append("README.md: missing progress-engine CLI command marker block")
+    if package_commands is None:
+        problems.append(
+            "src/progress_engine/README.md: missing progress-engine CLI command marker block"
+        )
+    if readme_commands is not None and package_commands is not None:
+        if readme_commands != package_commands:
+            problems.append(
+                "README.md: CLI command marker block must match src/progress_engine/README.md"
+            )
+    stale_document_rules = {
+        "PROJECT_STRUCTURE.md": [
+            "当前包仍是项目策划书，不包含实现代码",
+            "为后续 CLI 实现预留",
+            "src/progressengine/",
+        ],
+        "decisions/ADR-0001-v0.1-tech-stack.md": [
+            "Proposed，等待人工确认",
+            "本 ADR 不实现 CLI，也不创建 package 配置",
+            "在实现 intervention 中再创建 `pyproject.toml`",
+        ],
+        "docs/03-system-design/06-system-architecture-and-module-boundaries.md": [
+            "本次只冻结技术边界，不创建实现配置文件",
+            "这些目录是实现边界，不代表 `IV-0003` 已创建或实现代码",
+            "进入代码实现前，需要先完成或确认",
+            "实现阶段再创建 `pyproject.toml`",
+        ],
+    }
+    for relative_path, phrases in stale_document_rules.items():
+        path = root / relative_path
+        if path.exists():
+            problems.extend(
+                collect_stale_document_phrases(
+                    path.read_text(encoding="utf-8"),
+                    relative_path,
+                    phrases,
+                )
+            )
+    return problems
+
+
+def collect_stale_document_phrases(
+    text: str,
+    relative_path: str,
+    phrases: list[str],
+) -> list[str]:
+    problems = []
+    for phrase in phrases:
+        if phrase in text:
+            problems.append(f"{relative_path}: stale implementation status phrase: {phrase}")
+    return problems
+
+
+def extract_cli_command_block(markdown: str) -> list[str] | None:
+    start = "<!-- progress-engine-cli-commands:start -->"
+    end = "<!-- progress-engine-cli-commands:end -->"
+    start_index = markdown.find(start)
+    end_index = markdown.find(end)
+    if start_index == -1 or end_index == -1 or end_index <= start_index:
+        return None
+
+    block = markdown[start_index + len(start) : end_index]
+    lines = []
+    for line in block.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("```"):
+            continue
+        lines.append(stripped)
+    return lines
+
+
+def check_readme_cli_status() -> None:
+    problems = collect_readme_cli_status_problems(ROOT)
+    if problems:
+        fail(
+            "CLI status documentation checks failed:\n"
+            + "\n".join(f"  - {p}" for p in problems)
+        )
+    ok("CLI status documentation checks passed")
+
+
 def check_jsonl() -> None:
     jsonl_files = list(ROOT.glob(".progress/**/*.jsonl"))
     for path in jsonl_files:
@@ -265,6 +376,7 @@ def main() -> None:
     check_markdown_links()
     check_progress_objects()
     check_project_state_references()
+    check_readme_cli_status()
 
 
 if __name__ == "__main__":
