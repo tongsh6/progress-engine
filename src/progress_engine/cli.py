@@ -48,6 +48,11 @@ from progress_engine.state.state_history import (
     load_state_history,
     render_state_history,
 )
+from progress_engine.state.state_refresh import (
+    StateRefreshError,
+    load_state_refresh,
+    render_state_refresh,
+)
 from progress_engine.targets.target_list import TargetListError, load_next_targets, render_target_list
 from progress_engine.verification.verify_list import (
     VerificationListError,
@@ -77,6 +82,14 @@ def build_parser() -> argparse.ArgumentParser:
     state_subcommands = state_parser.add_subparsers(dest="state_command", required=True)
     state_subcommands.add_parser("show", help="Show current project state summary.")
     state_subcommands.add_parser("history", help="Show state history summary.")
+    state_refresh_parser = state_subcommands.add_parser(
+        "refresh",
+        help="Show read-only state reconciliation after a delta.",
+    )
+    state_refresh_parser.add_argument(
+        "--after-delta",
+        help="Optional State Delta Proposal id expected to match latest history.",
+    )
 
     gaps_parser = subcommands.add_parser("gaps", help="Read state gaps.")
     gaps_subcommands = gaps_parser.add_subparsers(dest="gaps_command", required=True)
@@ -196,6 +209,22 @@ def main(
             print(f"error: {exc}", file=err)
             return 2
         print(render_state_history(history), file=out)
+        return 0
+
+    if args.command == "state" and args.state_command == "refresh":
+        root = cwd or Path.cwd()
+        try:
+            refresh = load_state_refresh(root, args.after_delta)
+        except (
+            ProjectStateError,
+            StateHistoryError,
+            GapListError,
+            TargetListError,
+            StateRefreshError,
+        ) as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_state_refresh(refresh), file=out)
         return 0
 
     if args.command == "gaps" and args.gaps_command == "list":
