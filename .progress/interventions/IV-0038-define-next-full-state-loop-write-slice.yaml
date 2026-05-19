@@ -1,0 +1,22 @@
+id: IV-0038
+name: "Define next full state-loop write slice"
+primary_dimension: implementation
+target_state_id: TS-0038
+status: completed
+goal: "定义 v0.1 State Delta 写闭环中的下一条最小实现切片，明确 human gate 后的 `progress delta apply` 边界。"
+in_scope:
+  - "定义 `progress delta apply SDP-ID --approved-by NAME` 用户路径。"
+  - "定义输入、输出、状态影响、文件边界和最小行为规则。"
+  - "明确 Project State 写入 allow-list、state history 追加和 proposal apply metadata。"
+  - "定义 acceptance criteria、evidence_required、rollback 准备和 rejection 边界。"
+out_of_scope:
+  - "不在本轮实现运行时代码。"
+  - "不实现 reject、rollback、state refresh 或 verification generation。"
+  - "不允许命令自动完成 human approval。"
+  - "不引入模型 API、Web UI、外部服务或 agent 编排。"
+evidence_required:
+  - "docs/05-delivery/39-state-delta-apply-cli-slice.md"
+  - "acceptance criteria、evidence_required、rollback / rejection 边界可审查。"
+  - "python3 -m pytest 通过。"
+  - "python3 scripts/check_repo.py 通过。"
+automation_policy: verifier_required

@@ -1,0 +1,72 @@
+state_delta_proposal:
+  id: SDP-0039
+  source_intervention: IV-0039
+  run_id: RUN-20260520-IV-0039
+  target_state_id: TS-0039
+  verification_id: EV-0039
+  status: applied
+  proposed_at: "2026-05-20T01:05:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "`progress delta apply` 已定义但尚未实现。"
+      current_problem:
+        - "State Delta Proposal 可列出但不能在 human gate 后进入 Project State 和 state history。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "`progress delta apply` 已作为 human-gated allow-list State Delta apply 写路径实现并测试通过。"
+      advancement_reason:
+        - "CLI 支持 `progress delta apply SDP-ID --approved-by NAME`。"
+        - "实现校验 human gate、evidence refs、acceptance summary、canonical proposal id 和 allow-list project_state_update。"
+        - "成功路径写入 Project State、追加 state history，并标记 proposal applied。"
+        - "失败路径在写入前返回，避免部分状态更新。"
+      caveat: "reject、rollback 和 state refresh 仍未实现；implementation maturity 保持 drafted。"
+  evidence_refs:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/deltas/delta_apply.py"
+    - "src/progress_engine/state/project_state.py"
+    - "src/progress_engine/state/state_history.py"
+    - "tests/test_cli_delta_apply.py"
+    - "tests/test_cli_delta_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1002-apply-ready-delta.yaml"
+    - "tests/fixtures/minimal_progress_project/.progress/evidence/EV-1002-apply-ready.yaml"
+    - ".progress/evidence/EV-0039-delta-apply-cli.yaml"
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0030
+      summary: "State Delta rollback / reject / state refresh 尚未定义下一条切片，其中 rollback 是发布阻断风险。"
+      next_state_path: "Define the next rollback-focused State Delta slice before implementing rollback or state refresh."
+  recommended_next_interventions:
+    - id: IV-0040
+      name: "Define delta rollback CLI slice"
+      condition: "Run after SDP-0039 is accepted by human gate."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-20T01:05:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-20T01:05:00+08:00"
+    previous_state_version: PS-0037
+    next_state_version: PS-0038
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted, add delta apply implementation evidence, resolve SG-0029, open SG-0030 for rollback slice definition, and set TS-0040 as the next target."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "Remove `progress delta apply` command wiring and `src/progress_engine/deltas/delta_apply.py`."
+      - "Remove `tests/test_cli_delta_apply.py` and the SDP-1002 / EV-1002 fixtures."
+      - "Restore README command lists to omit `progress delta apply`."
+      - "Reopen SG-0029 and set Project State aim_of_next_state back to TS-0039."

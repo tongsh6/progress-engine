@@ -1,0 +1,39 @@
+id: TS-0039
+name: "delta apply CLI working"
+primary_dimension: implementation
+source_gap: SG-0029
+status: accepted
+human_gate_required: true
+desired_state: "`progress delta apply SDP-ID --approved-by NAME` 可以执行最小 human-gated State Delta apply 写路径。"
+from:
+  maturity: drafted
+  summary: "`progress delta apply` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress delta apply` 可运行、可测试，并只在 human gate 后按 allow-list 更新 Project State、state history 和 proposal apply metadata。"
+required_evidence:
+  - "CLI 支持 `progress delta apply SDP-ID --approved-by NAME`。"
+  - "命令拒绝未批准 gate、缺 evidence、acceptance 未全 pass、patch 越界和重复 apply。"
+  - "成功路径断言 Project State、state history 和 proposal apply metadata 被正确写入。"
+  - "python3 -m pytest tests/test_cli_delta_apply.py 通过。"
+  - "python3 -m pytest 和 python3 scripts/check_repo.py 仍通过。"
+acceptance_criteria:
+  - id: AC-TS-0039-01
+    criterion: "`progress delta apply SDP-ID --approved-by NAME` 能解析 canonical State Delta Proposal。"
+  - id: AC-TS-0039-02
+    criterion: "命令拒绝未 human gate approved、缺 evidence refs、acceptance 有 fail / not_tested 或 patch 超出 allow-list 的 proposal。"
+  - id: AC-TS-0039-03
+    criterion: "成功 apply 时只按 `project_state_update` allow-list 修改 Project State，并追加 state history。"
+  - id: AC-TS-0039-04
+    criterion: "成功 apply 时将 proposal 标记为 `applied`，写入 applied_by、applied_at、previous_state_version、next_state_version 和 project_state_file。"
+  - id: AC-TS-0039-05
+    criterion: "pytest 覆盖成功路径、未批准 gate、缺 evidence、acceptance 未全 pass、patch 越界和重复 apply。"
+  - id: AC-TS-0039-06
+    criterion: "`python3 scripts/check_repo.py` 和全量 pytest 仍通过。"
+non_goals:
+  - "不实现 reject、rollback 或 state refresh。"
+  - "不生成 Verification 或 State Delta Proposal。"
+  - "不自动创建 Gap / Target / Intervention。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0029

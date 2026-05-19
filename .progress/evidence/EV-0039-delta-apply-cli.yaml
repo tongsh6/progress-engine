@@ -1,0 +1,66 @@
+evidence:
+  id: EV-0039
+  run_id: RUN-20260520-IV-0039
+  intervention_id: IV-0039
+  target_state_id: TS-0039
+  evidence_type: code_diff
+  created_at: "2026-05-20T01:05:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress delta apply` 已定义但尚未实现。"
+      after: "`progress delta apply SDP-ID --approved-by NAME` 已实现为 human-gated allow-list State Delta apply 写路径。"
+      acceptance_mapping:
+        - criterion: "`progress delta apply SDP-ID --approved-by NAME` 能解析 canonical State Delta Proposal。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_apply.py::test_delta_apply_updates_project_state_history_and_delta_metadata"
+        - criterion: "命令拒绝未 human gate approved、缺 evidence refs、acceptance 有 fail / not_tested 或 patch 超出 allow-list 的 proposal。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_apply.py"
+        - criterion: "成功 apply 时只按 `project_state_update` allow-list 修改 Project State，并追加 state history。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_apply.py::test_delta_apply_updates_project_state_history_and_delta_metadata"
+        - criterion: "成功 apply 时将 proposal 标记为 `applied`，写入 applied_by、applied_at、previous_state_version、next_state_version 和 project_state_file。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_apply.py::test_delta_apply_updates_project_state_history_and_delta_metadata"
+        - criterion: "pytest 覆盖成功路径、未批准 gate、缺 evidence、acceptance 未全 pass、patch 越界和重复 apply。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_apply.py"
+        - criterion: "`python3 scripts/check_repo.py` 和全量 pytest 仍通过。"
+          status: pass
+          evidence_ref: ".progress/evidence/EV-0039-delta-apply-cli.yaml"
+  scope_check:
+    result: pass
+    notes:
+      - "实现只新增 `progress delta apply`，没有实现 reject、rollback、state refresh 或 verification generation。"
+      - "Project State 更新通过 `project_state_update` allow-list 限制，不执行通用 YAML merge。"
+      - "校验失败路径在写入前返回，测试断言 Project State 和 state history 未被部分修改。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_cli_delta_apply.py"
+      result: pass
+      output_summary: "7 passed in 0.08s"
+    - command: "python3 -m pytest tests/test_cli_delta_apply.py tests/test_cli_delta_list.py tests/test_cli_state_history.py tests/test_cli_state_show.py"
+      result: pass
+      output_summary: "23 passed in 0.12s"
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "95 passed in 0.43s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 252 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 222 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+  files_changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/deltas/delta_apply.py"
+    - "src/progress_engine/state/project_state.py"
+    - "src/progress_engine/state/state_history.py"
+    - "tests/test_cli_delta_apply.py"
+    - "tests/test_cli_delta_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1002-apply-ready-delta.yaml"
+    - "tests/fixtures/minimal_progress_project/.progress/evidence/EV-1002-apply-ready.yaml"
+    - "README.md"
+    - "src/progress_engine/README.md"
+  reviewer:
+    type: verifier
+    result: pass
+  remaining_gaps:
+    - SG-0030
+  supports_state_delta_proposal: SDP-0039

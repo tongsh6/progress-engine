@@ -1,0 +1,27 @@
+id: IV-0039
+name: "Implement delta apply CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0039
+status: completed
+goal: "只实现 `progress delta apply SDP-ID --approved-by NAME` 这一条 human-gated State Delta apply 写路径。"
+in_scope:
+  - "扩展 argparse 命令 `progress delta apply SDP-ID --approved-by NAME`。"
+  - "按 canonical `{SDP-ID}-*.yaml` 解析 State Delta Proposal。"
+  - "校验 human gate、evidence refs、acceptance summary 和 allow-list project_state_update。"
+  - "按 allow-list 更新 Project State。"
+  - "追加 `.progress/state/state_history.jsonl`。"
+  - "将 proposal 标记为 applied 并写入 apply metadata。"
+  - "为成功路径、未批准 gate、缺 evidence、acceptance 未全 pass、patch 越界和重复 apply 添加 pytest。"
+out_of_scope:
+  - "不实现 progress delta reject。"
+  - "不实现 progress delta rollback。"
+  - "不实现 progress state refresh。"
+  - "不生成 Verification、Evidence 或 State Delta Proposal。"
+  - "不自动创建 Gap / Target / Intervention。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+evidence_required:
+  - "python3 -m pytest tests/test_cli_delta_apply.py 通过。"
+  - "python3 -m pytest 通过。"
+  - "python3 scripts/check_repo.py 通过。"
+  - "fixture 项目中的 `progress delta apply` 示例输出。"
+automation_policy: human_gate_required

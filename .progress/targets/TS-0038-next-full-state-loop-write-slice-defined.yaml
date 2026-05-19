@@ -2,8 +2,8 @@ id: TS-0038
 name: "next full state-loop write slice defined"
 primary_dimension: implementation
 source_gap: SG-0028
-status: proposed
-human_gate_required: true
+status: accepted
+human_gate_required: false
 desired_state: "下一条实现切片明确选择 v0.1 State Delta 写闭环中的最小可验证推进动作。"
 from:
   maturity: drafted

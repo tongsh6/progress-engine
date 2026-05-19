@@ -1,0 +1,21 @@
+id: SG-0030
+dimension: implementation
+severity: medium
+status: open
+source_intervention: IV-0039
+current_state: "`progress delta apply` 已能在 human gate 后写入 Project State 和 state history，但 rollback / reject / state refresh 尚未定义下一条切片。"
+desired_state: "下一条 rollback-focused State Delta CLI slice 被明确限定为小范围、可测试、可回滚准备，且不扩大为完整 delta management。"
+evidence_refs:
+  - ".progress/deltas/SDP-0039-delta-apply-cli.yaml"
+  - "src/progress_engine/deltas/delta_apply.py"
+  - "tests/test_cli_delta_apply.py"
+impact:
+  - "质量体系把 State Delta apply/rollback 验证列为发布阻断条件。"
+  - "如果直接实现 state refresh 或 reject/rollback 全套管理，会扩大 v0.1 范围。"
+suggested_targets:
+  - "TS-0040-next-delta-rollback-slice-defined"
+suggested_interventions:
+  - "IV-0040: Define delta rollback CLI slice"
+notes:
+  - "下一轮应先定义 rollback 切片边界，再进入代码实现。"
+  - "reject 和 state refresh 仍应保持 out_of_scope，除非切片定义明确调整优先级。"

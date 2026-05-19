@@ -1,0 +1,33 @@
+id: TS-0040
+name: "next delta rollback slice defined"
+primary_dimension: implementation
+source_gap: SG-0030
+status: proposed
+human_gate_required: true
+desired_state: "下一条 State Delta rollback CLI slice 被定义为小范围、可测试、符合 v0.1 边界的实现目标。"
+from:
+  maturity: drafted
+  summary: "`progress delta apply` 已实现；rollback / reject / state refresh 尚未定义。"
+to:
+  maturity: drafted
+  summary: "下一条 rollback-focused State Delta slice 有明确命令边界、输入输出、验收标准和 out_of_scope。"
+required_evidence:
+  - "新增 delivery slice 文档，说明 rollback 命令或流程。"
+  - "明确 rollback 如何使用 previous_state_version、state history 和 proposal metadata。"
+  - "明确不实现 reject、state refresh 或通用 patch engine，除非被显式纳入边界。"
+  - "仓库检查通过。"
+acceptance_criteria:
+  - id: AC-TS-0040-01
+    criterion: "切片文档明确下一条 State Delta rollback 推进动作。"
+  - id: AC-TS-0040-02
+    criterion: "切片边界说明 input、output、in_scope、out_of_scope 和 evidence_required。"
+  - id: AC-TS-0040-03
+    criterion: "切片说明 rollback 如何避免状态账本污染并保留 state history 可追溯性。"
+  - id: AC-TS-0040-04
+    criterion: "切片包含 focused pytest 与仓库检查验收要求。"
+non_goals:
+  - "不在定义切片时实现代码。"
+  - "不实现完整 delta management。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0030

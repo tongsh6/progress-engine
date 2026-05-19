@@ -2,6 +2,101 @@
 
 本台账记录项目状态如何被推进。它不是任务列表，也不是完成清单；每条记录都必须说明目标状态、证据、State Delta 和 remaining gaps。
 
+## 2026-05-20
+
+### IV-0039: Implement delta apply CLI slice
+
+- Target State：`TS-0039: delta apply CLI working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - `SG-0029` 是当前 Project State 唯一 open gap，且直接阻断 State Delta Proposal 从只读列表进入受控状态历史写入。
+  - `docs/05-delivery/39-state-delta-apply-cli-slice.md` 已把实现边界限定为 `progress delta apply SDP-ID --approved-by NAME`。
+  - 本轮实现只处理 human-gated apply：校验 gate、evidence refs、acceptance summary 和 allow-list `project_state_update`，不实现 reject、rollback、state refresh 或 verification generation。
+  - 失败路径在写入前返回，并用测试断言 Project State 和 state history 不发生部分修改。
+- Evidence：`.progress/evidence/EV-0039-delta-apply-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0039-delta-apply-cli.yaml`
+- 状态历史：`PS-0038`
+- 主要产物：
+  - `src/progress_engine/deltas/delta_apply.py`
+  - `src/progress_engine/cli.py`
+  - `src/progress_engine/state/project_state.py`
+  - `src/progress_engine/state/state_history.py`
+  - `tests/test_cli_delta_apply.py`
+  - `tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1002-apply-ready-delta.yaml`
+  - `tests/fixtures/minimal_progress_project/.progress/evidence/EV-1002-apply-ready.yaml`
+- 自审处理：
+  - `progress delta apply` 不把 `--approved-by` 当自动审批；proposal 必须已经有 `gate.decision: approved` 且 `requires_human_approval: true`。
+  - Project State 更新只允许 `state_dimensions`、`open_state_gaps` 和 `aim_of_next_state` 的 allow-list 字段。
+  - `SG-0030` 已创建：rollback / reject / state refresh 尚未定义下一条切片，其中 rollback 是质量体系发布阻断风险。
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_delta_apply.py
+7 passed
+
+python3 -m pytest tests/test_cli_delta_apply.py tests/test_cli_delta_list.py tests/test_cli_state_history.py tests/test_cli_state_show.py
+23 passed
+
+python3 -m pytest
+95 passed
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 252 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 222 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0030` 已创建：下一条 rollback-focused State Delta CLI slice 尚未定义。
+  - 下一轮应处理 `TS-0040: next delta rollback slice defined` / `IV-0040: Define delta rollback CLI slice`。
+
+### IV-0038: Define next full state-loop write slice
+
+- Target State：`TS-0038: next full state-loop write slice defined`
+- 主维度：implementation
+- 结果：已按 `verifier_required` policy apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - 当前 Project State 唯一 open gap 是 `SG-0028`，且它直接要求先定义下一条完整 State Delta 写闭环切片。
+  - v0.1 试点只覆盖 bootstrap 和只读状态观察；继续推进必须进入 gate 后的状态写入，否则 v0.1 仍停留在 proposal/list 层。
+  - 直接实现完整 `apply/reject/rollback/refresh` 会扩大 MVP 范围；本轮选择先定义最小 `progress delta apply` 写路径。
+  - 该切片强制 human gate、allow-list Project State patch、state history 和 rollback 准备，不引入模型 API、Web UI、外部 agent 或通用 patch engine。
+- Evidence：`.progress/evidence/EV-0038-next-full-state-loop-write-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0038-next-full-state-loop-write-slice.yaml`
+- 状态历史：`PS-0037`
+- 主要产物：
+  - `docs/05-delivery/39-state-delta-apply-cli-slice.md`
+  - `.progress/gaps/SG-0029-delta-apply-implementation-gap.yaml`
+  - `.progress/targets/TS-0039-delta-apply-cli-working.yaml`
+  - `.progress/interventions/IV-0039-implement-delta-apply-cli-slice.yaml`
+- 自审处理：
+  - 本轮不改运行时代码，避免在未定义 patch/gate 边界前写入 Project State。
+  - `progress delta apply` 被限定为 human-gated allow-list 写操作；reject、rollback、state refresh 和 verification generation 均保持 out of scope。
+  - implementation maturity 保持 `drafted`，因为本轮只完成实现切片定义。
+- 检查结果：
+
+```text
+python3 -m pytest
+88 passed
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 244 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 216 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0029` 已创建：`progress delta apply` 已定义但尚未实现。
+  - 下一轮应处理 `TS-0039: delta apply CLI working` / `IV-0039: Implement delta apply CLI slice`。
+
 ## 2026-05-19
 
 ### IV-0037: Run v0.1 pilot validation scenario

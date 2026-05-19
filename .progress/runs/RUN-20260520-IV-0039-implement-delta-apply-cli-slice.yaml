@@ -1,0 +1,36 @@
+id: RUN-20260520-IV-0039
+intervention_id: IV-0039
+target_state_id: TS-0039
+started_at: "2026-05-20T01:05:00+08:00"
+completed_at: "2026-05-20T01:05:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - "docs/05-delivery/39-state-delta-apply-cli-slice.md"
+      - ".progress/deltas/SDP-0038-next-full-state-loop-write-slice.yaml"
+    summary: "`progress delta apply` 已定义但尚未实现。"
+  why_iv_0039_is_next:
+    - "Project State 当前 open gap 是 SG-0029。"
+    - "TS-0039 要求实现 human-gated `progress delta apply`。"
+    - "该命令是 v0.1 从 proposal/list 进入状态历史写闭环的最小必要路径。"
+  out_of_scope_confirmed:
+    - "不实现 reject、rollback、state refresh 或 verification generation。"
+    - "不自动创建 Gap、Target、Intervention、Evidence 或 State Delta Proposal。"
+    - "不调用模型 API、Web UI 或外部 agent。"
+outputs:
+  changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/deltas/delta_apply.py"
+    - "src/progress_engine/state/project_state.py"
+    - "src/progress_engine/state/state_history.py"
+    - "tests/test_cli_delta_apply.py"
+    - "tests/test_cli_delta_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1002-apply-ready-delta.yaml"
+    - "tests/fixtures/minimal_progress_project/.progress/evidence/EV-1002-apply-ready.yaml"
+    - "README.md"
+    - "src/progress_engine/README.md"
+completion_claim: "Executor claims `progress delta apply` is implemented as a human-gated allow-list State Delta apply path."

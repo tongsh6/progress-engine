@@ -1,0 +1,67 @@
+state_delta_proposal:
+  id: SDP-0038
+  source_intervention: IV-0038
+  run_id: RUN-20260520-IV-0038
+  target_state_id: TS-0038
+  verification_id: EV-0038
+  status: applied
+  proposed_at: "2026-05-20T00:20:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "CLI 已覆盖 bootstrap 和只读状态观察，State Delta 写闭环尚未定义下一条实现切片。"
+      current_problem:
+        - "SG-0028 仍为 open，后续实现如果直接进入完整 apply/rollback 会扩大 v0.1 范围。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "下一条 State Delta 写闭环实现切片已定义为 gate 后的 `progress delta apply`。"
+      advancement_reason:
+        - "切片规格明确命令边界、输入输出、状态影响和允许触碰的实现文件。"
+        - "human gate、allow-list Project State patch、state history 和 proposal apply metadata 已成为实现前置约束。"
+        - "reject、rollback、state refresh、verification generation、模型 API 和 Web UI 均被排除在本切片之外。"
+      caveat: "本轮未实现代码；implementation maturity 保持 drafted。"
+  evidence_refs:
+    - "docs/05-delivery/39-state-delta-apply-cli-slice.md"
+    - ".progress/targets/TS-0038-next-full-state-loop-write-slice-defined.yaml"
+    - ".progress/interventions/IV-0038-define-next-full-state-loop-write-slice.yaml"
+    - ".progress/evidence/EV-0038-next-full-state-loop-write-slice.yaml"
+    - ".progress/gaps/SG-0029-delta-apply-implementation-gap.yaml"
+    - ".progress/targets/TS-0039-delta-apply-cli-working.yaml"
+  acceptance_summary:
+    pass: 4
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0029
+      summary: "`progress delta apply` 已定义，但尚未实现。"
+      next_state_path: "Implement only the bounded human-gated delta apply path before reject, rollback or state refresh."
+  recommended_next_interventions:
+    - id: IV-0039
+      name: "Implement delta apply CLI slice"
+      condition: "Run only after SDP-0038 is accepted by verifier gate."
+      primary_dimension: implementation
+  requires_human_approval: false
+  do_not_apply_automatically: false
+  gate:
+    required: false
+    approved_by: verifier
+    approved_at: "2026-05-20T00:20:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: true
+    applied_by: verifier
+    applied_at: "2026-05-20T00:20:00+08:00"
+    previous_state_version: PS-0036
+    next_state_version: PS-0037
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted, mark TS-0038 accepted, resolve SG-0028, add SG-0029 / TS-0039 / IV-0039 / EV-0038 / SDP-0038 refs, and set TS-0039 as the next target."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, mark IV-0038 back to proposed and replace docs/05-delivery/39-state-delta-apply-cli-slice.md with the accepted alternate write-slice boundary."
+      - "Restore Project State open_state_gaps to SG-0028 and aim_of_next_state to TS-0038."
+      - "Do not modify runtime CLI code because this slice did not implement code."

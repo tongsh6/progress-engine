@@ -1,0 +1,33 @@
+id: RUN-20260520-IV-0038
+intervention_id: IV-0038
+target_state_id: TS-0038
+started_at: "2026-05-20T00:20:00+08:00"
+completed_at: "2026-05-20T00:20:00+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    evidence_refs:
+      - ".progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml"
+      - ".progress/deltas/SDP-0037-v0.1-pilot-validation-run.yaml"
+    summary: "CLI 已覆盖 bootstrap 和只读状态观察，State Delta 写闭环尚未定义下一条实现切片。"
+  why_iv_0038_is_next:
+    - "Project State 当前唯一 open gap 是 SG-0028。"
+    - "TS-0038 要求先定义下一条 State Delta 写闭环切片，而不是直接实现完整 apply/rollback。"
+    - "v0.1 质量体系要求状态写入必须经过 Evidence、Verification、Proposal 和 Human Gate。"
+  out_of_scope_confirmed:
+    - "本轮不实现运行时代码。"
+    - "不实现 reject、rollback、state refresh、verification generation、模型 API 或 Web UI。"
+outputs:
+  created:
+    - "docs/05-delivery/39-state-delta-apply-cli-slice.md"
+    - ".progress/interventions/IV-0038-define-next-full-state-loop-write-slice.yaml"
+    - ".progress/runs/RUN-20260520-IV-0038-define-next-full-state-loop-write-slice.yaml"
+    - ".progress/evidence/EV-0038-next-full-state-loop-write-slice.yaml"
+    - ".progress/deltas/SDP-0038-next-full-state-loop-write-slice.yaml"
+    - ".progress/gaps/SG-0029-delta-apply-implementation-gap.yaml"
+    - ".progress/targets/TS-0039-delta-apply-cli-working.yaml"
+    - ".progress/interventions/IV-0039-implement-delta-apply-cli-slice.yaml"
+completion_claim: "Executor claims the next full state-loop write slice is defined and ready for verifier review."

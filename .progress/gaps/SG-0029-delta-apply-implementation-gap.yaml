@@ -1,0 +1,24 @@
+id: SG-0029
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0038
+current_state: "`progress delta apply SDP-ID --approved-by NAME` 已被定义为下一条 State Delta 写闭环切片，但尚未实现。"
+desired_state: "`progress delta apply` 可以在 human gate 后按 allow-list patch 更新 Project State、追加 state history 并标记 proposal applied。"
+evidence_refs:
+  - "docs/05-delivery/39-state-delta-apply-cli-slice.md"
+  - ".progress/deltas/SDP-0038-next-full-state-loop-write-slice.yaml"
+impact:
+  - "阻断 v0.1 从只读 State Delta Proposal 观察进入完整状态推进写闭环。"
+  - "如果直接跳到 rollback、state refresh 或 verifier generation，会扩大 MVP 范围并削弱 human gate。"
+suggested_targets:
+  - "TS-0039-delta-apply-cli-working"
+suggested_interventions:
+  - "IV-0039: Implement delta apply CLI slice"
+notes:
+  - "实现必须保持 human-gated，不允许命令自动审批 proposal。"
+  - "实现必须使用 allow-list Project State patch，不能引入通用任意 YAML merge。"
+resolution:
+  resolved_by: SDP-0039
+  resolved_at: "2026-05-20T01:05:00+08:00"
+  summary: "`progress delta apply` 已实现、测试，并确认只执行 human-gated allow-list 写入。"

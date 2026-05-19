@@ -53,6 +53,9 @@
 - [Init CLI Slice](docs/05-delivery/34-init-cli-slice.md)
 - [Intent Intake CLI Slice](docs/05-delivery/35-intent-intake-cli-slice.md)
 - [Assess CLI Slice](docs/05-delivery/36-assess-cli-slice.md)
+- [v0.1 Pilot Validation Scenario](docs/05-delivery/37-v0.1-pilot-validation-scenario.md)
+- [v0.1 Pilot Validation Run](docs/05-delivery/38-v0.1-pilot-validation-run.md)
+- [State Delta Apply CLI Slice](docs/05-delivery/39-state-delta-apply-cli-slice.md)
 
 ### Business & Reference
 

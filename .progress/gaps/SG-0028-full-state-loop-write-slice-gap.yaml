@@ -1,7 +1,7 @@
 id: SG-0028
 dimension: implementation
 severity: medium
-status: open
+status: resolved
 source_intervention: IV-0037
 current_state: "v0.1 试点已覆盖 `init -> intake -> state show -> assess` bootstrap 观察路径，但尚未定义下一条完整 State Delta 写闭环切片。"
 desired_state: "下一条实现切片被定义为一个小范围、可验证、符合 human gate 策略的 State Delta 写闭环推进动作。"
@@ -18,3 +18,7 @@ suggested_interventions:
 notes:
   - "本 gap 不要求一次性实现完整 delta apply/rollback。"
   - "下一轮应先定义写闭环切片边界，再执行实现。"
+resolution:
+  resolved_by: SDP-0038
+  resolved_at: "2026-05-20T00:20:00+08:00"
+  summary: "下一条完整 State Delta 写闭环切片已定义为 human-gated `progress delta apply`。"
