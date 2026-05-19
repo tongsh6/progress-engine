@@ -1,0 +1,30 @@
+id: RUN-20260520-IV-0040
+intervention_id: IV-0040
+target_state_id: TS-0040
+started_at: "2026-05-20T01:30:00+08:00"
+completed_at: "2026-05-20T01:30:00+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    summary: "`progress delta apply` 已实现；rollback / reject / state refresh 尚未定义。"
+    open_gap: SG-0030
+  why_iv_0040_is_next:
+    - "Project State 当前唯一 open gap 是 SG-0030。"
+    - "TS-0040 要求先定义 rollback-focused State Delta CLI slice，而不是直接实现完整 delta management。"
+    - "v0.1 质量体系要求 State Delta apply 之后具备可回滚准备。"
+  out_of_scope_confirmed:
+    - "本轮不实现运行时代码。"
+    - "不实现 reject、state refresh、verification generation、模型 API 或 Web UI。"
+outputs:
+  created:
+    - "docs/05-delivery/40-state-delta-rollback-cli-slice.md"
+    - ".progress/runs/RUN-20260520-IV-0040-define-delta-rollback-cli-slice.yaml"
+    - ".progress/evidence/EV-0040-delta-rollback-cli-slice.yaml"
+    - ".progress/deltas/SDP-0040-delta-rollback-cli-slice.yaml"
+    - ".progress/gaps/SG-0031-delta-rollback-implementation-gap.yaml"
+    - ".progress/targets/TS-0041-delta-rollback-cli-working.yaml"
+    - ".progress/interventions/IV-0041-implement-delta-rollback-cli-slice.yaml"
+completion_claim: "Executor claims the next rollback-focused State Delta CLI slice is defined and ready for verifier review."

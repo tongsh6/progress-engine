@@ -14,6 +14,11 @@ from progress_engine.deltas.delta_apply import (
     render_delta_apply_success,
 )
 from progress_engine.deltas.delta_list import DeltaListError, load_deltas, render_delta_list
+from progress_engine.deltas.delta_rollback import (
+    DeltaRollbackError,
+    render_delta_rollback_success,
+    rollback_delta,
+)
 from progress_engine.events.event_list import EventListError, load_events, render_event_list
 from progress_engine.gaps.gap_list import GapListError, load_open_gaps, render_gap_list
 from progress_engine.evidence.evidence_list import (
@@ -112,6 +117,16 @@ def build_parser() -> argparse.ArgumentParser:
         "--approved-by",
         required=True,
         help="Human approver recorded for this apply operation.",
+    )
+    delta_rollback_parser = delta_subcommands.add_parser(
+        "rollback",
+        help="Rollback a human-approved applied state delta proposal.",
+    )
+    delta_rollback_parser.add_argument("delta_id", help="State Delta Proposal id to rollback.")
+    delta_rollback_parser.add_argument(
+        "--approved-by",
+        required=True,
+        help="Human approver recorded for this rollback operation.",
     )
 
     event_parser = subcommands.add_parser("event", help="Read change events.")
@@ -263,6 +278,16 @@ def main(
             print(f"error: {exc}", file=err)
             return 2
         print(render_delta_apply_success(result), file=out)
+        return 0
+
+    if args.command == "delta" and args.delta_command == "rollback":
+        root = cwd or Path.cwd()
+        try:
+            result = rollback_delta(root, args.delta_id, args.approved_by)
+        except (DeltaRollbackError, ProjectStateError, StateHistoryError) as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_delta_rollback_success(result), file=out)
         return 0
 
     if args.command == "event" and args.event_command == "list":

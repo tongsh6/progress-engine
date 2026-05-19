@@ -1,0 +1,21 @@
+id: SG-0032
+dimension: implementation
+severity: medium
+status: open
+source_intervention: IV-0041
+current_state: "`progress delta apply` 和 `progress delta rollback` 已能在 human gate 后推进或回退 Project State，但 state refresh 尚未定义下一条切片。"
+desired_state: "下一条 state refresh-focused CLI slice 被明确限定为小范围、可测试、符合 v0.1 边界，且不扩大为完整 delta management。"
+evidence_refs:
+  - ".progress/deltas/SDP-0041-delta-rollback-cli.yaml"
+  - "src/progress_engine/deltas/delta_rollback.py"
+  - "tests/test_cli_delta_rollback.py"
+impact:
+  - "State Delta apply / rollback 后仍缺少重新读取账本并形成后续状态观察的受控边界。"
+  - "如果直接实现 reject、refresh、自动 gap generation 或完整 delta management，会扩大 v0.1 范围。"
+suggested_targets:
+  - "TS-0042-next-state-refresh-slice-defined"
+suggested_interventions:
+  - "IV-0042: Define state refresh CLI slice"
+notes:
+  - "下一轮应先定义 state refresh 切片边界，再进入代码实现。"
+  - "reject 仍应保持 out_of_scope，除非切片定义明确调整优先级。"

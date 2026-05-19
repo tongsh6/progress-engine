@@ -1,0 +1,23 @@
+id: IV-0041
+name: "Implement delta rollback CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0041
+status: completed
+goal: "实现下一条 State Delta rollback CLI 切片，补齐 apply 后的最小可回滚路径。"
+in_scope:
+  - "实现 `progress delta rollback SDP-ID --approved-by NAME` CLI 用户路径。"
+  - "校验 proposal status、rollback gate、apply metadata、state history 和 reversibility。"
+  - "按 allow-list restore 更新 Project State。"
+  - "追加 state history，并写入 proposal rollback metadata。"
+  - "为成功路径和主要失败路径添加 focused pytest。"
+out_of_scope:
+  - "不实现 `progress delta reject`。"
+  - "不实现 `progress state refresh`。"
+  - "不实现 verification generation、target suggestion、模型 API、Web UI 或外部 agent。"
+  - "不引入通用 YAML merge / patch engine。"
+evidence_required:
+  - "python3 -m pytest tests/test_cli_delta_rollback.py 通过。"
+  - "python3 -m pytest 通过。"
+  - "python3 scripts/check_repo.py 通过。"
+  - "成功路径输出、Project State、state history 和 proposal rollback metadata 断言。"
+automation_policy: human_gate_required

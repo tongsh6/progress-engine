@@ -1,0 +1,18 @@
+evidence:
+  id: EV-1003
+  run_id: RUN-20260517-IV-1001
+  intervention_id: IV-1001
+  target_state_id: TS-1001
+  evidence_type: artifact_review
+  created_at: "2026-05-17T22:50:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "Implementation is drafted."
+      after: "Implementation can be restored to seed."
+      acceptance_mapping:
+        - criterion: "sample rollback criterion"
+          status: pass
+          evidence_ref: ".progress/evidence/EV-1003-rollback-ready.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate

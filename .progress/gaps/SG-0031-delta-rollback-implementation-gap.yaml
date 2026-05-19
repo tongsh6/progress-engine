@@ -1,0 +1,25 @@
+id: SG-0031
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0040
+current_state: "`progress delta rollback SDP-ID --approved-by NAME` 已被定义为下一条 State Delta rollback 切片，但尚未实现。"
+desired_state: "`progress delta rollback` 可以在 human gate 后按 allow-list restore 回退已 applied State Delta，并追加可追溯 state history。"
+evidence_refs:
+  - "docs/05-delivery/40-state-delta-rollback-cli-slice.md"
+  - ".progress/deltas/SDP-0040-delta-rollback-cli-slice.yaml"
+impact:
+  - "阻断 v0.1 从可写 State Delta apply 进入可回滚状态推进闭环。"
+  - "如果直接跳到 reject、state refresh 或完整 delta management，会扩大 MVP 范围。"
+suggested_targets:
+  - "TS-0041-delta-rollback-cli-working"
+suggested_interventions:
+  - "IV-0041: Implement delta rollback CLI slice"
+notes:
+  - "实现必须保持 human-gated，不允许命令自动审批 rollback。"
+  - "实现必须追加 state history，不能删除或重写既有 history。"
+  - "实现必须使用 allow-list Project State restore，不能引入通用任意 YAML merge。"
+resolution:
+  resolved_by: SDP-0041
+  resolved_at: "2026-05-20T01:45:00+08:00"
+  summary: "`progress delta rollback` 已实现、测试，并确认只执行 human-gated allow-list rollback。"

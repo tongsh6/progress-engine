@@ -1,0 +1,33 @@
+id: TS-0042
+name: "next state refresh slice defined"
+primary_dimension: implementation
+source_gap: SG-0032
+status: proposed
+human_gate_required: true
+desired_state: "下一条 State refresh CLI slice 被定义为小范围、可测试、符合 v0.1 边界的实现目标。"
+from:
+  maturity: drafted
+  summary: "`progress delta apply` 和 `progress delta rollback` 已实现；state refresh / reject 尚未定义。"
+to:
+  maturity: drafted
+  summary: "下一条 state refresh-focused slice 有明确命令边界、输入输出、验收标准和 out_of_scope。"
+required_evidence:
+  - "新增 delivery slice 文档，说明 state refresh 命令或流程。"
+  - "明确 refresh 如何读取 Project State、state history 和当前 open gaps / targets。"
+  - "明确不实现 reject、自动 generation 或完整 delta management，除非被显式纳入边界。"
+  - "仓库检查通过。"
+acceptance_criteria:
+  - id: AC-TS-0042-01
+    criterion: "切片文档明确下一条 State refresh 推进动作。"
+  - id: AC-TS-0042-02
+    criterion: "切片边界说明 input、output、in_scope、out_of_scope 和 evidence_required。"
+  - id: AC-TS-0042-03
+    criterion: "切片说明 refresh 如何保持 read/derive 与 write gate 的边界。"
+  - id: AC-TS-0042-04
+    criterion: "切片包含 focused pytest 与仓库检查验收要求。"
+non_goals:
+  - "不在定义切片时实现代码。"
+  - "不实现完整 delta management。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0032

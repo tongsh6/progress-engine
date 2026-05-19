@@ -1,0 +1,67 @@
+evidence:
+  id: EV-0041
+  run_id: RUN-20260520-IV-0041
+  intervention_id: IV-0041
+  target_state_id: TS-0041
+  evidence_type: artifact_review
+  created_at: "2026-05-20T01:45:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress delta rollback` 已定义但尚未实现。"
+      after: "`progress delta rollback SDP-ID --approved-by NAME` 已作为 human-gated allow-list rollback 写路径实现并测试通过。"
+      acceptance_mapping:
+        - criterion: "`progress delta rollback SDP-ID --approved-by NAME` 能解析 canonical applied State Delta Proposal。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_rollback.py"
+        - criterion: "命令拒绝未 applied、不可逆、缺 apply metadata、缺 rollback gate 或 approver 不匹配的 proposal。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_rollback.py"
+        - criterion: "成功 rollback 时只按 allow-list 恢复 Project State，并追加新的 state history 记录。"
+          status: pass
+          evidence_ref: "src/progress_engine/deltas/delta_rollback.py"
+        - criterion: "成功 rollback 时将 proposal 标记为 rolled_back，写入 rollback metadata，并保留原 apply metadata。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_rollback.py"
+        - criterion: "pytest 覆盖成功路径、未 applied、不可逆、gate 未批准、history 不一致、patch 越界和重复 rollback。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_rollback.py"
+        - criterion: "仓库检查和全量 pytest 通过。"
+          status: pass
+          evidence_ref: ".progress/evidence/EV-0041-delta-rollback-cli.yaml"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只实现 `progress delta rollback`，没有实现 reject、state refresh、verification generation、模型 API 或 Web UI。"
+      - "rollback 只处理最新的 applied reversible State Delta Proposal，避免回退非最新状态导致 Project State 污染。"
+      - "Project State restore 使用 `rollback.project_state_restore` allow-list，不引入通用 YAML merge。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_cli_delta_rollback.py"
+      result: pass
+      output_summary: "9 passed in 0.15s"
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "104 passed in 0.51s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 266 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 234 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+  example_output:
+    command: "progress delta rollback SDP-1003 --approved-by human_user"
+    output_summary: "State delta rolled back: delta SDP-1003; rolled back state PS-1002; restored state PS-1001; new state PS-1003."
+  files_changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/deltas/delta_rollback.py"
+    - "tests/test_cli_delta_rollback.py"
+    - "tests/test_cli_delta_list.py"
+    - "tests/test_cli_evidence_list.py"
+    - "tests/test_cli_verify_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1003-rollback-ready-delta.yaml"
+    - "tests/fixtures/minimal_progress_project/.progress/evidence/EV-1003-rollback-ready.yaml"
+    - "README.md"
+    - "src/progress_engine/README.md"
+    - "docs/05-delivery/40-state-delta-rollback-cli-slice.md"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0032
+  supports_state_delta_proposal: SDP-0041

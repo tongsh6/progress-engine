@@ -1,0 +1,38 @@
+id: TS-0041
+name: "delta rollback CLI working"
+primary_dimension: implementation
+source_gap: SG-0031
+status: accepted
+human_gate_required: true
+desired_state: "`progress delta rollback` 作为 human-gated allow-list State Delta rollback 路径可运行、可测试、可追溯。"
+from:
+  maturity: drafted
+  summary: "`progress delta rollback` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress delta rollback` 可以回退已 applied 且 reversible 的 State Delta，并保留完整 state history。"
+required_evidence:
+  - "CLI 支持 `progress delta rollback SDP-ID --approved-by NAME`。"
+  - "命令校验 proposal status、rollback gate、apply metadata、state history 和 allow-list restore。"
+  - "成功路径更新 Project State、追加 state history，并标记 proposal rolled_back。"
+  - "失败路径在写入前返回，不产生部分状态更新。"
+  - "focused pytest、全量 pytest 和仓库检查通过。"
+acceptance_criteria:
+  - id: AC-TS-0041-01
+    criterion: "`progress delta rollback SDP-ID --approved-by NAME` 能解析 canonical applied State Delta Proposal。"
+  - id: AC-TS-0041-02
+    criterion: "命令拒绝未 applied、不可逆、缺 apply metadata、缺 rollback gate 或 approver 不匹配的 proposal。"
+  - id: AC-TS-0041-03
+    criterion: "成功 rollback 时只按 allow-list 恢复 Project State，并追加新的 state history 记录。"
+  - id: AC-TS-0041-04
+    criterion: "成功 rollback 时将 proposal 标记为 rolled_back，写入 rollback metadata，并保留原 apply metadata。"
+  - id: AC-TS-0041-05
+    criterion: "pytest 覆盖成功路径、未 applied、不可逆、gate 未批准、history 不一致、patch 越界和重复 rollback。"
+  - id: AC-TS-0041-06
+    criterion: "仓库检查和全量 pytest 通过。"
+non_goals:
+  - "不实现 `progress delta reject`。"
+  - "不实现 `progress state refresh`。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0031

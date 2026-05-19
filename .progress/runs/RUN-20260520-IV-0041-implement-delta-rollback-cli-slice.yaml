@@ -1,0 +1,41 @@
+id: RUN-20260520-IV-0041
+intervention_id: IV-0041
+target_state_id: TS-0041
+started_at: "2026-05-20T01:45:00+08:00"
+completed_at: "2026-05-20T01:45:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    summary: "`progress delta rollback` 已定义但尚未实现。"
+    open_gap: SG-0031
+  why_iv_0041_is_next:
+    - "Project State 当前 open gap 是 SG-0031。"
+    - "TS-0041 要求把 rollback-focused State Delta CLI slice 变成可运行、可测试、可追溯的实现。"
+    - "State Delta apply 已能写入 Project State；rollback 是 apply 后的最小可逆性补齐。"
+  out_of_scope_confirmed:
+    - "本轮不实现 `progress delta reject`。"
+    - "本轮不实现 `progress state refresh`。"
+    - "不实现 verification generation、target suggestion、模型 API 或 Web UI。"
+outputs:
+  created:
+    - "src/progress_engine/deltas/delta_rollback.py"
+    - "tests/test_cli_delta_rollback.py"
+    - "tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1003-rollback-ready-delta.yaml"
+    - "tests/fixtures/minimal_progress_project/.progress/evidence/EV-1003-rollback-ready.yaml"
+    - ".progress/runs/RUN-20260520-IV-0041-implement-delta-rollback-cli-slice.yaml"
+    - ".progress/evidence/EV-0041-delta-rollback-cli.yaml"
+    - ".progress/deltas/SDP-0041-delta-rollback-cli.yaml"
+    - ".progress/gaps/SG-0032-state-refresh-slice-gap.yaml"
+    - ".progress/targets/TS-0042-next-state-refresh-slice-defined.yaml"
+    - ".progress/interventions/IV-0042-define-state-refresh-cli-slice.yaml"
+  modified:
+    - "src/progress_engine/cli.py"
+    - "README.md"
+    - "src/progress_engine/README.md"
+    - "tests/test_cli_delta_list.py"
+    - "tests/test_cli_evidence_list.py"
+    - "tests/test_cli_verify_list.py"
+completion_claim: "Executor claims `progress delta rollback` is implemented as a human-gated allow-list rollback path and covered by focused pytest."

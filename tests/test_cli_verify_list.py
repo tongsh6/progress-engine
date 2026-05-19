@@ -26,6 +26,8 @@ def test_verify_list_prints_verification_reviews(tmp_path: Path) -> None:
         "(pass_requires_human_gate; acceptance: 1 pass, 1 fail, 1 not_tested)",
         "- EV-1002 RUN-20260517-IV-1001 / IV-1001 "
         "(pass_requires_human_gate; acceptance: 1 pass, 0 fail, 0 not_tested)",
+        "- EV-1003 RUN-20260517-IV-1001 / IV-1001 "
+        "(pass_requires_human_gate; acceptance: 1 pass, 0 fail, 0 not_tested)",
     ]
 
 

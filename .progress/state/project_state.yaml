@@ -46,7 +46,7 @@ state_dimensions:
       - .progress/deltas/SDP-0003-v0.1-tech-stack.yaml
   implementation:
     maturity: drafted
-    summary: "`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress assess`、`progress state show`、`progress state history`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list`、`progress evidence list`、`progress verify list`、`progress delta list`、`progress delta apply` 和 `progress event list` 已作为 Python CLI 切片可运行、可测试；rollback / reject / state refresh 尚未实现。"
+    summary: "`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress assess`、`progress state show`、`progress state history`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list`、`progress evidence list`、`progress verify list`、`progress delta list`、`progress delta apply`、`progress delta rollback` 和 `progress event list` 已作为 Python CLI 切片可运行、可测试；reject / state refresh 仍未实现。"
     evidence:
       - docs/05-delivery/23-first-python-cli-implementation-slice.md
       - .progress/targets/TS-0006-first-python-cli-slice-defined.yaml
@@ -182,6 +182,21 @@ state_dimensions:
       - .progress/gaps/SG-0030-delta-rollback-slice-gap.yaml
       - .progress/targets/TS-0040-next-delta-rollback-slice-defined.yaml
       - .progress/interventions/IV-0040-define-delta-rollback-cli-slice.yaml
+      - docs/05-delivery/40-state-delta-rollback-cli-slice.md
+      - .progress/evidence/EV-0040-delta-rollback-cli-slice.yaml
+      - .progress/deltas/SDP-0040-delta-rollback-cli-slice.yaml
+      - .progress/gaps/SG-0031-delta-rollback-implementation-gap.yaml
+      - .progress/targets/TS-0041-delta-rollback-cli-working.yaml
+      - .progress/interventions/IV-0041-implement-delta-rollback-cli-slice.yaml
+      - src/progress_engine/deltas/delta_rollback.py
+      - tests/test_cli_delta_rollback.py
+      - tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1003-rollback-ready-delta.yaml
+      - tests/fixtures/minimal_progress_project/.progress/evidence/EV-1003-rollback-ready.yaml
+      - .progress/evidence/EV-0041-delta-rollback-cli.yaml
+      - .progress/deltas/SDP-0041-delta-rollback-cli.yaml
+      - .progress/gaps/SG-0032-state-refresh-slice-gap.yaml
+      - .progress/targets/TS-0042-next-state-refresh-slice-defined.yaml
+      - .progress/interventions/IV-0042-define-state-refresh-cli-slice.yaml
   quality:
     maturity: reviewed
     summary: "仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links、.progress 对象一致性、Project State gap / target 引用完整性、maturity 枚举和 evidence refs 本地路径存在性；运行时 Gap / Target loader 也已统一使用 `{id}-*.yaml` canonical 引用解析规则；v0.1 试点已纳入自动化回归测试。"
@@ -229,7 +244,7 @@ state_dimensions:
       - reports/self-check/v3-self-check-report.md
 
 open_state_gaps:
-  - SG-0030
+  - SG-0032
 
 aim_of_next_state:
-  - TS-0040
+  - TS-0042

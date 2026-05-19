@@ -1,0 +1,67 @@
+state_delta_proposal:
+  id: SDP-0040
+  source_intervention: IV-0040
+  run_id: RUN-20260520-IV-0040
+  target_state_id: TS-0040
+  verification_id: EV-0040
+  status: applied
+  proposed_at: "2026-05-20T01:30:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: "`progress delta apply` 已实现；rollback / reject / state refresh 尚未定义。"
+      current_problem:
+        - "State Delta apply 后具备 previous_state_version 和 state history，但 rollback 命令边界尚未定义。"
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "下一条 rollback-focused State Delta slice 已定义为 human-gated `progress delta rollback`。"
+      advancement_reason:
+        - "切片规格明确命令边界、输入输出、状态影响和允许触碰的实现文件。"
+        - "rollback 被要求校验 applied proposal、apply metadata、state history、human gate 和 allow-list restore。"
+        - "reject、state refresh、verification generation、模型 API 和 Web UI 均被排除在本切片之外。"
+      caveat: "本轮未实现代码；implementation maturity 保持 drafted。"
+  evidence_refs:
+    - "docs/05-delivery/40-state-delta-rollback-cli-slice.md"
+    - ".progress/targets/TS-0040-next-delta-rollback-slice-defined.yaml"
+    - ".progress/interventions/IV-0040-define-delta-rollback-cli-slice.yaml"
+    - ".progress/evidence/EV-0040-delta-rollback-cli-slice.yaml"
+    - ".progress/gaps/SG-0031-delta-rollback-implementation-gap.yaml"
+    - ".progress/targets/TS-0041-delta-rollback-cli-working.yaml"
+  acceptance_summary:
+    pass: 4
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0031
+      summary: "`progress delta rollback` 已定义，但尚未实现。"
+      next_state_path: "Implement only the bounded human-gated rollback path before reject or state refresh."
+  recommended_next_interventions:
+    - id: IV-0041
+      name: "Implement delta rollback CLI slice"
+      condition: "Run only after SDP-0040 is accepted by verifier gate."
+      primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-20T01:30:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    applied_by: human_user
+    applied_at: "2026-05-20T01:30:00+08:00"
+    previous_state_version: PS-0038
+    next_state_version: PS-0039
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep implementation maturity at drafted, mark TS-0040 accepted, resolve SG-0030, add SG-0031 / TS-0041 / IV-0041 / EV-0040 / SDP-0040 refs, and set TS-0041 as the next target."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "If rejected, mark IV-0040 back to proposed and remove docs/05-delivery/40-state-delta-rollback-cli-slice.md."
+      - "Restore Project State open_state_gaps to SG-0030 and aim_of_next_state to TS-0040."
+      - "Do not modify runtime CLI code because this slice did not implement code."

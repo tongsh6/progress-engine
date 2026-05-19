@@ -1,0 +1,58 @@
+state_delta_proposal:
+  id: SDP-1003
+  source_intervention: IV-1001
+  run_id: RUN-20260517-IV-1001
+  target_state_id: TS-1001
+  verification_id: EV-1003
+  status: applied
+  proposed_at: "2026-05-17T22:40:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: seed
+      summary: "Implementation is seeded."
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "Delta rollback fixture moved implementation to drafted."
+  evidence_refs:
+    - ".progress/evidence/EV-1003-rollback-ready.yaml"
+  acceptance_summary:
+    pass: 3
+    fail: 0
+    not_tested: 0
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: "2026-05-17T22:45:00+08:00"
+    decision: approved
+  apply:
+    applied_by: human_user
+    applied_at: "2026-05-17T22:45:00+08:00"
+    previous_state_version: PS-1001
+    next_state_version: PS-1002
+    project_state_file: ".progress/state/project_state.yaml"
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    summary: "Implementation restored from drafted to seed by the rollback-ready fixture."
+    gate:
+      required: true
+      approved_by: human_user
+      approved_at: "2026-05-17T22:55:00+08:00"
+      decision: approved
+    project_state_restore:
+      state_dimensions:
+        implementation:
+          maturity: seed
+          summary: "Implementation is seeded."
+          evidence: []
+      open_state_gaps:
+        - SG-1001
+      aim_of_next_state:
+        - TS-1001
+    rollback_steps:
+      - "Restore fixture project_state.yaml to PS-1001."

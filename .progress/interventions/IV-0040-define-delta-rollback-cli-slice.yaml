@@ -2,7 +2,7 @@ id: IV-0040
 name: "Define delta rollback CLI slice"
 primary_dimension: implementation
 target_state_id: TS-0040
-status: proposed
+status: completed
 goal: "定义下一条 State Delta rollback CLI 实现切片，补齐 apply 后的可回滚边界。"
 in_scope:
   - "定义 rollback-focused CLI 用户路径。"
@@ -14,7 +14,7 @@ out_of_scope:
   - "不实现完整 reject / rollback / state refresh 管理套件。"
   - "不调用模型 API、Web UI 或外部 agent。"
 evidence_required:
-  - "新增 rollback slice 文档。"
+  - "docs/05-delivery/40-state-delta-rollback-cli-slice.md"
   - "acceptance criteria 和 evidence_required 可验证。"
   - "python3 scripts/check_repo.py 通过。"
 automation_policy: human_gate_required

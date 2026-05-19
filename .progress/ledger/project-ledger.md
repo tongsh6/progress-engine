@@ -4,6 +4,95 @@
 
 ## 2026-05-20
 
+### IV-0041: Implement delta rollback CLI slice
+
+- Target State：`TS-0041: delta rollback CLI working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - `SG-0031` 是当前 Project State open gap，且直接阻断 State Delta apply 后的受控可回滚路径。
+  - `docs/05-delivery/40-state-delta-rollback-cli-slice.md` 已把实现边界限定为 `progress delta rollback SDP-ID --approved-by NAME`。
+  - 本轮实现只处理最新 applied、reversible、rollback gate approved 的 proposal；不实现 reject、state refresh、verification generation 或通用 patch engine。
+  - 失败路径在写入前返回，并用测试断言 Project State 和 state history 不发生部分修改。
+- Evidence：`.progress/evidence/EV-0041-delta-rollback-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0041-delta-rollback-cli.yaml`
+- 状态历史：`PS-0040`
+- 主要产物：
+  - `src/progress_engine/deltas/delta_rollback.py`
+  - `src/progress_engine/cli.py`
+  - `tests/test_cli_delta_rollback.py`
+  - `tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1003-rollback-ready-delta.yaml`
+  - `tests/fixtures/minimal_progress_project/.progress/evidence/EV-1003-rollback-ready.yaml`
+- 自审处理：
+  - `progress delta rollback` 不把 `--approved-by` 当自动审批；proposal 必须已经有 `rollback.gate.decision: approved`。
+  - rollback 只允许回退最新 state history version，避免回退旧 delta 污染当前 Project State。
+  - Project State 恢复只允许 `state_dimensions`、`open_state_gaps` 和 `aim_of_next_state` 的 allow-list 字段。
+  - `SG-0032` 已创建：state refresh 尚未定义下一条切片，reject 仍保持 out_of_scope。
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_delta_rollback.py
+9 passed in 0.15s
+
+python3 -m pytest
+104 passed in 0.51s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 266 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 234 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0032` 已创建：下一条 state refresh-focused CLI slice 尚未定义。
+  - 下一轮应处理 `TS-0042: next state refresh slice defined` / `IV-0042: Define state refresh CLI slice`。
+
+### IV-0040: Define delta rollback CLI slice
+
+- Target State：`TS-0040: next delta rollback slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - 当前 Project State 唯一 open gap 是 `SG-0030`，它要求先定义 rollback-focused State Delta CLI slice。
+  - `progress delta apply` 已能把 approved proposal 写入 Project State 和 state history，但 apply 后缺少受控回退路径。
+  - 直接实现 reject、state refresh 或完整 delta management 会扩大 v0.1 范围；本轮只定义 `progress delta rollback` 的最小实现边界。
+  - rollback 必须复用 apply metadata、state history 和 human gate，不能删除既有 history 或执行任意 YAML merge。
+- Evidence：`.progress/evidence/EV-0040-delta-rollback-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0040-delta-rollback-cli-slice.yaml`
+- 状态历史：`PS-0039`
+- 主要产物：
+  - `docs/05-delivery/40-state-delta-rollback-cli-slice.md`
+  - `.progress/gaps/SG-0031-delta-rollback-implementation-gap.yaml`
+  - `.progress/targets/TS-0041-delta-rollback-cli-working.yaml`
+  - `.progress/interventions/IV-0041-implement-delta-rollback-cli-slice.yaml`
+- 自审处理：
+  - 本轮不改运行时代码，避免在未完成 rollback 行为定义前修改 CLI。
+  - `progress delta rollback` 被限定为 human-gated allow-list restore；reject、state refresh、verification generation、模型 API 和 Web UI 均保持 out of scope。
+  - rollback history 只能追加，不能删除或重写既有 state history。
+- 检查结果：
+
+```text
+python3 -m pytest
+95 passed in 0.41s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 258 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 228 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0031` 已创建：`progress delta rollback` 已定义但尚未实现。
+  - 下一轮应处理 `TS-0041: delta rollback CLI working` / `IV-0041: Implement delta rollback CLI slice`。
+
 ### IV-0039: Implement delta apply CLI slice
 
 - Target State：`TS-0039: delta apply CLI working`
