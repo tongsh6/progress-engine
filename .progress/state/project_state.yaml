@@ -3,248 +3,267 @@ project:
   name: ProgressEngine
   repository: tongsh6/progress-engine
   current_phase: repo_bootstrap
-  operating_principle: "持续推进项目状态，而不是持续完成任务。"
-
+  operating_principle: 持续推进项目状态，而不是持续完成任务。
 state_dimensions:
   intent:
     maturity: accepted
-    summary: "项目愿景已收敛为状态驱动的 AI 软件工程系统。"
+    summary: 项目愿景已收敛为状态驱动的 AI 软件工程系统。
     evidence:
-      - PROJECT_BRIEF.md
-      - docs/00-overview/02-core-methodology-state-driven-progress.md
+    - PROJECT_BRIEF.md
+    - docs/00-overview/02-core-methodology-state-driven-progress.md
   product:
     maturity: accepted
-    summary: "v0.1 MVP 边界已冻结为实现前可审查范围；代表性试点已执行并固化为 `init -> intake -> state show -> assess` 自动化回归测试，但尚未验证完整 State Delta 写闭环。"
+    summary: v0.1 MVP 边界已冻结为实现前可审查范围；代表性试点已执行并固化为 `init -> intake -> state show ->
+      assess` 自动化回归测试，但尚未验证完整 State Delta 写闭环。
     evidence:
-      - docs/05-delivery/16-mvp-scope-and-roadmap.md
-      - .progress/targets/TS-0002-v0.1-mvp-boundary-accepted.yaml
-      - .progress/evidence/EV-0002-v0.1-mvp-boundary.yaml
-      - .progress/deltas/SDP-0002-v0.1-mvp-boundary.yaml
-      - docs/05-delivery/37-v0.1-pilot-validation-scenario.md
-      - examples/initial-project/intent.md
-      - .progress/targets/TS-0036-v0.1-pilot-validation-scenario-selected.yaml
-      - .progress/evidence/EV-0036-v0.1-pilot-validation-scenario.yaml
-      - .progress/deltas/SDP-0036-v0.1-pilot-validation-scenario.yaml
-      - docs/05-delivery/38-v0.1-pilot-validation-run.md
-      - tests/test_pilot_validation.py
-      - .progress/targets/TS-0037-v0.1-pilot-validation-run-accepted.yaml
-      - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
-      - .progress/deltas/SDP-0037-v0.1-pilot-validation-run.yaml
+    - docs/05-delivery/16-mvp-scope-and-roadmap.md
+    - .progress/targets/TS-0002-v0.1-mvp-boundary-accepted.yaml
+    - .progress/evidence/EV-0002-v0.1-mvp-boundary.yaml
+    - .progress/deltas/SDP-0002-v0.1-mvp-boundary.yaml
+    - docs/05-delivery/37-v0.1-pilot-validation-scenario.md
+    - examples/initial-project/intent.md
+    - .progress/targets/TS-0036-v0.1-pilot-validation-scenario-selected.yaml
+    - .progress/evidence/EV-0036-v0.1-pilot-validation-scenario.yaml
+    - .progress/deltas/SDP-0036-v0.1-pilot-validation-scenario.yaml
+    - docs/05-delivery/38-v0.1-pilot-validation-run.md
+    - tests/test_pilot_validation.py
+    - .progress/targets/TS-0037-v0.1-pilot-validation-run-accepted.yaml
+    - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
+    - .progress/deltas/SDP-0037-v0.1-pilot-validation-run.yaml
   design:
     maturity: drafted
-    summary: "CLI 与交互方向已有文档，尚未形成实现级 UX 规格。"
+    summary: CLI 与交互方向已有文档，尚未形成实现级 UX 规格。
     evidence:
-      - docs/03-system-design/14-cli-and-interaction-design.md
+    - docs/03-system-design/14-cli-and-interaction-design.md
   architecture:
     maturity: accepted
-    summary: "v0.1 技术栈已选择为 Python 3.11+、stdlib-first CLI、YAML / Markdown / JSONL repo-native 状态账本，并有 ADR 支撑。"
+    summary: v0.1 技术栈已选择为 Python 3.11+、stdlib-first CLI、YAML / Markdown / JSONL repo-native
+      状态账本，并有 ADR 支撑。
     evidence:
-      - docs/03-system-design/06-system-architecture-and-module-boundaries.md
-      - decisions/ADR-0001-v0.1-tech-stack.md
-      - .progress/targets/TS-0003-v0.1-technical-stack-selected.yaml
-      - .progress/evidence/EV-0003-v0.1-tech-stack.yaml
-      - .progress/deltas/SDP-0003-v0.1-tech-stack.yaml
+    - docs/03-system-design/06-system-architecture-and-module-boundaries.md
+    - decisions/ADR-0001-v0.1-tech-stack.md
+    - .progress/targets/TS-0003-v0.1-technical-stack-selected.yaml
+    - .progress/evidence/EV-0003-v0.1-tech-stack.yaml
+    - .progress/deltas/SDP-0003-v0.1-tech-stack.yaml
   implementation:
     maturity: drafted
-    summary: "`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress assess`、`progress state show`、`progress state history`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list`、`progress evidence list`、`progress verify list`、`progress delta list`、`progress delta apply`、`progress delta rollback` 和 `progress event list` 已作为 Python CLI 切片可运行、可测试；reject / state refresh 仍未实现。"
+    summary: '`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress
+      assess`、`progress state show`、`progress state history`、`progress state refresh
+      [--after-delta SDP-ID]`、`progress gaps list`、`progress target list`、`progress
+      intervention list`、`progress run list`、`progress evidence list`、`progress verify
+      list`、`progress delta list`、`progress delta apply` 和 `progress delta rollback`
+      已作为 Python CLI 切片可运行、可测试；reject 仍未定义或实现。'
     evidence:
-      - docs/05-delivery/23-first-python-cli-implementation-slice.md
-      - .progress/targets/TS-0006-first-python-cli-slice-defined.yaml
-      - .progress/evidence/EV-0006-first-python-cli-slice.yaml
-      - .progress/deltas/SDP-0006-first-python-cli-slice.yaml
-      - pyproject.toml
-      - src/progress_engine/cli.py
-      - src/progress_engine/state/project_state.py
-      - tests/test_cli_state_show.py
-      - .progress/targets/TS-0007-first-cli-state-show-working.yaml
-      - .progress/evidence/EV-0007-first-cli-state-show.yaml
-      - .progress/deltas/SDP-0007-first-cli-state-show.yaml
-      - docs/05-delivery/24-next-read-only-cli-slice.md
-      - .progress/targets/TS-0008-next-read-only-cli-slice-defined.yaml
-      - .progress/evidence/EV-0008-next-read-only-cli-slice.yaml
-      - .progress/deltas/SDP-0008-next-read-only-cli-slice.yaml
-      - src/progress_engine/gaps/gap_list.py
-      - tests/test_cli_gaps_list.py
-      - .progress/targets/TS-0009-gaps-list-cli-working.yaml
-      - .progress/evidence/EV-0009-gaps-list-cli.yaml
-      - .progress/deltas/SDP-0009-gaps-list-cli.yaml
-      - docs/05-delivery/25-target-list-cli-slice.md
-      - .progress/targets/TS-0010-target-list-cli-slice-defined.yaml
-      - .progress/evidence/EV-0010-target-list-cli-slice.yaml
-      - .progress/deltas/SDP-0010-target-list-cli-slice.yaml
-      - src/progress_engine/targets/target_list.py
-      - tests/test_cli_target_list.py
-      - .progress/targets/TS-0011-target-list-cli-working.yaml
-      - .progress/evidence/EV-0011-target-list-cli.yaml
-      - .progress/deltas/SDP-0011-target-list-cli.yaml
-      - docs/05-delivery/26-intervention-list-cli-slice.md
-      - .progress/targets/TS-0012-intervention-list-cli-slice-defined.yaml
-      - .progress/evidence/EV-0012-intervention-list-cli-slice.yaml
-      - .progress/deltas/SDP-0012-intervention-list-cli-slice.yaml
-      - src/progress_engine/interventions/intervention_list.py
-      - tests/test_cli_intervention_list.py
-      - .progress/targets/TS-0013-intervention-list-cli-working.yaml
-      - .progress/evidence/EV-0013-intervention-list-cli.yaml
-      - .progress/deltas/SDP-0013-intervention-list-cli.yaml
-      - docs/05-delivery/27-run-list-cli-slice.md
-      - .progress/targets/TS-0014-run-list-cli-slice-defined.yaml
-      - .progress/evidence/EV-0014-run-list-cli-slice.yaml
-      - .progress/deltas/SDP-0014-run-list-cli-slice.yaml
-      - src/progress_engine/runs/run_list.py
-      - tests/test_cli_run_list.py
-      - .progress/targets/TS-0015-run-list-cli-working.yaml
-      - .progress/evidence/EV-0015-run-list-cli.yaml
-      - .progress/deltas/SDP-0015-run-list-cli.yaml
-      - docs/05-delivery/28-evidence-list-cli-slice.md
-      - .progress/targets/TS-0016-evidence-list-cli-slice-defined.yaml
-      - .progress/evidence/EV-0016-evidence-list-cli-slice.yaml
-      - .progress/deltas/SDP-0016-evidence-list-cli-slice.yaml
-      - src/progress_engine/evidence/evidence_list.py
-      - tests/test_cli_evidence_list.py
-      - .progress/targets/TS-0017-evidence-list-cli-working.yaml
-      - .progress/evidence/EV-0017-evidence-list-cli.yaml
-      - .progress/deltas/SDP-0017-evidence-list-cli.yaml
-      - docs/05-delivery/29-verify-list-cli-slice.md
-      - .progress/targets/TS-0018-next-verification-cli-slice-defined.yaml
-      - .progress/evidence/EV-0018-verify-list-cli-slice.yaml
-      - .progress/deltas/SDP-0018-verify-list-cli-slice.yaml
-      - src/progress_engine/verification/verify_list.py
-      - tests/test_cli_verify_list.py
-      - .progress/targets/TS-0019-verify-list-cli-working.yaml
-      - .progress/evidence/EV-0019-verify-list-cli.yaml
-      - .progress/deltas/SDP-0019-verify-list-cli.yaml
-      - docs/05-delivery/30-delta-list-cli-slice.md
-      - .progress/targets/TS-0020-next-delta-cli-slice-defined.yaml
-      - .progress/evidence/EV-0020-delta-list-cli-slice.yaml
-      - .progress/deltas/SDP-0020-delta-list-cli-slice.yaml
-      - src/progress_engine/deltas/delta_list.py
-      - tests/test_cli_delta_list.py
-      - .progress/targets/TS-0021-delta-list-cli-working.yaml
-      - .progress/evidence/EV-0021-delta-list-cli.yaml
-      - .progress/deltas/SDP-0021-delta-list-cli.yaml
-      - docs/05-delivery/31-event-list-cli-slice.md
-      - .progress/targets/TS-0022-next-event-cli-slice-defined.yaml
-      - .progress/evidence/EV-0022-event-list-cli-slice.yaml
-      - .progress/deltas/SDP-0022-event-list-cli-slice.yaml
-      - src/progress_engine/events/event_list.py
-      - tests/test_cli_event_list.py
-      - .progress/targets/TS-0023-event-list-cli-working.yaml
-      - .progress/evidence/EV-0023-event-list-cli.yaml
-      - .progress/deltas/SDP-0023-event-list-cli.yaml
-      - docs/05-delivery/32-state-history-cli-slice.md
-      - .progress/targets/TS-0024-next-state-history-cli-slice-defined.yaml
-      - .progress/evidence/EV-0024-state-history-cli-slice.yaml
-      - .progress/deltas/SDP-0024-state-history-cli-slice.yaml
-      - src/progress_engine/state/state_history.py
-      - tests/test_cli_state_history.py
-      - .progress/targets/TS-0025-state-history-cli-working.yaml
-      - .progress/evidence/EV-0025-state-history-cli.yaml
-      - .progress/deltas/SDP-0025-state-history-cli.yaml
-      - docs/05-delivery/34-init-cli-slice.md
-      - .progress/targets/TS-0028-next-state-changing-cli-slice-defined.yaml
-      - .progress/evidence/EV-0028-state-changing-cli-slice.yaml
-      - .progress/deltas/SDP-0028-state-changing-cli-slice.yaml
-      - src/progress_engine/init/init_project.py
-      - tests/test_cli_init.py
-      - .progress/targets/TS-0029-init-cli-working.yaml
-      - .progress/evidence/EV-0029-init-cli.yaml
-      - .progress/deltas/SDP-0029-init-cli.yaml
-      - docs/05-delivery/35-intent-intake-cli-slice.md
-      - .progress/targets/TS-0030-intent-intake-cli-slice-defined.yaml
-      - .progress/evidence/EV-0030-intent-intake-cli-slice.yaml
-      - .progress/deltas/SDP-0030-intent-intake-cli-slice.yaml
-      - src/progress_engine/intake/intent_intake.py
-      - tests/test_cli_intake.py
-      - .progress/targets/TS-0031-intent-intake-cli-working.yaml
-      - .progress/evidence/EV-0031-intent-intake-cli.yaml
-      - .progress/deltas/SDP-0031-intent-intake-cli.yaml
-      - docs/05-delivery/36-assess-cli-slice.md
-      - .progress/targets/TS-0032-assess-cli-slice-defined.yaml
-      - .progress/evidence/EV-0032-assess-cli-slice.yaml
-      - .progress/deltas/SDP-0032-assess-cli-slice.yaml
-      - src/progress_engine/assessment/assess.py
-      - tests/test_cli_assess.py
-      - .progress/targets/TS-0033-assess-cli-working.yaml
-      - .progress/evidence/EV-0033-assess-cli.yaml
-      - .progress/deltas/SDP-0033-assess-cli.yaml
-      - tests/test_pilot_validation.py
-      - docs/05-delivery/39-state-delta-apply-cli-slice.md
-      - .progress/targets/TS-0038-next-full-state-loop-write-slice-defined.yaml
-      - .progress/evidence/EV-0038-next-full-state-loop-write-slice.yaml
-      - .progress/deltas/SDP-0038-next-full-state-loop-write-slice.yaml
-      - .progress/gaps/SG-0029-delta-apply-implementation-gap.yaml
-      - .progress/targets/TS-0039-delta-apply-cli-working.yaml
-      - .progress/interventions/IV-0039-implement-delta-apply-cli-slice.yaml
-      - src/progress_engine/deltas/delta_apply.py
-      - tests/test_cli_delta_apply.py
-      - .progress/evidence/EV-0039-delta-apply-cli.yaml
-      - .progress/deltas/SDP-0039-delta-apply-cli.yaml
-      - .progress/gaps/SG-0030-delta-rollback-slice-gap.yaml
-      - .progress/targets/TS-0040-next-delta-rollback-slice-defined.yaml
-      - .progress/interventions/IV-0040-define-delta-rollback-cli-slice.yaml
-      - docs/05-delivery/40-state-delta-rollback-cli-slice.md
-      - .progress/evidence/EV-0040-delta-rollback-cli-slice.yaml
-      - .progress/deltas/SDP-0040-delta-rollback-cli-slice.yaml
-      - .progress/gaps/SG-0031-delta-rollback-implementation-gap.yaml
-      - .progress/targets/TS-0041-delta-rollback-cli-working.yaml
-      - .progress/interventions/IV-0041-implement-delta-rollback-cli-slice.yaml
-      - src/progress_engine/deltas/delta_rollback.py
-      - tests/test_cli_delta_rollback.py
-      - tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1003-rollback-ready-delta.yaml
-      - tests/fixtures/minimal_progress_project/.progress/evidence/EV-1003-rollback-ready.yaml
-      - .progress/evidence/EV-0041-delta-rollback-cli.yaml
-      - .progress/deltas/SDP-0041-delta-rollback-cli.yaml
-      - .progress/gaps/SG-0032-state-refresh-slice-gap.yaml
-      - .progress/targets/TS-0042-next-state-refresh-slice-defined.yaml
-      - .progress/interventions/IV-0042-define-state-refresh-cli-slice.yaml
+    - docs/05-delivery/23-first-python-cli-implementation-slice.md
+    - .progress/targets/TS-0006-first-python-cli-slice-defined.yaml
+    - .progress/evidence/EV-0006-first-python-cli-slice.yaml
+    - .progress/deltas/SDP-0006-first-python-cli-slice.yaml
+    - pyproject.toml
+    - src/progress_engine/cli.py
+    - src/progress_engine/state/project_state.py
+    - tests/test_cli_state_show.py
+    - .progress/targets/TS-0007-first-cli-state-show-working.yaml
+    - .progress/evidence/EV-0007-first-cli-state-show.yaml
+    - .progress/deltas/SDP-0007-first-cli-state-show.yaml
+    - docs/05-delivery/24-next-read-only-cli-slice.md
+    - .progress/targets/TS-0008-next-read-only-cli-slice-defined.yaml
+    - .progress/evidence/EV-0008-next-read-only-cli-slice.yaml
+    - .progress/deltas/SDP-0008-next-read-only-cli-slice.yaml
+    - src/progress_engine/gaps/gap_list.py
+    - tests/test_cli_gaps_list.py
+    - .progress/targets/TS-0009-gaps-list-cli-working.yaml
+    - .progress/evidence/EV-0009-gaps-list-cli.yaml
+    - .progress/deltas/SDP-0009-gaps-list-cli.yaml
+    - docs/05-delivery/25-target-list-cli-slice.md
+    - .progress/targets/TS-0010-target-list-cli-slice-defined.yaml
+    - .progress/evidence/EV-0010-target-list-cli-slice.yaml
+    - .progress/deltas/SDP-0010-target-list-cli-slice.yaml
+    - src/progress_engine/targets/target_list.py
+    - tests/test_cli_target_list.py
+    - .progress/targets/TS-0011-target-list-cli-working.yaml
+    - .progress/evidence/EV-0011-target-list-cli.yaml
+    - .progress/deltas/SDP-0011-target-list-cli.yaml
+    - docs/05-delivery/26-intervention-list-cli-slice.md
+    - .progress/targets/TS-0012-intervention-list-cli-slice-defined.yaml
+    - .progress/evidence/EV-0012-intervention-list-cli-slice.yaml
+    - .progress/deltas/SDP-0012-intervention-list-cli-slice.yaml
+    - src/progress_engine/interventions/intervention_list.py
+    - tests/test_cli_intervention_list.py
+    - .progress/targets/TS-0013-intervention-list-cli-working.yaml
+    - .progress/evidence/EV-0013-intervention-list-cli.yaml
+    - .progress/deltas/SDP-0013-intervention-list-cli.yaml
+    - docs/05-delivery/27-run-list-cli-slice.md
+    - .progress/targets/TS-0014-run-list-cli-slice-defined.yaml
+    - .progress/evidence/EV-0014-run-list-cli-slice.yaml
+    - .progress/deltas/SDP-0014-run-list-cli-slice.yaml
+    - src/progress_engine/runs/run_list.py
+    - tests/test_cli_run_list.py
+    - .progress/targets/TS-0015-run-list-cli-working.yaml
+    - .progress/evidence/EV-0015-run-list-cli.yaml
+    - .progress/deltas/SDP-0015-run-list-cli.yaml
+    - docs/05-delivery/28-evidence-list-cli-slice.md
+    - .progress/targets/TS-0016-evidence-list-cli-slice-defined.yaml
+    - .progress/evidence/EV-0016-evidence-list-cli-slice.yaml
+    - .progress/deltas/SDP-0016-evidence-list-cli-slice.yaml
+    - src/progress_engine/evidence/evidence_list.py
+    - tests/test_cli_evidence_list.py
+    - .progress/targets/TS-0017-evidence-list-cli-working.yaml
+    - .progress/evidence/EV-0017-evidence-list-cli.yaml
+    - .progress/deltas/SDP-0017-evidence-list-cli.yaml
+    - docs/05-delivery/29-verify-list-cli-slice.md
+    - .progress/targets/TS-0018-next-verification-cli-slice-defined.yaml
+    - .progress/evidence/EV-0018-verify-list-cli-slice.yaml
+    - .progress/deltas/SDP-0018-verify-list-cli-slice.yaml
+    - src/progress_engine/verification/verify_list.py
+    - tests/test_cli_verify_list.py
+    - .progress/targets/TS-0019-verify-list-cli-working.yaml
+    - .progress/evidence/EV-0019-verify-list-cli.yaml
+    - .progress/deltas/SDP-0019-verify-list-cli.yaml
+    - docs/05-delivery/30-delta-list-cli-slice.md
+    - .progress/targets/TS-0020-next-delta-cli-slice-defined.yaml
+    - .progress/evidence/EV-0020-delta-list-cli-slice.yaml
+    - .progress/deltas/SDP-0020-delta-list-cli-slice.yaml
+    - src/progress_engine/deltas/delta_list.py
+    - tests/test_cli_delta_list.py
+    - .progress/targets/TS-0021-delta-list-cli-working.yaml
+    - .progress/evidence/EV-0021-delta-list-cli.yaml
+    - .progress/deltas/SDP-0021-delta-list-cli.yaml
+    - docs/05-delivery/31-event-list-cli-slice.md
+    - .progress/targets/TS-0022-next-event-cli-slice-defined.yaml
+    - .progress/evidence/EV-0022-event-list-cli-slice.yaml
+    - .progress/deltas/SDP-0022-event-list-cli-slice.yaml
+    - src/progress_engine/events/event_list.py
+    - tests/test_cli_event_list.py
+    - .progress/targets/TS-0023-event-list-cli-working.yaml
+    - .progress/evidence/EV-0023-event-list-cli.yaml
+    - .progress/deltas/SDP-0023-event-list-cli.yaml
+    - docs/05-delivery/32-state-history-cli-slice.md
+    - .progress/targets/TS-0024-next-state-history-cli-slice-defined.yaml
+    - .progress/evidence/EV-0024-state-history-cli-slice.yaml
+    - .progress/deltas/SDP-0024-state-history-cli-slice.yaml
+    - src/progress_engine/state/state_history.py
+    - tests/test_cli_state_history.py
+    - .progress/targets/TS-0025-state-history-cli-working.yaml
+    - .progress/evidence/EV-0025-state-history-cli.yaml
+    - .progress/deltas/SDP-0025-state-history-cli.yaml
+    - docs/05-delivery/34-init-cli-slice.md
+    - .progress/targets/TS-0028-next-state-changing-cli-slice-defined.yaml
+    - .progress/evidence/EV-0028-state-changing-cli-slice.yaml
+    - .progress/deltas/SDP-0028-state-changing-cli-slice.yaml
+    - src/progress_engine/init/init_project.py
+    - tests/test_cli_init.py
+    - .progress/targets/TS-0029-init-cli-working.yaml
+    - .progress/evidence/EV-0029-init-cli.yaml
+    - .progress/deltas/SDP-0029-init-cli.yaml
+    - docs/05-delivery/35-intent-intake-cli-slice.md
+    - .progress/targets/TS-0030-intent-intake-cli-slice-defined.yaml
+    - .progress/evidence/EV-0030-intent-intake-cli-slice.yaml
+    - .progress/deltas/SDP-0030-intent-intake-cli-slice.yaml
+    - src/progress_engine/intake/intent_intake.py
+    - tests/test_cli_intake.py
+    - .progress/targets/TS-0031-intent-intake-cli-working.yaml
+    - .progress/evidence/EV-0031-intent-intake-cli.yaml
+    - .progress/deltas/SDP-0031-intent-intake-cli.yaml
+    - docs/05-delivery/36-assess-cli-slice.md
+    - .progress/targets/TS-0032-assess-cli-slice-defined.yaml
+    - .progress/evidence/EV-0032-assess-cli-slice.yaml
+    - .progress/deltas/SDP-0032-assess-cli-slice.yaml
+    - src/progress_engine/assessment/assess.py
+    - tests/test_cli_assess.py
+    - .progress/targets/TS-0033-assess-cli-working.yaml
+    - .progress/evidence/EV-0033-assess-cli.yaml
+    - .progress/deltas/SDP-0033-assess-cli.yaml
+    - tests/test_pilot_validation.py
+    - docs/05-delivery/39-state-delta-apply-cli-slice.md
+    - .progress/targets/TS-0038-next-full-state-loop-write-slice-defined.yaml
+    - .progress/evidence/EV-0038-next-full-state-loop-write-slice.yaml
+    - .progress/deltas/SDP-0038-next-full-state-loop-write-slice.yaml
+    - .progress/gaps/SG-0029-delta-apply-implementation-gap.yaml
+    - .progress/targets/TS-0039-delta-apply-cli-working.yaml
+    - .progress/interventions/IV-0039-implement-delta-apply-cli-slice.yaml
+    - src/progress_engine/deltas/delta_apply.py
+    - tests/test_cli_delta_apply.py
+    - .progress/evidence/EV-0039-delta-apply-cli.yaml
+    - .progress/deltas/SDP-0039-delta-apply-cli.yaml
+    - .progress/gaps/SG-0030-delta-rollback-slice-gap.yaml
+    - .progress/targets/TS-0040-next-delta-rollback-slice-defined.yaml
+    - .progress/interventions/IV-0040-define-delta-rollback-cli-slice.yaml
+    - docs/05-delivery/40-state-delta-rollback-cli-slice.md
+    - .progress/evidence/EV-0040-delta-rollback-cli-slice.yaml
+    - .progress/deltas/SDP-0040-delta-rollback-cli-slice.yaml
+    - .progress/gaps/SG-0031-delta-rollback-implementation-gap.yaml
+    - .progress/targets/TS-0041-delta-rollback-cli-working.yaml
+    - .progress/interventions/IV-0041-implement-delta-rollback-cli-slice.yaml
+    - src/progress_engine/deltas/delta_rollback.py
+    - tests/test_cli_delta_rollback.py
+    - tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1003-rollback-ready-delta.yaml
+    - tests/fixtures/minimal_progress_project/.progress/evidence/EV-1003-rollback-ready.yaml
+    - .progress/evidence/EV-0041-delta-rollback-cli.yaml
+    - .progress/deltas/SDP-0041-delta-rollback-cli.yaml
+    - .progress/gaps/SG-0032-state-refresh-slice-gap.yaml
+    - .progress/targets/TS-0042-next-state-refresh-slice-defined.yaml
+    - .progress/interventions/IV-0042-define-state-refresh-cli-slice.yaml
+    - docs/05-delivery/41-state-refresh-cli-slice.md
+    - .progress/evidence/EV-0042-state-refresh-cli-slice.yaml
+    - .progress/deltas/SDP-0042-state-refresh-cli-slice.yaml
+    - .progress/gaps/SG-0033-state-refresh-implementation-gap.yaml
+    - .progress/targets/TS-0043-state-refresh-cli-working.yaml
+    - .progress/interventions/IV-0043-implement-state-refresh-cli-slice.yaml
+    - src/progress_engine/state/state_refresh.py
+    - tests/test_cli_state_refresh.py
+    - .progress/evidence/EV-0043-state-refresh-cli.yaml
+    - .progress/deltas/SDP-0043-state-refresh-cli.yaml
+    - .progress/gaps/SG-0034-delta-reject-slice-gap.yaml
+    - .progress/targets/TS-0044-next-delta-reject-slice-defined.yaml
+    - .progress/interventions/IV-0044-define-delta-reject-cli-slice.yaml
   quality:
     maturity: reviewed
-    summary: "仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links、.progress 对象一致性、Project State gap / target 引用完整性、maturity 枚举和 evidence refs 本地路径存在性；运行时 Gap / Target loader 也已统一使用 `{id}-*.yaml` canonical 引用解析规则；v0.1 试点已纳入自动化回归测试。"
+    summary: 仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links、.progress 对象一致性、Project
+      State gap / target 引用完整性、maturity 枚举和 evidence refs 本地路径存在性；运行时 Gap / Target
+      loader 也已统一使用 `{id}-*.yaml` canonical 引用解析规则；v0.1 试点已纳入自动化回归测试。
     evidence:
-      - docs/05-delivery/17-quality-system-and-risk-management.md
-      - scripts/check_repo.py
-      - .progress/targets/TS-0004-minimum-docs-and-yaml-checks-working.yaml
-      - .progress/evidence/EV-0004-docs-and-yaml-check.yaml
-      - .progress/deltas/SDP-0004-docs-and-yaml-check.yaml
-      - docs/05-delivery/33-project-state-reference-check-slice.md
-      - .progress/targets/TS-0026-next-progress-object-quality-slice-defined.yaml
-      - .progress/evidence/EV-0026-progress-object-quality-slice.yaml
-      - .progress/deltas/SDP-0026-progress-object-quality-slice.yaml
-      - tests/test_check_repo.py
-      - .progress/targets/TS-0027-project-state-reference-check-working.yaml
-      - .progress/evidence/EV-0027-project-state-reference-check.yaml
-      - .progress/deltas/SDP-0027-project-state-reference-check.yaml
-      - src/progress_engine/state/references.py
-      - tests/test_cli_gaps_list.py
-      - tests/test_cli_target_list.py
-      - .progress/targets/TS-0034-reference-resolution-consistent.yaml
-      - .progress/evidence/EV-0034-reference-resolution-consistency.yaml
-      - .progress/deltas/SDP-0034-reference-resolution-consistency.yaml
-      - .progress/targets/TS-0035-project-state-evidence-gate-working.yaml
-      - .progress/evidence/EV-0035-project-state-evidence-gate.yaml
-      - .progress/deltas/SDP-0035-project-state-evidence-gate.yaml
-      - tests/test_pilot_validation.py
-      - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
+    - docs/05-delivery/17-quality-system-and-risk-management.md
+    - scripts/check_repo.py
+    - .progress/targets/TS-0004-minimum-docs-and-yaml-checks-working.yaml
+    - .progress/evidence/EV-0004-docs-and-yaml-check.yaml
+    - .progress/deltas/SDP-0004-docs-and-yaml-check.yaml
+    - docs/05-delivery/33-project-state-reference-check-slice.md
+    - .progress/targets/TS-0026-next-progress-object-quality-slice-defined.yaml
+    - .progress/evidence/EV-0026-progress-object-quality-slice.yaml
+    - .progress/deltas/SDP-0026-progress-object-quality-slice.yaml
+    - tests/test_check_repo.py
+    - .progress/targets/TS-0027-project-state-reference-check-working.yaml
+    - .progress/evidence/EV-0027-project-state-reference-check.yaml
+    - .progress/deltas/SDP-0027-project-state-reference-check.yaml
+    - src/progress_engine/state/references.py
+    - tests/test_cli_gaps_list.py
+    - tests/test_cli_target_list.py
+    - .progress/targets/TS-0034-reference-resolution-consistent.yaml
+    - .progress/evidence/EV-0034-reference-resolution-consistency.yaml
+    - .progress/deltas/SDP-0034-reference-resolution-consistency.yaml
+    - .progress/targets/TS-0035-project-state-evidence-gate-working.yaml
+    - .progress/evidence/EV-0035-project-state-evidence-gate.yaml
+    - .progress/deltas/SDP-0035-project-state-evidence-gate.yaml
+    - tests/test_pilot_validation.py
+    - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
   delivery:
     maturity: weak
-    summary: "仓库已具备可审查的项目初始事实源、.progress 状态账本、GitHub 模板和基础自检脚本；发布方案仍未形成。"
+    summary: 仓库已具备可审查的项目初始事实源、.progress 状态账本、GitHub 模板和基础自检脚本；发布方案仍未形成。
     evidence:
-      - .github/workflows/docs-check.yml
-      - README.md
-      - .progress/state/project_state.yaml
-      - .github/pull_request_template.md
-      - scripts/check_repo.py
-      - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
-      - .progress/deltas/SDP-0037-v0.1-pilot-validation-run.yaml
+    - .github/workflows/docs-check.yml
+    - README.md
+    - .progress/state/project_state.yaml
+    - .github/pull_request_template.md
+    - scripts/check_repo.py
+    - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
+    - .progress/deltas/SDP-0037-v0.1-pilot-validation-run.yaml
   knowledge:
     maturity: reviewed
-    summary: "核心文档、模板、报告已经分层沉淀。"
+    summary: 核心文档、模板、报告已经分层沉淀。
     evidence:
-      - INDEX.md
-      - reports/self-check/v3-self-check-report.md
-
+    - INDEX.md
+    - reports/self-check/v3-self-check-report.md
 open_state_gaps:
-  - SG-0032
-
+- SG-0034
 aim_of_next_state:
-  - TS-0042
+- TS-0044

@@ -57,6 +57,7 @@
 - [v0.1 Pilot Validation Run](docs/05-delivery/38-v0.1-pilot-validation-run.md)
 - [State Delta Apply CLI Slice](docs/05-delivery/39-state-delta-apply-cli-slice.md)
 - [State Delta Rollback CLI Slice](docs/05-delivery/40-state-delta-rollback-cli-slice.md)
+- [State Refresh CLI Slice](docs/05-delivery/41-state-refresh-cli-slice.md)
 
 ### Business & Reference
 

@@ -1,0 +1,61 @@
+evidence:
+  id: EV-0043
+  run_id: RUN-20260520-IV-0043
+  intervention_id: IV-0043
+  target_state_id: TS-0043
+  evidence_type: artifact_review
+  created_at: "2026-05-20T02:45:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress state refresh` 已定义但尚未实现。"
+      after: "`progress state refresh [--after-delta SDP-ID]` 已作为只读 state reconciliation 命令实现并测试通过。"
+      acceptance_mapping:
+        - criterion: "`progress state refresh` 能读取当前 Project State、最新 state history、open gaps 和 next targets 并输出 refresh 摘要。"
+          status: pass
+          evidence_ref: "tests/test_cli_state_refresh.py"
+        - criterion: "`progress state refresh --after-delta SDP-ID` 能确认指定 delta 是否匹配最新 state history。"
+          status: pass
+          evidence_ref: "tests/test_cli_state_refresh.py"
+        - criterion: "命令在指定 delta 缺失、格式错误或不是最新 applied delta 时返回 exit code `2` 并输出清晰错误。"
+          status: pass
+          evidence_ref: "tests/test_cli_state_refresh.py"
+        - criterion: "命令复用 canonical Gap / Target 引用解析规则，引用缺失或多匹配时失败。"
+          status: pass
+          evidence_ref: "src/progress_engine/state/state_refresh.py"
+        - criterion: "pytest 覆盖无参数成功路径、`--after-delta` 成功路径、delta 不匹配、history 缺失和引用缺失。"
+          status: pass
+          evidence_ref: "tests/test_cli_state_refresh.py"
+        - criterion: "仓库检查和全量 pytest 通过。"
+          status: pass
+          evidence_ref: ".progress/evidence/EV-0043-state-refresh-cli.yaml"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只实现 `progress state refresh`，没有实现 reject、automatic generation、模型 API 或 Web UI。"
+      - "refresh 只读取 Project State、state history、open gaps 和 next targets。"
+      - "成功和失败路径都不写入 `.progress/` 文件。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_cli_state_refresh.py"
+      result: pass
+      output_summary: "8 passed in 0.06s"
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "112 passed in 0.56s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 278 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 246 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+  example_output:
+    command: "progress state refresh --after-delta SDP-0043"
+    output_summary: "State refresh: latest state PS-0042; latest delta SDP-0043; requested delta SDP-0043 matched; open gap SG-0034; next target TS-0044."
+  files_changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/state/state_refresh.py"
+    - "tests/test_cli_state_refresh.py"
+    - "README.md"
+    - "src/progress_engine/README.md"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0034
+  supports_state_delta_proposal: SDP-0043

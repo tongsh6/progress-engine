@@ -1,0 +1,21 @@
+id: SG-0034
+dimension: implementation
+severity: medium
+status: open
+source_intervention: IV-0043
+current_state: "`progress delta apply`、`progress delta rollback` 和只读 `progress state refresh` 已实现；State Delta reject 尚未定义下一条切片。"
+desired_state: "下一条 delta reject-focused CLI slice 被明确限定为小范围、可测试、符合 v0.1 边界，且不扩大为完整 delta management。"
+evidence_refs:
+  - ".progress/deltas/SDP-0043-state-refresh-cli.yaml"
+  - "src/progress_engine/state/state_refresh.py"
+  - "tests/test_cli_state_refresh.py"
+impact:
+  - "未批准、证据失败或不再适用的 proposal 仍缺少受控 reject 边界。"
+  - "如果直接实现完整 delta management 或自动 rejection，会扩大 v0.1 范围。"
+suggested_targets:
+  - "TS-0044-next-delta-reject-slice-defined"
+suggested_interventions:
+  - "IV-0044: Define delta reject CLI slice"
+notes:
+  - "下一轮应先定义 reject 切片边界，再进入代码实现。"
+  - "reject 不得修改 Project State 或 state history；它只应处理 proposal lifecycle metadata。"

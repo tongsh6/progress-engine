@@ -1,0 +1,38 @@
+id: TS-0043
+name: "state refresh CLI working"
+primary_dimension: implementation
+source_gap: SG-0033
+status: accepted
+human_gate_required: true
+desired_state: "`progress state refresh [--after-delta SDP-ID]` 作为只读 state reconciliation 命令可运行、可测试、可追溯。"
+from:
+  maturity: drafted
+  summary: "`progress state refresh` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress state refresh` 能读取当前 Project State、最新 state history、open gaps 和 next targets，输出 apply / rollback 后的状态观察。"
+required_evidence:
+  - "CLI 支持 `progress state refresh`。"
+  - "CLI 支持 `progress state refresh --after-delta SDP-ID` 并校验指定 delta 与最新 state history 匹配。"
+  - "命令读取 Project State、state history、open gaps 和 next targets，但不写入任何 `.progress/` 文件。"
+  - "focused pytest、全量 pytest 和仓库检查通过。"
+acceptance_criteria:
+  - id: AC-TS-0043-01
+    criterion: "`progress state refresh` 能读取当前 Project State、最新 state history、open gaps 和 next targets 并输出 refresh 摘要。"
+  - id: AC-TS-0043-02
+    criterion: "`progress state refresh --after-delta SDP-ID` 能确认指定 delta 是否匹配最新 state history。"
+  - id: AC-TS-0043-03
+    criterion: "命令在指定 delta 缺失、格式错误或不是最新 applied delta 时返回 exit code `2` 并输出清晰错误。"
+  - id: AC-TS-0043-04
+    criterion: "命令复用 canonical Gap / Target 引用解析规则，引用缺失或多匹配时失败。"
+  - id: AC-TS-0043-05
+    criterion: "pytest 覆盖无参数成功路径、`--after-delta` 成功路径、delta 不匹配、history 缺失和引用缺失。"
+  - id: AC-TS-0043-06
+    criterion: "仓库检查和全量 pytest 通过。"
+non_goals:
+  - "不实现 `progress delta reject`。"
+  - "不生成 Gap、Target、Intervention、Evidence、Verification 或 State Delta Proposal。"
+  - "不修改 Project State 或 state history。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0033

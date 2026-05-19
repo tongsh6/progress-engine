@@ -1,7 +1,7 @@
 id: SG-0032
 dimension: implementation
 severity: medium
-status: open
+status: resolved
 source_intervention: IV-0041
 current_state: "`progress delta apply` 和 `progress delta rollback` 已能在 human gate 后推进或回退 Project State，但 state refresh 尚未定义下一条切片。"
 desired_state: "下一条 state refresh-focused CLI slice 被明确限定为小范围、可测试、符合 v0.1 边界，且不扩大为完整 delta management。"

@@ -1,0 +1,55 @@
+evidence:
+  id: EV-0042
+  run_id: RUN-20260520-IV-0042
+  intervention_id: IV-0042
+  target_state_id: TS-0042
+  evidence_type: artifact_review
+  created_at: "2026-05-20T02:15:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress delta apply` 和 `progress delta rollback` 已实现；state refresh / reject 尚未定义。"
+      after: "下一条实现切片被定义为只读 `progress state refresh [--after-delta SDP-ID]`，并明确读取 Project State、state history、open gaps 和 next targets，不写入状态账本。"
+      acceptance_mapping:
+        - criterion: "切片文档明确下一条 State refresh 推进动作。"
+          status: pass
+          evidence_ref: "docs/05-delivery/41-state-refresh-cli-slice.md#1-切片结论"
+        - criterion: "切片边界说明 input、output、in_scope、out_of_scope 和 evidence_required。"
+          status: pass
+          evidence_ref: "docs/05-delivery/41-state-refresh-cli-slice.md#3-输入输出和状态影响"
+        - criterion: "切片说明 refresh 如何保持 read/derive 与 write gate 的边界。"
+          status: pass
+          evidence_ref: "docs/05-delivery/41-state-refresh-cli-slice.md#8-read--derive-与-write-gate-边界"
+        - criterion: "切片包含 focused pytest 与仓库检查验收要求。"
+          status: pass
+          evidence_ref: "docs/05-delivery/41-state-refresh-cli-slice.md#6-acceptance-criteria"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只定义下一条实现切片，没有修改运行时代码。"
+      - "refresh 被限定为 read / derive，不修改 Project State、state history 或 proposal。"
+      - "切片明确排除 reject、automatic generation、模型 API、Web UI 和外部 agent。"
+  commands_run:
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "104 passed in 0.51s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 272 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 240 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+  files_changed:
+    - "docs/05-delivery/41-state-refresh-cli-slice.md"
+    - "INDEX.md"
+    - ".progress/gaps/SG-0032-state-refresh-slice-gap.yaml"
+    - ".progress/gaps/SG-0033-state-refresh-implementation-gap.yaml"
+    - ".progress/targets/TS-0042-next-state-refresh-slice-defined.yaml"
+    - ".progress/targets/TS-0043-state-refresh-cli-working.yaml"
+    - ".progress/interventions/IV-0042-define-state-refresh-cli-slice.yaml"
+    - ".progress/interventions/IV-0043-implement-state-refresh-cli-slice.yaml"
+    - ".progress/runs/RUN-20260520-IV-0042-define-state-refresh-cli-slice.yaml"
+    - ".progress/evidence/EV-0042-state-refresh-cli-slice.yaml"
+    - ".progress/deltas/SDP-0042-state-refresh-cli-slice.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0033
+  supports_state_delta_proposal: SDP-0042

@@ -1,0 +1,37 @@
+id: RUN-20260520-IV-0043
+intervention_id: IV-0043
+target_state_id: TS-0043
+started_at: "2026-05-20T02:45:00+08:00"
+completed_at: "2026-05-20T02:45:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    summary: "`progress state refresh` 已定义但尚未实现。"
+    open_gap: SG-0033
+  why_iv_0043_is_next:
+    - "Project State 当前 open gap 是 SG-0033。"
+    - "TS-0043 要求把 read-only state refresh slice 变成可运行、可测试、可追溯的 CLI 命令。"
+    - "State Delta apply / rollback 后需要一个不写账本的状态再观察入口。"
+  out_of_scope_confirmed:
+    - "本轮不实现 `progress delta reject`。"
+    - "不自动生成 Gap、Target、Intervention、Evidence、Verification 或 State Delta Proposal。"
+    - "不修改 Project State 或 state history。"
+    - "不调用模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "src/progress_engine/state/state_refresh.py"
+    - "tests/test_cli_state_refresh.py"
+    - ".progress/runs/RUN-20260520-IV-0043-implement-state-refresh-cli-slice.yaml"
+    - ".progress/evidence/EV-0043-state-refresh-cli.yaml"
+    - ".progress/deltas/SDP-0043-state-refresh-cli.yaml"
+    - ".progress/gaps/SG-0034-delta-reject-slice-gap.yaml"
+    - ".progress/targets/TS-0044-next-delta-reject-slice-defined.yaml"
+    - ".progress/interventions/IV-0044-define-delta-reject-cli-slice.yaml"
+  modified:
+    - "src/progress_engine/cli.py"
+    - "README.md"
+    - "src/progress_engine/README.md"
+completion_claim: "Executor claims `progress state refresh` is implemented as a read-only reconciliation path and covered by focused pytest."

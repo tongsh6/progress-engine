@@ -1,0 +1,89 @@
+state_delta_proposal:
+  id: SDP-0043
+  source_intervention: IV-0043
+  run_id: RUN-20260520-IV-0043
+  target_state_id: TS-0043
+  verification_id: EV-0043
+  status: applied
+  proposed_at: '2026-05-20T02:45:00+08:00'
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: '`progress state refresh` 已定义但尚未实现。'
+      current_problem:
+      - State Delta apply / rollback 后缺少可运行的只读状态再观察入口。
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: '`progress state refresh [--after-delta SDP-ID]` 已作为只读 state reconciliation
+        命令实现并测试通过。'
+      advancement_reason:
+      - CLI 支持无参数 refresh，读取当前 Project State、latest state history、open gaps 和 next
+        targets。
+      - CLI 支持 `--after-delta SDP-ID`，校验指定 delta 与 latest history 匹配。
+      - 失败路径覆盖 delta 格式错误、delta 不匹配、delta 缺失、history 缺失和 open gap 引用缺失。
+      - README 命令清单已同步。
+      caveat: reject 仍未定义或实现；implementation maturity 保持 drafted。
+  evidence_refs:
+  - src/progress_engine/cli.py
+  - src/progress_engine/state/state_refresh.py
+  - tests/test_cli_state_refresh.py
+  - README.md
+  - src/progress_engine/README.md
+  - .progress/evidence/EV-0043-state-refresh-cli.yaml
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+  - id: SG-0034
+    summary: State Delta apply / rollback / refresh 已实现，但 reject 尚未定义下一条切片。
+    next_state_path: Define the next delta reject-focused slice before implementing
+      reject or broader delta management.
+  recommended_next_interventions:
+  - id: IV-0044
+    name: Define delta reject CLI slice
+    condition: Run after SDP-0043 is accepted by human gate.
+    primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: '2026-05-20T02:45:00+08:00'
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    proposed_patch_summary: Keep implementation maturity at drafted, add state refresh
+      implementation evidence, resolve SG-0033, open SG-0034 for delta reject slice
+      definition, and set TS-0044 as the next target.
+    applied_by: human_user
+    applied_at: '2026-05-20T02:45:00+08:00'
+    previous_state_version: PS-0041
+    next_state_version: PS-0042
+    project_state_file: .progress/state/project_state.yaml
+  project_state_update:
+    state_dimensions:
+      implementation:
+        maturity: drafted
+        summary: '`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress
+          assess`、`progress state show`、`progress state history`、`progress state refresh
+          [--after-delta SDP-ID]`、`progress gaps list`、`progress target list`、`progress
+          intervention list`、`progress run list`、`progress evidence list`、`progress
+          verify list`、`progress delta list`、`progress delta apply` 和 `progress delta
+          rollback` 已作为 Python CLI 切片可运行、可测试；reject 仍未定义或实现。'
+    open_state_gaps:
+    - SG-0034
+    aim_of_next_state:
+    - TS-0044
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+    - Remove `progress state refresh` command wiring and `src/progress_engine/state/state_refresh.py`.
+    - Remove `tests/test_cli_state_refresh.py`.
+    - Restore README command lists to omit `progress state refresh [--after-delta
+      SDP-ID]`.
+    - Reopen SG-0033 and set Project State aim_of_next_state back to TS-0043.

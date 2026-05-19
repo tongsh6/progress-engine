@@ -1,0 +1,20 @@
+id: SG-0033
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0042
+current_state: "`progress state refresh` 已被定义为只读 reconciliation 命令，但尚未实现。"
+desired_state: "`progress state refresh [--after-delta SDP-ID]` 可读取 Project State、state history、open gaps 和 next targets，并输出 apply / rollback 后的状态观察。"
+evidence_refs:
+  - "docs/05-delivery/41-state-refresh-cli-slice.md"
+  - ".progress/deltas/SDP-0042-state-refresh-cli-slice.yaml"
+impact:
+  - "State Delta apply / rollback 后仍缺少专门的只读状态再观察入口。"
+  - "如果直接实现自动 generation、reject 或状态重算，会扩大 v0.1 边界。"
+suggested_targets:
+  - "TS-0043-state-refresh-cli-working"
+suggested_interventions:
+  - "IV-0043: Implement state refresh CLI slice"
+notes:
+  - "下一轮只实现 read / derive refresh，不写 Project State 或 state history。"
+  - "Project State 变化仍只能通过 Evidence、Verification、State Delta Proposal 和 human-gated apply / rollback 写入。"

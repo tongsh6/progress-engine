@@ -1,0 +1,23 @@
+id: IV-0043
+name: "Implement state refresh CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0043
+status: completed
+goal: "实现下一条只读 State refresh CLI 切片，补齐 apply / rollback 后的状态再观察入口。"
+in_scope:
+  - "实现 `progress state refresh` CLI 用户路径。"
+  - "实现可选 `--after-delta SDP-ID` 校验。"
+  - "读取 Project State、latest state history、open gaps 和 next targets。"
+  - "复用 canonical Gap / Target 引用解析规则。"
+  - "为成功路径和主要失败路径添加 focused pytest。"
+out_of_scope:
+  - "不实现 `progress delta reject`。"
+  - "不自动生成 Gap、Target、Intervention、Evidence、Verification 或 State Delta Proposal。"
+  - "不修改 Project State 或 state history。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+evidence_required:
+  - "python3 -m pytest tests/test_cli_state_refresh.py 通过。"
+  - "python3 -m pytest 通过。"
+  - "python3 scripts/check_repo.py 通过。"
+  - "`progress state refresh --after-delta SDP-ID` 示例输出。"
+automation_policy: human_gate_required

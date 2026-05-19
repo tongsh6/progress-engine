@@ -1,0 +1,21 @@
+id: IV-0044
+name: "Define delta reject CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0044
+status: proposed
+goal: "定义下一条 State Delta reject CLI 实现切片，补齐 proposal 未接受时的受控 lifecycle 边界。"
+in_scope:
+  - "定义 reject-focused CLI 用户路径。"
+  - "定义输入、输出、状态影响和文件边界。"
+  - "定义 reject 如何处理 proposal lifecycle metadata。"
+  - "定义 acceptance criteria 和 evidence_required。"
+out_of_scope:
+  - "不在本轮实现运行时代码。"
+  - "不实现完整 delta management。"
+  - "不修改 Project State 或 state history。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+evidence_required:
+  - "新增 delta reject slice 文档。"
+  - "acceptance criteria 和 evidence_required 可验证。"
+  - "python3 scripts/check_repo.py 通过。"
+automation_policy: human_gate_required

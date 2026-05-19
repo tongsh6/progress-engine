@@ -1,0 +1,37 @@
+id: RUN-20260520-IV-0042
+intervention_id: IV-0042
+target_state_id: TS-0042
+started_at: "2026-05-20T02:15:00+08:00"
+completed_at: "2026-05-20T02:15:00+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    summary: "`progress delta apply` 和 `progress delta rollback` 已实现；state refresh 尚未定义。"
+    open_gap: SG-0032
+  why_iv_0042_is_next:
+    - "Project State 当前唯一 open gap 是 SG-0032。"
+    - "TS-0042 要求先定义 state refresh-focused slice，而不是直接实现 reject 或完整 delta management。"
+    - "apply / rollback 后需要一个只读状态再观察入口，确认 Project State、state history、open gaps 和 next targets 对齐。"
+  out_of_scope_confirmed:
+    - "本轮不实现运行时代码。"
+    - "不实现 `progress delta reject`。"
+    - "不自动生成 Gap、Target、Intervention、Evidence、Verification 或 State Delta Proposal。"
+    - "不调用模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/41-state-refresh-cli-slice.md"
+    - ".progress/runs/RUN-20260520-IV-0042-define-state-refresh-cli-slice.yaml"
+    - ".progress/evidence/EV-0042-state-refresh-cli-slice.yaml"
+    - ".progress/deltas/SDP-0042-state-refresh-cli-slice.yaml"
+    - ".progress/gaps/SG-0033-state-refresh-implementation-gap.yaml"
+    - ".progress/targets/TS-0043-state-refresh-cli-working.yaml"
+    - ".progress/interventions/IV-0043-implement-state-refresh-cli-slice.yaml"
+  modified:
+    - "INDEX.md"
+    - ".progress/gaps/SG-0032-state-refresh-slice-gap.yaml"
+    - ".progress/targets/TS-0042-next-state-refresh-slice-defined.yaml"
+    - ".progress/interventions/IV-0042-define-state-refresh-cli-slice.yaml"
+completion_claim: "Executor claims the next state refresh CLI slice is defined as a bounded read-only reconciliation command and ready for verifier review."

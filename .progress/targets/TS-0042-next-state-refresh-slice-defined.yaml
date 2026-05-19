@@ -2,7 +2,7 @@ id: TS-0042
 name: "next state refresh slice defined"
 primary_dimension: implementation
 source_gap: SG-0032
-status: proposed
+status: accepted
 human_gate_required: true
 desired_state: "下一条 State refresh CLI slice 被定义为小范围、可测试、符合 v0.1 边界的实现目标。"
 from:

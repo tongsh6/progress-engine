@@ -4,6 +4,90 @@
 
 ## 2026-05-20
 
+### IV-0043: Implement state refresh CLI slice
+
+- Target State：`TS-0043: state refresh CLI working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - `SG-0033` 是当前 Project State open gap，要求把已定义的 state refresh slice 变成可运行 CLI。
+  - `progress delta apply` 和 `progress delta rollback` 已能改变 Project State；refresh 必须提供 apply / rollback 后的只读再观察入口。
+  - 本轮实现只读取 Project State、latest state history、open gaps 和 next targets，不写入任何 `.progress/` 文件。
+  - 失败路径覆盖 delta 格式错误、delta 不匹配、delta 缺失、history 缺失和 open gap 引用缺失。
+- Evidence：`.progress/evidence/EV-0043-state-refresh-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0043-state-refresh-cli.yaml`
+- 状态历史：`PS-0042`
+- 主要产物：
+  - `src/progress_engine/state/state_refresh.py`
+  - `src/progress_engine/cli.py`
+  - `tests/test_cli_state_refresh.py`
+  - `README.md`
+  - `src/progress_engine/README.md`
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_state_refresh.py
+8 passed in 0.06s
+
+python3 -m pytest
+112 passed in 0.56s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 278 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 246 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0034` 已创建：State Delta reject 尚未定义下一条切片。
+  - 下一轮应处理 `TS-0044: next delta reject slice defined` / `IV-0044: Define delta reject CLI slice`。
+
+### IV-0042: Define state refresh CLI slice
+
+- Target State：`TS-0042: next state refresh slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - `SG-0032` 是当前 Project State open gap，要求先定义 state refresh-focused CLI slice。
+  - `progress delta apply` 和 `progress delta rollback` 已能受控写入和回退 Project State，但 apply / rollback 后缺少专门的状态再观察入口。
+  - 本轮把 refresh 明确限定为 read / derive：只读取 Project State、state history、open gaps 和 next targets，不写状态账本。
+  - 直接实现 reject、automatic generation、模型 API 或 Web UI 会扩大 v0.1 范围。
+- Evidence：`.progress/evidence/EV-0042-state-refresh-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0042-state-refresh-cli-slice.yaml`
+- 状态历史：`PS-0041`
+- 主要产物：
+  - `docs/05-delivery/41-state-refresh-cli-slice.md`
+  - `.progress/gaps/SG-0033-state-refresh-implementation-gap.yaml`
+  - `.progress/targets/TS-0043-state-refresh-cli-working.yaml`
+  - `.progress/interventions/IV-0043-implement-state-refresh-cli-slice.yaml`
+- 明确边界：
+  - `progress state refresh [--after-delta SDP-ID]` 是只读 reconciliation 命令。
+  - 不修改 `.progress/state/project_state.yaml`，不追加 state history，不修改 State Delta Proposal。
+  - 不生成 Gap、Target、Intervention、Evidence、Verification 或 State Delta Proposal。
+- 检查结果：
+
+```text
+python3 -m pytest
+104 passed in 0.51s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 272 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 240 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0033` 已创建：`progress state refresh` 已定义但尚未实现。
+  - 下一轮应处理 `TS-0043: state refresh CLI working` / `IV-0043: Implement state refresh CLI slice`。
+
 ### IV-0041: Implement delta rollback CLI slice
 
 - Target State：`TS-0041: delta rollback CLI working`
