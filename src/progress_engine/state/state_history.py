@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -36,6 +37,26 @@ def load_state_history(root: Path) -> list[dict[str, Any]]:
             entries.append(entry)
 
     return entries
+
+
+def next_state_version(entries: list[dict[str, Any]]) -> str:
+    if not entries:
+        return "PS-0001"
+
+    current = entries[-1]["state_version"]
+    match = re.fullmatch(r"PS-(\d+)", current)
+    if match is None:
+        raise StateHistoryError(f"cannot increment State History version: {current}")
+
+    digits = match.group(1)
+    return f"PS-{int(digits) + 1:0{len(digits)}d}"
+
+
+def append_state_history(root: Path, entry: dict[str, Any]) -> None:
+    history_path = root / ".progress" / "state" / "state_history.jsonl"
+    with history_path.open("a", encoding="utf-8") as history_file:
+        history_file.write(json.dumps(entry, ensure_ascii=False, separators=(",", ":")))
+        history_file.write("\n")
 
 
 def render_state_history(entries: list[dict[str, Any]]) -> str:

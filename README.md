@@ -28,11 +28,12 @@ progress run list
 progress evidence list
 progress verify list
 progress delta list
+progress delta apply SDP-ID --approved-by NAME
 progress event list
 ```
 <!-- progress-engine-cli-commands:end -->
 
-这些命令仍遵守 v0.1 边界：除 `init` 和 `intake` 这两个受控 bootstrap 写入切片外，当前命令只读取 `.progress/` 账本，不自动生成 Gap、Target、Intervention、Evidence、State Delta，不执行 `delta apply`，也不调用模型或外部 agent。
+这些命令仍遵守 v0.1 边界：除 `init`、`intake` 和 human-gated `delta apply` 这三个受控写入切片外，当前命令只读取 `.progress/` 账本，不自动生成 Gap、Target、Intervention、Evidence、State Delta，不执行 reject / rollback / state refresh，也不调用模型或外部 agent。
 
 ## 推荐阅读顺序
 

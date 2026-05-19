@@ -23,6 +23,7 @@ def test_evidence_list_prints_evidence_objects(tmp_path: Path) -> None:
     assert stdout.getvalue().splitlines() == [
         "Evidence:",
         "- EV-1001 [artifact_review] RUN-20260517-IV-1001 / IV-1001 (pass_requires_human_gate)",
+        "- EV-1002 [artifact_review] RUN-20260517-IV-1001 / IV-1001 (pass_requires_human_gate)",
     ]
 
 

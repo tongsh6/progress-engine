@@ -44,6 +44,12 @@ def load_project_state(root: Path) -> dict[str, Any]:
     return data
 
 
+def write_project_state(root: Path, state: dict[str, Any]) -> None:
+    state_path = root / ".progress" / "state" / "project_state.yaml"
+    with state_path.open("w", encoding="utf-8") as state_file:
+        yaml.safe_dump(state, state_file, sort_keys=False, allow_unicode=True)
+
+
 def render_state_summary(state: dict[str, Any]) -> str:
     project = state["project"]
     dimensions = state["state_dimensions"]

@@ -8,6 +8,11 @@ from pathlib import Path
 from typing import TextIO
 
 from progress_engine.assessment.assess import load_assessment, render_assessment
+from progress_engine.deltas.delta_apply import (
+    DeltaApplyError,
+    apply_delta,
+    render_delta_apply_success,
+)
 from progress_engine.deltas.delta_list import DeltaListError, load_deltas, render_delta_list
 from progress_engine.events.event_list import EventListError, load_events, render_event_list
 from progress_engine.gaps.gap_list import GapListError, load_open_gaps, render_gap_list
@@ -98,6 +103,16 @@ def build_parser() -> argparse.ArgumentParser:
     delta_parser = subcommands.add_parser("delta", help="Read state delta proposals.")
     delta_subcommands = delta_parser.add_subparsers(dest="delta_command", required=True)
     delta_subcommands.add_parser("list", help="List state delta proposals.")
+    delta_apply_parser = delta_subcommands.add_parser(
+        "apply",
+        help="Apply a human-approved state delta proposal.",
+    )
+    delta_apply_parser.add_argument("delta_id", help="State Delta Proposal id to apply.")
+    delta_apply_parser.add_argument(
+        "--approved-by",
+        required=True,
+        help="Human approver recorded for this apply operation.",
+    )
 
     event_parser = subcommands.add_parser("event", help="Read change events.")
     event_subcommands = event_parser.add_subparsers(dest="event_command", required=True)
@@ -238,6 +253,16 @@ def main(
             print(f"error: {exc}", file=err)
             return 2
         print(render_delta_list(deltas), file=out)
+        return 0
+
+    if args.command == "delta" and args.delta_command == "apply":
+        root = cwd or Path.cwd()
+        try:
+            result = apply_delta(root, args.delta_id, args.approved_by)
+        except (DeltaApplyError, ProjectStateError, StateHistoryError) as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_delta_apply_success(result), file=out)
         return 0
 
     if args.command == "event" and args.event_command == "list":
