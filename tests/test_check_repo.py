@@ -100,6 +100,71 @@ aim_of_next_state:
     assert problems == ["project_state.aim_of_next_state[0]: expected non-empty string"]
 
 
+def test_project_state_reference_check_reports_invalid_maturity(tmp_path: Path) -> None:
+    check_repo = load_check_repo_module()
+    project_root = copy_fixture(tmp_path)
+    state_path = project_root / ".progress" / "state" / "project_state.yaml"
+    state_text = state_path.read_text(encoding="utf-8")
+    state_path.write_text(
+        state_text.replace("maturity: accepted", "maturity: complete", 1),
+        encoding="utf-8",
+    )
+
+    problems = check_repo.collect_project_state_reference_problems(project_root)
+
+    assert problems == [
+        "project_state.state_dimensions.intent.maturity: "
+        "expected one of accepted, drafted, reviewed, seed, unknown, validated, weak"
+    ]
+
+
+def test_project_state_reference_check_reports_missing_evidence_path(tmp_path: Path) -> None:
+    check_repo = load_check_repo_module()
+    project_root = copy_fixture(tmp_path)
+    state_path = project_root / ".progress" / "state" / "project_state.yaml"
+    state_path.write_text(
+        """
+project:
+  id: sample-project
+  name: Sample Project
+  current_phase: fixture
+state_dimensions:
+  intent:
+    maturity: accepted
+    summary: "Intent is accepted."
+    evidence:
+      - missing-intent.md
+open_state_gaps:
+  - SG-1001
+aim_of_next_state:
+  - TS-1001
+""".lstrip(),
+        encoding="utf-8",
+    )
+
+    problems = check_repo.collect_project_state_reference_problems(project_root)
+
+    assert problems == [
+        "project_state.state_dimensions.intent.evidence[0]: "
+        "missing referenced path missing-intent.md"
+    ]
+
+
+def test_project_state_reference_check_reports_non_list_evidence(tmp_path: Path) -> None:
+    check_repo = load_check_repo_module()
+    project_root = copy_fixture(tmp_path)
+    state_path = project_root / ".progress" / "state" / "project_state.yaml"
+    state_text = state_path.read_text(encoding="utf-8")
+    state_path.write_text(
+        state_text.replace("evidence: []", "evidence: intent.md", 1),
+        encoding="utf-8",
+    )
+
+    problems = check_repo.collect_project_state_reference_problems(project_root)
+
+    assert problems == ["project_state.state_dimensions.intent.evidence: expected list"]
+
+
 def test_readme_cli_status_check_passes_when_marker_blocks_match(tmp_path: Path) -> None:
     check_repo = load_check_repo_module()
     project_root = tmp_path / "project"

@@ -91,6 +91,16 @@ PROGRESS_OBJECT_RULES = [
     },
 ]
 
+PROJECT_STATE_MATURITY_VALUES = {
+    "unknown",
+    "weak",
+    "seed",
+    "drafted",
+    "reviewed",
+    "accepted",
+    "validated",
+}
+
 
 def fail(message: str) -> None:
     print(f"[FAIL] {message}")
@@ -183,6 +193,44 @@ def collect_project_state_reference_problems(root: Path) -> list[str]:
         return [".progress/state/project_state.yaml: expected YAML mapping"]
 
     problems: list[str] = []
+    dimensions = data.get("state_dimensions")
+    if not isinstance(dimensions, dict):
+        problems.append("project_state.state_dimensions: expected mapping")
+    else:
+        for name, dimension in dimensions.items():
+            if not isinstance(name, str) or not isinstance(dimension, dict):
+                problems.append("project_state.state_dimensions: expected dimension mappings")
+                continue
+            maturity = dimension.get("maturity")
+            if maturity not in PROJECT_STATE_MATURITY_VALUES:
+                allowed = ", ".join(sorted(PROJECT_STATE_MATURITY_VALUES))
+                problems.append(
+                    f"project_state.state_dimensions.{name}.maturity: "
+                    f"expected one of {allowed}"
+                )
+            evidence_refs = dimension.get("evidence")
+            if not isinstance(evidence_refs, list):
+                problems.append(f"project_state.state_dimensions.{name}.evidence: expected list")
+                continue
+            for index, evidence_ref in enumerate(evidence_refs):
+                if not isinstance(evidence_ref, str) or not evidence_ref:
+                    problems.append(
+                        f"project_state.state_dimensions.{name}.evidence[{index}]: "
+                        "expected non-empty string"
+                    )
+                    continue
+                evidence_path = (root / evidence_ref).resolve()
+                if root != evidence_path and root not in evidence_path.parents:
+                    problems.append(
+                        f"project_state.state_dimensions.{name}.evidence[{index}]: "
+                        f"ref escapes repository: {evidence_ref}"
+                    )
+                elif not evidence_path.exists():
+                    problems.append(
+                        f"project_state.state_dimensions.{name}.evidence[{index}]: "
+                        f"missing referenced path {evidence_ref}"
+                    )
+
     reference_rules = [
         ("open_state_gaps", ".progress/gaps", "SG"),
         ("aim_of_next_state", ".progress/targets", "TS"),
