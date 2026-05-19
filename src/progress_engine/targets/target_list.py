@@ -7,6 +7,8 @@ from typing import Any
 
 import yaml
 
+from progress_engine.state.references import find_referenced_object_file
+
 
 class TargetListError(Exception):
     """Raised when next targets cannot be loaded as minimal valid objects."""
@@ -42,11 +44,7 @@ def render_target_list(targets: list[dict[str, Any]]) -> str:
 
 
 def _find_target_file(targets_dir: Path, target_id: str) -> Path:
-    exact = targets_dir / f"{target_id}.yaml"
-    if exact.exists():
-        return exact
-
-    matches = sorted(targets_dir.glob(f"{target_id}-*.yaml"))
+    matches = find_referenced_object_file(targets_dir, target_id)
     if not matches:
         raise TargetListError(f"missing target file for next target: {target_id}")
     if len(matches) > 1:

@@ -7,6 +7,8 @@ from typing import Any
 
 import yaml
 
+from progress_engine.state.references import find_referenced_object_file
+
 
 class GapListError(Exception):
     """Raised when open gaps cannot be loaded as minimal valid objects."""
@@ -40,7 +42,7 @@ def render_gap_list(gaps: list[dict[str, Any]]) -> str:
 
 
 def _find_gap_file(gaps_dir: Path, gap_id: str) -> Path:
-    matches = sorted(gaps_dir.glob(f"{gap_id}*.yaml"))
+    matches = find_referenced_object_file(gaps_dir, gap_id)
     if not matches:
         raise GapListError(f"missing gap file for open gap: {gap_id}")
     if len(matches) > 1:
