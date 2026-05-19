@@ -1,0 +1,76 @@
+state_delta_proposal:
+  id: SDP-0037
+  source_intervention: IV-0037
+  run_id: RUN-20260519-IV-0037
+  target_state_id: TS-0037
+  verification_id: EV-0037
+  status: applied
+  proposed_at: "2026-05-19T03:25:00+08:00"
+  proposed_by: verifier
+  primary_dimension: product
+  before:
+    product:
+      maturity: accepted
+      summary: "v0.1 试点场景已选定，但尚未执行。"
+    delivery:
+      maturity: weak
+      current_problem:
+        - "SG-0001 仍被列为 open，但其 desired state 已被仓库事实满足。"
+    open_state_gaps:
+      - SG-0001
+  after:
+    product:
+      recommended_maturity: accepted
+      summary: "v0.1 试点已执行，并被固化为自动化回归测试；仍不声称 product validated。"
+      advancement_reason:
+        - "`init -> intake -> state show -> assess` 已在临时目录执行通过。"
+        - "同一路径已由 `tests/test_pilot_validation.py` 覆盖。"
+        - "试点不依赖模型 API、Web UI 或外部服务。"
+    delivery:
+      recommended_maturity: weak
+      summary: "仓库已具备可审查的初始事实源、.progress 状态账本、GitHub 模板和自检脚本；发布方案仍未形成，因此 delivery maturity 保持 weak。"
+      advancement_reason:
+        - "SG-0001 desired state 已由当前仓库事实满足。"
+        - "关闭 stale open gap 能避免 `progress assess` 继续输出错误导航。"
+    open_state_gaps:
+      - SG-0028
+  evidence_refs:
+    - "docs/05-delivery/38-v0.1-pilot-validation-run.md"
+    - "tests/test_pilot_validation.py"
+    - ".progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml"
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0028
+      summary: "下一条完整 State Delta 写闭环切片尚未定义。"
+  recommended_next_interventions:
+    - id: IV-0038
+      name: "Define next full state-loop write slice"
+      condition: "Run after pilot validation run is accepted."
+      primary_dimension: implementation
+  requires_human_approval: false
+  do_not_apply_automatically: false
+  gate:
+    required: false
+    approved_by: verifier
+    approved_at: "2026-05-19T03:25:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: true
+    applied_by: verifier
+    applied_at: "2026-05-19T03:25:00+08:00"
+    previous_state_version: PS-0035
+    next_state_version: PS-0036
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep product accepted, add pilot validation evidence, close stale SG-0001, open SG-0028 for the next full state-loop write slice, and leave delivery weak because release planning is still absent."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "Remove TS-0037 / IV-0037 / RUN-20260519-IV-0037 / EV-0037 / SDP-0037 objects."
+      - "Remove docs/05-delivery/38-v0.1-pilot-validation-run.md and tests/test_pilot_validation.py."
+      - "Reopen SG-0001 and add it back to Project State open_state_gaps."
+      - "Remove SG-0028 / TS-0038 and clear Project State aim_of_next_state."
+      - "Remove EV-0037 / SDP-0037 evidence refs from Project State product, quality, and delivery dimensions."

@@ -18,6 +18,12 @@ selection_rationale:
   quality_confidence_gain: 3
   prevents_wrong_work: 5
   effort: 2
-status: proposed
+status: accepted
 related_gaps:
   - SG-0001
+accepted_by: SDP-0037
+accepted_at: "2026-05-19T03:25:00+08:00"
+acceptance_summary:
+  - "README.md、PROJECT_BRIEF.md、docs/、templates/ 和 reports/ 已在仓库中。"
+  - ".progress/state/project_state.yaml 可被 CLI 和仓库检查读取。"
+  - ".github/pull_request_template.md 与基础自检脚本已存在。"

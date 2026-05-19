@@ -14,7 +14,7 @@ state_dimensions:
       - docs/00-overview/02-core-methodology-state-driven-progress.md
   product:
     maturity: accepted
-    summary: "v0.1 MVP 边界已冻结为实现前可审查范围；代表性试点已选定为从 `examples/initial-project/intent.md` 启动本地状态账本并完成只读状态观察。"
+    summary: "v0.1 MVP 边界已冻结为实现前可审查范围；代表性试点已执行并固化为 `init -> intake -> state show -> assess` 自动化回归测试，但尚未验证完整 State Delta 写闭环。"
     evidence:
       - docs/05-delivery/16-mvp-scope-and-roadmap.md
       - .progress/targets/TS-0002-v0.1-mvp-boundary-accepted.yaml
@@ -25,6 +25,11 @@ state_dimensions:
       - .progress/targets/TS-0036-v0.1-pilot-validation-scenario-selected.yaml
       - .progress/evidence/EV-0036-v0.1-pilot-validation-scenario.yaml
       - .progress/deltas/SDP-0036-v0.1-pilot-validation-scenario.yaml
+      - docs/05-delivery/38-v0.1-pilot-validation-run.md
+      - tests/test_pilot_validation.py
+      - .progress/targets/TS-0037-v0.1-pilot-validation-run-accepted.yaml
+      - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
+      - .progress/deltas/SDP-0037-v0.1-pilot-validation-run.yaml
   design:
     maturity: drafted
     summary: "CLI 与交互方向已有文档，尚未形成实现级 UX 规格。"
@@ -162,9 +167,10 @@ state_dimensions:
       - .progress/targets/TS-0033-assess-cli-working.yaml
       - .progress/evidence/EV-0033-assess-cli.yaml
       - .progress/deltas/SDP-0033-assess-cli.yaml
+      - tests/test_pilot_validation.py
   quality:
     maturity: reviewed
-    summary: "仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links、.progress 对象一致性、Project State gap / target 引用完整性、maturity 枚举和 evidence refs 本地路径存在性；运行时 Gap / Target loader 也已统一使用 `{id}-*.yaml` canonical 引用解析规则。"
+    summary: "仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links、.progress 对象一致性、Project State gap / target 引用完整性、maturity 枚举和 evidence refs 本地路径存在性；运行时 Gap / Target loader 也已统一使用 `{id}-*.yaml` canonical 引用解析规则；v0.1 试点已纳入自动化回归测试。"
     evidence:
       - docs/05-delivery/17-quality-system-and-risk-management.md
       - scripts/check_repo.py
@@ -188,11 +194,19 @@ state_dimensions:
       - .progress/targets/TS-0035-project-state-evidence-gate-working.yaml
       - .progress/evidence/EV-0035-project-state-evidence-gate.yaml
       - .progress/deltas/SDP-0035-project-state-evidence-gate.yaml
+      - tests/test_pilot_validation.py
+      - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
   delivery:
     maturity: weak
-    summary: "已有 GitHub 项目骨架和基础 workflow，尚无发布方案。"
+    summary: "仓库已具备可审查的项目初始事实源、.progress 状态账本、GitHub 模板和基础自检脚本；发布方案仍未形成。"
     evidence:
       - .github/workflows/docs-check.yml
+      - README.md
+      - .progress/state/project_state.yaml
+      - .github/pull_request_template.md
+      - scripts/check_repo.py
+      - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
+      - .progress/deltas/SDP-0037-v0.1-pilot-validation-run.yaml
   knowledge:
     maturity: reviewed
     summary: "核心文档、模板、报告已经分层沉淀。"
@@ -201,6 +215,7 @@ state_dimensions:
       - reports/self-check/v3-self-check-report.md
 
 open_state_gaps:
-  - SG-0001
+  - SG-0028
 
-aim_of_next_state: []
+aim_of_next_state:
+  - TS-0038

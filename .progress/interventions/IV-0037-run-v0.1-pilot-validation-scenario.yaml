@@ -1,0 +1,23 @@
+id: IV-0037
+name: "Run v0.1 pilot validation scenario"
+primary_dimension: product
+target_state_id: TS-0037
+status: completed
+goal: "执行已选定的 v0.1 代表性试点，并把 bootstrap 状态观察路径固化为自动化回归测试。"
+in_scope:
+  - "在临时目录运行 `progress init`、`progress intake`、`progress state show` 和 `progress assess`。"
+  - "新增 pytest 集成测试覆盖同一试点流程。"
+  - "记录试点执行结果、验收映射和 State Delta Proposal。"
+  - "在自审中处理已被仓库事实满足的 stale bootstrap gap。"
+out_of_scope:
+  - "不实现新的 CLI 命令。"
+  - "不自动生成 Gap / Target / Intervention。"
+  - "不实现完整 Evidence add、verify、State Delta apply/rollback 写闭环。"
+  - "不调用模型 API、Web UI 或外部服务。"
+evidence_required:
+  - "docs/05-delivery/38-v0.1-pilot-validation-run.md"
+  - "tests/test_pilot_validation.py"
+  - "python3 -m pytest tests/test_pilot_validation.py 通过"
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过"
+automation_policy: verifier_required

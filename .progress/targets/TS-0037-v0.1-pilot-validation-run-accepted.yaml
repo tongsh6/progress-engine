@@ -1,0 +1,41 @@
+id: TS-0037
+name: "v0.1 pilot validation run accepted"
+primary_dimension: product
+secondary_dimensions:
+  - quality
+  - delivery
+status: accepted
+human_gate_required: false
+desired_state: "v0.1 代表性试点已在临时目录执行，并被固化为自动化回归测试。"
+from:
+  maturity: accepted
+  summary: "v0.1 试点场景已选定，但尚未执行，也没有自动化回归保护。"
+to:
+  maturity: accepted
+  summary: "v0.1 试点已证明 `init -> intake -> state show -> assess` bootstrap 观察路径可运行，并有 pytest 覆盖。"
+required_evidence:
+  - "试点命令在临时目录通过。"
+  - "试点输入 intent 被写入 `.progress/artifacts/intent.md`。"
+  - "Project State intent maturity 更新为 `seed`。"
+  - "`state show` 和 `assess` 能读取试点 Project State。"
+  - "新增自动化测试覆盖试点流程。"
+  - "仓库检查和全量 pytest 通过。"
+acceptance_criteria:
+  - id: AC-TS-0037-01
+    criterion: "试点在临时目录创建 `.progress` 初始状态账本。"
+  - id: AC-TS-0037-02
+    criterion: "`intake` 从 `examples/initial-project/intent.md` 写入 intent artifact，并将 intent maturity 推进到 `seed`。"
+  - id: AC-TS-0037-03
+    criterion: "`state show` 和 `assess` 可读取试点 Project State。"
+  - id: AC-TS-0037-04
+    criterion: "试点被固化为自动化测试，避免只靠一次人工输出。"
+  - id: AC-TS-0037-05
+    criterion: "自审处理 stale open gap，不让 Project State 导航继续误导后续推进。"
+  - id: AC-TS-0037-06
+    criterion: "全量 pytest 和仓库检查通过。"
+non_goals:
+  - "不升级 product maturity 到 validated。"
+  - "不实现 Evidence add、verify、State Delta apply/rollback 的完整写闭环。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0001

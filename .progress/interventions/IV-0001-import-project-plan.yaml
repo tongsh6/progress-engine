@@ -2,7 +2,7 @@ id: IV-0001
 name: Import project plan into repository
 primary_dimension: delivery
 target_state_id: TS-0001
-status: ready
+status: completed
 goal: "将 ProgressEngine 项目策划书、协议、模板、图示和自检报告作为仓库初始事实源。"
 in_scope:
   - "导入 README / PROJECT_BRIEF / INDEX / PROJECT_STRUCTURE / CHANGELOG"
@@ -19,3 +19,7 @@ evidence_required:
   - "python3 scripts/check_repo.py 可运行"
   - "PR 描述包含 State Delta"
 automation_policy: manual_apply
+completion:
+  reconciled_by: SDP-0037
+  completed_at: "2026-05-19T03:25:00+08:00"
+  summary: "仓库初始事实源已存在；本轮关闭 SG-0001 stale open 状态。"

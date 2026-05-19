@@ -1,0 +1,32 @@
+id: TS-0038
+name: "next full state-loop write slice defined"
+primary_dimension: implementation
+source_gap: SG-0028
+status: proposed
+human_gate_required: true
+desired_state: "下一条实现切片明确选择 v0.1 State Delta 写闭环中的最小可验证推进动作。"
+from:
+  maturity: drafted
+  summary: "CLI 已覆盖 bootstrap 和多类只读列表/assessment，但完整写闭环尚未定义下一条实现切片。"
+to:
+  maturity: drafted
+  summary: "下一条 State Delta 写闭环实现切片有明确命令边界、输入输出、验收标准和 out_of_scope。"
+required_evidence:
+  - "新增 delivery slice 文档，说明下一条写闭环命令或流程。"
+  - "明确不越过 human gate 自动污染 Project State。"
+  - "明确测试策略和 rollback / rejection 边界。"
+  - "仓库检查通过。"
+acceptance_criteria:
+  - id: AC-TS-0038-01
+    criterion: "切片文档明确下一条 State Delta 写闭环推进动作。"
+  - id: AC-TS-0038-02
+    criterion: "切片边界说明 input、output、in_scope、out_of_scope 和 evidence_required。"
+  - id: AC-TS-0038-03
+    criterion: "切片不允许绕过 human gate 直接修改 Project State maturity。"
+  - id: AC-TS-0038-04
+    criterion: "切片包含 focused pytest 与仓库检查验收要求。"
+non_goals:
+  - "不在定义切片时实现完整 delta apply/rollback。"
+  - "不引入模型 API、Web UI 或外部服务。"
+related_gaps:
+  - SG-0028

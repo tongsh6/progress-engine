@@ -1,0 +1,20 @@
+id: SG-0028
+dimension: implementation
+severity: medium
+status: open
+source_intervention: IV-0037
+current_state: "v0.1 试点已覆盖 `init -> intake -> state show -> assess` bootstrap 观察路径，但尚未定义下一条完整 State Delta 写闭环切片。"
+desired_state: "下一条实现切片被定义为一个小范围、可验证、符合 human gate 策略的 State Delta 写闭环推进动作。"
+evidence_refs:
+  - "docs/05-delivery/38-v0.1-pilot-validation-run.md"
+impact:
+  - "防止项目在试点通过后误以为 v0.1 已 validated。"
+  - "把后续推进从自然语言建议转成结构化 State Gap 和 Target State。"
+  - "保持 v0.1 范围聚焦在 repo-native 状态推进闭环，而不是扩张到 UI、模型 API 或自动 agent。"
+suggested_targets:
+  - "TS-0038-next-full-state-loop-write-slice-defined"
+suggested_interventions:
+  - "IV-0038: Define next full state-loop write slice"
+notes:
+  - "本 gap 不要求一次性实现完整 delta apply/rollback。"
+  - "下一轮应先定义写闭环切片边界，再执行实现。"

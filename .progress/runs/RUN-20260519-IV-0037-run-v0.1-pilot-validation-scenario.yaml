@@ -1,0 +1,28 @@
+id: RUN-20260519-IV-0037
+intervention_id: IV-0037
+target_state_id: TS-0037
+started_at: "2026-05-19T03:00:00+08:00"
+completed_at: "2026-05-19T03:25:00+08:00"
+mode: "local-cli-and-pytest"
+primary_dimension: product
+status: completed
+state_reconciliation:
+  current_product_state:
+    maturity: accepted
+    summary: "v0.1 代表性试点已选定，但尚未执行。"
+  why_iv_0037_is_next:
+    - "SDP-0036 推荐执行 `IV-0037`。"
+    - "试点直接覆盖 v0.1 的本地 bootstrap 和只读状态观察路径。"
+    - "新增测试能把一次性试点转成长期回归保护。"
+  review_findings:
+    - "SG-0001 仍为 open，但当前仓库已具备策划文档、.progress 状态账本、GitHub 模板和自检脚本。"
+    - "本轮通过 State Delta 关闭 SG-0001，而不是在 CLI 中特殊隐藏。"
+  out_of_scope_confirmed:
+    - "不升级 product 到 validated。"
+    - "不实现新 CLI。"
+    - "不调用外部服务。"
+outputs:
+  changed:
+    - "docs/05-delivery/38-v0.1-pilot-validation-run.md"
+    - "tests/test_pilot_validation.py"
+completion_claim: "Executor claims the selected v0.1 pilot scenario has run successfully, has regression coverage, and stale bootstrap gap navigation has been reconciled."

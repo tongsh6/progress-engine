@@ -4,6 +4,49 @@
 
 ## 2026-05-19
 
+### IV-0037: Run v0.1 pilot validation scenario
+
+- Target State：`TS-0037: v0.1 pilot validation run accepted`
+- 主维度：product
+- 结果：已按 `verifier_required` policy apply，product maturity 保持 `accepted`
+- 选择理由：
+  - `SDP-0036` 明确推荐下一步执行 `IV-0037`。
+  - 该试点直接验证 v0.1 的核心 bootstrap 路径：从 `examples/initial-project/intent.md` 到 repo-native `.progress` 状态账本，再到只读状态观察。
+  - 本任务复用已实现 CLI，不引入模型 API、Web UI、外部 agent 或完整调度器，符合 v0.1 边界。
+  - 一次性人工试点不足以支撑长期质量；本轮将它固化为 pytest 集成测试。
+- Evidence：`.progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml`
+- State Delta：`.progress/deltas/SDP-0037-v0.1-pilot-validation-run.yaml`
+- 状态历史：`PS-0036`
+- 主要产物：
+  - `docs/05-delivery/38-v0.1-pilot-validation-run.md`
+  - `tests/test_pilot_validation.py`
+- 自审处理：
+  - `SG-0001` 仍为 open，但其 desired state 已被当前仓库事实满足。
+  - 本轮通过 State Delta 关闭 `SG-0001`，而不是在 CLI 中隐藏该 gap。
+  - delivery maturity 保持 `weak`，因为发布方案仍未形成。
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_pilot_validation.py
+1 passed
+
+python3 -m pytest
+88 passed
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 237 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 209 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0028` 已创建：下一条完整 State Delta 写闭环切片尚未定义。
+  - 下一轮应处理 `TS-0038: next full state-loop write slice defined` / `IV-0038: Define next full state-loop write slice`，而不是直接把 product 升级到 validated。
+
 ### IV-0036: Select v0.1 pilot validation scenario
 
 - Target State：`TS-0036: v0.1 pilot validation scenario selected`

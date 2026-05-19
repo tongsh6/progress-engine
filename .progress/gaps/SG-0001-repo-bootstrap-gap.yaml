@@ -1,7 +1,7 @@
 id: SG-0001
 name: Repo bootstrap gap
 dimension: delivery
-status: open
+status: resolved
 current_state: "远程仓库已建立，但仓库内容、协作模板、状态账本和自检流程尚未落入 Git。"
 desired_state: "仓库具备可审查的项目初始状态，包括策划文档、.progress 状态账本、GitHub 模板和基础自检脚本。"
 severity: high
@@ -11,3 +11,7 @@ evidence:
   - .progress/state/project_state.yaml
 recommended_targets:
   - TS-0001
+resolution:
+  resolved_by: SDP-0037
+  resolved_at: "2026-05-19T03:25:00+08:00"
+  summary: "当前仓库已具备策划文档、.progress 状态账本、GitHub PR 模板和基础自检脚本；SG-0001 不应继续作为 open gap 误导后续 assessment。"
