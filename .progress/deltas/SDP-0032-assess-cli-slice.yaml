@@ -4,7 +4,7 @@ state_delta_proposal:
   run_id: RUN-20260518-IV-0032
   target_state_id: TS-0032
   verification_id: EV-0032
-  status: proposed
+  status: applied
   proposed_at: "2026-05-18T23:51:00+08:00"
   proposed_by: verifier
   primary_dimension: implementation
@@ -47,15 +47,15 @@ state_delta_proposal:
   do_not_apply_automatically: true
   gate:
     required: true
-    approved_by: null
-    approved_at: null
-    decision: pending
+    approved_by: human_user
+    approved_at: "2026-05-19T01:25:00+08:00"
+    decision: approved
   apply:
     allowed_before_human_approval: false
-    applied_by: null
-    applied_at: null
-    previous_state_version: PS-0030
-    next_state_version: null
+    applied_by: human_user
+    applied_at: "2026-05-19T01:25:00+08:00"
+    previous_state_version: PS-0031
+    next_state_version: PS-0032
     project_state_file: ".progress/state/project_state.yaml"
     proposed_patch_summary: "Keep implementation maturity at drafted, mark TS-0032 accepted, resolve SG-0025, add SG-0026 / TS-0033 / EV-0032 / SDP-0032 evidence refs, and set TS-0033 as the next target."
   rollback:

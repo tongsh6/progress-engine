@@ -2,7 +2,7 @@ id: TS-0032
 name: "assess CLI slice defined"
 primary_dimension: implementation
 source_gap: SG-0025
-status: proposed
+status: accepted
 human_gate_required: true
 desired_state: "下一条 assessment CLI slice 被定义为小范围、可测试、只读的 `progress assess`。"
 from:

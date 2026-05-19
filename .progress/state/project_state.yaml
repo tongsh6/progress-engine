@@ -14,12 +14,17 @@ state_dimensions:
       - docs/00-overview/02-core-methodology-state-driven-progress.md
   product:
     maturity: accepted
-    summary: "v0.1 MVP 边界已冻结为实现前可审查范围，可作为技术栈选择和实现计划依据。"
+    summary: "v0.1 MVP 边界已冻结为实现前可审查范围；代表性试点已选定为从 `examples/initial-project/intent.md` 启动本地状态账本并完成只读状态观察。"
     evidence:
       - docs/05-delivery/16-mvp-scope-and-roadmap.md
       - .progress/targets/TS-0002-v0.1-mvp-boundary-accepted.yaml
       - .progress/evidence/EV-0002-v0.1-mvp-boundary.yaml
       - .progress/deltas/SDP-0002-v0.1-mvp-boundary.yaml
+      - docs/05-delivery/37-v0.1-pilot-validation-scenario.md
+      - examples/initial-project/intent.md
+      - .progress/targets/TS-0036-v0.1-pilot-validation-scenario-selected.yaml
+      - .progress/evidence/EV-0036-v0.1-pilot-validation-scenario.yaml
+      - .progress/deltas/SDP-0036-v0.1-pilot-validation-scenario.yaml
   design:
     maturity: drafted
     summary: "CLI 与交互方向已有文档，尚未形成实现级 UX 规格。"
@@ -36,7 +41,7 @@ state_dimensions:
       - .progress/deltas/SDP-0003-v0.1-tech-stack.yaml
   implementation:
     maturity: drafted
-    summary: "`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress state show`、`progress state history`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list`、`progress evidence list`、`progress verify list`、`progress delta list` 和 `progress event list` 已作为 Python CLI 切片可运行、可测试。"
+    summary: "`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress assess`、`progress state show`、`progress state history`、`progress gaps list`、`progress target list`、`progress intervention list`、`progress run list`、`progress evidence list`、`progress verify list`、`progress delta list` 和 `progress event list` 已作为 Python CLI 切片可运行、可测试。"
     evidence:
       - docs/05-delivery/23-first-python-cli-implementation-slice.md
       - .progress/targets/TS-0006-first-python-cli-slice-defined.yaml
@@ -148,9 +153,18 @@ state_dimensions:
       - .progress/targets/TS-0031-intent-intake-cli-working.yaml
       - .progress/evidence/EV-0031-intent-intake-cli.yaml
       - .progress/deltas/SDP-0031-intent-intake-cli.yaml
+      - docs/05-delivery/36-assess-cli-slice.md
+      - .progress/targets/TS-0032-assess-cli-slice-defined.yaml
+      - .progress/evidence/EV-0032-assess-cli-slice.yaml
+      - .progress/deltas/SDP-0032-assess-cli-slice.yaml
+      - src/progress_engine/assessment/assess.py
+      - tests/test_cli_assess.py
+      - .progress/targets/TS-0033-assess-cli-working.yaml
+      - .progress/evidence/EV-0033-assess-cli.yaml
+      - .progress/deltas/SDP-0033-assess-cli.yaml
   quality:
     maturity: reviewed
-    summary: "仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links、.progress 对象一致性和 Project State open gap / next target 引用完整性。"
+    summary: "仓库检查已覆盖 required paths、YAML、JSONL、Markdown local links、.progress 对象一致性、Project State gap / target 引用完整性、maturity 枚举和 evidence refs 本地路径存在性；运行时 Gap / Target loader 也已统一使用 `{id}-*.yaml` canonical 引用解析规则。"
     evidence:
       - docs/05-delivery/17-quality-system-and-risk-management.md
       - scripts/check_repo.py
@@ -165,6 +179,15 @@ state_dimensions:
       - .progress/targets/TS-0027-project-state-reference-check-working.yaml
       - .progress/evidence/EV-0027-project-state-reference-check.yaml
       - .progress/deltas/SDP-0027-project-state-reference-check.yaml
+      - src/progress_engine/state/references.py
+      - tests/test_cli_gaps_list.py
+      - tests/test_cli_target_list.py
+      - .progress/targets/TS-0034-reference-resolution-consistent.yaml
+      - .progress/evidence/EV-0034-reference-resolution-consistency.yaml
+      - .progress/deltas/SDP-0034-reference-resolution-consistency.yaml
+      - .progress/targets/TS-0035-project-state-evidence-gate-working.yaml
+      - .progress/evidence/EV-0035-project-state-evidence-gate.yaml
+      - .progress/deltas/SDP-0035-project-state-evidence-gate.yaml
   delivery:
     maturity: weak
     summary: "已有 GitHub 项目骨架和基础 workflow，尚无发布方案。"
@@ -179,9 +202,5 @@ state_dimensions:
 
 open_state_gaps:
   - SG-0001
-  - SG-0002
-  - SG-0003
-  - SG-0025
 
-aim_of_next_state:
-  - TS-0032
+aim_of_next_state: []

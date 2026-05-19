@@ -1,0 +1,61 @@
+state_delta_proposal:
+  id: SDP-0034
+  source_intervention: IV-0034
+  run_id: RUN-20260519-IV-0034
+  target_state_id: TS-0034
+  verification_id: EV-0034
+  status: applied
+  proposed_at: "2026-05-19T01:15:00+08:00"
+  proposed_by: verifier
+  primary_dimension: quality
+  before:
+    quality:
+      maturity: reviewed
+      summary: "Project State reference check 已存在，但运行时 Gap / Target loader 的文件匹配规则未完全统一。"
+      current_problem:
+        - "Gap loader 使用宽松前缀匹配，可能把相似 ID 文件纳入候选。"
+        - "Target loader 接受 `{id}.yaml`，与 `{id}-*.yaml` 账本引用约定不一致。"
+  after:
+    quality:
+      recommended_maturity: reviewed
+      summary: "运行时 Gap / Target loader 与 Project State reference check 使用一致的 `{id}-*.yaml` 引用解析规则，并有回归测试覆盖。"
+      advancement_reason:
+        - "新增 `src/progress_engine/state/references.py` 作为共享引用解析 helper。"
+        - "Gap loader 和 Target loader 均复用该 helper。"
+        - "测试覆盖相似 gap id 前缀和 target exact filename 两类漂移风险。"
+        - "受影响测试、全量 pytest 和仓库检查均通过。"
+      caveat: "本轮不修改 Project State maturity；该 proposal 等待 gate 后再决定是否记录为状态历史。"
+  evidence_refs:
+    - "src/progress_engine/state/references.py"
+    - "src/progress_engine/gaps/gap_list.py"
+    - "src/progress_engine/targets/target_list.py"
+    - "tests/test_cli_gaps_list.py"
+    - "tests/test_cli_target_list.py"
+    - ".progress/evidence/EV-0034-reference-resolution-consistency.yaml"
+  acceptance_summary:
+    pass: 5
+    fail: 0
+    not_tested: 0
+  remaining_gaps: []
+  recommended_next_interventions: []
+  requires_human_approval: false
+  do_not_apply_automatically: false
+  gate:
+    required: false
+    approved_by: verifier
+    approved_at: "2026-05-19T01:15:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: true
+    applied_by: verifier
+    applied_at: "2026-05-19T01:15:00+08:00"
+    previous_state_version: PS-0030
+    next_state_version: PS-0031
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Append EV-0034 / SDP-0034 as quality evidence and record a PS-0031 state history entry without changing quality maturity."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "Restore Gap / Target loader file matching to the previous implementation."
+      - "Remove `src/progress_engine/state/references.py` and the two new regression tests."

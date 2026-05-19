@@ -2,6 +2,175 @@
 
 本台账记录项目状态如何被推进。它不是任务列表，也不是完成清单；每条记录都必须说明目标状态、证据、State Delta 和 remaining gaps。
 
+## 2026-05-19
+
+### IV-0036: Select v0.1 pilot validation scenario
+
+- Target State：`TS-0036: v0.1 pilot validation scenario selected`
+- 主维度：product
+- 结果：已按 `verifier_required` policy apply，product maturity 保持 `accepted`
+- 选择理由：
+  - `SG-0002` 明确要求选定真实或代表性试点，否则 product 不能进入 validated。
+  - 选择 `examples/initial-project/intent.md` 能覆盖 v0.1 核心承诺：从模糊 intent 进入 repo-native Project State。
+  - 本试点可本地重复执行，不依赖模型 API、Web UI 或外部服务。
+  - 本轮只选定试点，不执行试点，也不声称 product validated。
+- Evidence：`.progress/evidence/EV-0036-v0.1-pilot-validation-scenario.yaml`
+- State Delta：`.progress/deltas/SDP-0036-v0.1-pilot-validation-scenario.yaml`
+- 状态历史：`PS-0035`
+- 主要产物：
+  - `docs/05-delivery/37-v0.1-pilot-validation-scenario.md`
+- 检查结果：
+
+```text
+python3 -m pytest
+87 passed
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 230 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 202 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0001` 仍是唯一 open gap，需要后续复核它是否已被仓库事实满足或需要新的 delivery target。
+  - 试点尚未执行；后续可按 `SDP-0036` 推荐创建 `IV-0037: Run v0.1 pilot validation scenario`。
+
+### IV-0035: Project State evidence gate
+
+- Target State：`TS-0035: project state evidence gate working`
+- 主维度：quality
+- 结果：已按 `verifier_required` policy apply，quality maturity 保持 `reviewed`
+- 选择理由：
+  - `SG-0003` 仍是主要质量缺口，且直接影响状态账本可信度。
+  - Project State 已能检查 open gap / next target 引用，但 dimension maturity 枚举和 evidence refs 仍可能漂移。
+  - 该切片只读、可测试，收敛质量门禁，不扩张为完整 schema engine。
+- Evidence：`.progress/evidence/EV-0035-project-state-evidence-gate.yaml`
+- State Delta：`.progress/deltas/SDP-0035-project-state-evidence-gate.yaml`
+- 状态历史：`PS-0034`
+- 主要产物：
+  - `scripts/check_repo.py`
+  - `tests/test_check_repo.py`
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_check_repo.py
+14 passed
+
+python3 -m pytest
+87 passed
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 225 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 197 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0002` 是当前主要产品验证缺口。
+  - `SG-0001` 仍是 delivery bootstrap 缺口。
+
+### IV-0034: Fix reference resolution consistency
+
+- Target State：`TS-0034: reference resolution consistent`
+- 主维度：quality
+- 结果：已按 `verifier_required` policy apply，quality maturity 保持 `reviewed`
+- 选择理由：
+  - 代码审查发现运行时 Gap loader 使用宽松前缀匹配，可能把相似 ID 文件当成 Project State 引用对象。
+  - Target loader 允许 `{id}.yaml`，与 Project State reference check 的 `{id}-*.yaml` canonical 规则不一致。
+  - 该问题会削弱 State Assessment Gate 和 Project State reference integrity，影响 `progress gaps list`、`progress target list` 以及复用二者的 `progress assess`。
+  - 修复根因是统一引用解析规则，而不是为单个命令补特殊判断。
+- Evidence：`.progress/evidence/EV-0034-reference-resolution-consistency.yaml`
+- State Delta：`.progress/deltas/SDP-0034-reference-resolution-consistency.yaml`
+- 状态历史：`PS-0031`
+- 主要产物：
+  - `src/progress_engine/state/references.py`
+  - `src/progress_engine/gaps/gap_list.py`
+  - `src/progress_engine/targets/target_list.py`
+  - `tests/test_cli_gaps_list.py`
+  - `tests/test_cli_target_list.py`
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_gaps_list.py tests/test_cli_target_list.py tests/test_cli_assess.py
+17 passed
+
+python3 -m pytest
+84 passed
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 220 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 192 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0002` 和 `SG-0003` 仍是长期产品/质量缺口。
+
+### IV-0032: Define assess CLI slice
+
+- Target State：`TS-0032: assess CLI slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 切片结论：下一条 assessment CLI 路径为只读的 `progress assess`
+- Evidence：`.progress/evidence/EV-0032-assess-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0032-assess-cli-slice.yaml`
+- 状态历史：`PS-0032`
+- 主要产物：`docs/05-delivery/36-assess-cli-slice.md`
+- 明确边界：
+  - 只读取 Project State、Project State 声明的 open gaps 和 next targets
+  - 不自动生成 Gap / Target / Intervention
+  - 不执行 target suggestion、state refresh、delta apply 或模型调用
+- 后续导航：
+  - `SG-0026` 已由 `IV-0033` 处理并在 `SDP-0033` 中 apply
+
+### IV-0033: Implement assess CLI slice
+
+- Target State：`TS-0033: assess CLI working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 实现结论：`progress assess` 已作为只读 assessment 摘要命令实现并测试通过
+- Evidence：`.progress/evidence/EV-0033-assess-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0033-assess-cli.yaml`
+- 状态历史：`PS-0033`
+- 主要产物：
+  - `src/progress_engine/cli.py`
+  - `src/progress_engine/assessment/assess.py`
+  - `tests/test_cli_assess.py`
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_assess.py
+7 passed
+
+python3 -m pytest
+84 passed
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 220 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 192 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0002` 和 `SG-0003` 仍是长期产品/质量缺口。
+  - 当前 `aim_of_next_state` 暂为空，下一轮应先定义后续 target，而不是直接扩展实现。
+
 ## 2026-05-17
 
 ### IV-0002: Freeze v0.1 MVP boundary

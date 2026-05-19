@@ -1,0 +1,35 @@
+id: TS-0036
+name: "v0.1 pilot validation scenario selected"
+primary_dimension: product
+source_gap: SG-0002
+status: accepted
+human_gate_required: false
+desired_state: "v0.1 已选定一个可本地重复执行的代表性试点场景，用于后续验证状态闭环。"
+from:
+  maturity: accepted
+  summary: "v0.1 MVP 边界已 accepted，但真实或代表性试点项目尚未选定。"
+to:
+  maturity: accepted
+  summary: "v0.1 代表性试点被选定为从 `examples/initial-project/intent.md` 启动本地状态账本并完成只读状态观察。"
+required_evidence:
+  - "试点场景文档明确输入、流程、成功判断和 out_of_scope。"
+  - "试点输入文件存在。"
+  - "试点不依赖模型 API、Web UI 或外部服务。"
+  - "仓库检查和全量 pytest 通过。"
+acceptance_criteria:
+  - id: AC-TS-0036-01
+    criterion: "试点输入文件明确，并存在于仓库中。"
+  - id: AC-TS-0036-02
+    criterion: "试点流程覆盖 `init`、`intake`、`state show` 和 `assess`。"
+  - id: AC-TS-0036-03
+    criterion: "试点成功判断聚焦 Project State 和 Evidence，不依赖模型或外部服务。"
+  - id: AC-TS-0036-04
+    criterion: "试点边界明确说明不验证 product validated。"
+  - id: AC-TS-0036-05
+    criterion: "仓库检查和全量 pytest 仍通过。"
+non_goals:
+  - "不执行试点。"
+  - "不将 product maturity 升级到 validated。"
+  - "不实现新的 CLI 命令。"
+related_gaps:
+  - SG-0002

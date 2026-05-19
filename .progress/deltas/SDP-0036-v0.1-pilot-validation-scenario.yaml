@@ -1,0 +1,62 @@
+state_delta_proposal:
+  id: SDP-0036
+  source_intervention: IV-0036
+  run_id: RUN-20260519-IV-0036
+  target_state_id: TS-0036
+  verification_id: EV-0036
+  status: applied
+  proposed_at: "2026-05-19T02:15:00+08:00"
+  proposed_by: verifier
+  primary_dimension: product
+  before:
+    product:
+      maturity: accepted
+      summary: "v0.1 MVP 边界已 accepted，但试点验证场景尚未选定。"
+      current_problem:
+        - "SG-0002 阻断 product maturity 进入 validated。"
+  after:
+    product:
+      recommended_maturity: accepted
+      summary: "v0.1 代表性试点已选定为从 `examples/initial-project/intent.md` 启动本地状态账本并完成只读状态观察。"
+      advancement_reason:
+        - "docs/05-delivery/37-v0.1-pilot-validation-scenario.md 明确试点输入、流程、成功判断和验证边界。"
+        - "试点不依赖模型 API、Web UI 或外部服务。"
+        - "本轮只完成试点选择，不声称 product validated。"
+      caveat: "后续仍需执行试点并记录 Evidence，才可考虑 product validated。"
+  evidence_refs:
+    - "docs/05-delivery/37-v0.1-pilot-validation-scenario.md"
+    - "examples/initial-project/intent.md"
+    - ".progress/evidence/EV-0036-v0.1-pilot-validation-scenario.yaml"
+  acceptance_summary:
+    pass: 5
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+    - id: SG-0001
+      summary: "delivery bootstrap gap 仍需复核。"
+  recommended_next_interventions:
+    - id: IV-0037
+      name: "Run v0.1 pilot validation scenario"
+      condition: "Run after the selected pilot scenario is accepted."
+      primary_dimension: product
+  requires_human_approval: false
+  do_not_apply_automatically: false
+  gate:
+    required: false
+    approved_by: verifier
+    approved_at: "2026-05-19T02:15:00+08:00"
+    decision: approved
+  apply:
+    allowed_before_human_approval: true
+    applied_by: verifier
+    applied_at: "2026-05-19T02:15:00+08:00"
+    previous_state_version: PS-0034
+    next_state_version: PS-0035
+    project_state_file: ".progress/state/project_state.yaml"
+    proposed_patch_summary: "Keep product maturity at accepted, resolve SG-0002, add TS-0036 / EV-0036 / SDP-0036 evidence refs, and leave pilot execution for a later intervention."
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+      - "Remove docs/05-delivery/37-v0.1-pilot-validation-scenario.md."
+      - "Reopen SG-0002 and remove TS-0036 / EV-0036 / SDP-0036 from Project State product evidence."

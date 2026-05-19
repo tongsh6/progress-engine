@@ -1,0 +1,52 @@
+evidence:
+  id: EV-0035
+  run_id: RUN-20260519-IV-0035
+  intervention_id: IV-0035
+  target_state_id: TS-0035
+  evidence_type: code_diff
+  created_at: "2026-05-19T01:55:00+08:00"
+  claims:
+    - dimension: quality
+      before: "Project State dimension maturity 和 evidence refs 未纳入仓库质量门禁。"
+      after: "`scripts/check_repo.py` 已校验 Project State maturity 枚举、evidence list 类型和本地路径存在性。"
+      acceptance_mapping:
+        - criterion: "Project State dimension maturity 只能使用已定义成熟度枚举。"
+          status: pass
+          evidence_ref: "tests/test_check_repo.py::test_project_state_reference_check_reports_invalid_maturity"
+        - criterion: "Project State dimension evidence 必须是 list。"
+          status: pass
+          evidence_ref: "tests/test_check_repo.py::test_project_state_reference_check_reports_non_list_evidence"
+        - criterion: "Project State dimension evidence 中的本地路径必须存在且不能逃逸仓库根目录。"
+          status: pass
+          evidence_ref: "scripts/check_repo.py::collect_project_state_reference_problems"
+        - criterion: "pytest 覆盖非法 maturity、缺失 evidence path 和非 list evidence。"
+          status: pass
+          evidence_ref: "python3 -m pytest tests/test_check_repo.py"
+        - criterion: "全量 pytest 和 `python3 scripts/check_repo.py` 通过。"
+          status: pass
+          evidence_ref: "python3 -m pytest; python3 scripts/check_repo.py"
+  scope_check:
+    result: pass
+    notes:
+      - "修复集中在仓库检查脚本和对应测试。"
+      - "未引入新依赖。"
+      - "未改变 CLI 行为。"
+      - "未实现完整 schema validation engine 或自动修复。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_check_repo.py"
+      result: pass
+      output_summary: "14 passed"
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "87 passed"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 225 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 197 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+  files_changed:
+    - "scripts/check_repo.py"
+    - "tests/test_check_repo.py"
+  reviewer:
+    type: verifier
+    result: pass
+  remaining_gaps: []
+  supports_state_delta_proposal: SDP-0035

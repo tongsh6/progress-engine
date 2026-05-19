@@ -1,0 +1,35 @@
+id: TS-0034
+name: "reference resolution consistent"
+primary_dimension: quality
+source_gap: SG-0027
+status: accepted
+human_gate_required: false
+desired_state: "CLI 只读对象 loader 与 Project State reference check 使用一致的 `{id}-*.yaml` 引用解析规则。"
+from:
+  maturity: reviewed
+  summary: "仓库检查已校验 Project State 引用，但运行时 loader 仍存在更宽松的局部匹配规则。"
+to:
+  maturity: reviewed
+  summary: "运行时 loader 与仓库质量门禁的引用解析规则一致，并有回归测试覆盖相似 ID 和非规范文件名。"
+required_evidence:
+  - "Gap 和 Target loader 复用共享引用解析 helper。"
+  - "相似 gap id 前缀不能满足 Project State 中声明的 gap 引用。"
+  - "不符合 `{id}-*.yaml` 的 target 文件名不能满足 Project State 中声明的 target 引用。"
+  - "受影响 CLI 测试、全量 pytest 和 `python3 scripts/check_repo.py` 通过。"
+acceptance_criteria:
+  - id: AC-TS-0034-01
+    criterion: "Gap loader 只匹配 `{gap_id}-*.yaml`，不会匹配相似 ID 前缀。"
+  - id: AC-TS-0034-02
+    criterion: "Target loader 只匹配 `{target_id}-*.yaml`，不会接受 `{target_id}.yaml` 作为 Project State 引用对象。"
+  - id: AC-TS-0034-03
+    criterion: "Gap 和 Target loader 共享同一个引用解析 helper，避免规则继续分叉。"
+  - id: AC-TS-0034-04
+    criterion: "`progress assess` 仍能通过共享 loader 输出当前 assessment 摘要。"
+  - id: AC-TS-0034-05
+    criterion: "全量 pytest 和 `python3 scripts/check_repo.py` 仍通过。"
+non_goals:
+  - "不实现完整 schema validation engine。"
+  - "不自动修复 `.progress` 对象文件名。"
+  - "不修改 Project State maturity。"
+related_gaps:
+  - SG-0027

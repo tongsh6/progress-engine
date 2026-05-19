@@ -1,7 +1,7 @@
 id: SG-0025
 dimension: implementation
 severity: medium
-status: open
+status: resolved
 source_intervention: IV-0031
 current_state: "`progress init` 和 `progress intake` 已实现；基于当前 Project State 输出 assessment 摘要的 CLI slice 尚未定义。"
 desired_state: "下一条 assess CLI slice 被明确限定为只读地汇总 Project State maturity、open gaps 和 next targets，不自动生成新对象。"
@@ -17,3 +17,7 @@ suggested_interventions:
   - "IV-0032: Define assess CLI slice"
 notes:
   - "下一步应先定义只读 assess 边界，不自动生成 Gap / Target。"
+resolution:
+  resolved_by: SDP-0032
+  resolved_at: "2026-05-19T01:25:00+08:00"
+  summary: "`progress assess` 已被限定为只读汇总 Project State maturity、open gaps 和 next targets 的 CLI slice。"

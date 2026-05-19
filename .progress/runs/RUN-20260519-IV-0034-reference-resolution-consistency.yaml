@@ -1,0 +1,29 @@
+id: RUN-20260519-IV-0034
+intervention_id: IV-0034
+target_state_id: TS-0034
+started_at: "2026-05-19T01:05:00+08:00"
+completed_at: "2026-05-19T01:15:00+08:00"
+mode: "local-code-review-repair"
+primary_dimension: quality
+status: completed
+state_reconciliation:
+  current_quality_state:
+    maturity: reviewed
+    evidence_refs:
+      - "scripts/check_repo.py"
+      - ".progress/evidence/EV-0027-project-state-reference-check.yaml"
+    summary: "Project State reference check 已存在，但运行时 loader 仍有局部解析规则漂移。"
+  why_iv_0034_is_next:
+    - "本轮代码 review 发现引用解析规则漂移会削弱 State Assessment Gate 和 Project State reference integrity。"
+    - "该问题影响 `progress gaps list`、`progress target list` 和复用二者的 `progress assess`。"
+    - "修复范围小，但能降低后续状态账本污染风险。"
+  out_of_scope_confirmed:
+    - "不自动修复 `.progress` 文件，不生成新业务对象，不执行 delta apply。"
+outputs:
+  changed:
+    - "src/progress_engine/state/references.py"
+    - "src/progress_engine/gaps/gap_list.py"
+    - "src/progress_engine/targets/target_list.py"
+    - "tests/test_cli_gaps_list.py"
+    - "tests/test_cli_target_list.py"
+completion_claim: "Executor claims reference resolution is consistent, covered by regression tests, and ready for verifier review."

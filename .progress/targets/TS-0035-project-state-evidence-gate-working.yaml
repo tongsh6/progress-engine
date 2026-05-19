@@ -1,0 +1,35 @@
+id: TS-0035
+name: "project state evidence gate working"
+primary_dimension: quality
+source_gap: SG-0003
+status: accepted
+human_gate_required: false
+desired_state: "Project State 质量检查覆盖状态维度 maturity 枚举和 evidence refs 本地路径存在性。"
+from:
+  maturity: reviewed
+  summary: "仓库检查已覆盖 `.progress` 对象最小字段和 Project State open gap / next target 引用，但 Project State dimension evidence refs 和 maturity 枚举仍可能漂移。"
+to:
+  maturity: reviewed
+  summary: "Project State dimension maturity 和 evidence refs 已纳入仓库质量门禁，并有 fixture tests 覆盖失败路径。"
+required_evidence:
+  - "scripts/check_repo.py 校验 Project State maturity 枚举。"
+  - "scripts/check_repo.py 校验 Project State evidence refs 是本地存在路径。"
+  - "pytest 覆盖非法 maturity、缺失 evidence path 和非 list evidence。"
+  - "python3 scripts/check_repo.py 和全量 pytest 通过。"
+acceptance_criteria:
+  - id: AC-TS-0035-01
+    criterion: "Project State dimension maturity 只能使用已定义成熟度枚举。"
+  - id: AC-TS-0035-02
+    criterion: "Project State dimension evidence 必须是 list。"
+  - id: AC-TS-0035-03
+    criterion: "Project State dimension evidence 中的本地路径必须存在且不能逃逸仓库根目录。"
+  - id: AC-TS-0035-04
+    criterion: "pytest 覆盖非法 maturity、缺失 evidence path 和非 list evidence。"
+  - id: AC-TS-0035-05
+    criterion: "全量 pytest 和 `python3 scripts/check_repo.py` 通过。"
+non_goals:
+  - "不实现完整 YAML schema validation engine。"
+  - "不自动修复 Project State。"
+  - "不改变 CLI 输出。"
+related_gaps:
+  - SG-0003

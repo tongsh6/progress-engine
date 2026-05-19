@@ -1,0 +1,21 @@
+id: IV-0036
+name: "Select v0.1 pilot validation scenario"
+primary_dimension: product
+target_state_id: TS-0036
+status: completed
+goal: "选择一个可重复、本地、低依赖的 v0.1 试点验证场景，为后续 product validated 提供执行入口。"
+in_scope:
+  - "选择代表性试点输入。"
+  - "定义试点执行流程。"
+  - "定义成功判断和验证边界。"
+  - "确认本轮不升级 product 到 validated。"
+out_of_scope:
+  - "不执行试点。"
+  - "不实现新 CLI。"
+  - "不调用模型 API、Web UI 或外部服务。"
+  - "不自动生成 Gap / Target / Intervention。"
+evidence_required:
+  - "docs/05-delivery/37-v0.1-pilot-validation-scenario.md"
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过"
+automation_policy: verifier_required

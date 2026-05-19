@@ -1,0 +1,25 @@
+id: RUN-20260519-IV-0036
+intervention_id: IV-0036
+target_state_id: TS-0036
+started_at: "2026-05-19T02:05:00+08:00"
+completed_at: "2026-05-19T02:15:00+08:00"
+mode: "local-artifact"
+primary_dimension: product
+status: completed
+state_reconciliation:
+  current_product_state:
+    maturity: accepted
+    evidence_refs:
+      - "docs/05-delivery/16-mvp-scope-and-roadmap.md"
+      - ".progress/evidence/EV-0002-v0.1-mvp-boundary.yaml"
+    summary: "v0.1 MVP 边界已 accepted，但尚未选定验证场景。"
+  why_iv_0036_is_next:
+    - "SG-0003 已关闭后，SG-0002 成为主要产品验证缺口。"
+    - "试点选择是 product validated 的前置条件。"
+    - "该切片只做产品决策，不扩展实现范围。"
+  out_of_scope_confirmed:
+    - "不执行试点，不升级 product 到 validated，不调用外部服务。"
+outputs:
+  changed:
+    - "docs/05-delivery/37-v0.1-pilot-validation-scenario.md"
+completion_claim: "Executor claims v0.1 pilot validation scenario is selected and ready for verifier review."

@@ -1,0 +1,21 @@
+id: IV-0035
+name: "Project State evidence gate"
+primary_dimension: quality
+target_state_id: TS-0035
+status: completed
+goal: "增强仓库质量门禁，让 Project State 的 maturity 和 evidence refs 漂移在 `scripts/check_repo.py` 阶段暴露。"
+in_scope:
+  - "校验 `state_dimensions.*.maturity` 属于已定义成熟度枚举。"
+  - "校验 `state_dimensions.*.evidence` 是 list。"
+  - "校验 evidence refs 是存在的仓库内本地路径。"
+  - "补充 pytest 失败路径覆盖。"
+out_of_scope:
+  - "不实现完整 schema engine。"
+  - "不自动修复 Project State。"
+  - "不校验所有跨对象语义引用。"
+  - "不修改 CLI 行为。"
+evidence_required:
+  - "python3 -m pytest tests/test_check_repo.py 通过"
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过"
+automation_policy: verifier_required

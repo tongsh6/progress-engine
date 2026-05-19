@@ -2,7 +2,7 @@ id: TS-0033
 name: "assess CLI working"
 primary_dimension: implementation
 source_gap: SG-0026
-status: proposed
+status: accepted
 human_gate_required: true
 desired_state: "`progress assess` 可以只读输出当前 Project State、open gaps 和 next targets 的 assessment 摘要。"
 from:

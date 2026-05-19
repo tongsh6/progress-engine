@@ -1,7 +1,7 @@
 id: SG-0003
 dimension: quality
 severity: medium
-status: open
+status: resolved
 source_intervention: IV-0002
 current_state: "仓库已有 docs / YAML / Markdown link 检查，但 .progress 对象 schema、命名约定和必填字段校验仍偏弱。"
 desired_state: ".progress 对象具备最小一致性检查，至少覆盖 Target State、Intervention、Evidence、State Delta Proposal 和 Change Event 的必填字段。"
@@ -19,3 +19,7 @@ suggested_interventions:
   - "IV-0004"
 notes:
   - "该 gap 属于 quality state，不并入 IV-0002 的 product boundary 冻结。"
+resolution:
+  resolved_by: SDP-0035
+  resolved_at: "2026-05-19T01:55:00+08:00"
+  summary: "仓库检查已覆盖 `.progress` 对象最小字段、文件名/id 对齐、Project State gap/target 引用、maturity 枚举和 evidence refs 本地路径存在性。"

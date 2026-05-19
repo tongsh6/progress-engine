@@ -1,7 +1,7 @@
 id: SG-0002
 dimension: product
 severity: medium
-status: open
+status: resolved
 source_intervention: IV-0002
 current_state: "v0.1 MVP 边界已被定义为 repo-native 状态推进闭环，但尚未选定真实试点项目或验证场景。"
 desired_state: "至少选定一个真实或代表性试点项目，用于验证 v0.1 状态闭环是否能从 accepted 推进到 validated。"
@@ -16,3 +16,7 @@ suggested_interventions:
   - "IV-0005: Select v0.1 pilot validation scenario"
 notes:
   - "该 gap 不能被写成自然语言后续优化；需要后续 Target State 和 Intervention 明确推进。"
+resolution:
+  resolved_by: SDP-0036
+  resolved_at: "2026-05-19T02:15:00+08:00"
+  summary: "v0.1 代表性试点已选定为从 `examples/initial-project/intent.md` 启动本地状态账本并完成只读状态观察。"

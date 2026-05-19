@@ -1,0 +1,22 @@
+id: IV-0034
+name: "Fix reference resolution consistency"
+primary_dimension: quality
+target_state_id: TS-0034
+status: completed
+goal: "统一 Gap / Target CLI loader 的 Project State 引用解析规则，避免运行时读取规则宽于质量门禁。"
+in_scope:
+  - "新增共享 `.progress` 对象引用解析 helper。"
+  - "让 gap loader 使用 `{id}-*.yaml` canonical 匹配。"
+  - "让 target loader 使用 `{id}-*.yaml` canonical 匹配。"
+  - "补充相似 gap id 前缀和 target exact filename 的回归测试。"
+out_of_scope:
+  - "不实现完整 schema validation engine。"
+  - "不自动重命名或修复 `.progress` 文件。"
+  - "不改变 `progress assess` 输出格式。"
+  - "不执行 state refresh、delta apply 或模型调用。"
+evidence_required:
+  - "python3 -m pytest tests/test_cli_gaps_list.py tests/test_cli_target_list.py tests/test_cli_assess.py 通过"
+  - "python3 -m pytest 通过"
+  - "python3 scripts/check_repo.py 通过"
+  - "PYTHONPATH=src python3 -m progress_engine assess 输出当前 assessment 摘要"
+automation_policy: verifier_required

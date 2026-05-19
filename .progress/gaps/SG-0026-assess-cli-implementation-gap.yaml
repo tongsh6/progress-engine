@@ -1,7 +1,7 @@
 id: SG-0026
 dimension: implementation
 severity: medium
-status: proposed
+status: resolved
 source_intervention: IV-0032
 current_state: "`progress assess` 已定义为只读 assessment CLI slice，但尚未实现。"
 desired_state: "`progress assess` 可以只读输出 Project State maturity、open gaps 和 next targets 的确定性摘要。"
@@ -17,3 +17,7 @@ suggested_interventions:
   - "IV-0033: Implement assess CLI slice"
 notes:
   - "实现必须保持只读，不自动生成 Gap、Target、Intervention 或 State Delta。"
+resolution:
+  resolved_by: SDP-0033
+  resolved_at: "2026-05-19T01:30:00+08:00"
+  summary: "`progress assess` 已实现、测试，并确认保持只读边界。"
