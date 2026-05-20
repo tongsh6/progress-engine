@@ -31,11 +31,12 @@ progress verify list
 progress delta list
 progress delta apply SDP-ID --approved-by NAME
 progress delta rollback SDP-ID --approved-by NAME
+progress delta reject SDP-ID --approved-by NAME --reason TEXT
 progress event list
 ```
 <!-- progress-engine-cli-commands:end -->
 
-这些命令仍遵守 v0.1 边界：除 `init`、`intake`、human-gated `delta apply` 和 human-gated `delta rollback` 这四个受控写入切片外，当前命令只读取 `.progress/` 账本；`state refresh` 只做只读 reconciliation，不写入 Project State 或 state history，不自动生成 Gap、Target、Intervention、Evidence、State Delta，不执行 reject，也不调用模型或外部 agent。
+这些命令仍遵守 v0.1 边界：除 `init`、`intake`、human-gated `delta apply`、human-gated `delta rollback` 和 human-gated `delta reject` 这五个受控写入切片外，当前命令只读取 `.progress/` 账本；`state refresh` 只做只读 reconciliation，不写入 Project State 或 state history，不自动生成 Gap、Target、Intervention、Evidence、State Delta，也不调用模型或外部 agent。
 
 ## 推荐阅读顺序
 

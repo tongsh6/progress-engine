@@ -28,6 +28,8 @@ def test_delta_list_prints_state_delta_proposals(tmp_path: Path) -> None:
         "(proposed; acceptance: 3 pass, 0 fail, 0 not_tested)",
         "- SDP-1003 [implementation] IV-1001 -> TS-1001 "
         "(applied; acceptance: 3 pass, 0 fail, 0 not_tested)",
+        "- SDP-1004 [implementation] IV-1001 -> TS-1001 "
+        "(accepted; acceptance: 0 pass, 1 fail, 0 not_tested)",
     ]
 
 

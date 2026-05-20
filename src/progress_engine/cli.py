@@ -14,6 +14,11 @@ from progress_engine.deltas.delta_apply import (
     render_delta_apply_success,
 )
 from progress_engine.deltas.delta_list import DeltaListError, load_deltas, render_delta_list
+from progress_engine.deltas.delta_reject import (
+    DeltaRejectError,
+    reject_delta,
+    render_delta_reject_success,
+)
 from progress_engine.deltas.delta_rollback import (
     DeltaRollbackError,
     render_delta_rollback_success,
@@ -140,6 +145,21 @@ def build_parser() -> argparse.ArgumentParser:
         "--approved-by",
         required=True,
         help="Human approver recorded for this rollback operation.",
+    )
+    delta_reject_parser = delta_subcommands.add_parser(
+        "reject",
+        help="Reject a human-approved state delta proposal.",
+    )
+    delta_reject_parser.add_argument("delta_id", help="State Delta Proposal id to reject.")
+    delta_reject_parser.add_argument(
+        "--approved-by",
+        required=True,
+        help="Human approver recorded for this reject operation.",
+    )
+    delta_reject_parser.add_argument(
+        "--reason",
+        required=True,
+        help="Human-readable reason recorded for this reject operation.",
     )
 
     event_parser = subcommands.add_parser("event", help="Read change events.")
@@ -317,6 +337,16 @@ def main(
             print(f"error: {exc}", file=err)
             return 2
         print(render_delta_rollback_success(result), file=out)
+        return 0
+
+    if args.command == "delta" and args.delta_command == "reject":
+        root = cwd or Path.cwd()
+        try:
+            result = reject_delta(root, args.delta_id, args.approved_by, args.reason)
+        except DeltaRejectError as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_delta_reject_success(result), file=out)
         return 0
 
     if args.command == "event" and args.event_command == "list":

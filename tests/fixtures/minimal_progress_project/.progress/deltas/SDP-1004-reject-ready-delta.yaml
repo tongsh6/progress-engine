@@ -1,0 +1,41 @@
+state_delta_proposal:
+  id: SDP-1004
+  source_intervention: IV-1001
+  run_id: RUN-20260517-IV-1001
+  target_state_id: TS-1001
+  verification_id: EV-1001
+  status: accepted
+  proposed_at: "2026-05-17T22:55:00+08:00"
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: seed
+      summary: "Implementation is seeded."
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: "Implementation would have advanced, but this proposal is reject-ready."
+  evidence_refs:
+    - ".progress/evidence/EV-1001-sample-evidence.yaml"
+  acceptance_summary:
+    pass: 0
+    fail: 1
+    not_tested: 0
+  remaining_gaps: []
+  recommended_next_interventions: []
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: null
+    approved_at: null
+    decision: pending
+  apply:
+    allowed_before_human_approval: false
+  reject:
+    gate:
+      required: true
+      approved_by: human_user
+      approved_at: "2026-05-17T23:00:00+08:00"
+      decision: approved
