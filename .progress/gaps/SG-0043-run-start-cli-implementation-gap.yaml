@@ -1,0 +1,19 @@
+id: SG-0043
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0052
+current_state: "`progress run start --intervention IV-ID --mode prompt-only` 已定义，但尚未实现。"
+desired_state: "`progress run start --intervention IV-ID --mode prompt-only` 能创建 active Run，关联 Context Capsule，并保持 Project State / state history 不变。"
+evidence_refs:
+  - "docs/05-delivery/49-run-start-cli-slice.md"
+  - ".progress/deltas/SDP-0052-run-start-cli-slice.yaml"
+impact:
+  - "AI 执行会话仍无法作为 Run 被 repo-native 追踪。"
+  - "没有 run start CLI 时，capsule 生成和后续 evidence 之间缺少执行账本连接。"
+suggested_targets:
+  - "TS-0053-run-start-cli-working"
+suggested_interventions:
+  - "IV-0053: Implement prompt-only run start CLI slice"
+notes:
+  - "下一轮应只实现 Run 创建和 capsule 关联，不调用模型 API、不生成 Evidence 或 State Delta。"

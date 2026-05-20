@@ -1,0 +1,36 @@
+id: RUN-20260521-IV-0052
+intervention_id: IV-0052
+target_state_id: TS-0052
+started_at: "2026-05-21T00:25:00+08:00"
+completed_at: "2026-05-21T00:25:00+08:00"
+mode: "local-docs"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    summary: "Context Capsule CLI 已可运行，但 Run lifecycle 写入入口尚未定义。"
+    open_gap: SG-0042
+  why_iv_0052_is_next:
+    - "Project State 当前 open gap 是 SG-0042。"
+    - "TS-0052 要求定义 `progress run start --intervention IV-ID --mode prompt-only` 的输入、输出、状态影响和 out_of_scope。"
+    - "run start 是 capsule 与后续 evidence 之间的最小可追踪执行账本连接。"
+  out_of_scope_confirmed:
+    - "本轮不实现 run start CLI。"
+    - "不调用模型 API、Web UI 或外部 agent。"
+    - "不生成 Evidence、Verification 或 State Delta。"
+outputs:
+  created:
+    - "docs/05-delivery/49-run-start-cli-slice.md"
+    - ".progress/gaps/SG-0043-run-start-cli-implementation-gap.yaml"
+    - ".progress/targets/TS-0053-run-start-cli-working.yaml"
+    - ".progress/interventions/IV-0053-implement-run-start-cli-slice.yaml"
+    - ".progress/runs/RUN-20260521-IV-0052-define-run-start-cli-slice.yaml"
+    - ".progress/evidence/EV-0052-run-start-cli-slice.yaml"
+    - ".progress/deltas/SDP-0052-run-start-cli-slice.yaml"
+  updated:
+    - "INDEX.md"
+    - ".progress/gaps/SG-0042-run-start-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0052-run-start-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0052-define-run-start-cli-slice.yaml"
+completion_claim: "Executor claims prompt-only run start CLI slice is defined with write boundaries, Run schema and next implementation criteria."

@@ -1,0 +1,95 @@
+state_delta_proposal:
+  id: SDP-0053
+  source_intervention: IV-0053
+  run_id: RUN-20260521-IV-0053
+  target_state_id: TS-0053
+  verification_id: EV-0053
+  status: applied
+  proposed_at: '2026-05-21T00:33:00+08:00'
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: '`progress run start --intervention IV-ID --mode prompt-only` 已定义，但尚未实现。'
+      current_problem:
+      - prompt-only 执行会话无法作为 Run 被 repo-native 追踪。
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: '`progress run start --intervention IV-ID --mode prompt-only` 已实现为受控写入命令，可创建
+        active Run 并生成或复用 Context Capsule；不调用模型 API、不执行 Intervention、不修改 Project State
+        或 state history。'
+      advancement_reason:
+      - 新增 run_start writer 和 CLI parser。
+      - 新增 focused pytest 覆盖成功路径、capsule 复用、缺 intervention、缺 target、unsupported mode、重复
+        Run 和非法 id。
+      - 实际生成 `.progress/runs/RUN-20260521-IV-0053.yaml` 和 `.progress/context_capsules/IV-0053-context-capsule.md`
+        作为示例输出。
+      - 全量 pytest 和仓库检查通过。
+      caveat: Evidence 仍缺少受控 CLI 写入入口。
+  evidence_refs:
+  - src/progress_engine/cli.py
+  - src/progress_engine/runs/run_start.py
+  - tests/test_cli_run_start.py
+  - .progress/runs/RUN-20260521-IV-0053.yaml
+  - .progress/context_capsules/IV-0053-context-capsule.md
+  - docs/05-delivery/50-run-start-cli-run.md
+  - .progress/evidence/EV-0053-run-start-cli.yaml
+  - .progress/gaps/SG-0044-evidence-add-cli-slice-gap.yaml
+  - .progress/targets/TS-0054-evidence-add-cli-slice-defined.yaml
+  acceptance_summary:
+    pass: 6
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+  - id: SG-0044
+    summary: '`progress run start --intervention IV-ID --mode prompt-only` 已能创建 Run
+      并关联 capsule，但执行后 Evidence 仍缺少受控 CLI 写入入口。'
+    next_state_path: Define evidence add CLI slice.
+  recommended_next_interventions:
+  - id: IV-0054
+    name: Define evidence add CLI slice
+    condition: Run after SDP-0053 is accepted by human gate.
+    primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: '2026-05-21T00:33:00+08:00'
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    proposed_patch_summary: Keep implementation maturity drafted, mark TS-0053 accepted,
+      resolve SG-0043, add SG-0044 / TS-0054 / IV-0054 / EV-0053 / SDP-0053 refs,
+      and set TS-0054 as the next target.
+    applied_by: human_user
+    applied_at: '2026-05-21T00:36:29+08:00'
+    previous_state_version: PS-0051
+    next_state_version: PS-0052
+    project_state_file: .progress/state/project_state.yaml
+  project_state_update:
+    state_dimensions:
+      implementation:
+        maturity: drafted
+        summary: '`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress
+          assess`、`progress state show`、`progress state history`、`progress state refresh
+          [--after-delta SDP-ID]`、`progress gaps list`、`progress target list`、`progress
+          intervention list`、`progress capsule --intervention IV-ID`、`progress run
+          start --intervention IV-ID --mode prompt-only`、`progress run list`、`progress
+          evidence list`、`progress verify list`、`progress delta list`、`progress delta
+          apply`、`progress delta rollback` 和 `progress delta reject` 已作为 Python CLI
+          切片可运行、可测试；State Delta lifecycle 已通过本地 pilot 验证。'
+    open_state_gaps:
+    - SG-0044
+    aim_of_next_state:
+    - TS-0054
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+    - If rejected, remove `progress run start` implementation files and tests.
+    - Restore Project State open_state_gaps to SG-0043 and aim_of_next_state to TS-0053.
+    - Remove `.progress/runs/RUN-20260521-IV-0053.yaml` and `.progress/context_capsules/IV-0053-context-capsule.md`
+      if they were only generated for this run.

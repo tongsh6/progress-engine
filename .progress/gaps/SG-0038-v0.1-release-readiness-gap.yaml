@@ -1,7 +1,7 @@
 id: SG-0038
 dimension: delivery
 severity: medium
-status: open
+status: resolved
 source_intervention: IV-0047
 current_state: "v0.1 State Delta lifecycle 已通过本地 pilot 验证，但项目仍缺少清晰的本地发布、安装和使用入口。"
 desired_state: "v0.1 release readiness slice 被定义，明确安装方式、版本边界、试用流程和发布前检查。"

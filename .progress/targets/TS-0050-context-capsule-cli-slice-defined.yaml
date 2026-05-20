@@ -1,0 +1,33 @@
+id: TS-0050
+name: "context capsule CLI slice defined"
+primary_dimension: implementation
+source_gap: SG-0040
+status: accepted
+human_gate_required: true
+desired_state: "Context Capsule CLI slice 被定义为只读、prompt-only、符合 Fresh Context 协议的下一条实现目标。"
+from:
+  maturity: drafted
+  summary: "Fresh Context 和 Context Capsule 已有协议与模板，但没有 CLI 入口。"
+to:
+  maturity: drafted
+  summary: "`progress capsule --intervention IV-ID` 的实现切片被定义，明确输入、输出、验收和 out_of_scope。"
+required_evidence:
+  - "新增 Context Capsule CLI slice 文档。"
+  - "明确命令只生成 Markdown capsule，不调用模型 API。"
+  - "明确 capsule 输入来自 Project State、Target State、Intervention 和必要 evidence refs。"
+  - "明确 focused pytest 和仓库检查要求。"
+acceptance_criteria:
+  - id: AC-TS-0050-01
+    criterion: "切片文档明确 `progress capsule --intervention IV-ID` 的命令边界。"
+  - id: AC-TS-0050-02
+    criterion: "切片说明输入、输出、状态影响、out_of_scope 和 evidence_required。"
+  - id: AC-TS-0050-03
+    criterion: "切片保持 prompt-only，不调用模型 API、Web UI 或外部 agent。"
+  - id: AC-TS-0050-04
+    criterion: "切片包含 focused pytest 和仓库检查验收要求。"
+non_goals:
+  - "不实现 Context Capsule CLI。"
+  - "不接入 OpenAI、Claude、Codex 或其他模型 API。"
+  - "不自动执行 Intervention。"
+related_gaps:
+  - SG-0040

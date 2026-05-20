@@ -1,0 +1,19 @@
+id: IV-0052
+name: "Define prompt-only run start CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0052
+status: completed
+goal: "定义 `progress run start --intervention IV-ID --mode prompt-only` 的最小受控写入切片。"
+in_scope:
+  - "定义 run start CLI 输入、输出和错误边界。"
+  - "定义如何创建 Run 对象并关联 Context Capsule。"
+  - "定义不调用模型 API、不自动执行 Intervention 的边界。"
+  - "定义下一轮实现文件边界和测试要求。"
+out_of_scope:
+  - "不实现 run start CLI。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+  - "不生成 Evidence、Verification 或 State Delta。"
+evidence_required:
+  - "新增 run start CLI slice 文档。"
+  - "python3 scripts/check_repo.py 通过。"
+automation_policy: human_gate_required

@@ -1,0 +1,20 @@
+id: SG-0044
+dimension: implementation
+severity: medium
+status: open
+source_intervention: IV-0053
+current_state: "`progress run start --intervention IV-ID --mode prompt-only` 已能创建 Run 并关联 capsule，但执行后 Evidence 仍缺少受控 CLI 写入入口。"
+desired_state: "`progress evidence add --run RUN-ID --file evidence.yaml` 切片被定义，明确如何把执行证据录入 `.progress/evidence/` 并关联 Run。"
+evidence_refs:
+  - "docs/05-delivery/50-run-start-cli-run.md"
+  - ".progress/runs/RUN-20260521-IV-0053.yaml"
+  - ".progress/deltas/SDP-0053-run-start-cli.yaml"
+impact:
+  - "prompt-only 执行可以被 Run 追踪，但完成结果仍不能通过 CLI 进入 Evidence 账本。"
+  - "没有 evidence add CLI 时，后续 verifier 和 State Delta 仍依赖手写对象。"
+suggested_targets:
+  - "TS-0054-evidence-add-cli-slice-defined"
+suggested_interventions:
+  - "IV-0054: Define evidence add CLI slice"
+notes:
+  - "下一轮应先定义 Evidence 录入边界，不自动验证、不生成 State Delta、不修改 Project State。"

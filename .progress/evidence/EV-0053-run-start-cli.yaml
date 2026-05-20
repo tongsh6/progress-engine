@@ -1,0 +1,73 @@
+evidence:
+  id: EV-0053
+  run_id: RUN-20260521-IV-0053
+  intervention_id: IV-0053
+  target_state_id: TS-0053
+  evidence_type: code_diff
+  created_at: "2026-05-21T00:33:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress run start --intervention IV-ID --mode prompt-only` 已定义，但尚未实现。"
+      after: "`progress run start --intervention IV-ID --mode prompt-only` 已实现，可创建 Run、关联 Context Capsule，并保持 Project State / state history 不变。"
+      acceptance_mapping:
+        - criterion: "`progress run start --intervention IV-ID --mode prompt-only` 能解析 canonical Intervention 和 Target。"
+          status: pass
+          evidence_ref: "tests/test_cli_run_start.py"
+        - criterion: "命令创建 active Run YAML 并关联 Context Capsule。"
+          status: pass
+          evidence_ref: ".progress/runs/RUN-20260521-IV-0053.yaml"
+        - criterion: "命令拒绝 unsupported mode 和重复 active/planned Run。"
+          status: pass
+          evidence_ref: "tests/test_cli_run_start.py"
+        - criterion: "命令不修改 Project State、state history、Evidence、State Delta、Gap、Target、Intervention 或 Event。"
+          status: pass
+          evidence_ref: "tests/test_cli_run_start.py"
+        - criterion: "focused pytest、全量 pytest 和仓库检查通过。"
+          status: pass
+          evidence_ref: "docs/05-delivery/50-run-start-cli-run.md#4-测试结果"
+        - criterion: "本轮不调用模型 API、Web UI 或外部 agent。"
+          status: pass
+          evidence_ref: "docs/05-delivery/50-run-start-cli-run.md#6-scope-check"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮实现的是 prompt-only Run 创建，不调用模型 API 或外部 agent。"
+      - "focused pytest 断言 Project State 和 state history 未变。"
+      - "命令写 `.progress/runs/{RUN-ID}.yaml`，并生成或复用 `.progress/context_capsules/{IV-ID}-context-capsule.md`。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_cli_run_start.py"
+      result: pass
+      output_summary: "7 passed in 0.07s"
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "136 passed in 0.75s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 339 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 306 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+    - command: "PYTHONPATH=src python3 -m progress_engine run start --intervention IV-0053 --mode prompt-only"
+      result: pass
+      output_summary: "Generated RUN-20260521-IV-0053 and .progress/context_capsules/IV-0053-context-capsule.md"
+  files_changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/runs/run_start.py"
+    - "src/progress_engine/capsule/context_capsule.py"
+    - "tests/test_cli_run_start.py"
+    - "README.md"
+    - "src/progress_engine/README.md"
+    - ".progress/runs/RUN-20260521-IV-0053.yaml"
+    - ".progress/context_capsules/IV-0053-context-capsule.md"
+    - "docs/05-delivery/50-run-start-cli-run.md"
+    - ".progress/gaps/SG-0043-run-start-cli-implementation-gap.yaml"
+    - ".progress/gaps/SG-0044-evidence-add-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0053-run-start-cli-working.yaml"
+    - ".progress/targets/TS-0054-evidence-add-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0053-implement-run-start-cli-slice.yaml"
+    - ".progress/interventions/IV-0054-define-evidence-add-cli-slice.yaml"
+    - ".progress/evidence/EV-0053-run-start-cli.yaml"
+    - ".progress/deltas/SDP-0053-run-start-cli.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0044
+  supports_state_delta_proposal: SDP-0053

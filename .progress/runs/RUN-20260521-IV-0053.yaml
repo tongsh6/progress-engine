@@ -1,0 +1,18 @@
+id: RUN-20260521-IV-0053
+intervention_id: IV-0053
+target_state_id: TS-0053
+started_at: '2026-05-21T00:33:47+08:00'
+mode: prompt-only
+primary_dimension: implementation
+status: evidence_submitted
+context_capsule: .progress/context_capsules/IV-0053-context-capsule.md
+execution_session:
+  fresh_context: true
+  transcript_carried_forward: false
+  mode: prompt-only
+outputs:
+  expected_evidence:
+  - python3 -m pytest tests/test_cli_run_start.py 通过。
+  - python3 -m pytest 通过。
+  - python3 scripts/check_repo.py 通过。
+  - 生成 Run YAML 的示例输出和关键字段。

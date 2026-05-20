@@ -1,0 +1,19 @@
+id: SG-0039
+dimension: delivery
+severity: medium
+status: resolved
+source_intervention: IV-0048
+current_state: "v0.1 release readiness 边界已定义，但发布前检查、安装 smoke test 和 CLI 试用路径尚未执行并记录。"
+desired_state: "v0.1 release readiness checks 被执行，安装和试用路径有可审查 evidence。"
+evidence_refs:
+  - "docs/05-delivery/45-v0.1-release-readiness-slice.md"
+  - ".progress/deltas/SDP-0048-v0.1-release-readiness-slice.yaml"
+impact:
+  - "Delivery maturity 仍为 weak，直到发布前检查和安装试用路径被实际验证。"
+  - "如果不执行 release readiness run，外部用户仍只能阅读定义，不能信任安装和试用流程。"
+suggested_targets:
+  - "TS-0049-v0.1-release-readiness-accepted"
+suggested_interventions:
+  - "IV-0049: Run v0.1 release readiness checks"
+notes:
+  - "下一轮应执行检查和 smoke test，不引入 Web UI、SaaS、多用户、模型 API 或外部 agent。"

@@ -2,6 +2,185 @@
 
 本台账记录项目状态如何被推进。它不是任务列表，也不是完成清单；每条记录都必须说明目标状态、证据、State Delta 和 remaining gaps。
 
+## 2026-05-21
+
+### IV-0053: Implement prompt-only run start CLI slice
+
+- Target State：`TS-0053: run start CLI working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - `SG-0043` 是当前 Project State open gap，要求把已定义的 prompt-only Run start 切片变成可运行 CLI。
+  - `progress capsule` 已能生成 Fresh Context；下一步需要把 prompt-only 执行会话记录为 repo-native Run。
+  - 本轮只创建 active Run 并生成或复用 Context Capsule，不调用模型 API、不执行 Intervention、不生成 Evidence / Verification / State Delta。
+- Evidence：`.progress/evidence/EV-0053-run-start-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0053-run-start-cli.yaml`
+- 状态历史：`PS-0052`
+- 主要产物：
+  - `src/progress_engine/runs/run_start.py`
+  - `tests/test_cli_run_start.py`
+  - `.progress/runs/RUN-20260521-IV-0053.yaml`
+  - `.progress/context_capsules/IV-0053-context-capsule.md`
+  - `docs/05-delivery/50-run-start-cli-run.md`
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_run_start.py
+7 passed in 0.07s
+
+python3 -m pytest
+136 passed in 0.75s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 339 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 306 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0044` 已创建：Run start 已可追踪 prompt-only 执行，但 Evidence 仍缺少受控 CLI 写入入口。
+  - 下一轮应处理 `TS-0054: evidence add CLI slice defined` / `IV-0054: Define evidence add CLI slice`。
+
+### IV-0052: Define prompt-only run start CLI slice
+
+- Target State：`TS-0052: run start CLI slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - `SG-0042` 是当前 Project State open gap，要求先定义 prompt-only Run start 的受控写入边界。
+  - Context Capsule CLI 已可运行，但 capsule 与后续 evidence 之间缺少 Run lifecycle 连接。
+  - 本轮定义 `progress run start --intervention IV-ID --mode prompt-only`，明确只创建 Run 并关联 capsule，不自动执行 AI。
+- Evidence：`.progress/evidence/EV-0052-run-start-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0052-run-start-cli-slice.yaml`
+- 状态历史：`PS-0051`
+- 主要产物：
+  - `docs/05-delivery/49-run-start-cli-slice.md`
+  - `.progress/gaps/SG-0043-run-start-cli-implementation-gap.yaml`
+  - `.progress/targets/TS-0053-run-start-cli-working.yaml`
+  - `.progress/interventions/IV-0053-implement-run-start-cli-slice.yaml`
+- Remaining gaps：
+  - `SG-0043` 已创建：run start CLI 已定义但尚未实现。
+
+### IV-0051: Implement Context Capsule CLI slice
+
+- Target State：`TS-0051: context capsule CLI working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - `SG-0041` 是当前 Project State open gap，要求把已定义的 Context Capsule CLI 切片变成可运行命令。
+  - 本轮实现 `progress capsule --intervention IV-ID`，把 Project State、State History、Intervention 和 Target State 渲染为 prompt-only Markdown 胶囊。
+  - 该命令只写 `.progress/context_capsules/`，不调用模型 API、不执行 Intervention、不修改 Project State 或 state history。
+- Evidence：`.progress/evidence/EV-0051-context-capsule-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0051-context-capsule-cli.yaml`
+- 状态历史：`PS-0050`
+- 主要产物：
+  - `src/progress_engine/capsule/context_capsule.py`
+  - `tests/test_cli_capsule.py`
+  - `.progress/context_capsules/IV-0051-context-capsule.md`
+  - `docs/05-delivery/48-context-capsule-cli-run.md`
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_capsule.py
+7 passed in 0.08s
+
+python3 -m pytest
+129 passed in 0.77s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 327 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 294 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0042` 已创建：Context Capsule 已可生成，但 prompt-only 执行仍缺少可追踪 Run lifecycle 写入入口。
+
+### IV-0050: Define Context Capsule CLI slice
+
+- Target State：`TS-0050: context capsule CLI slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - `SG-0040` 是当前 Project State open gap，要求先定义 `progress capsule --intervention IV-ID` 的 prompt-only 生成边界。
+  - 项目已有 Fresh Context 协议和模板，但用户仍需手动整理 AI 执行上下文。
+  - 本轮明确 capsule CLI 只生成 Markdown，不调用模型 API、不执行 Intervention、不生成 Evidence / State Delta。
+- Evidence：`.progress/evidence/EV-0050-context-capsule-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0050-context-capsule-cli-slice.yaml`
+- 状态历史：`PS-0049`
+- 主要产物：
+  - `docs/05-delivery/47-context-capsule-cli-slice.md`
+  - `.progress/gaps/SG-0041-context-capsule-cli-implementation-gap.yaml`
+  - `.progress/targets/TS-0051-context-capsule-cli-working.yaml`
+  - `.progress/interventions/IV-0051-implement-context-capsule-cli-slice.yaml`
+- Remaining gaps：
+  - `SG-0041` 已创建：Context Capsule CLI 已定义但尚未实现。
+
+### IV-0049: Run v0.1 release readiness checks
+
+- Target State：`TS-0049: v0.1 release readiness accepted`
+- 主维度：delivery
+- 结果：已通过 human gate apply，delivery maturity 从 `weak` 推进到 `reviewed`
+- 选择理由：
+  - `SG-0039` 是当前 Project State open gap，要求实际执行发布前检查、editable install smoke test 和 CLI 试用路径。
+  - 本轮验证本地安装和试用入口，不发布到 PyPI / Homebrew / Docker，也不引入 Web UI、SaaS、多用户或模型 API。
+- Evidence：`.progress/evidence/EV-0049-v0.1-release-readiness-run.yaml`
+- State Delta：`.progress/deltas/SDP-0049-v0.1-release-readiness-run.yaml`
+- 状态历史：`PS-0048`
+- 主要产物：
+  - `docs/05-delivery/46-v0.1-release-readiness-run.md`
+  - `.progress/gaps/SG-0040-context-capsule-cli-gap.yaml`
+  - `.progress/targets/TS-0050-context-capsule-cli-slice-defined.yaml`
+  - `.progress/interventions/IV-0050-define-context-capsule-cli-slice.yaml`
+- 检查结果：
+
+```text
+python3 -m pytest
+122 passed in 0.69s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 309 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 276 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+
+editable install smoke test
+Successfully installed progress-engine-0.1.0
+```
+
+- Remaining gaps：
+  - `SG-0040` 已创建：Fresh Context / Context Capsule 已有协议和模板，但没有可运行 CLI 入口。
+
+### IV-0048: Define v0.1 release readiness slice
+
+- Target State：`TS-0048: v0.1 release readiness defined`
+- 主维度：delivery
+- 结果：已通过 human gate apply，delivery maturity 保持 `weak`
+- 选择理由：
+  - `SG-0038` 是当前 Project State open gap，要求先定义本地发布、安装、试用流程和发布前检查边界。
+  - 本轮只定义 release readiness，不实现打包或发布自动化，不扩大到 Web UI、SaaS、多用户或外部 agent。
+- Evidence：`.progress/evidence/EV-0048-v0.1-release-readiness-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0048-v0.1-release-readiness-slice.yaml`
+- 状态历史：`PS-0047`
+- 主要产物：
+  - `docs/05-delivery/45-v0.1-release-readiness-slice.md`
+  - `.progress/gaps/SG-0039-v0.1-release-readiness-run-gap.yaml`
+  - `.progress/targets/TS-0049-v0.1-release-readiness-accepted.yaml`
+  - `.progress/interventions/IV-0049-run-v0.1-release-readiness-checks.yaml`
+- Remaining gaps：
+  - `SG-0039` 已创建：release readiness 已定义，但发布前检查、安装 smoke test 和 CLI 试用路径尚未执行。
+
 ## 2026-05-20
 
 ### IV-0047: Run State Delta lifecycle pilot validation

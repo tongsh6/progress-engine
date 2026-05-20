@@ -1,0 +1,39 @@
+id: TS-0053
+name: "run start CLI working"
+primary_dimension: implementation
+source_gap: SG-0043
+status: accepted
+human_gate_required: true
+desired_state: "`progress run start --intervention IV-ID --mode prompt-only` 作为受控写入切片可运行、可测试、可追踪。"
+from:
+  maturity: drafted
+  summary: "prompt-only run start CLI slice 已定义，但命令尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress run start --intervention IV-ID --mode prompt-only` 能创建 active Run 并关联 capsule，且不修改 Project State 或调用模型 API。"
+required_evidence:
+  - "新增 run start CLI 实现。"
+  - "新增 focused pytest 覆盖成功路径和错误路径。"
+  - "生成 Run YAML 的示例输出。"
+  - "断言 Project State 和 state history 未变。"
+  - "全量 pytest 和仓库检查通过。"
+acceptance_criteria:
+  - id: AC-TS-0053-01
+    criterion: "`progress run start --intervention IV-ID --mode prompt-only` 能解析 canonical Intervention 和 Target。"
+  - id: AC-TS-0053-02
+    criterion: "命令创建 active Run YAML 并关联 Context Capsule。"
+  - id: AC-TS-0053-03
+    criterion: "命令拒绝 unsupported mode 和重复 active/planned Run。"
+  - id: AC-TS-0053-04
+    criterion: "命令不修改 Project State、state history、Evidence、State Delta、Gap、Target、Intervention 或 Event。"
+  - id: AC-TS-0053-05
+    criterion: "focused pytest、全量 pytest 和仓库检查通过。"
+  - id: AC-TS-0053-06
+    criterion: "本轮不调用模型 API、Web UI 或外部 agent。"
+non_goals:
+  - "不实现 run close。"
+  - "不自动执行 Intervention。"
+  - "不生成 Evidence、Verification 或 State Delta。"
+  - "不接入模型 API 或外部 agent。"
+related_gaps:
+  - SG-0043

@@ -1,0 +1,20 @@
+id: SG-0040
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0049
+current_state: "ProgressEngine 已有 Fresh Context / Context Capsule 协作协议和模板，但没有可运行的 `progress capsule` CLI 入口。"
+desired_state: "Context Capsule CLI slice 被定义，明确如何从当前 Project State、Target State 和 Intervention 生成 prompt-only 胶囊。"
+evidence_refs:
+  - "docs/04-protocols/09-fresh-context-isolation-protocol.md"
+  - "templates/execution/context_capsule.md"
+  - "docs/05-delivery/46-v0.1-release-readiness-run.md"
+impact:
+  - "AI 协作仍依赖用户手动整理上下文，容易丢失 in_scope、out_of_scope 和 evidence_required。"
+  - "如果直接接入模型 API，会绕过 v0.1 prompt-only / manual-run 边界。"
+suggested_targets:
+  - "TS-0050-context-capsule-cli-slice-defined"
+suggested_interventions:
+  - "IV-0050: Define Context Capsule CLI slice"
+notes:
+  - "下一轮应先定义 `progress capsule --intervention IV-ID` 的只读生成边界，不调用模型 API 或外部 agent。"

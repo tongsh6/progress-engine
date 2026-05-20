@@ -1,0 +1,44 @@
+id: RUN-20260521-IV-0051
+intervention_id: IV-0051
+target_state_id: TS-0051
+started_at: "2026-05-21T00:00:00+08:00"
+completed_at: "2026-05-21T00:00:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    summary: "Context Capsule CLI slice 已定义，但命令尚未实现。"
+    open_gap: SG-0041
+  why_iv_0051_is_next:
+    - "Project State 当前 open gap 是 SG-0041。"
+    - "TS-0051 要求 `progress capsule --intervention IV-ID` 可运行、可测试、可追溯。"
+    - "该命令是 AI 协作入口的最小 prompt-only 实现，不需要模型 API。"
+  out_of_scope_confirmed:
+    - "本轮不实现 run lifecycle。"
+    - "不调用模型 API、Web UI 或外部 agent。"
+    - "不生成 Evidence、Verification 或 State Delta。"
+outputs:
+  created:
+    - "src/progress_engine/capsule/__init__.py"
+    - "src/progress_engine/capsule/context_capsule.py"
+    - "tests/test_cli_capsule.py"
+    - "tests/fixtures/minimal_progress_project/.progress/context_capsules/.gitkeep"
+    - ".progress/context_capsules/IV-0051-context-capsule.md"
+    - "docs/05-delivery/48-context-capsule-cli-run.md"
+    - ".progress/gaps/SG-0042-run-start-cli-slice-gap.yaml"
+    - ".progress/targets/TS-0052-run-start-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0052-define-run-start-cli-slice.yaml"
+    - ".progress/runs/RUN-20260521-IV-0051-implement-context-capsule-cli-slice.yaml"
+    - ".progress/evidence/EV-0051-context-capsule-cli.yaml"
+    - ".progress/deltas/SDP-0051-context-capsule-cli.yaml"
+  updated:
+    - "src/progress_engine/cli.py"
+    - "README.md"
+    - "src/progress_engine/README.md"
+    - "INDEX.md"
+    - ".progress/gaps/SG-0041-context-capsule-cli-implementation-gap.yaml"
+    - ".progress/targets/TS-0051-context-capsule-cli-working.yaml"
+    - ".progress/interventions/IV-0051-implement-context-capsule-cli-slice.yaml"
+completion_claim: "Executor claims Context Capsule CLI is implemented and verified as a prompt-only Markdown generator."

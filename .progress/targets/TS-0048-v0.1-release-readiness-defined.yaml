@@ -2,7 +2,7 @@ id: TS-0048
 name: "v0.1 release readiness defined"
 primary_dimension: delivery
 source_gap: SG-0038
-status: proposed
+status: accepted
 human_gate_required: true
 desired_state: "v0.1 release readiness slice 被定义为小范围、可测试、符合当前 CLI-first 边界的交付目标。"
 from:

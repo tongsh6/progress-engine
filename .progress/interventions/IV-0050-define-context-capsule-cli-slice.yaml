@@ -1,0 +1,19 @@
+id: IV-0050
+name: "Define Context Capsule CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0050
+status: completed
+goal: "定义 `progress capsule --intervention IV-ID` 的只读 prompt-only CLI 切片。"
+in_scope:
+  - "定义 capsule CLI 输入、输出和错误边界。"
+  - "定义如何读取 Project State、Target State、Intervention 和必要 evidence refs。"
+  - "定义生成 Markdown Context Capsule 的验收标准。"
+  - "定义下一轮实现文件边界和测试要求。"
+out_of_scope:
+  - "不实现 Context Capsule CLI。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+  - "不自动执行 Intervention 或生成 Evidence / State Delta。"
+evidence_required:
+  - "新增 Context Capsule CLI slice 文档。"
+  - "python3 scripts/check_repo.py 通过。"
+automation_policy: human_gate_required

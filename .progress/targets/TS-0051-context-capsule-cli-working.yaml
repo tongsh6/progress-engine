@@ -1,0 +1,39 @@
+id: TS-0051
+name: "context capsule CLI working"
+primary_dimension: implementation
+source_gap: SG-0041
+status: accepted
+human_gate_required: true
+desired_state: "`progress capsule --intervention IV-ID` 作为只读 prompt-only CLI 切片可运行、可测试、可追溯。"
+from:
+  maturity: drafted
+  summary: "Context Capsule CLI slice 已定义，但命令尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress capsule --intervention IV-ID` 能生成 Markdown capsule，且不修改 Project State 或调用模型 API。"
+required_evidence:
+  - "新增 capsule CLI 实现。"
+  - "新增 focused pytest 覆盖成功路径和错误路径。"
+  - "生成 capsule 的示例输出。"
+  - "断言 Project State 和 state history 未变。"
+  - "全量 pytest 和仓库检查通过。"
+acceptance_criteria:
+  - id: AC-TS-0051-01
+    criterion: "`progress capsule --intervention IV-ID` 能解析 canonical Intervention 和 Target。"
+  - id: AC-TS-0051-02
+    criterion: "命令生成 `.progress/context_capsules/{IV-ID}-context-capsule.md`。"
+  - id: AC-TS-0051-03
+    criterion: "Capsule 包含 Fresh Context 必需章节和 evidence_required。"
+  - id: AC-TS-0051-04
+    criterion: "命令不修改 Project State、state history、Evidence、State Delta、Gap、Target、Intervention 或 Event。"
+  - id: AC-TS-0051-05
+    criterion: "focused pytest、全量 pytest 和仓库检查通过。"
+  - id: AC-TS-0051-06
+    criterion: "本轮不调用模型 API、Web UI 或外部 agent。"
+non_goals:
+  - "不实现 `progress run start`。"
+  - "不自动执行 Intervention。"
+  - "不生成 Evidence、Verification 或 State Delta。"
+  - "不接入 OpenAI、Claude、Codex 或其他模型 API。"
+related_gaps:
+  - SG-0041

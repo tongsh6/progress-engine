@@ -1,0 +1,20 @@
+id: IV-0054
+name: "Define evidence add CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0054
+status: proposed
+goal: "定义 `progress evidence add --run RUN-ID --file evidence.yaml` 的最小受控写入切片。"
+in_scope:
+  - "定义 evidence add CLI 输入、输出和错误边界。"
+  - "定义 Evidence 对象与 Run 的关联校验。"
+  - "定义不自动验证、不生成 State Delta、不修改 Project State 的边界。"
+  - "定义下一轮实现文件边界和测试要求。"
+out_of_scope:
+  - "不实现 evidence add CLI。"
+  - "不生成 Verification 或 State Delta。"
+  - "不修改 Project State 或 state history。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+evidence_required:
+  - "新增 evidence add CLI slice 文档。"
+  - "python3 scripts/check_repo.py 通过。"
+automation_policy: human_gate_required

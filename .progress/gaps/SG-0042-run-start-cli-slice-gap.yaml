@@ -1,0 +1,20 @@
+id: SG-0042
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0051
+current_state: "`progress capsule --intervention IV-ID` 已能生成 prompt-only Context Capsule，但 prompt-only 执行仍缺少可追踪 Run lifecycle 写入入口。"
+desired_state: "`progress run start --intervention IV-ID --mode prompt-only` 切片被定义，明确如何创建 Run 并关联 capsule。"
+evidence_refs:
+  - "docs/05-delivery/48-context-capsule-cli-run.md"
+  - ".progress/context_capsules/IV-0051-context-capsule.md"
+  - ".progress/deltas/SDP-0051-context-capsule-cli.yaml"
+impact:
+  - "用户可以生成 AI 执行上下文，但执行会话仍无法作为 Run 被 repo-native 追踪。"
+  - "如果直接接模型 API，会跳过 run lifecycle 和 human-gated evidence 边界。"
+suggested_targets:
+  - "TS-0052-run-start-cli-slice-defined"
+suggested_interventions:
+  - "IV-0052: Define prompt-only run start CLI slice"
+notes:
+  - "下一轮应先定义 `progress run start` 的最小写入边界，不自动执行 AI、不生成 Evidence 或 State Delta。"

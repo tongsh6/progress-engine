@@ -1,0 +1,67 @@
+evidence:
+  id: EV-0049
+  run_id: RUN-20260520-IV-0049
+  intervention_id: IV-0049
+  target_state_id: TS-0049
+  evidence_type: command_result
+  created_at: "2026-05-20T23:48:00+08:00"
+  claims:
+    - dimension: delivery
+      before: "v0.1 release readiness 已定义，但尚未执行发布前检查和安装试用验证。"
+      after: "v0.1 本地发布前检查、editable install smoke test 和 CLI 试用路径已执行并记录。"
+      acceptance_mapping:
+        - criterion: "全量 pytest 和仓库检查通过。"
+          status: pass
+          evidence_ref: "docs/05-delivery/46-v0.1-release-readiness-run.md#21-全量测试"
+        - criterion: "editable install smoke test 能运行 `progress assess`。"
+          status: pass
+          evidence_ref: "docs/05-delivery/46-v0.1-release-readiness-run.md#23-editable-install-smoke-test"
+        - criterion: "本地 CLI 试用路径覆盖 init、intake、state show、assess 和主要 list 命令。"
+          status: pass
+          evidence_ref: "docs/05-delivery/46-v0.1-release-readiness-run.md#24-bootstrap-trial"
+        - criterion: "Evidence 记录命令结果和失败处理边界。"
+          status: pass
+          evidence_ref: "docs/05-delivery/46-v0.1-release-readiness-run.md#23-editable-install-smoke-test"
+        - criterion: "本轮不引入 Web UI、SaaS、多用户、模型 API 或外部 agent。"
+          status: pass
+          evidence_ref: "docs/05-delivery/46-v0.1-release-readiness-run.md#4-scope-check"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮没有修改 src/progress_engine、tests 或 pyproject.toml。"
+      - "editable install 在受限沙箱中首次因 pip 网络限制失败；放开网络后安装和 CLI smoke test 通过。"
+      - "未引入 Web UI、SaaS、多用户、模型 API、外部 agent 或发布自动化。"
+  commands_run:
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "122 passed in 0.69s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 315 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 282 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+    - command: "python3 -m venv /private/tmp/progress-engine-release.*/venv && pip install -e . && progress assess"
+      result: pass
+      output_summary: "Successfully installed progress-engine-0.1.0; installed `progress assess` reported project progress-engine and open gap SG-0039."
+    - command: "progress init/intake/state show/assess/gaps list/target list/intervention list in empty trial directory"
+      result: pass
+      output_summary: "Initialized sample-tool, captured intent, state show reported intent seed and other dimensions unknown, list commands returned none."
+    - command: "PYTHONPATH=src python3 -m progress_engine assess/state show/state history/run list/evidence list/verify list/delta list/event list"
+      result: pass
+      output_summary: "Repository observation commands ran successfully and showed current state at SG-0039 / TS-0049 before applying SDP-0049."
+  files_changed:
+    - "docs/05-delivery/46-v0.1-release-readiness-run.md"
+    - "INDEX.md"
+    - ".progress/gaps/SG-0039-v0.1-release-readiness-run-gap.yaml"
+    - ".progress/gaps/SG-0040-context-capsule-cli-gap.yaml"
+    - ".progress/targets/TS-0049-v0.1-release-readiness-accepted.yaml"
+    - ".progress/targets/TS-0050-context-capsule-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0049-run-v0.1-release-readiness-checks.yaml"
+    - ".progress/interventions/IV-0050-define-context-capsule-cli-slice.yaml"
+    - ".progress/runs/RUN-20260520-IV-0049-run-v0.1-release-readiness-checks.yaml"
+    - ".progress/evidence/EV-0049-v0.1-release-readiness-run.yaml"
+    - ".progress/deltas/SDP-0049-v0.1-release-readiness-run.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0040
+  supports_state_delta_proposal: SDP-0049

@@ -1,0 +1,22 @@
+id: IV-0051
+name: "Implement Context Capsule CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0051
+status: completed
+goal: "实现 `progress capsule --intervention IV-ID`，生成只读 prompt-only Markdown Context Capsule。"
+in_scope:
+  - "实现 capsule CLI parser 和 renderer。"
+  - "读取 Project State、Intervention、Target State 和必要引用。"
+  - "写入 `.progress/context_capsules/{IV-ID}-context-capsule.md`。"
+  - "新增 focused pytest 覆盖成功路径和错误路径。"
+out_of_scope:
+  - "不实现 run lifecycle。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+  - "不自动执行 Intervention。"
+  - "不生成 Evidence、Verification 或 State Delta。"
+evidence_required:
+  - "python3 -m pytest tests/test_cli_capsule.py 通过。"
+  - "python3 -m pytest 通过。"
+  - "python3 scripts/check_repo.py 通过。"
+  - "生成 capsule 的示例输出和关键片段。"
+automation_policy: human_gate_required

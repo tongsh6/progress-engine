@@ -1,0 +1,55 @@
+evidence:
+  id: EV-0050
+  run_id: RUN-20260520-IV-0050
+  intervention_id: IV-0050
+  target_state_id: TS-0050
+  evidence_type: artifact_review
+  created_at: "2026-05-20T23:53:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "Fresh Context 和 Context Capsule 已有协议与模板，但没有 CLI 入口。"
+      after: "`progress capsule --intervention IV-ID` 的实现切片已定义，明确输入、输出、状态影响、验收和 out_of_scope。"
+      acceptance_mapping:
+        - criterion: "切片文档明确 `progress capsule --intervention IV-ID` 的命令边界。"
+          status: pass
+          evidence_ref: "docs/05-delivery/47-context-capsule-cli-slice.md#1-切片结论"
+        - criterion: "切片说明输入、输出、状态影响、out_of_scope 和 evidence_required。"
+          status: pass
+          evidence_ref: "docs/05-delivery/47-context-capsule-cli-slice.md#3-输入输出和状态影响"
+        - criterion: "切片保持 prompt-only，不调用模型 API、Web UI 或外部 agent。"
+          status: pass
+          evidence_ref: "docs/05-delivery/47-context-capsule-cli-slice.md#9-out-of-scope"
+        - criterion: "切片包含 focused pytest 和仓库检查验收要求。"
+          status: pass
+          evidence_ref: "docs/05-delivery/47-context-capsule-cli-slice.md#7-acceptance-criteria"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只定义下一条 capsule CLI 实现切片，没有修改运行时代码。"
+      - "capsule 被限定为 prompt-only Markdown 生成，不调用模型 API 或外部 agent。"
+      - "新增下一轮 SG-0041 / TS-0051 / IV-0051，用于实际实现 CLI。"
+  commands_run:
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 321 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 288 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "122 passed in 0.64s"
+  files_changed:
+    - "docs/05-delivery/47-context-capsule-cli-slice.md"
+    - "INDEX.md"
+    - ".progress/gaps/SG-0040-context-capsule-cli-gap.yaml"
+    - ".progress/gaps/SG-0041-context-capsule-cli-implementation-gap.yaml"
+    - ".progress/targets/TS-0050-context-capsule-cli-slice-defined.yaml"
+    - ".progress/targets/TS-0051-context-capsule-cli-working.yaml"
+    - ".progress/interventions/IV-0050-define-context-capsule-cli-slice.yaml"
+    - ".progress/interventions/IV-0051-implement-context-capsule-cli-slice.yaml"
+    - ".progress/runs/RUN-20260520-IV-0050-define-context-capsule-cli-slice.yaml"
+    - ".progress/evidence/EV-0050-context-capsule-cli-slice.yaml"
+    - ".progress/deltas/SDP-0050-context-capsule-cli-slice.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0041
+  supports_state_delta_proposal: SDP-0050

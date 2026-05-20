@@ -1,0 +1,23 @@
+id: IV-0053
+name: "Implement prompt-only run start CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0053
+status: completed
+goal: "实现 `progress run start --intervention IV-ID --mode prompt-only`，创建 active Run 并关联 Context Capsule。"
+in_scope:
+  - "实现 run start CLI parser 和 writer。"
+  - "读取 Project State、Intervention、Target State 和 Context Capsule。"
+  - "必要时生成缺失 capsule。"
+  - "写入 `.progress/runs/{RUN-ID}-*.yaml`。"
+  - "新增 focused pytest 覆盖成功路径和错误路径。"
+out_of_scope:
+  - "不实现 run close。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+  - "不自动执行 Intervention。"
+  - "不生成 Evidence、Verification 或 State Delta。"
+evidence_required:
+  - "python3 -m pytest tests/test_cli_run_start.py 通过。"
+  - "python3 -m pytest 通过。"
+  - "python3 scripts/check_repo.py 通过。"
+  - "生成 Run YAML 的示例输出和关键字段。"
+automation_policy: human_gate_required

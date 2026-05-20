@@ -1,0 +1,36 @@
+id: TS-0049
+name: "v0.1 release readiness accepted"
+primary_dimension: delivery
+source_gap: SG-0039
+status: accepted
+human_gate_required: true
+desired_state: "v0.1 发布前检查、安装 smoke test 和 CLI 试用路径被接受为 delivery evidence。"
+from:
+  maturity: weak
+  summary: "v0.1 release readiness 已定义，但尚未执行发布前检查和安装试用验证。"
+to:
+  maturity: reviewed
+  summary: "v0.1 本地发布前检查、安装 smoke test 和 CLI 试用路径已执行并记录。"
+required_evidence:
+  - "python3 -m pytest 通过。"
+  - "python3 scripts/check_repo.py 通过。"
+  - "editable install smoke test 通过或失败被记录为 blocker。"
+  - "主要 CLI 试用命令输出被记录。"
+  - "确认未引入 Web UI、SaaS、多用户、模型 API 或外部 agent。"
+acceptance_criteria:
+  - id: AC-TS-0049-01
+    criterion: "全量 pytest 和仓库检查通过。"
+  - id: AC-TS-0049-02
+    criterion: "editable install smoke test 能运行 `progress assess`。"
+  - id: AC-TS-0049-03
+    criterion: "本地 CLI 试用路径覆盖 init、intake、state show、assess 和主要 list 命令。"
+  - id: AC-TS-0049-04
+    criterion: "Evidence 记录命令结果和失败处理边界。"
+  - id: AC-TS-0049-05
+    criterion: "本轮不引入 Web UI、SaaS、多用户、模型 API 或外部 agent。"
+non_goals:
+  - "不发布到 PyPI、Homebrew、Docker 或其他分发渠道。"
+  - "不引入 Web UI、SaaS、多用户或外部 agent。"
+  - "不改变 Project State write gate 规则。"
+related_gaps:
+  - SG-0039

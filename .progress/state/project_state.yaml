@@ -56,10 +56,11 @@ state_dimensions:
     summary: '`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress
       assess`、`progress state show`、`progress state history`、`progress state refresh
       [--after-delta SDP-ID]`、`progress gaps list`、`progress target list`、`progress
-      intervention list`、`progress run list`、`progress evidence list`、`progress verify
-      list`、`progress delta list`、`progress delta apply`、`progress delta rollback`
-      和 `progress delta reject` 已作为 Python CLI 切片可运行、可测试；完整 State Delta lifecycle
-      尚未统一 pilot 验证。'
+      intervention list`、`progress capsule --intervention IV-ID`、`progress run start
+      --intervention IV-ID --mode prompt-only`、`progress run list`、`progress evidence
+      list`、`progress verify list`、`progress delta list`、`progress delta apply`、`progress
+      delta rollback` 和 `progress delta reject` 已作为 Python CLI 切片可运行、可测试；State Delta
+      lifecycle 已通过本地 pilot 验证。'
     evidence:
     - docs/05-delivery/23-first-python-cli-implementation-slice.md
     - .progress/targets/TS-0006-first-python-cli-slice-defined.yaml
@@ -254,16 +255,19 @@ state_dimensions:
     - tests/test_pilot_validation.py
     - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
   delivery:
-    maturity: weak
-    summary: 仓库已具备可审查的项目初始事实源、.progress 状态账本、GitHub 模板和基础自检脚本；发布方案仍未形成。
+    maturity: reviewed
+    summary: v0.1 本地发布前检查、editable install smoke test 和 CLI 试用路径已执行并记录；release readiness
+      可作为本地试用 evidence。
     evidence:
     - .github/workflows/docs-check.yml
-    - README.md
-    - .progress/state/project_state.yaml
-    - .github/pull_request_template.md
-    - scripts/check_repo.py
-    - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
-    - .progress/deltas/SDP-0037-v0.1-pilot-validation-run.yaml
+    - docs/05-delivery/45-v0.1-release-readiness-slice.md
+    - .progress/targets/TS-0048-v0.1-release-readiness-defined.yaml
+    - .progress/evidence/EV-0048-v0.1-release-readiness-slice.yaml
+    - .progress/deltas/SDP-0048-v0.1-release-readiness-slice.yaml
+    - docs/05-delivery/46-v0.1-release-readiness-run.md
+    - .progress/targets/TS-0049-v0.1-release-readiness-accepted.yaml
+    - .progress/evidence/EV-0049-v0.1-release-readiness-run.yaml
+    - .progress/deltas/SDP-0049-v0.1-release-readiness-run.yaml
   knowledge:
     maturity: reviewed
     summary: 核心文档、模板、报告已经分层沉淀。
@@ -271,6 +275,6 @@ state_dimensions:
     - INDEX.md
     - reports/self-check/v3-self-check-report.md
 open_state_gaps:
-- SG-0038
+- SG-0044
 aim_of_next_state:
-- TS-0048
+- TS-0054

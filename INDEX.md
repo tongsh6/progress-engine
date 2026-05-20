@@ -60,6 +60,13 @@
 - [State Refresh CLI Slice](docs/05-delivery/41-state-refresh-cli-slice.md)
 - [State Delta Reject CLI Slice](docs/05-delivery/42-state-delta-reject-cli-slice.md)
 - [State Delta Lifecycle Pilot](docs/05-delivery/43-state-delta-lifecycle-pilot.md)
+- [State Delta Lifecycle Pilot Run](docs/05-delivery/44-state-delta-lifecycle-pilot-run.md)
+- [v0.1 Release Readiness Slice](docs/05-delivery/45-v0.1-release-readiness-slice.md)
+- [v0.1 Release Readiness Run](docs/05-delivery/46-v0.1-release-readiness-run.md)
+- [Context Capsule CLI Slice](docs/05-delivery/47-context-capsule-cli-slice.md)
+- [Context Capsule CLI Run](docs/05-delivery/48-context-capsule-cli-run.md)
+- [Run Start CLI Slice](docs/05-delivery/49-run-start-cli-slice.md)
+- [Run Start CLI Run](docs/05-delivery/50-run-start-cli-run.md)
 
 ### Business & Reference
 

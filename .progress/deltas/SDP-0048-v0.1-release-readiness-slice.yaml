@@ -1,0 +1,88 @@
+state_delta_proposal:
+  id: SDP-0048
+  source_intervention: IV-0048
+  run_id: RUN-20260520-IV-0048
+  target_state_id: TS-0048
+  verification_id: EV-0048
+  status: applied
+  proposed_at: '2026-05-20T23:34:00+08:00'
+  proposed_by: verifier
+  primary_dimension: delivery
+  before:
+    delivery:
+      maturity: weak
+      summary: 仓库具备可运行 CLI 和本地 pilot 验证，但发布、安装和用户试用路径尚未形成。
+      current_problem:
+      - v0.1 release readiness 缺少安装方式、版本边界、试用流程和发布前检查。
+  after:
+    delivery:
+      recommended_maturity: weak
+      summary: v0.1 release readiness 已定义，明确本地开发入口、editable install、试用流程、版本边界和发布前检查；实际检查
+        run 尚未执行。
+      advancement_reason:
+      - 新增 release readiness slice 文档。
+      - 文档明确本地开发入口和 editable install 路径。
+      - 文档明确试用流程、发布前检查和 evidence_required。
+      - 文档明确排除 Web UI、SaaS、多用户、模型 API 和外部 agent。
+      caveat: Delivery maturity 保持 weak，直到发布前检查和安装 smoke test 被实际执行。
+  evidence_refs:
+  - docs/05-delivery/45-v0.1-release-readiness-slice.md
+  - .progress/targets/TS-0048-v0.1-release-readiness-defined.yaml
+  - .progress/interventions/IV-0048-define-v0.1-release-readiness.yaml
+  - .progress/evidence/EV-0048-v0.1-release-readiness-slice.yaml
+  - .progress/gaps/SG-0039-v0.1-release-readiness-run-gap.yaml
+  - .progress/targets/TS-0049-v0.1-release-readiness-accepted.yaml
+  - INDEX.md
+  acceptance_summary:
+    pass: 4
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+  - id: SG-0039
+    summary: v0.1 release readiness 已定义，但发布前检查、安装 smoke test 和 CLI 试用路径尚未执行并记录。
+    next_state_path: Run v0.1 release readiness checks.
+  recommended_next_interventions:
+  - id: IV-0049
+    name: Run v0.1 release readiness checks
+    condition: Run after SDP-0048 is accepted by human gate.
+    primary_dimension: delivery
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: '2026-05-20T23:34:00+08:00'
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    proposed_patch_summary: Keep delivery maturity weak, mark TS-0048 accepted, resolve
+      SG-0038, add SG-0039 / TS-0049 / IV-0049 / EV-0048 / SDP-0048 refs, and set
+      TS-0049 as the next target.
+    applied_by: human_user
+    applied_at: '2026-05-20T23:38:08+08:00'
+    previous_state_version: PS-0046
+    next_state_version: PS-0047
+    project_state_file: .progress/state/project_state.yaml
+  project_state_update:
+    state_dimensions:
+      delivery:
+        maturity: weak
+        summary: v0.1 release readiness 已定义，明确本地开发入口、editable install、试用流程、版本边界和发布前检查；实际
+          release readiness run 尚未执行。
+        evidence:
+        - .github/workflows/docs-check.yml
+        - docs/05-delivery/45-v0.1-release-readiness-slice.md
+        - .progress/targets/TS-0048-v0.1-release-readiness-defined.yaml
+        - .progress/evidence/EV-0048-v0.1-release-readiness-slice.yaml
+        - .progress/deltas/SDP-0048-v0.1-release-readiness-slice.yaml
+    open_state_gaps:
+    - SG-0039
+    aim_of_next_state:
+    - TS-0049
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+    - If rejected, mark IV-0048 back to proposed and remove docs/05-delivery/45-v0.1-release-readiness-slice.md.
+    - Restore Project State open_state_gaps to SG-0038 and aim_of_next_state to TS-0048.
+    - Do not modify runtime CLI code because this slice did not implement code.

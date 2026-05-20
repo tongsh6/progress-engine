@@ -1,0 +1,36 @@
+id: RUN-20260520-IV-0048
+intervention_id: IV-0048
+target_state_id: TS-0048
+started_at: "2026-05-20T23:34:00+08:00"
+completed_at: "2026-05-20T23:34:00+08:00"
+mode: "local-docs"
+primary_dimension: delivery
+status: completed
+state_reconciliation:
+  current_delivery_state:
+    maturity: weak
+    summary: "仓库具备可运行 CLI 和本地 pilot 验证，但发布、安装和用户试用路径尚未形成。"
+    open_gap: SG-0038
+  why_iv_0048_is_next:
+    - "Project State 当前 open gap 是 SG-0038。"
+    - "TS-0048 要求定义安装方式、版本边界、试用流程和发布前检查。"
+    - "Delivery maturity 需要先有明确 release readiness 边界，才能进入真实检查 run。"
+  out_of_scope_confirmed:
+    - "本轮不实现打包或发布自动化。"
+    - "不引入 Web UI、SaaS、多用户、模型 API 或外部 agent。"
+    - "不改变 CLI runtime 行为。"
+outputs:
+  created:
+    - "docs/05-delivery/45-v0.1-release-readiness-slice.md"
+    - ".progress/gaps/SG-0039-v0.1-release-readiness-run-gap.yaml"
+    - ".progress/targets/TS-0049-v0.1-release-readiness-accepted.yaml"
+    - ".progress/interventions/IV-0049-run-v0.1-release-readiness-checks.yaml"
+    - ".progress/runs/RUN-20260520-IV-0048-define-v0.1-release-readiness.yaml"
+    - ".progress/evidence/EV-0048-v0.1-release-readiness-slice.yaml"
+    - ".progress/deltas/SDP-0048-v0.1-release-readiness-slice.yaml"
+  updated:
+    - "INDEX.md"
+    - ".progress/gaps/SG-0038-v0.1-release-readiness-gap.yaml"
+    - ".progress/targets/TS-0048-v0.1-release-readiness-defined.yaml"
+    - ".progress/interventions/IV-0048-define-v0.1-release-readiness.yaml"
+completion_claim: "Executor claims v0.1 release readiness is defined with install path, trial flow, version boundary and pre-release checks."

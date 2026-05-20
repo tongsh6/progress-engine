@@ -1,0 +1,34 @@
+id: TS-0054
+name: "evidence add CLI slice defined"
+primary_dimension: implementation
+source_gap: SG-0044
+status: proposed
+human_gate_required: true
+desired_state: "`progress evidence add --run RUN-ID --file evidence.yaml` 被定义为下一条受控写入切片。"
+from:
+  maturity: drafted
+  summary: "Run start CLI 已可运行，但 Evidence 写入入口尚未定义。"
+to:
+  maturity: drafted
+  summary: "Evidence add CLI slice 被定义，明确输入、输出、状态影响和 out_of_scope。"
+required_evidence:
+  - "新增 evidence add CLI slice 文档。"
+  - "明确命令只复制/校验 Evidence 对象，不自动验证或生成 State Delta。"
+  - "明确不修改 Project State 或 state history。"
+  - "明确 focused pytest 和仓库检查要求。"
+acceptance_criteria:
+  - id: AC-TS-0054-01
+    criterion: "切片文档明确 `progress evidence add --run RUN-ID --file evidence.yaml` 的命令边界。"
+  - id: AC-TS-0054-02
+    criterion: "切片说明输入、输出、状态影响、out_of_scope 和 evidence_required。"
+  - id: AC-TS-0054-03
+    criterion: "切片不自动生成 Verification、State Delta 或 Project State 更新。"
+  - id: AC-TS-0054-04
+    criterion: "切片包含 focused pytest 和仓库检查验收要求。"
+non_goals:
+  - "不实现 evidence add CLI。"
+  - "不自动执行 verifier。"
+  - "不生成 State Delta。"
+  - "不接入模型 API 或外部 agent。"
+related_gaps:
+  - SG-0044

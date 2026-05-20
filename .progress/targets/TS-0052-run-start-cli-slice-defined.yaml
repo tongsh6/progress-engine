@@ -1,0 +1,34 @@
+id: TS-0052
+name: "run start CLI slice defined"
+primary_dimension: implementation
+source_gap: SG-0042
+status: accepted
+human_gate_required: true
+desired_state: "`progress run start --intervention IV-ID --mode prompt-only` 被定义为下一条受控写入切片。"
+from:
+  maturity: drafted
+  summary: "Context Capsule CLI 已可运行，但 Run lifecycle 写入入口尚未定义。"
+to:
+  maturity: drafted
+  summary: "prompt-only run start CLI slice 被定义，明确输入、输出、状态影响和 out_of_scope。"
+required_evidence:
+  - "新增 run start CLI slice 文档。"
+  - "明确命令只创建 Run 并关联 capsule，不调用模型 API。"
+  - "明确不生成 Evidence、Verification 或 State Delta。"
+  - "明确 focused pytest 和仓库检查要求。"
+acceptance_criteria:
+  - id: AC-TS-0052-01
+    criterion: "切片文档明确 `progress run start --intervention IV-ID --mode prompt-only` 的命令边界。"
+  - id: AC-TS-0052-02
+    criterion: "切片说明输入、输出、状态影响、out_of_scope 和 evidence_required。"
+  - id: AC-TS-0052-03
+    criterion: "切片不调用模型 API、Web UI 或外部 agent。"
+  - id: AC-TS-0052-04
+    criterion: "切片包含 focused pytest 和仓库检查验收要求。"
+non_goals:
+  - "不实现 run start CLI。"
+  - "不自动执行 Intervention。"
+  - "不生成 Evidence、Verification 或 State Delta。"
+  - "不接入模型 API 或外部 agent。"
+related_gaps:
+  - SG-0042

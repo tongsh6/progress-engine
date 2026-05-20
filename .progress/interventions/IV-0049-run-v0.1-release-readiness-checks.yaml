@@ -1,0 +1,21 @@
+id: IV-0049
+name: "Run v0.1 release readiness checks"
+primary_dimension: delivery
+target_state_id: TS-0049
+status: completed
+goal: "执行 v0.1 release readiness 检查，验证本地安装、试用命令和发布前质量门槛。"
+in_scope:
+  - "运行全量 pytest 和仓库检查。"
+  - "执行 editable install smoke test。"
+  - "执行并记录主要 CLI 试用命令输出。"
+  - "记录 release readiness evidence 和 blocker。"
+out_of_scope:
+  - "不实现发布自动化或上传包。"
+  - "不引入 Web UI、SaaS、多用户、模型 API 或外部 agent。"
+  - "不改变 CLI runtime 行为，除非检查暴露真实缺陷。"
+evidence_required:
+  - "python3 -m pytest 通过。"
+  - "python3 scripts/check_repo.py 通过。"
+  - "editable install smoke test 结果。"
+  - "主要 CLI 试用命令输出摘要。"
+automation_policy: human_gate_required

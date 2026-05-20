@@ -1,0 +1,55 @@
+evidence:
+  id: EV-0048
+  run_id: RUN-20260520-IV-0048
+  intervention_id: IV-0048
+  target_state_id: TS-0048
+  evidence_type: artifact_review
+  created_at: "2026-05-20T23:34:00+08:00"
+  claims:
+    - dimension: delivery
+      before: "仓库具备可运行 CLI 和本地 pilot 验证，但发布、安装和用户试用路径尚未形成。"
+      after: "v0.1 release readiness 已定义，覆盖本地开发入口、editable install、试用流程、版本边界和发布前检查。"
+      acceptance_mapping:
+        - criterion: "release readiness 文档明确 v0.1 发布前目标。"
+          status: pass
+          evidence_ref: "docs/05-delivery/45-v0.1-release-readiness-slice.md#1-切片结论"
+        - criterion: "文档说明安装方式、试用流程和验证命令。"
+          status: pass
+          evidence_ref: "docs/05-delivery/45-v0.1-release-readiness-slice.md#2-安装方式"
+        - criterion: "文档明确 out_of_scope，不扩大到 Web UI、SaaS 或外部 agent。"
+          status: pass
+          evidence_ref: "docs/05-delivery/45-v0.1-release-readiness-slice.md#8-out-of-scope"
+        - criterion: "文档包含发布前检查和 evidence_required。"
+          status: pass
+          evidence_ref: "docs/05-delivery/45-v0.1-release-readiness-slice.md#5-发布前检查"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只定义 release readiness 边界，没有修改 CLI runtime 行为。"
+      - "新增下一轮 SG-0039 / TS-0049 / IV-0049，用于实际执行检查和安装 smoke test。"
+      - "明确排除 Web UI、SaaS、多用户、模型 API 和外部 agent。"
+  commands_run:
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 309 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 276 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "122 passed in 0.63s"
+  files_changed:
+    - "docs/05-delivery/45-v0.1-release-readiness-slice.md"
+    - "INDEX.md"
+    - ".progress/gaps/SG-0038-v0.1-release-readiness-gap.yaml"
+    - ".progress/gaps/SG-0039-v0.1-release-readiness-run-gap.yaml"
+    - ".progress/targets/TS-0048-v0.1-release-readiness-defined.yaml"
+    - ".progress/targets/TS-0049-v0.1-release-readiness-accepted.yaml"
+    - ".progress/interventions/IV-0048-define-v0.1-release-readiness.yaml"
+    - ".progress/interventions/IV-0049-run-v0.1-release-readiness-checks.yaml"
+    - ".progress/runs/RUN-20260520-IV-0048-define-v0.1-release-readiness.yaml"
+    - ".progress/evidence/EV-0048-v0.1-release-readiness-slice.yaml"
+    - ".progress/deltas/SDP-0048-v0.1-release-readiness-slice.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0039
+  supports_state_delta_proposal: SDP-0048

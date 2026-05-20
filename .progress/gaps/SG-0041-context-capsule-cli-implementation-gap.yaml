@@ -1,0 +1,19 @@
+id: SG-0041
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0050
+current_state: "Context Capsule CLI slice 已定义，但 `progress capsule --intervention IV-ID` 尚未实现。"
+desired_state: "`progress capsule --intervention IV-ID` 能生成 prompt-only Markdown Context Capsule，并保持 Project State / state history 不变。"
+evidence_refs:
+  - "docs/05-delivery/47-context-capsule-cli-slice.md"
+  - ".progress/deltas/SDP-0050-context-capsule-cli-slice.yaml"
+impact:
+  - "AI 协作入口仍停留在手动整理上下文，无法稳定复用 Fresh Context 协议。"
+  - "没有 capsule CLI 时，用户容易在 AI 执行中遗漏 out_of_scope、acceptance criteria 或 evidence_required。"
+suggested_targets:
+  - "TS-0051-context-capsule-cli-working"
+suggested_interventions:
+  - "IV-0051: Implement Context Capsule CLI slice"
+notes:
+  - "下一轮应只实现 Markdown capsule 生成，不调用模型 API、Web UI 或外部 agent。"

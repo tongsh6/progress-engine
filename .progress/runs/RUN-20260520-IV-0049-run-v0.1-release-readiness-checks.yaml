@@ -1,0 +1,36 @@
+id: RUN-20260520-IV-0049
+intervention_id: IV-0049
+target_state_id: TS-0049
+started_at: "2026-05-20T23:48:00+08:00"
+completed_at: "2026-05-20T23:48:00+08:00"
+mode: "local-shell"
+primary_dimension: delivery
+status: completed
+state_reconciliation:
+  current_delivery_state:
+    maturity: weak
+    summary: "v0.1 release readiness 已定义，但尚未执行发布前检查和安装试用验证。"
+    open_gap: SG-0039
+  why_iv_0049_is_next:
+    - "Project State 当前 open gap 是 SG-0039。"
+    - "TS-0049 要求执行发布前检查、editable install smoke test 和 CLI 试用路径。"
+    - "Delivery maturity 只有在真实命令 evidence 通过后才能从 weak 提升到 reviewed。"
+  out_of_scope_confirmed:
+    - "本轮不实现发布自动化或上传包。"
+    - "不引入 Web UI、SaaS、多用户、模型 API 或外部 agent。"
+    - "不改变 CLI runtime 行为。"
+outputs:
+  created:
+    - "docs/05-delivery/46-v0.1-release-readiness-run.md"
+    - ".progress/gaps/SG-0040-context-capsule-cli-gap.yaml"
+    - ".progress/targets/TS-0050-context-capsule-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0050-define-context-capsule-cli-slice.yaml"
+    - ".progress/runs/RUN-20260520-IV-0049-run-v0.1-release-readiness-checks.yaml"
+    - ".progress/evidence/EV-0049-v0.1-release-readiness-run.yaml"
+    - ".progress/deltas/SDP-0049-v0.1-release-readiness-run.yaml"
+  updated:
+    - "INDEX.md"
+    - ".progress/gaps/SG-0039-v0.1-release-readiness-run-gap.yaml"
+    - ".progress/targets/TS-0049-v0.1-release-readiness-accepted.yaml"
+    - ".progress/interventions/IV-0049-run-v0.1-release-readiness-checks.yaml"
+completion_claim: "Executor claims v0.1 release readiness checks passed, including pytest, repo check, editable install smoke test and CLI trial."

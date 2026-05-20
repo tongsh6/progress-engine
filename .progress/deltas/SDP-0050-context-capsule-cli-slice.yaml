@@ -1,0 +1,89 @@
+state_delta_proposal:
+  id: SDP-0050
+  source_intervention: IV-0050
+  run_id: RUN-20260520-IV-0050
+  target_state_id: TS-0050
+  verification_id: EV-0050
+  status: applied
+  proposed_at: '2026-05-20T23:53:00+08:00'
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: Fresh Context 和 Context Capsule 已有协议与模板，但没有 CLI 入口。
+      current_problem:
+      - AI 协作仍依赖用户手动整理 prompt-only 上下文。
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: '`progress capsule --intervention IV-ID` 的实现切片已定义，明确只生成 prompt-only
+        Markdown capsule，不调用模型 API；实际 CLI 尚未实现。'
+      advancement_reason:
+      - 新增 Context Capsule CLI slice 文档。
+      - 文档明确输入、输出、状态影响、错误边界和 capsule 内容要求。
+      - 文档明确下一轮实现文件边界和 focused pytest 要求。
+      - 文档明确排除模型 API、Web UI、外部 agent、run lifecycle、Evidence generation 和 State Delta
+        generation。
+      caveat: 本轮未实现 `progress capsule`。
+  evidence_refs:
+  - docs/05-delivery/47-context-capsule-cli-slice.md
+  - .progress/targets/TS-0050-context-capsule-cli-slice-defined.yaml
+  - .progress/interventions/IV-0050-define-context-capsule-cli-slice.yaml
+  - .progress/evidence/EV-0050-context-capsule-cli-slice.yaml
+  - .progress/gaps/SG-0041-context-capsule-cli-implementation-gap.yaml
+  - .progress/targets/TS-0051-context-capsule-cli-working.yaml
+  - INDEX.md
+  acceptance_summary:
+    pass: 4
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+  - id: SG-0041
+    summary: Context Capsule CLI slice 已定义，但 `progress capsule --intervention IV-ID`
+      尚未实现。
+    next_state_path: Implement Context Capsule CLI slice.
+  recommended_next_interventions:
+  - id: IV-0051
+    name: Implement Context Capsule CLI slice
+    condition: Run after SDP-0050 is accepted by human gate.
+    primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: '2026-05-20T23:53:00+08:00'
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    proposed_patch_summary: Keep implementation maturity drafted, mark TS-0050 accepted,
+      resolve SG-0040, add SG-0041 / TS-0051 / IV-0051 / EV-0050 / SDP-0050 refs,
+      and set TS-0051 as the next target.
+    applied_by: human_user
+    applied_at: '2026-05-20T23:55:29+08:00'
+    previous_state_version: PS-0048
+    next_state_version: PS-0049
+    project_state_file: .progress/state/project_state.yaml
+  project_state_update:
+    state_dimensions:
+      implementation:
+        maturity: drafted
+        summary: '`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress
+          assess`、`progress state show`、`progress state history`、`progress state refresh
+          [--after-delta SDP-ID]`、`progress gaps list`、`progress target list`、`progress
+          intervention list`、`progress run list`、`progress evidence list`、`progress
+          verify list`、`progress delta list`、`progress delta apply`、`progress delta
+          rollback` 和 `progress delta reject` 已作为 Python CLI 切片可运行、可测试；State Delta
+          lifecycle 已通过本地 pilot 验证；下一条 `progress capsule` prompt-only CLI 实现切片已定义。'
+    open_state_gaps:
+    - SG-0041
+    aim_of_next_state:
+    - TS-0051
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+    - If rejected, mark IV-0050 back to proposed and remove docs/05-delivery/47-context-capsule-cli-slice.md.
+    - Restore Project State open_state_gaps to SG-0040 and aim_of_next_state to TS-0050.
+    - Do not modify runtime CLI code because this slice did not implement code.

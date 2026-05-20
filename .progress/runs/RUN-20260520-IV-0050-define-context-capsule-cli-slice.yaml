@@ -1,0 +1,36 @@
+id: RUN-20260520-IV-0050
+intervention_id: IV-0050
+target_state_id: TS-0050
+started_at: "2026-05-20T23:53:00+08:00"
+completed_at: "2026-05-20T23:53:00+08:00"
+mode: "local-docs"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    summary: "Fresh Context 和 Context Capsule 已有协议与模板，但没有 CLI 入口。"
+    open_gap: SG-0040
+  why_iv_0050_is_next:
+    - "Project State 当前 open gap 是 SG-0040。"
+    - "用户刚询问 AI 配置方向，项目状态显示下一步应先实现 prompt-only capsule 入口，而不是模型 API。"
+    - "TS-0050 要求定义 `progress capsule --intervention IV-ID` 的输入、输出、验收和 out_of_scope。"
+  out_of_scope_confirmed:
+    - "本轮不实现 Context Capsule CLI。"
+    - "不调用模型 API、Web UI 或外部 agent。"
+    - "不自动执行 Intervention 或生成 Evidence / State Delta。"
+outputs:
+  created:
+    - "docs/05-delivery/47-context-capsule-cli-slice.md"
+    - ".progress/gaps/SG-0041-context-capsule-cli-implementation-gap.yaml"
+    - ".progress/targets/TS-0051-context-capsule-cli-working.yaml"
+    - ".progress/interventions/IV-0051-implement-context-capsule-cli-slice.yaml"
+    - ".progress/runs/RUN-20260520-IV-0050-define-context-capsule-cli-slice.yaml"
+    - ".progress/evidence/EV-0050-context-capsule-cli-slice.yaml"
+    - ".progress/deltas/SDP-0050-context-capsule-cli-slice.yaml"
+  updated:
+    - "INDEX.md"
+    - ".progress/gaps/SG-0040-context-capsule-cli-gap.yaml"
+    - ".progress/targets/TS-0050-context-capsule-cli-slice-defined.yaml"
+    - ".progress/interventions/IV-0050-define-context-capsule-cli-slice.yaml"
+completion_claim: "Executor claims Context Capsule CLI slice is defined with prompt-only boundaries, input/output rules and next implementation criteria."

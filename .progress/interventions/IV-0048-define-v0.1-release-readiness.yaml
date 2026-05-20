@@ -2,7 +2,7 @@ id: IV-0048
 name: "Define v0.1 release readiness slice"
 primary_dimension: delivery
 target_state_id: TS-0048
-status: proposed
+status: completed
 goal: "定义 v0.1 release readiness 切片，补齐本地安装、试用和发布前检查边界。"
 in_scope:
   - "定义 v0.1 安装和试用路径。"
