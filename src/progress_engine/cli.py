@@ -8,6 +8,11 @@ from pathlib import Path
 from typing import TextIO
 
 from progress_engine.assessment.assess import load_assessment, render_assessment
+from progress_engine.capsule.context_capsule import (
+    ContextCapsuleError,
+    generate_context_capsule,
+    render_context_capsule_success,
+)
 from progress_engine.deltas.delta_apply import (
     DeltaApplyError,
     apply_delta,
@@ -43,6 +48,11 @@ from progress_engine.intake.intent_intake import (
     render_intake_success,
 )
 from progress_engine.runs.run_list import RunListError, load_active_runs, render_run_list
+from progress_engine.runs.run_start import (
+    RunStartError,
+    render_run_start_success,
+    start_run,
+)
 from progress_engine.state.project_state import (
     ProjectStateError,
     load_project_state,
@@ -111,9 +121,30 @@ def build_parser() -> argparse.ArgumentParser:
     )
     intervention_subcommands.add_parser("list", help="List incomplete interventions.")
 
+    capsule_parser = subcommands.add_parser("capsule", help="Generate a Context Capsule.")
+    capsule_parser.add_argument(
+        "--intervention",
+        required=True,
+        help="Intervention id to render into a prompt-only Context Capsule.",
+    )
+
     run_parser = subcommands.add_parser("run", help="Read runs.")
     run_subcommands = run_parser.add_subparsers(dest="run_command", required=True)
     run_subcommands.add_parser("list", help="List open runs.")
+    run_start_parser = run_subcommands.add_parser(
+        "start",
+        help="Start a prompt-only Run for an intervention.",
+    )
+    run_start_parser.add_argument(
+        "--intervention",
+        required=True,
+        help="Intervention id to start as a prompt-only Run.",
+    )
+    run_start_parser.add_argument(
+        "--mode",
+        required=True,
+        help="Run execution mode. v0.1 supports prompt-only.",
+    )
 
     evidence_parser = subcommands.add_parser("evidence", help="Read evidence.")
     evidence_subcommands = evidence_parser.add_subparsers(dest="evidence_command", required=True)
@@ -279,6 +310,16 @@ def main(
         print(render_intervention_list(interventions), file=out)
         return 0
 
+    if args.command == "capsule":
+        root = cwd or Path.cwd()
+        try:
+            result = generate_context_capsule(root, args.intervention)
+        except (ContextCapsuleError, ProjectStateError, StateHistoryError) as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_context_capsule_success(result), file=out)
+        return 0
+
     if args.command == "run" and args.run_command == "list":
         root = cwd or Path.cwd()
         try:
@@ -287,6 +328,16 @@ def main(
             print(f"error: {exc}", file=err)
             return 2
         print(render_run_list(runs), file=out)
+        return 0
+
+    if args.command == "run" and args.run_command == "start":
+        root = cwd or Path.cwd()
+        try:
+            result = start_run(root, args.intervention, args.mode)
+        except (RunStartError, ProjectStateError, StateHistoryError) as exc:
+            print(f"error: {exc}", file=err)
+            return 2
+        print(render_run_start_success(result), file=out)
         return 0
 
     if args.command == "evidence" and args.evidence_command == "list":

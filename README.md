@@ -25,6 +25,8 @@ progress state refresh [--after-delta SDP-ID]
 progress gaps list
 progress target list
 progress intervention list
+progress capsule --intervention IV-ID
+progress run start --intervention IV-ID --mode prompt-only
 progress run list
 progress evidence list
 progress verify list
@@ -36,7 +38,7 @@ progress event list
 ```
 <!-- progress-engine-cli-commands:end -->
 
-这些命令仍遵守 v0.1 边界：除 `init`、`intake`、human-gated `delta apply`、human-gated `delta rollback` 和 human-gated `delta reject` 这五个受控写入切片外，当前命令只读取 `.progress/` 账本；`state refresh` 只做只读 reconciliation，不写入 Project State 或 state history，不自动生成 Gap、Target、Intervention、Evidence、State Delta，也不调用模型或外部 agent。
+这些命令仍遵守 v0.1 边界：除 `init`、`intake`、prompt-only `capsule`、prompt-only `run start`、human-gated `delta apply`、human-gated `delta rollback` 和 human-gated `delta reject` 这七个受控写入切片外，当前命令只读取 `.progress/` 账本；`capsule` 只写入 `.progress/context_capsules/`，`run start` 只写入 `.progress/runs/` 并生成或复用 capsule，`state refresh` 只做只读 reconciliation，不写入 Project State 或 state history，不自动生成 Gap、Target、Intervention、Evidence、State Delta，也不调用模型或外部 agent。
 
 ## 推荐阅读顺序
 
