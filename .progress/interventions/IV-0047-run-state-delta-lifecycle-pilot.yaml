@@ -1,0 +1,20 @@
+id: IV-0047
+name: "Run State Delta lifecycle pilot validation"
+primary_dimension: product
+target_state_id: TS-0047
+status: completed
+goal: "执行并固化 v0.1 State Delta lifecycle pilot，验证 apply、refresh、rollback 和 reject 形成可演示闭环。"
+in_scope:
+  - "新增 focused pytest 覆盖 apply + refresh 分支。"
+  - "新增 focused pytest 覆盖 rollback 分支。"
+  - "新增 focused pytest 覆盖 reject 分支。"
+  - "记录命令结果和关键断言作为 Evidence。"
+out_of_scope:
+  - "不扩展 CLI runtime 行为，除非测试暴露真实缺陷。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+  - "不修改真实项目 `.progress/` 作为 pilot 执行方式。"
+evidence_required:
+  - "python3 -m pytest tests/test_state_delta_lifecycle_pilot.py 通过。"
+  - "python3 -m pytest 通过。"
+  - "python3 scripts/check_repo.py 通过。"
+automation_policy: human_gate_required

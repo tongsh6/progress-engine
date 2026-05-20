@@ -1,0 +1,33 @@
+id: TS-0047
+name: "state delta lifecycle pilot accepted"
+primary_dimension: product
+source_gap: SG-0037
+status: accepted
+human_gate_required: true
+desired_state: "v0.1 State Delta lifecycle pilot 被执行并接受为产品级验证证据。"
+from:
+  maturity: accepted
+  summary: "完整 State Delta lifecycle pilot 已定义但尚未执行。"
+to:
+  maturity: accepted
+  summary: "完整 State Delta lifecycle 已通过本地可回归 pilot 验证，覆盖 apply、refresh、rollback 和 reject。"
+required_evidence:
+  - "新增 focused pytest 覆盖 State Delta lifecycle pilot。"
+  - "pilot 断言 apply + refresh、rollback 和 reject 三个分支。"
+  - "全量 pytest 和仓库检查通过。"
+acceptance_criteria:
+  - id: AC-TS-0047-01
+    criterion: "pilot 测试覆盖 apply + refresh 分支。"
+  - id: AC-TS-0047-02
+    criterion: "pilot 测试覆盖 rollback 分支。"
+  - id: AC-TS-0047-03
+    criterion: "pilot 测试覆盖 reject 分支，且断言 Project State / state history 不变。"
+  - id: AC-TS-0047-04
+    criterion: "pilot 不调用模型 API、Web UI 或外部 agent。"
+  - id: AC-TS-0047-05
+    criterion: "仓库检查和全量 pytest 通过。"
+non_goals:
+  - "不扩展 CLI runtime 行为。"
+  - "不引入模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0037

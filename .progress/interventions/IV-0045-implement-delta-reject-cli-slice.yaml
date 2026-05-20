@@ -1,0 +1,22 @@
+id: IV-0045
+name: "Implement delta reject CLI slice"
+primary_dimension: implementation
+target_state_id: TS-0045
+status: completed
+goal: "实现下一条 State Delta reject CLI 切片，补齐未应用 proposal 的最小受控关闭路径。"
+in_scope:
+  - "实现 `progress delta reject SDP-ID --approved-by NAME --reason TEXT` CLI 用户路径。"
+  - "校验 proposal status、reject gate、approver 和 reason。"
+  - "成功路径只更新 proposal reject metadata。"
+  - "为成功路径和主要失败路径添加 focused pytest。"
+out_of_scope:
+  - "不修改 Project State 或 state history。"
+  - "不实现 automatic rejection。"
+  - "不实现 verification generation、target suggestion、模型 API、Web UI 或外部 agent。"
+  - "不引入通用 YAML merge / patch engine。"
+evidence_required:
+  - "python3 -m pytest tests/test_cli_delta_reject.py 通过。"
+  - "python3 -m pytest 通过。"
+  - "python3 scripts/check_repo.py 通过。"
+  - "成功路径输出、proposal reject metadata、Project State 未变和 state history 未变断言。"
+automation_policy: human_gate_required

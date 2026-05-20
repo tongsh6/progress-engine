@@ -1,0 +1,63 @@
+evidence:
+  id: EV-0045
+  run_id: RUN-20260520-IV-0045
+  intervention_id: IV-0045
+  target_state_id: TS-0045
+  evidence_type: artifact_review
+  created_at: "2026-05-20T21:45:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress delta reject` 已定义但尚未实现。"
+      after: "`progress delta reject SDP-ID --approved-by NAME --reason TEXT` 已作为 human-gated proposal lifecycle 写路径实现并测试通过。"
+      acceptance_mapping:
+        - criterion: "`progress delta reject SDP-ID --approved-by NAME --reason TEXT` 能解析 canonical State Delta Proposal。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_reject.py"
+        - criterion: "命令只允许 reject `proposed` 或 `accepted` proposal，并拒绝 `applied`、`rolled_back`、`rejected` 或未知状态。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_reject.py"
+        - criterion: "命令要求 reject gate 已批准、approver 匹配且 reason 非空。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_reject.py"
+        - criterion: "成功 reject 时只修改 proposal lifecycle metadata，不修改 Project State 或 state history。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_reject.py"
+        - criterion: "pytest 覆盖成功路径、缺 proposal、状态不允许、gate 未批准、approver 不匹配、reason 为空和重复 reject。"
+          status: pass
+          evidence_ref: "tests/test_cli_delta_reject.py"
+        - criterion: "仓库检查和全量 pytest 通过。"
+          status: pass
+          evidence_ref: ".progress/evidence/EV-0045-delta-reject-cli.yaml"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只实现 `progress delta reject`，没有修改 Project State 或 state history 写入路径。"
+      - "reject 只处理 proposed / accepted proposal，并记录 rejected_by、rejected_at、reason 和 previous_status。"
+      - "测试断言成功 reject 不修改 Project State 或 state history。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_cli_delta_reject.py"
+      result: pass
+      output_summary: "9 passed in 0.09s"
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "121 passed in 0.61s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 291 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 258 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+  example_output:
+    command: "progress delta reject SDP-1004 --approved-by human_user --reason 'Acceptance evidence failed verifier review.'"
+    output_summary: "State delta rejected: delta SDP-1004; rejected by human_user; reason recorded; proposal .progress/deltas/SDP-1004-reject-ready-delta.yaml."
+  files_changed:
+    - "src/progress_engine/cli.py"
+    - "src/progress_engine/deltas/delta_reject.py"
+    - "tests/test_cli_delta_reject.py"
+    - "tests/test_cli_delta_list.py"
+    - "tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1004-reject-ready-delta.yaml"
+    - "README.md"
+    - "src/progress_engine/README.md"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0036
+  supports_state_delta_proposal: SDP-0045

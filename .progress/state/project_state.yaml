@@ -13,8 +13,9 @@ state_dimensions:
     - docs/00-overview/02-core-methodology-state-driven-progress.md
   product:
     maturity: accepted
-    summary: v0.1 MVP 边界已冻结为实现前可审查范围；代表性试点已执行并固化为 `init -> intake -> state show ->
-      assess` 自动化回归测试，但尚未验证完整 State Delta 写闭环。
+    summary: v0.1 MVP 边界已冻结；bootstrap pilot 已执行并固化为 `init -> intake -> state show
+      -> assess` 自动化回归测试；State Delta lifecycle 已通过本地可回归 pilot 验证，覆盖 apply、refresh、rollback
+      和 reject。
     evidence:
     - docs/05-delivery/16-mvp-scope-and-roadmap.md
     - .progress/targets/TS-0002-v0.1-mvp-boundary-accepted.yaml
@@ -30,6 +31,11 @@ state_dimensions:
     - .progress/targets/TS-0037-v0.1-pilot-validation-run-accepted.yaml
     - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
     - .progress/deltas/SDP-0037-v0.1-pilot-validation-run.yaml
+    - docs/05-delivery/43-state-delta-lifecycle-pilot.md
+    - docs/05-delivery/44-state-delta-lifecycle-pilot-run.md
+    - tests/test_state_delta_lifecycle_pilot.py
+    - .progress/evidence/EV-0047-state-delta-lifecycle-pilot.yaml
+    - .progress/deltas/SDP-0047-state-delta-lifecycle-pilot.yaml
   design:
     maturity: drafted
     summary: CLI 与交互方向已有文档，尚未形成实现级 UX 规格。
@@ -51,8 +57,9 @@ state_dimensions:
       assess`、`progress state show`、`progress state history`、`progress state refresh
       [--after-delta SDP-ID]`、`progress gaps list`、`progress target list`、`progress
       intervention list`、`progress run list`、`progress evidence list`、`progress verify
-      list`、`progress delta list`、`progress delta apply` 和 `progress delta rollback`
-      已作为 Python CLI 切片可运行、可测试；reject 仍未定义或实现。'
+      list`、`progress delta list`、`progress delta apply`、`progress delta rollback`
+      和 `progress delta reject` 已作为 Python CLI 切片可运行、可测试；完整 State Delta lifecycle
+      尚未统一 pilot 验证。'
     evidence:
     - docs/05-delivery/23-first-python-cli-implementation-slice.md
     - .progress/targets/TS-0006-first-python-cli-slice-defined.yaml
@@ -264,6 +271,6 @@ state_dimensions:
     - INDEX.md
     - reports/self-check/v3-self-check-report.md
 open_state_gaps:
-- SG-0034
+- SG-0038
 aim_of_next_state:
-- TS-0044
+- TS-0048

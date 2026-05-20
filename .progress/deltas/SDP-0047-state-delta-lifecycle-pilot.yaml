@@ -1,0 +1,100 @@
+state_delta_proposal:
+  id: SDP-0047
+  source_intervention: IV-0047
+  run_id: RUN-20260520-IV-0047
+  target_state_id: TS-0047
+  verification_id: EV-0047
+  status: applied
+  proposed_at: '2026-05-20T22:20:00+08:00'
+  proposed_by: verifier
+  primary_dimension: product
+  before:
+    product:
+      maturity: accepted
+      summary: 完整 State Delta lifecycle pilot 已定义但尚未执行。
+      current_problem:
+      - State Delta lifecycle 缺少 unified pilot execution evidence。
+  after:
+    product:
+      recommended_maturity: accepted
+      summary: v0.1 State Delta lifecycle 已通过本地可回归 pilot 验证，覆盖 apply、refresh、rollback
+        和 reject；delivery 仍待 release readiness 补齐。
+      advancement_reason:
+      - 新增 focused pytest 验证 apply + refresh 分支。
+      - 新增 focused pytest 验证 rollback 分支。
+      - 新增 focused pytest 验证 reject 分支，并断言 Project State / state history 不变。
+      - 全量 pytest 和仓库检查通过。
+      caveat: Delivery maturity 仍为 weak，尚缺 release readiness。
+  evidence_refs:
+  - docs/05-delivery/44-state-delta-lifecycle-pilot-run.md
+  - tests/test_state_delta_lifecycle_pilot.py
+  - .progress/evidence/EV-0047-state-delta-lifecycle-pilot.yaml
+  - .progress/gaps/SG-0038-v0.1-release-readiness-gap.yaml
+  - .progress/targets/TS-0048-v0.1-release-readiness-defined.yaml
+  acceptance_summary:
+    pass: 5
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+  - id: SG-0038
+    summary: v0.1 State Delta lifecycle 已通过本地 pilot 验证，但项目仍缺少清晰的本地发布、安装和使用入口。
+    next_state_path: Define v0.1 release readiness slice.
+  recommended_next_interventions:
+  - id: IV-0048
+    name: Define v0.1 release readiness slice
+    condition: Run after SDP-0047 is accepted by human gate.
+    primary_dimension: delivery
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: '2026-05-20T22:20:00+08:00'
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    proposed_patch_summary: Keep product maturity accepted, update product summary
+      with State Delta lifecycle pilot evidence, resolve SG-0037, open SG-0038 for
+      release readiness, and set TS-0048 as the next target.
+    applied_by: human_user
+    applied_at: '2026-05-20T23:01:19+08:00'
+    previous_state_version: PS-0045
+    next_state_version: PS-0046
+    project_state_file: .progress/state/project_state.yaml
+  project_state_update:
+    state_dimensions:
+      product:
+        maturity: accepted
+        summary: v0.1 MVP 边界已冻结；bootstrap pilot 已执行并固化为 `init -> intake -> state show
+          -> assess` 自动化回归测试；State Delta lifecycle 已通过本地可回归 pilot 验证，覆盖 apply、refresh、rollback
+          和 reject。
+        evidence:
+        - docs/05-delivery/16-mvp-scope-and-roadmap.md
+        - .progress/targets/TS-0002-v0.1-mvp-boundary-accepted.yaml
+        - .progress/evidence/EV-0002-v0.1-mvp-boundary.yaml
+        - .progress/deltas/SDP-0002-v0.1-mvp-boundary.yaml
+        - docs/05-delivery/37-v0.1-pilot-validation-scenario.md
+        - examples/initial-project/intent.md
+        - .progress/targets/TS-0036-v0.1-pilot-validation-scenario-selected.yaml
+        - .progress/evidence/EV-0036-v0.1-pilot-validation-scenario.yaml
+        - .progress/deltas/SDP-0036-v0.1-pilot-validation-scenario.yaml
+        - docs/05-delivery/38-v0.1-pilot-validation-run.md
+        - tests/test_pilot_validation.py
+        - .progress/targets/TS-0037-v0.1-pilot-validation-run-accepted.yaml
+        - .progress/evidence/EV-0037-v0.1-pilot-validation-run.yaml
+        - .progress/deltas/SDP-0037-v0.1-pilot-validation-run.yaml
+        - docs/05-delivery/43-state-delta-lifecycle-pilot.md
+        - docs/05-delivery/44-state-delta-lifecycle-pilot-run.md
+        - tests/test_state_delta_lifecycle_pilot.py
+        - .progress/evidence/EV-0047-state-delta-lifecycle-pilot.yaml
+        - .progress/deltas/SDP-0047-state-delta-lifecycle-pilot.yaml
+    open_state_gaps:
+    - SG-0038
+    aim_of_next_state:
+    - TS-0048
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+    - Remove docs/05-delivery/44-state-delta-lifecycle-pilot-run.md and tests/test_state_delta_lifecycle_pilot.py.
+    - Restore Project State open_state_gaps to SG-0037 and aim_of_next_state to TS-0047.

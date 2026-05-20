@@ -58,6 +58,8 @@
 - [State Delta Apply CLI Slice](docs/05-delivery/39-state-delta-apply-cli-slice.md)
 - [State Delta Rollback CLI Slice](docs/05-delivery/40-state-delta-rollback-cli-slice.md)
 - [State Refresh CLI Slice](docs/05-delivery/41-state-refresh-cli-slice.md)
+- [State Delta Reject CLI Slice](docs/05-delivery/42-state-delta-reject-cli-slice.md)
+- [State Delta Lifecycle Pilot](docs/05-delivery/43-state-delta-lifecycle-pilot.md)
 
 ### Business & Reference
 

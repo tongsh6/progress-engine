@@ -1,0 +1,32 @@
+id: TS-0048
+name: "v0.1 release readiness defined"
+primary_dimension: delivery
+source_gap: SG-0038
+status: proposed
+human_gate_required: true
+desired_state: "v0.1 release readiness slice 被定义为小范围、可测试、符合当前 CLI-first 边界的交付目标。"
+from:
+  maturity: weak
+  summary: "仓库具备可运行 CLI 和本地 pilot 验证，但发布、安装和用户试用路径尚未形成。"
+to:
+  maturity: weak
+  summary: "v0.1 发布前准备有明确范围、检查项、安装路径和使用入口。"
+required_evidence:
+  - "新增 release readiness slice 文档。"
+  - "明确安装方式、试用命令、版本边界和发布前检查。"
+  - "明确不引入 Web UI、SaaS、多用户或外部 agent。"
+  - "仓库检查通过。"
+acceptance_criteria:
+  - id: AC-TS-0048-01
+    criterion: "release readiness 文档明确 v0.1 发布前目标。"
+  - id: AC-TS-0048-02
+    criterion: "文档说明安装方式、试用流程和验证命令。"
+  - id: AC-TS-0048-03
+    criterion: "文档明确 out_of_scope，不扩大到 Web UI、SaaS 或外部 agent。"
+  - id: AC-TS-0048-04
+    criterion: "文档包含发布前检查和 evidence_required。"
+non_goals:
+  - "不在定义切片时实现打包或发布自动化。"
+  - "不引入 Web UI、SaaS 或外部 agent。"
+related_gaps:
+  - SG-0038

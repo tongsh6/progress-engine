@@ -1,0 +1,55 @@
+evidence:
+  id: EV-0044
+  run_id: RUN-20260520-IV-0044
+  intervention_id: IV-0044
+  target_state_id: TS-0044
+  evidence_type: artifact_review
+  created_at: "2026-05-20T03:20:00+08:00"
+  claims:
+    - dimension: implementation
+      before: "`progress delta apply`、`progress delta rollback` 和 `progress state refresh` 已实现；reject 尚未定义。"
+      after: "下一条实现切片被定义为 `progress delta reject SDP-ID --approved-by NAME --reason TEXT`，并明确 reject 只处理 proposal lifecycle metadata，不修改 Project State 或 state history。"
+      acceptance_mapping:
+        - criterion: "切片文档明确下一条 State Delta reject 推进动作。"
+          status: pass
+          evidence_ref: "docs/05-delivery/42-state-delta-reject-cli-slice.md#1-切片结论"
+        - criterion: "切片边界说明 input、output、in_scope、out_of_scope 和 evidence_required。"
+          status: pass
+          evidence_ref: "docs/05-delivery/42-state-delta-reject-cli-slice.md#3-输入输出和状态影响"
+        - criterion: "切片说明 reject 如何保持 proposal lifecycle 与 Project State write gate 的边界。"
+          status: pass
+          evidence_ref: "docs/05-delivery/42-state-delta-reject-cli-slice.md#8-proposal-lifecycle-与-project-state-write-gate-边界"
+        - criterion: "切片包含 focused pytest 与仓库检查验收要求。"
+          status: pass
+          evidence_ref: "docs/05-delivery/42-state-delta-reject-cli-slice.md#6-acceptance-criteria"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只定义下一条实现切片，没有修改运行时代码。"
+      - "reject 被限定为 proposal lifecycle 写操作，不修改 Project State 或 state history。"
+      - "切片明确排除 automatic rejection、verification generation、模型 API、Web UI 和外部 agent。"
+  commands_run:
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "112 passed in 0.59s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 284 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 252 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+  files_changed:
+    - "docs/05-delivery/42-state-delta-reject-cli-slice.md"
+    - "INDEX.md"
+    - ".progress/gaps/SG-0034-delta-reject-slice-gap.yaml"
+    - ".progress/gaps/SG-0035-delta-reject-implementation-gap.yaml"
+    - ".progress/targets/TS-0044-next-delta-reject-slice-defined.yaml"
+    - ".progress/targets/TS-0045-delta-reject-cli-working.yaml"
+    - ".progress/interventions/IV-0044-define-delta-reject-cli-slice.yaml"
+    - ".progress/interventions/IV-0045-implement-delta-reject-cli-slice.yaml"
+    - ".progress/runs/RUN-20260520-IV-0044-define-delta-reject-cli-slice.yaml"
+    - ".progress/evidence/EV-0044-delta-reject-cli-slice.yaml"
+    - ".progress/deltas/SDP-0044-delta-reject-cli-slice.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0035
+  supports_state_delta_proposal: SDP-0044

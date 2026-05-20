@@ -1,7 +1,7 @@
 id: SG-0034
 dimension: implementation
 severity: medium
-status: open
+status: resolved
 source_intervention: IV-0043
 current_state: "`progress delta apply`、`progress delta rollback` 和只读 `progress state refresh` 已实现；State Delta reject 尚未定义下一条切片。"
 desired_state: "下一条 delta reject-focused CLI slice 被明确限定为小范围、可测试、符合 v0.1 边界，且不扩大为完整 delta management。"

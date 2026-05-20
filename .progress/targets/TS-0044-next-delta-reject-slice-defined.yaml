@@ -2,7 +2,7 @@ id: TS-0044
 name: "next delta reject slice defined"
 primary_dimension: implementation
 source_gap: SG-0034
-status: proposed
+status: accepted
 human_gate_required: true
 desired_state: "下一条 State Delta reject CLI slice 被定义为小范围、可测试、符合 v0.1 边界的实现目标。"
 from:

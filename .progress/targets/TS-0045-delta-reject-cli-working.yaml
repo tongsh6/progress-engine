@@ -1,0 +1,38 @@
+id: TS-0045
+name: "delta reject CLI working"
+primary_dimension: implementation
+source_gap: SG-0035
+status: accepted
+human_gate_required: true
+desired_state: "`progress delta reject SDP-ID --approved-by NAME --reason TEXT` 作为 human-gated proposal lifecycle 写路径可运行、可测试、可追溯。"
+from:
+  maturity: drafted
+  summary: "`progress delta reject` 已定义但尚未实现。"
+to:
+  maturity: drafted
+  summary: "`progress delta reject` 可以拒绝未应用的 State Delta Proposal，并保留 Project State 与 state history 不变。"
+required_evidence:
+  - "CLI 支持 `progress delta reject SDP-ID --approved-by NAME --reason TEXT`。"
+  - "命令校验 proposal status、reject gate、approver 和 reason。"
+  - "成功路径只更新 proposal reject metadata。"
+  - "失败路径在写入前返回，不产生部分 proposal 更新。"
+  - "focused pytest、全量 pytest 和仓库检查通过。"
+acceptance_criteria:
+  - id: AC-TS-0045-01
+    criterion: "`progress delta reject SDP-ID --approved-by NAME --reason TEXT` 能解析 canonical State Delta Proposal。"
+  - id: AC-TS-0045-02
+    criterion: "命令只允许 reject `proposed` 或 `accepted` proposal，并拒绝 `applied`、`rolled_back`、`rejected` 或未知状态。"
+  - id: AC-TS-0045-03
+    criterion: "命令要求 reject gate 已批准、approver 匹配且 reason 非空。"
+  - id: AC-TS-0045-04
+    criterion: "成功 reject 时只修改 proposal lifecycle metadata，不修改 Project State 或 state history。"
+  - id: AC-TS-0045-05
+    criterion: "pytest 覆盖成功路径、缺 proposal、状态不允许、gate 未批准、approver 不匹配、reason 为空和重复 reject。"
+  - id: AC-TS-0045-06
+    criterion: "仓库检查和全量 pytest 通过。"
+non_goals:
+  - "不修改 Project State 或 state history。"
+  - "不实现 automatic rejection。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0035

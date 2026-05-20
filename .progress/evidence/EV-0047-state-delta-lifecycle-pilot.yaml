@@ -1,0 +1,51 @@
+evidence:
+  id: EV-0047
+  run_id: RUN-20260520-IV-0047
+  intervention_id: IV-0047
+  target_state_id: TS-0047
+  evidence_type: artifact_review
+  created_at: "2026-05-20T22:20:00+08:00"
+  claims:
+    - dimension: product
+      before: "完整 State Delta lifecycle pilot 已定义但尚未执行。"
+      after: "完整 State Delta lifecycle 已通过本地 focused pytest 验证，覆盖 apply + refresh、rollback 和 reject。"
+      acceptance_mapping:
+        - criterion: "pilot 测试覆盖 apply + refresh 分支。"
+          status: pass
+          evidence_ref: "tests/test_state_delta_lifecycle_pilot.py"
+        - criterion: "pilot 测试覆盖 rollback 分支。"
+          status: pass
+          evidence_ref: "tests/test_state_delta_lifecycle_pilot.py"
+        - criterion: "pilot 测试覆盖 reject 分支，且断言 Project State / state history 不变。"
+          status: pass
+          evidence_ref: "tests/test_state_delta_lifecycle_pilot.py"
+        - criterion: "pilot 不调用模型 API、Web UI 或外部 agent。"
+          status: pass
+          evidence_ref: "docs/05-delivery/44-state-delta-lifecycle-pilot-run.md"
+        - criterion: "仓库检查和全量 pytest 通过。"
+          status: pass
+          evidence_ref: ".progress/evidence/EV-0047-state-delta-lifecycle-pilot.yaml"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只新增 focused pilot pytest 和 run 文档，没有改变 CLI runtime 行为。"
+      - "pilot 使用 tmp_path fixture copy，不写真实项目 `.progress/`。"
+  commands_run:
+    - command: "python3 -m pytest tests/test_state_delta_lifecycle_pilot.py"
+      result: pass
+      output_summary: "1 passed in 0.04s"
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "122 passed in 0.64s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 303 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 270 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+  files_changed:
+    - "docs/05-delivery/44-state-delta-lifecycle-pilot-run.md"
+    - "tests/test_state_delta_lifecycle_pilot.py"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0038
+  supports_state_delta_proposal: SDP-0047

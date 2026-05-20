@@ -1,0 +1,19 @@
+id: IV-0046
+name: "Define State Delta lifecycle pilot validation slice"
+primary_dimension: product
+target_state_id: TS-0046
+status: completed
+goal: "定义 v0.1 State Delta lifecycle pilot 验证切片，统一验证 apply、refresh、rollback 和 reject 是否形成可演示闭环。"
+in_scope:
+  - "定义代表性 State Delta lifecycle pilot 场景。"
+  - "定义 pilot 输入、步骤、输出和 evidence_required。"
+  - "定义验收标准，覆盖 apply、refresh、rollback 和 reject。"
+out_of_scope:
+  - "不在本轮实现新的 pilot 自动化。"
+  - "不调用模型 API、Web UI 或外部 agent。"
+  - "不改变 State Delta lifecycle CLI 行为。"
+evidence_required:
+  - "新增 State Delta lifecycle pilot slice 文档。"
+  - "acceptance criteria 和 evidence_required 可验证。"
+  - "python3 scripts/check_repo.py 通过。"
+automation_policy: human_gate_required

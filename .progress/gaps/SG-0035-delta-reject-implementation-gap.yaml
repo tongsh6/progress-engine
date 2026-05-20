@@ -1,0 +1,20 @@
+id: SG-0035
+dimension: implementation
+severity: medium
+status: resolved
+source_intervention: IV-0044
+current_state: "`progress delta reject` 已被定义为 proposal lifecycle 写操作，但尚未实现。"
+desired_state: "`progress delta reject SDP-ID --approved-by NAME --reason TEXT` 可把未应用 proposal 标记为 rejected，并保证不修改 Project State 或 state history。"
+evidence_refs:
+  - "docs/05-delivery/42-state-delta-reject-cli-slice.md"
+  - ".progress/deltas/SDP-0044-delta-reject-cli-slice.yaml"
+impact:
+  - "未批准、证据失败或不再适用的 proposal 仍无法通过 CLI 明确关闭。"
+  - "如果直接实现完整 delta management 或自动 rejection，会扩大 v0.1 边界。"
+suggested_targets:
+  - "TS-0045-delta-reject-cli-working"
+suggested_interventions:
+  - "IV-0045: Implement delta reject CLI slice"
+notes:
+  - "下一轮只实现 human-gated proposal lifecycle reject，不修改 Project State 或 state history。"
+  - "reject 已 applied proposal 仍保持 out_of_scope。"

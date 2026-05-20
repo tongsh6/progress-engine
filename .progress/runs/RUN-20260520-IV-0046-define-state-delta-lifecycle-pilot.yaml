@@ -1,0 +1,36 @@
+id: RUN-20260520-IV-0046
+intervention_id: IV-0046
+target_state_id: TS-0046
+started_at: "2026-05-20T22:00:00+08:00"
+completed_at: "2026-05-20T22:00:00+08:00"
+mode: "local-artifact"
+primary_dimension: product
+status: completed
+state_reconciliation:
+  current_product_state:
+    maturity: accepted
+    summary: "State Delta apply、rollback、reject 和 refresh CLI 均已实现，但尚未统一验证完整 lifecycle。"
+    open_gap: SG-0036
+  why_iv_0046_is_next:
+    - "Project State 当前 open gap 是 SG-0036。"
+    - "TS-0046 要求先定义 State Delta lifecycle pilot，再运行新的产品验证。"
+    - "Product summary 仍保留完整 State Delta 写闭环尚未验证的 caveat。"
+  out_of_scope_confirmed:
+    - "本轮不实现新的 pilot 自动化。"
+    - "不调用模型 API、Web UI 或外部 agent。"
+    - "不改变 CLI runtime 行为。"
+outputs:
+  created:
+    - "docs/05-delivery/43-state-delta-lifecycle-pilot.md"
+    - ".progress/runs/RUN-20260520-IV-0046-define-state-delta-lifecycle-pilot.yaml"
+    - ".progress/evidence/EV-0046-state-delta-lifecycle-pilot-slice.yaml"
+    - ".progress/deltas/SDP-0046-state-delta-lifecycle-pilot-slice.yaml"
+    - ".progress/gaps/SG-0037-state-delta-lifecycle-pilot-run-gap.yaml"
+    - ".progress/targets/TS-0047-state-delta-lifecycle-pilot-accepted.yaml"
+    - ".progress/interventions/IV-0047-run-state-delta-lifecycle-pilot.yaml"
+  modified:
+    - "INDEX.md"
+    - ".progress/gaps/SG-0036-state-delta-lifecycle-validation-gap.yaml"
+    - ".progress/targets/TS-0046-state-delta-lifecycle-pilot-defined.yaml"
+    - ".progress/interventions/IV-0046-define-state-delta-lifecycle-pilot.yaml"
+completion_claim: "Executor claims the State Delta lifecycle pilot validation slice is defined and ready for verifier review."

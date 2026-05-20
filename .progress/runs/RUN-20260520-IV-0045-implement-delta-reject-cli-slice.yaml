@@ -1,0 +1,38 @@
+id: RUN-20260520-IV-0045
+intervention_id: IV-0045
+target_state_id: TS-0045
+started_at: "2026-05-20T21:45:00+08:00"
+completed_at: "2026-05-20T21:45:00+08:00"
+mode: "local-code"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    summary: "`progress delta reject` 已定义但尚未实现。"
+    open_gap: SG-0035
+  why_iv_0045_is_next:
+    - "Project State 当前 open gap 是 SG-0035。"
+    - "TS-0045 要求把 reject-focused State Delta CLI slice 变成可运行、可测试、可追溯的实现。"
+    - "State Delta apply / rollback / refresh 已实现，reject 是 proposal lifecycle 的剩余关键闭环。"
+  out_of_scope_confirmed:
+    - "本轮不修改 Project State 或 state history 写入路径。"
+    - "本轮不实现 automatic rejection。"
+    - "不实现 verification generation、target suggestion、模型 API 或 Web UI。"
+outputs:
+  created:
+    - "src/progress_engine/deltas/delta_reject.py"
+    - "tests/test_cli_delta_reject.py"
+    - "tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1004-reject-ready-delta.yaml"
+    - ".progress/runs/RUN-20260520-IV-0045-implement-delta-reject-cli-slice.yaml"
+    - ".progress/evidence/EV-0045-delta-reject-cli.yaml"
+    - ".progress/deltas/SDP-0045-delta-reject-cli.yaml"
+    - ".progress/gaps/SG-0036-state-delta-lifecycle-validation-gap.yaml"
+    - ".progress/targets/TS-0046-state-delta-lifecycle-pilot-defined.yaml"
+    - ".progress/interventions/IV-0046-define-state-delta-lifecycle-pilot.yaml"
+  modified:
+    - "src/progress_engine/cli.py"
+    - "README.md"
+    - "src/progress_engine/README.md"
+    - "tests/test_cli_delta_list.py"
+completion_claim: "Executor claims `progress delta reject` is implemented as a human-gated proposal lifecycle write path and covered by focused pytest."

@@ -1,0 +1,36 @@
+id: RUN-20260520-IV-0044
+intervention_id: IV-0044
+target_state_id: TS-0044
+started_at: "2026-05-20T03:20:00+08:00"
+completed_at: "2026-05-20T03:20:00+08:00"
+mode: "local-artifact"
+primary_dimension: implementation
+status: completed
+state_reconciliation:
+  current_implementation_state:
+    maturity: drafted
+    summary: "`progress delta apply`、`progress delta rollback` 和 `progress state refresh` 已实现；reject 尚未定义。"
+    open_gap: SG-0034
+  why_iv_0044_is_next:
+    - "Project State 当前 open gap 是 SG-0034。"
+    - "TS-0044 要求先定义 delta reject-focused slice，而不是直接实现完整 delta management。"
+    - "未通过 gate、证据失败或不再适用的 proposal 需要受控 lifecycle 关闭路径。"
+  out_of_scope_confirmed:
+    - "本轮不实现运行时代码。"
+    - "不修改 Project State 或 state history。"
+    - "不实现 automatic rejection、verification generation、模型 API 或 Web UI。"
+outputs:
+  created:
+    - "docs/05-delivery/42-state-delta-reject-cli-slice.md"
+    - ".progress/runs/RUN-20260520-IV-0044-define-delta-reject-cli-slice.yaml"
+    - ".progress/evidence/EV-0044-delta-reject-cli-slice.yaml"
+    - ".progress/deltas/SDP-0044-delta-reject-cli-slice.yaml"
+    - ".progress/gaps/SG-0035-delta-reject-implementation-gap.yaml"
+    - ".progress/targets/TS-0045-delta-reject-cli-working.yaml"
+    - ".progress/interventions/IV-0045-implement-delta-reject-cli-slice.yaml"
+  modified:
+    - "INDEX.md"
+    - ".progress/gaps/SG-0034-delta-reject-slice-gap.yaml"
+    - ".progress/targets/TS-0044-next-delta-reject-slice-defined.yaml"
+    - ".progress/interventions/IV-0044-define-delta-reject-cli-slice.yaml"
+completion_claim: "Executor claims the next delta reject CLI slice is defined as a bounded proposal lifecycle operation and ready for verifier review."

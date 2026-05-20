@@ -1,0 +1,18 @@
+id: IV-0048
+name: "Define v0.1 release readiness slice"
+primary_dimension: delivery
+target_state_id: TS-0048
+status: proposed
+goal: "定义 v0.1 release readiness 切片，补齐本地安装、试用和发布前检查边界。"
+in_scope:
+  - "定义 v0.1 安装和试用路径。"
+  - "定义发布前检查命令和 evidence_required。"
+  - "定义版本边界和 out_of_scope。"
+out_of_scope:
+  - "不在本轮实现打包或发布自动化。"
+  - "不引入 Web UI、SaaS、多用户或外部 agent。"
+  - "不改变 CLI runtime 行为。"
+evidence_required:
+  - "新增 release readiness slice 文档。"
+  - "python3 scripts/check_repo.py 通过。"
+automation_policy: human_gate_required

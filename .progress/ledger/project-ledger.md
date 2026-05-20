@@ -4,6 +4,167 @@
 
 ## 2026-05-20
 
+### IV-0047: Run State Delta lifecycle pilot validation
+
+- Target State：`TS-0047: state delta lifecycle pilot accepted`
+- 主维度：product
+- 结果：已通过 human gate apply，product maturity 保持 `accepted`
+- 选择理由：
+  - `SG-0037` 是当前 Project State open gap，要求执行并固化完整 State Delta lifecycle pilot。
+  - `docs/05-delivery/43-state-delta-lifecycle-pilot.md` 已定义 apply + refresh、rollback 和 reject 三个分支。
+  - 本轮新增 focused pytest，使用 fixture copy 验证 lifecycle，不调用模型 API、Web UI 或外部 agent，也不写真实项目 `.progress/`。
+- Evidence：`.progress/evidence/EV-0047-state-delta-lifecycle-pilot.yaml`
+- State Delta：`.progress/deltas/SDP-0047-state-delta-lifecycle-pilot.yaml`
+- 状态历史：`PS-0046`
+- 主要产物：
+  - `docs/05-delivery/44-state-delta-lifecycle-pilot-run.md`
+  - `tests/test_state_delta_lifecycle_pilot.py`
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_state_delta_lifecycle_pilot.py
+1 passed in 0.04s
+
+python3 -m pytest
+122 passed in 0.64s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 303 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 270 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0038` 已创建：v0.1 已具备 State Delta lifecycle 本地验证，但 delivery 仍缺 release readiness。
+  - 下一轮应处理 `TS-0048: v0.1 release readiness defined` / `IV-0048: Define v0.1 release readiness slice`。
+
+### IV-0046: Define State Delta lifecycle pilot validation slice
+
+- Target State：`TS-0046: state delta lifecycle pilot defined`
+- 主维度：product
+- 结果：已通过 human gate apply，product maturity 保持 `accepted`
+- 选择理由：
+  - `SG-0036` 是当前 Project State open gap，要求先定义完整 State Delta lifecycle pilot。
+  - `progress delta apply`、`progress state refresh`、`progress delta rollback` 和 `progress delta reject` 已分别实现，但尚未形成统一产品验证证据。
+  - 本轮 pilot 定义只使用本地 fixture，不依赖模型 API、Web UI、外部 agent 或真实项目 `.progress/` 写入。
+- Evidence：`.progress/evidence/EV-0046-state-delta-lifecycle-pilot-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0046-state-delta-lifecycle-pilot-slice.yaml`
+- 状态历史：`PS-0045`
+- 主要产物：
+  - `docs/05-delivery/43-state-delta-lifecycle-pilot.md`
+  - `.progress/gaps/SG-0037-state-delta-lifecycle-pilot-run-gap.yaml`
+  - `.progress/targets/TS-0047-state-delta-lifecycle-pilot-accepted.yaml`
+  - `.progress/interventions/IV-0047-run-state-delta-lifecycle-pilot.yaml`
+- 检查结果：
+
+```text
+python3 -m pytest
+121 passed in 0.62s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 297 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 264 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0037` 已创建：State Delta lifecycle pilot 已定义但尚未执行。
+  - 下一轮应处理 `TS-0047: state delta lifecycle pilot accepted` / `IV-0047: Run State Delta lifecycle pilot validation`。
+
+### IV-0045: Implement delta reject CLI slice
+
+- Target State：`TS-0045: delta reject CLI working`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - `SG-0035` 是当前 Project State open gap，要求把已定义的 reject-focused slice 变成可运行 CLI。
+  - `progress delta apply`、`progress delta rollback` 和 `progress state refresh` 已实现；reject 是 proposal lifecycle 的剩余关键闭环。
+  - 本轮实现只处理 `proposed` / `accepted` proposal，不允许 reject `applied`、`rolled_back`、`rejected` 或未知状态。
+  - 成功路径只更新 proposal metadata，并用测试断言 Project State 和 state history 不变。
+- Evidence：`.progress/evidence/EV-0045-delta-reject-cli.yaml`
+- State Delta：`.progress/deltas/SDP-0045-delta-reject-cli.yaml`
+- 状态历史：`PS-0044`
+- 主要产物：
+  - `src/progress_engine/deltas/delta_reject.py`
+  - `src/progress_engine/cli.py`
+  - `tests/test_cli_delta_reject.py`
+  - `tests/test_cli_delta_list.py`
+  - `tests/fixtures/minimal_progress_project/.progress/deltas/SDP-1004-reject-ready-delta.yaml`
+  - `README.md`
+  - `src/progress_engine/README.md`
+- 检查结果：
+
+```text
+python3 -m pytest tests/test_cli_delta_reject.py
+9 passed in 0.09s
+
+python3 -m pytest
+121 passed in 0.61s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 291 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 258 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0036` 已创建：State Delta apply / rollback / reject / refresh 均已实现，但完整 lifecycle 尚未作为 v0.1 pilot 统一验证。
+  - 下一轮应处理 `TS-0046: state delta lifecycle pilot defined` / `IV-0046: Define State Delta lifecycle pilot validation slice`。
+
+### IV-0044: Define delta reject CLI slice
+
+- Target State：`TS-0044: next delta reject slice defined`
+- 主维度：implementation
+- 结果：已通过 human gate apply，implementation maturity 保持 `drafted`
+- 选择理由：
+  - `SG-0034` 是当前 Project State open gap，要求先定义 delta reject-focused CLI slice。
+  - `progress delta apply`、`progress delta rollback` 和只读 `progress state refresh` 已实现，但未通过 gate、证据失败或不再适用的 proposal 还缺少受控关闭路径。
+  - 本轮把 reject 明确限定为 proposal lifecycle 写操作：只更新 proposal metadata，不修改 Project State 或 state history。
+  - 直接实现 automatic rejection、verification generation、模型 API 或 Web UI 会扩大 v0.1 范围。
+- Evidence：`.progress/evidence/EV-0044-delta-reject-cli-slice.yaml`
+- State Delta：`.progress/deltas/SDP-0044-delta-reject-cli-slice.yaml`
+- 状态历史：`PS-0043`
+- 主要产物：
+  - `docs/05-delivery/42-state-delta-reject-cli-slice.md`
+  - `.progress/gaps/SG-0035-delta-reject-implementation-gap.yaml`
+  - `.progress/targets/TS-0045-delta-reject-cli-working.yaml`
+  - `.progress/interventions/IV-0045-implement-delta-reject-cli-slice.yaml`
+- 明确边界：
+  - `progress delta reject SDP-ID --approved-by NAME --reason TEXT` 只处理 `proposed` 或 `accepted` proposal。
+  - reject 不修改 `.progress/state/project_state.yaml`，不追加 state history。
+  - 不生成 Evidence、Verification、Gap、Target 或 Intervention。
+- 检查结果：
+
+```text
+python3 -m pytest
+112 passed in 0.59s
+
+python3 scripts/check_repo.py
+[OK] required paths exist
+[OK] YAML parse passed for 284 files
+[OK] JSONL parse passed for 2 files
+[OK] local Markdown links passed
+[OK] .progress object checks passed for 252 files
+[OK] Project State reference checks passed
+[OK] CLI status documentation checks passed
+```
+
+- Remaining gaps：
+  - `SG-0035` 已创建：`progress delta reject` 已定义但尚未实现。
+  - 下一轮应处理 `TS-0045: delta reject CLI working` / `IV-0045: Implement delta reject CLI slice`。
+
 ### IV-0043: Implement state refresh CLI slice
 
 - Target State：`TS-0043: state refresh CLI working`

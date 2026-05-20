@@ -1,0 +1,31 @@
+id: RUN-20260520-IV-0047
+intervention_id: IV-0047
+target_state_id: TS-0047
+started_at: "2026-05-20T22:20:00+08:00"
+completed_at: "2026-05-20T22:20:00+08:00"
+mode: "local-code"
+primary_dimension: product
+status: completed
+state_reconciliation:
+  current_product_state:
+    maturity: accepted
+    summary: "完整 State Delta lifecycle pilot 已定义但尚未执行。"
+    open_gap: SG-0037
+  why_iv_0047_is_next:
+    - "Project State 当前 open gap 是 SG-0037。"
+    - "TS-0047 要求把 State Delta lifecycle pilot 固化为本地可回归测试。"
+    - "Product summary 需要基于 pilot 结果更新完整写闭环验证状态。"
+  out_of_scope_confirmed:
+    - "本轮不扩展 CLI runtime 行为。"
+    - "不调用模型 API、Web UI 或外部 agent。"
+outputs:
+  created:
+    - "docs/05-delivery/44-state-delta-lifecycle-pilot-run.md"
+    - "tests/test_state_delta_lifecycle_pilot.py"
+    - ".progress/runs/RUN-20260520-IV-0047-run-state-delta-lifecycle-pilot.yaml"
+    - ".progress/evidence/EV-0047-state-delta-lifecycle-pilot.yaml"
+    - ".progress/deltas/SDP-0047-state-delta-lifecycle-pilot.yaml"
+    - ".progress/gaps/SG-0038-v0.1-release-readiness-gap.yaml"
+    - ".progress/targets/TS-0048-v0.1-release-readiness-defined.yaml"
+    - ".progress/interventions/IV-0048-define-v0.1-release-readiness.yaml"
+completion_claim: "Executor claims the State Delta lifecycle pilot is executed and covered by focused pytest."

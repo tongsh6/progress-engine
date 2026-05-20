@@ -1,0 +1,21 @@
+id: SG-0036
+dimension: product
+severity: medium
+status: resolved
+source_intervention: IV-0045
+current_state: "`progress delta apply`、`progress delta rollback`、`progress delta reject` 和只读 `progress state refresh` 已实现，但完整 State Delta lifecycle 尚未作为 v0.1 pilot 被统一验证。"
+desired_state: "v0.1 State Delta lifecycle 有一条代表性 pilot 验证路径，覆盖 apply、refresh、rollback 和 reject，并更新 product 状态证据。"
+evidence_refs:
+  - ".progress/deltas/SDP-0045-delta-reject-cli.yaml"
+  - "src/progress_engine/deltas/delta_reject.py"
+  - "tests/test_cli_delta_reject.py"
+impact:
+  - "Project State 的 product summary 仍保留完整 State Delta 写闭环尚未验证的判断。"
+  - "如果不做统一 pilot，CLI 能力虽然存在，但 v0.1 是否形成可演示状态闭环仍缺少产品级证据。"
+suggested_targets:
+  - "TS-0046-state-delta-lifecycle-pilot-defined"
+suggested_interventions:
+  - "IV-0046: Define State Delta lifecycle pilot validation slice"
+notes:
+  - "下一轮应先定义 pilot 验证切片，再决定是否实现新的自动化测试或运行脚本。"
+  - "pilot 应保持本地 repo-native，不引入模型 API、Web UI 或外部 agent。"

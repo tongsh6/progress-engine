@@ -1,0 +1,90 @@
+state_delta_proposal:
+  id: SDP-0044
+  source_intervention: IV-0044
+  run_id: RUN-20260520-IV-0044
+  target_state_id: TS-0044
+  verification_id: EV-0044
+  status: applied
+  proposed_at: '2026-05-20T03:20:00+08:00'
+  proposed_by: verifier
+  primary_dimension: implementation
+  before:
+    implementation:
+      maturity: drafted
+      summary: '`progress delta apply`、`progress delta rollback` 和 `progress state
+        refresh` 已实现；reject 尚未定义。'
+      current_problem:
+      - 未批准、证据失败或不再适用的 proposal 还缺少受控 reject 路径。
+  after:
+    implementation:
+      recommended_maturity: drafted
+      summary: 下一条 reject-focused State Delta slice 已定义为 human-gated `progress delta
+        reject`。
+      advancement_reason:
+      - 切片规格明确命令边界、输入输出、状态影响和允许触碰的实现文件。
+      - reject 被限定为 proposal lifecycle 写操作，只更新 proposal metadata。
+      - Project State 和 state history write gate 边界明确：reject 不修改 Project State 或追加
+        state history。
+      - automatic rejection、verification generation、模型 API、Web UI 和外部 agent 均被排除在本切片之外。
+      caveat: 本轮未实现代码；implementation maturity 保持 drafted。
+  evidence_refs:
+  - docs/05-delivery/42-state-delta-reject-cli-slice.md
+  - .progress/targets/TS-0044-next-delta-reject-slice-defined.yaml
+  - .progress/interventions/IV-0044-define-delta-reject-cli-slice.yaml
+  - .progress/evidence/EV-0044-delta-reject-cli-slice.yaml
+  - .progress/gaps/SG-0035-delta-reject-implementation-gap.yaml
+  - .progress/targets/TS-0045-delta-reject-cli-working.yaml
+  - INDEX.md
+  acceptance_summary:
+    pass: 4
+    fail: 0
+    not_tested: 0
+  remaining_gaps:
+  - id: SG-0035
+    summary: '`progress delta reject` 已定义，但尚未实现。'
+    next_state_path: Implement only the bounded human-gated reject path before broader
+      delta management.
+  recommended_next_interventions:
+  - id: IV-0045
+    name: Implement delta reject CLI slice
+    condition: Run only after SDP-0044 is accepted by verifier gate.
+    primary_dimension: implementation
+  requires_human_approval: true
+  do_not_apply_automatically: true
+  gate:
+    required: true
+    approved_by: human_user
+    approved_at: '2026-05-20T03:20:00+08:00'
+    decision: approved
+  apply:
+    allowed_before_human_approval: false
+    proposed_patch_summary: Keep implementation maturity at drafted, mark TS-0044
+      accepted, resolve SG-0034, add SG-0035 / TS-0045 / IV-0045 / EV-0044 / SDP-0044
+      refs, and set TS-0045 as the next target.
+    applied_by: human_user
+    applied_at: '2026-05-20T21:29:06+08:00'
+    previous_state_version: PS-0042
+    next_state_version: PS-0043
+    project_state_file: .progress/state/project_state.yaml
+  project_state_update:
+    state_dimensions:
+      implementation:
+        maturity: drafted
+        summary: '`progress init --project PROJECT_ID`、`progress intake --from FILE`、`progress
+          assess`、`progress state show`、`progress state history`、`progress state refresh
+          [--after-delta SDP-ID]`、`progress gaps list`、`progress target list`、`progress
+          intervention list`、`progress run list`、`progress evidence list`、`progress
+          verify list`、`progress delta list`、`progress delta apply` 和 `progress delta
+          rollback` 已作为 Python CLI 切片可运行、可测试；下一条 `progress delta reject` 实现切片已定义；reject
+          实现仍未完成。'
+    open_state_gaps:
+    - SG-0035
+    aim_of_next_state:
+    - TS-0045
+  rollback:
+    reversible: true
+    rollback_delta_id: null
+    rollback_steps:
+    - If rejected, mark IV-0044 back to proposed and remove docs/05-delivery/42-state-delta-reject-cli-slice.md.
+    - Restore Project State open_state_gaps to SG-0034 and aim_of_next_state to TS-0044.
+    - Do not modify runtime CLI code because this slice did not implement code.

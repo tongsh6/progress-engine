@@ -1,0 +1,19 @@
+id: SG-0037
+dimension: product
+severity: medium
+status: resolved
+source_intervention: IV-0046
+current_state: "State Delta lifecycle pilot 已定义，但尚未作为本地可回归测试执行。"
+desired_state: "State Delta lifecycle pilot 已执行并固化为 focused pytest，覆盖 apply、refresh、rollback 和 reject。"
+evidence_refs:
+  - "docs/05-delivery/43-state-delta-lifecycle-pilot.md"
+  - ".progress/deltas/SDP-0046-state-delta-lifecycle-pilot-slice.yaml"
+impact:
+  - "完整 State Delta lifecycle 仍缺少统一产品验证证据。"
+  - "Product summary 仍无法移除完整写闭环尚未验证的 caveat。"
+suggested_targets:
+  - "TS-0047-state-delta-lifecycle-pilot-accepted"
+suggested_interventions:
+  - "IV-0047: Run State Delta lifecycle pilot validation"
+notes:
+  - "下一轮应只新增或调整 pilot 测试，不改变 CLI runtime 行为，除非测试暴露真实缺陷。"

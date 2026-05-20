@@ -1,0 +1,20 @@
+id: SG-0038
+dimension: delivery
+severity: medium
+status: open
+source_intervention: IV-0047
+current_state: "v0.1 State Delta lifecycle 已通过本地 pilot 验证，但项目仍缺少清晰的本地发布、安装和使用入口。"
+desired_state: "v0.1 release readiness slice 被定义，明确安装方式、版本边界、试用流程和发布前检查。"
+evidence_refs:
+  - "docs/05-delivery/44-state-delta-lifecycle-pilot-run.md"
+  - "tests/test_state_delta_lifecycle_pilot.py"
+  - ".progress/deltas/SDP-0047-state-delta-lifecycle-pilot.yaml"
+impact:
+  - "Delivery maturity 仍为 weak，限制真实用户试用和外部审查。"
+  - "如果没有 release readiness，已实现 CLI 只能作为仓库内部能力存在。"
+suggested_targets:
+  - "TS-0048-v0.1-release-readiness-defined"
+suggested_interventions:
+  - "IV-0048: Define v0.1 release readiness slice"
+notes:
+  - "下一轮应先定义 release readiness 边界，不直接引入打包系统或发布自动化。"

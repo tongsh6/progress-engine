@@ -2,7 +2,7 @@ id: IV-0044
 name: "Define delta reject CLI slice"
 primary_dimension: implementation
 target_state_id: TS-0044
-status: proposed
+status: completed
 goal: "定义下一条 State Delta reject CLI 实现切片，补齐 proposal 未接受时的受控 lifecycle 边界。"
 in_scope:
   - "定义 reject-focused CLI 用户路径。"

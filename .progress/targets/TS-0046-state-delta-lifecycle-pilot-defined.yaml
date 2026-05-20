@@ -1,0 +1,32 @@
+id: TS-0046
+name: "state delta lifecycle pilot defined"
+primary_dimension: product
+source_gap: SG-0036
+status: accepted
+human_gate_required: true
+desired_state: "v0.1 State Delta lifecycle pilot validation slice 被定义为小范围、可测试、可审查的产品验证目标。"
+from:
+  maturity: accepted
+  summary: "State Delta apply、rollback、reject 和 refresh CLI 均已实现，但尚未统一验证完整 lifecycle。"
+to:
+  maturity: accepted
+  summary: "完整 State Delta lifecycle pilot 有明确场景、步骤、验收标准和 evidence_required。"
+required_evidence:
+  - "新增 delivery slice 文档，定义 State Delta lifecycle pilot。"
+  - "明确 pilot 如何覆盖 apply、refresh、rollback 和 reject。"
+  - "明确 pilot 不调用模型 API、Web UI 或外部 agent。"
+  - "仓库检查通过。"
+acceptance_criteria:
+  - id: AC-TS-0046-01
+    criterion: "pilot 文档明确代表性 State Delta lifecycle 验证场景。"
+  - id: AC-TS-0046-02
+    criterion: "pilot 步骤覆盖 apply、refresh、rollback 和 reject。"
+  - id: AC-TS-0046-03
+    criterion: "pilot 边界说明 input、output、out_of_scope 和 evidence_required。"
+  - id: AC-TS-0046-04
+    criterion: "pilot 包含 focused pytest 或本地命令验收要求。"
+non_goals:
+  - "不在定义切片时实现新的 pilot 自动化。"
+  - "不引入模型 API、Web UI 或外部 agent。"
+related_gaps:
+  - SG-0036

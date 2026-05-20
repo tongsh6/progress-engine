@@ -1,0 +1,54 @@
+evidence:
+  id: EV-0046
+  run_id: RUN-20260520-IV-0046
+  intervention_id: IV-0046
+  target_state_id: TS-0046
+  evidence_type: artifact_review
+  created_at: "2026-05-20T22:00:00+08:00"
+  claims:
+    - dimension: product
+      before: "State Delta apply、rollback、reject 和 refresh CLI 均已实现，但尚未统一验证完整 lifecycle。"
+      after: "v0.1 State Delta lifecycle pilot 已定义，覆盖 apply + refresh、rollback 和 reject 三个本地 fixture 分支。"
+      acceptance_mapping:
+        - criterion: "pilot 文档明确代表性 State Delta lifecycle 验证场景。"
+          status: pass
+          evidence_ref: "docs/05-delivery/43-state-delta-lifecycle-pilot.md#1-试点结论"
+        - criterion: "pilot 步骤覆盖 apply、refresh、rollback 和 reject。"
+          status: pass
+          evidence_ref: "docs/05-delivery/43-state-delta-lifecycle-pilot.md#3-试点流程"
+        - criterion: "pilot 边界说明 input、output、out_of_scope 和 evidence_required。"
+          status: pass
+          evidence_ref: "docs/05-delivery/43-state-delta-lifecycle-pilot.md#4-输入输出和状态影响"
+        - criterion: "pilot 包含 focused pytest 或本地命令验收要求。"
+          status: pass
+          evidence_ref: "docs/05-delivery/43-state-delta-lifecycle-pilot.md#6-evidence-required"
+  scope_check:
+    result: pass
+    notes:
+      - "本轮只定义 pilot 验证切片，没有新增测试或修改 CLI runtime。"
+      - "pilot 明确排除模型 API、Web UI、外部 agent 和真实项目 `.progress/` 写入。"
+  commands_run:
+    - command: "python3 -m pytest"
+      result: pass
+      output_summary: "121 passed in 0.62s"
+    - command: "python3 scripts/check_repo.py"
+      result: pass
+      output_summary: "[OK] required paths exist; [OK] YAML parse passed for 297 files; [OK] JSONL parse passed for 2 files; [OK] local Markdown links passed; [OK] .progress object checks passed for 264 files; [OK] Project State reference checks passed; [OK] CLI status documentation checks passed."
+  files_changed:
+    - "docs/05-delivery/43-state-delta-lifecycle-pilot.md"
+    - "INDEX.md"
+    - ".progress/gaps/SG-0036-state-delta-lifecycle-validation-gap.yaml"
+    - ".progress/gaps/SG-0037-state-delta-lifecycle-pilot-run-gap.yaml"
+    - ".progress/targets/TS-0046-state-delta-lifecycle-pilot-defined.yaml"
+    - ".progress/targets/TS-0047-state-delta-lifecycle-pilot-accepted.yaml"
+    - ".progress/interventions/IV-0046-define-state-delta-lifecycle-pilot.yaml"
+    - ".progress/interventions/IV-0047-run-state-delta-lifecycle-pilot.yaml"
+    - ".progress/runs/RUN-20260520-IV-0046-define-state-delta-lifecycle-pilot.yaml"
+    - ".progress/evidence/EV-0046-state-delta-lifecycle-pilot-slice.yaml"
+    - ".progress/deltas/SDP-0046-state-delta-lifecycle-pilot-slice.yaml"
+  reviewer:
+    type: verifier
+    result: pass_requires_human_gate
+  remaining_gaps:
+    - SG-0037
+  supports_state_delta_proposal: SDP-0046
